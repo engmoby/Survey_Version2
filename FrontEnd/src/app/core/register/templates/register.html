@@ -1,0 +1,68 @@
+ 
+    <div class="container" > 
+        Basic Info
+            <form class="form-horizontal" name="newclientForm">
+                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                    <label for="first-name">{{'FirstName' | translate}}</label>
+                    <input required type="text" class="mat-input form-control" name="firstName" ng-model="FirstName" ng-minlength="3" ng-maxlength="50">
+                    <div ng-messages="newclientForm.firstName.$error" >
+                        <div ng-if="newclientForm.firstName.$error.required && !newclientForm.firstName.$pristine">{{'FirstNameLengthError' | translate}}</div>
+                        <div ng-if="(newclientForm.firstName.$error.minlength || newclientForm.firstName.$error.maxlength) && !newclientForm.firstName.$error.required">{{'FirstNameLengthError' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                    <label for="first-name">{{'LastName' | translate}}</label>
+                    <input required type="text" class="mat-input form-control" name="lastName" ng-model="LastName" ng-minlength="3" ng-maxlength="50">
+                    <div ng-messages="newclientForm.lastName.$error" >
+                        <div ng-if="newclientForm.lastName.$error.required && !newclientForm.lastName.$pristine">{{'lastName' | translate}}</div>
+                        <div ng-if="(newclientForm.lastName.$error.minlength || newclientForm.lastName.$error.maxlength) && !newclientForm.lastName.$error.required">{{'LastNameLengthError' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                    <label for="first-name">{{'Email' | translate}}</label>
+                    <input required type="text" class="mat-input form-control" name="email" ng-model="Email" ng-minlength="3" ng-maxlength="50">
+                    <div ng-messages="newclientForm.email.$error" >
+                        <div ng-if="newclientForm.email.$error.required && !newclientForm.email.$pristine">{{'lastName' | translate}}</div>
+                        <div ng-if="(newclientForm.email.$error.minlength || newclientForm.email.$error.maxlength) && !newclientForm.email.$error.required">{{'LastNameLengthError' | translate}}</div>
+                    </div>
+                </div>
+
+                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                    <label for="first-name">{{'phone1' | translate}}</label>
+                    <input required type="text" class="mat-input form-control" name="phone1" ng-model="Phone1" ng-minlength="3" ng-maxlength="50">
+                    <div ng-messages="newclientForm.phone1.$error" >
+                        <div ng-if="newclientForm.phone1.$error.required && !newclientForm.phone1.$pristine">{{'lastName' | translate}}</div>
+                        <div ng-if="(newclientForm.phone1.$error.minlength || newclientForm.phone1.$error.maxlength) && !newclientForm.phone1.$error.required">{{'LastNameLengthError' | translate}}</div>
+                    </div>
+                </div>
+
+                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                    <label for="first-name">{{'phone1' | translate}}</label>
+                    <input required type="text" class="mat-input form-control" name="phone2" ng-model="Phone2" ng-minlength="3" ng-maxlength="50">
+                    <div ng-messages="newclientForm.phone1.$error" >
+                        <div ng-if="newclientForm.phone1.$error.required && !newclientForm.phone1.$pristine">{{'phone1' | translate}}</div>
+                        <div ng-if="(newclientForm.phone1.$error.minlength || newclientForm.phone1.$error.maxlength) && !newclientForm.phone1.$error.required">{{'LastNameLengthError' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group pmd-textfield pmd-textfield-floating-label" >
+                        <label for="first-name">{{'UserPasswordLbl' | translate}}</label>
+                        <input required type="password" class="mat-input form-control" name="password" ng-model="Password" ng-minlength="8" ng-maxlength="25">
+                        <div ng-messages="newclientForm.password.$error" >
+                            <div ng-if="newclientForm.password.$error.required && !newclientForm.password.$pristine">{{'requiredErr' | translate}}</div>
+                            <div ng-if="(newclientForm.password.$error.minlength || newclientForm.password.$error.maxlength) && !newclientForm.password.newPassword.$error.required">Password length must be 8-25 char.</div>
+                        </div>
+                    </div>
+                    <div class="form-group pmd-textfield pmd-textfield-floating-label" >
+                        <label for="first-name">{{'ConfirmPasswordLbl' | translate}}</label>
+                        <input required type="password" class="mat-input form-control" name="confirmPassword"  ng-model="confirmPassword"   >
+                        <div ng-messages="newclientForm.confirmPassword.$error" >
+                            <div ng-if="newclientForm.confirmPassword.$error.required && !newclientForm.confirmPassword.$pristine">{{'requiredErr' | translate}}</div>
+                            <div ng-if="newclientForm.confirmPassword.$error.equalto && !newclientForm.confirmPassword.$error.required">Passwords don't match.</div>
+                        </div>
+                    </div>
+            </form> 
+        <div class="pmd-modal-action text-right">
+            <button ng-disabled="newclientForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="AddNewclient()">Next</button>
+                </div>
+    
+    </div>

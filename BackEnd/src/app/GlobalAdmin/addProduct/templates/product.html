@@ -1,0 +1,43 @@
+
+<div >
+    <div style="margin-bottom:10px">
+        <button  ng-click="$state.go('newProduct');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddProductBtn' | translate}}</button>
+        
+    </div>
+    
+    <div ng-if="productList.results.length == 0">
+            <span>{{'NoproductsAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="productList.results.length > 0">
+        <div class="table-responsive">
+            <table class="table pmd-table table-hover">
+                <thead>
+                    <tr>
+                        <th >{{'Name' | translate}}</th> 
+                        <th >{{'status' | translate}}</th>
+                        <th ></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="product in productList.results">
+                        <td data-title="Name" >{{product.titleDictionary[selectedLanguage]}}</td>
+                         
+                        <!-- <td>
+                            <a ng-show="!product.isActive" ng-click="productCtrl.Activate(product)" class="cursorPointer">{{'ActivateBtn' | translate}}</a>
+                            <a ng-show="product.isActive" ng-click="productCtrl.Deactivate(product)" class="cursorPointer">{{'DeActivateBtn' | translate}}</a>
+                        </td> -->
+                        <td width="30%">
+                            <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editProductstate',{productId: product.productId});">mode_edit</i> 
+                            <!-- <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="productCtrl.openDeleteproductDialog(product.productNameDictionary[selectedLanguage],product.productId)">delete</i> -->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="text-align:center;" paging page="1" page-size="10" total="productCtrl.products.totalCount" paging-action="productCtrl.changePage( page)"
+        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
+           </div>
+    </div> 
+
+
+</div>	
