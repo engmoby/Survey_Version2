@@ -4,9 +4,9 @@ namespace OperationSurvey.BLL.Services.Interfaces
 {
     public interface IDepartmentFacade
     { 
-        DepartmentDto GetDepartment(long userId); 
-        DepartmentDto CreateDepartment(DepartmentDto userDto); 
-        DepartmentDto EditDepartment(DepartmentDto userDto);
-        PagedResultsDto GetAllDepartments(int page, int pageSize); 
+        DepartmentDto GetDepartment(long userId, int tenantId); 
+        DepartmentDto CreateDepartment(DepartmentDto userDto, int userId, int tenantId);
+        DepartmentDto EditDepartment(DepartmentDto userDto, int userId, int tenantId);
+        PagedResultsDto GetAllDepartments(int page, int pageSize, int tenantId); 
     }
 }

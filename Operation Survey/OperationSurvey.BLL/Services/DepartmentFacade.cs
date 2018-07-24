@@ -3,6 +3,7 @@ using AutoMapper;
 using OperationSurvey.BLL.DataServices.Interfaces;
 using OperationSurvey.BLL.DTOs;
 using OperationSurvey.BLL.Services.Interfaces;
+using OperationSurvey.Common;
 using OperationSurvey.Common.CustomException;
 using Repository.Pattern.UnitOfWork;
 using OperationSurvey.DAL.Entities.Model;
@@ -11,79 +12,84 @@ namespace OperationSurvey.BLL.Services
 {
     public class DepartmentFacade : BaseFacade, IDepartmentFacade
     {
-        private readonly IDepartmentService _DepartmentService;
+        private readonly IDepartmentService _departmentService;
         private readonly IDepartmentTranslationService _typeTranslationService;
 
-        public DepartmentFacade(IDepartmentService DepartmentService, IUnitOfWorkAsync unitOfWork, IDepartmentTranslationService typeTranslationService) : base(unitOfWork)
+        public DepartmentFacade(IDepartmentService departmentService, IUnitOfWorkAsync unitOfWork, IDepartmentTranslationService typeTranslationService) : base(unitOfWork)
         {
-            _DepartmentService = DepartmentService;
+            _departmentService = departmentService;
             _typeTranslationService = typeTranslationService;
         }
 
-        public DepartmentFacade(IDepartmentService DepartmentService, IDepartmentTranslationService typeTranslationService)
+        public DepartmentFacade(IDepartmentService departmentService, IDepartmentTranslationService typeTranslationService)
         {
-            _DepartmentService = DepartmentService;
+            _departmentService = departmentService;
             _typeTranslationService = typeTranslationService;
         }
 
-        public DepartmentDto GetDepartment(long DepartmentId)
+        public DepartmentDto GetDepartment(long departmentId, int tenantId)
         {
-            var ddd = _DepartmentService.Find(DepartmentId);
-            return Mapper.Map<DepartmentDto>(ddd);
+            return Mapper.Map<DepartmentDto>(_departmentService.Query(x => x.DepartmentId == departmentId && x.TenantId == tenantId).Select().FirstOrDefault());
         }
 
-        public DepartmentDto CreateDepartment(DepartmentDto DepartmentDto)
+        public DepartmentDto CreateDepartment(DepartmentDto departmentDto, int userId, int tenantId)
         {
-            if (GetDepartment(DepartmentDto.DepartmentId) != null)
+            if (GetDepartment(departmentDto.DepartmentId, tenantId) != null)
             {
-                return EditDepartment(DepartmentDto);
+                return EditDepartment(departmentDto, userId, tenantId);
             }
 
-            var DepartmentObj = Mapper.Map<Department>(DepartmentDto);
-            foreach (var DepartmentName in DepartmentDto.TitleDictionary)
+            var departmentObj = Mapper.Map<Department>(departmentDto);
+            foreach (var departmentName in departmentDto.TitleDictionary)
             {
-                DepartmentObj.DepartmentTranslations.Add(new DepartmentTranslation
+                departmentObj.DepartmentTranslations.Add(new DepartmentTranslation
                 {
-                    Title = DepartmentName.Value,
-                    Language = DepartmentName.Key
+                    Title = departmentName.Value,
+                    Language = departmentName.Key
                 });
             }
-            _typeTranslationService.InsertRange(DepartmentObj.DepartmentTranslations);
-            _DepartmentService.Insert(DepartmentObj);
+            departmentObj.CreationTime = Strings.CurrentDateTime;
+            departmentObj.CreatorUserId = userId;
+            departmentObj.TenantId = tenantId;
+            _typeTranslationService.InsertRange(departmentObj.DepartmentTranslations);
+            _departmentService.Insert(departmentObj);
             SaveChanges();
-            return DepartmentDto;
+            return departmentDto;
         }
 
-        public DepartmentDto EditDepartment(DepartmentDto DepartmentDto)
-        {
-            var DepartmentObj = _DepartmentService.Find(DepartmentDto.DepartmentId);
-            if (DepartmentObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
+        public DepartmentDto EditDepartment(DepartmentDto departmentDto, int userId, int tenantId)
+        { 
+            var departmentObj = _departmentService.Query(x => x.DepartmentId == departmentDto.DepartmentId && x.TenantId == tenantId)
+                .Select().FirstOrDefault();
+            if (departmentObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
 
-            foreach (var DepartmentName in DepartmentDto.TitleDictionary)
+            foreach (var departmentName in departmentDto.TitleDictionary)
             {
-                var DepartmentTranslation = DepartmentObj.DepartmentTranslations.FirstOrDefault(x => x.Language.ToLower() == DepartmentName.Key.ToLower() && x.DepartmentId == DepartmentDto.DepartmentId);
-                if (DepartmentTranslation == null)
+                var departmentTranslation = departmentObj.DepartmentTranslations.FirstOrDefault(x => x.Language.ToLower() == departmentName.Key.ToLower() && x.DepartmentId == departmentDto.DepartmentId);
+                if (departmentTranslation == null)
                 {
-                    DepartmentObj.DepartmentTranslations.Add(new DepartmentTranslation
+                    departmentObj.DepartmentTranslations.Add(new DepartmentTranslation
                     {
-                        Title = DepartmentName.Value,
-                        Language = DepartmentName.Key
+                        Title = departmentName.Value,
+                        Language = departmentName.Key
                     });
                 }
                 else
-                    DepartmentTranslation.Title = DepartmentName.Value;
+                    departmentTranslation.Title = departmentName.Value;
             }
-            DepartmentObj.IsDeleted = DepartmentDto.IsDeleted;
-            DepartmentObj.IsStatic = DepartmentDto.IsStatic;
-            _DepartmentService.Update(DepartmentObj);
+            departmentObj.LastModificationTime = Strings.CurrentDateTime;
+            departmentObj.LastModifierUserId = userId;
+            departmentObj.IsDeleted = departmentDto.IsDeleted;
+            departmentObj.IsStatic = departmentDto.IsStatic;
+            _departmentService.Update(departmentObj);
             SaveChanges();
-            return DepartmentDto;
+            return departmentDto;
 
         }
 
-        public PagedResultsDto GetAllDepartments(int page, int pageSize)
+        public PagedResultsDto GetAllDepartments(int page, int pageSize, int tenantId)
         {
-            return _DepartmentService.GetAllDepartments(page, pageSize);
+            return _departmentService.GetAllDepartments(page, pageSize, tenantId);
         }
 
     }

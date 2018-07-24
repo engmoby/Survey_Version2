@@ -5,9 +5,9 @@ namespace OperationSurvey.BLL.Services.Interfaces
 {
     public interface IUserTypeFacade
     { 
-        UserTypeDto GetUserType(long userId); 
-        UserTypeDto CreateUserType(UserTypeDto userDto); 
-        UserTypeDto EditUserType(UserTypeDto userDto);
-        PagedResultsDto GetAllUserTypes(int page, int pageSize); 
+        UserTypeDto GetUserType(long userTypeId , int tenantId); 
+        UserTypeDto CreateUserType(UserTypeDto userDto, int userId, int tenantId); 
+        UserTypeDto EditUserType(UserTypeDto userDto, int userId, int tenantId);
+        PagedResultsDto GetAllUserTypes(int page, int pageSize,   int tenantId); 
     }
 }

@@ -21,17 +21,17 @@ namespace OperationSurvey.API.Controllers
         [HttpGet]
         public IHttpActionResult GetAllCategories(int page = Page, int pagesize = PageSize)
         {
-            PagedResultsDto CategoryObj = _categoryFacade.GetAllCategorys(page, pagesize);
-            var data = Mapper.Map<List<CategoryModel>>(CategoryObj.Data);
-            return PagedResponse("GetAllCategories", page, pagesize, CategoryObj.TotalCount, data, CategoryObj.IsParentTranslated);
+            PagedResultsDto categoryObj = _categoryFacade.GetAllCategorys(page, pagesize, TenantId);
+            var data = Mapper.Map<List<CategoryModel>>(categoryObj.Data);
+            return PagedResponse("GetAllCategories", page, pagesize, categoryObj.TotalCount, data, categoryObj.IsParentTranslated);
         }
 
 
         [Route("api/Category", Name = "CreateCategory")]
         [HttpPost]
-        public IHttpActionResult CreateCategory([FromBody] CategoryModel CategoryModel)
+        public IHttpActionResult CreateCategory([FromBody] CategoryModel categoryModel)
         {
-            var reurnCategory = _categoryFacade.CreateCategory(Mapper.Map<CategoryDto>(CategoryModel));
+            var reurnCategory = _categoryFacade.CreateCategory(Mapper.Map<CategoryDto>(categoryModel),UserId, TenantId);
 
             return Ok(reurnCategory);
         }
@@ -41,7 +41,7 @@ namespace OperationSurvey.API.Controllers
         [HttpPost]
         public IHttpActionResult EditCategory([FromBody] CategoryModel categoryModel)
         {
-            var reurnCategory = _categoryFacade.EditCategory(Mapper.Map<CategoryDto>(categoryModel));
+            var reurnCategory = _categoryFacade.EditCategory(Mapper.Map<CategoryDto>(categoryModel), UserId, TenantId);
 
             return Ok(reurnCategory);
         }
@@ -51,7 +51,7 @@ namespace OperationSurvey.API.Controllers
         [HttpGet]
         public IHttpActionResult GetCategoryById(long CategoryId)
         {
-            var reurnCategory = _categoryFacade.GetCategory(CategoryId);
+            var reurnCategory = _categoryFacade.GetCategory(CategoryId, TenantId);
             return Ok(reurnCategory);
         }
     }

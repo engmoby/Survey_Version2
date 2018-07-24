@@ -1,4 +1,43 @@
-(function () {
+(function() {
+    'use strict';
+
+      angular
+      .module('home')
+      .config(config)
+      .run(runBlock);
+
+      config.$inject = ['ngProgressLiteProvider'];
+    runBlock.$inject = ['$rootScope', 'ngProgressLite' ];
+
+      function config(ngProgressLiteProvider) {
+      ngProgressLiteProvider.settings.speed = 1000;
+
+      }
+
+      function runBlock($rootScope, ngProgressLite ) {
+
+        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+          startProgress();
+      });
+      var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
+
+        angular.forEach(routingDoneEvents, function(event) {
+        $rootScope.$on(event, function(event, toState, toParams, fromState, fromParams) {
+          endProgress();
+        });
+      });
+
+        function startProgress() {
+        ngProgressLite.start();
+      }
+
+        function endProgress() {
+        ngProgressLite.done();
+      }
+
+      }
+  })();
+  (function () {
     'use strict';
 
     angular
@@ -283,200 +322,6 @@
         return CategoryResource.getCategory({ categoryId: $stateParams.categoryId }).$promise;
     }
 }());
-(function() {
-    'use strict';
-
-      angular
-      .module('home')
-      .config(config)
-      .run(runBlock);
-
-      config.$inject = ['ngProgressLiteProvider'];
-    runBlock.$inject = ['$rootScope', 'ngProgressLite' ];
-
-      function config(ngProgressLiteProvider) {
-      ngProgressLiteProvider.settings.speed = 1000;
-
-      }
-
-      function runBlock($rootScope, ngProgressLite ) {
-
-        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-          startProgress();
-      });
-      var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
-
-        angular.forEach(routingDoneEvents, function(event) {
-        $rootScope.$on(event, function(event, toState, toParams, fromState, fromParams) {
-          endProgress();
-        });
-      });
-
-        function startProgress() {
-        ngProgressLite.start();
-      }
-
-        function endProgress() {
-        ngProgressLite.done();
-      }
-
-      }
-  })();
-  (function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('AreaController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
-            '$state', 'AreaResource', 'AreaPrepService',  '$localStorage',
-            'authorizationService', 'appCONSTANTS',
-            'ToastService', AreaController]);
-
-
-    function AreaController($rootScope, blockUI, $scope, $filter, $translate,
-        $state, AreaResource, AreaPrepService, $localStorage, authorizationService,
-        appCONSTANTS, ToastService) { 
-
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
-
-        blockUI.start("Loading..."); 
-
-                    var vm = this;
-        $scope.totalCount = AreaPrepService.totalCount;
-        $scope.AreaList = AreaPrepService;
-        function refreshAreas() {
-
-            blockUI.start("Loading..."); 
-
-                        var k = AreaResource.getAllAreas({page:vm.currentPage}).$promise.then(function (results) { 
-                $scope.AreaList = results  
-                blockUI.stop();
-
-                            },
-            function (data, status) {
-                blockUI.stop();
-
-                                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-            });
-        }
-        vm.showMore = function (element) {
-            $(element.currentTarget).toggleClass("child-table-collapse");
-        }
-        vm.currentPage = 1;
-        $scope.changePage = function (page) {
-            vm.currentPage = page;
-            refreshAreas();
-        }
-        blockUI.stop();
-
-            }
-
-})();
-(function () {
-    angular
-      .module('home')
-        .factory('AreaResource', ['$resource', 'appCONSTANTS', AreaResource]) 
-
-    function AreaResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Areas/', {}, {
-            getAllAreas: { method: 'GET', url: appCONSTANTS.API_URL + 'Areas/GetAllAreas', useToken: true,  params: { lang: '@lang' } },
-            create: { method: 'POST', useToken: true },
-            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Areas/EditArea', useToken: true },
-            getArea: { method: 'GET', url: appCONSTANTS.API_URL + 'Areas/GetAreaById/:AreaId', useToken: true }
-        })
-    } 
-
-}());
-(function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('createAreaDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
-            'AreaResource', 'ToastService', '$rootScope', createAreaDialogController])
-
-    function createAreaDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, AreaResource,
-        ToastService, $rootScope) {
-
-                blockUI.start("Loading..."); 
-
-            		var vm = this;
-		vm.language = appCONSTANTS.supportedLanguage;
-		vm.close = function(){
-			$state.go('Area');
-		} 
-
-		 		vm.AddNewArea = function () {
-            blockUI.start("Loading..."); 
-
-                        var newObj = new AreaResource();
-            newObj.titleDictionary = vm.titleDictionary; 
-            newObj.IsDeleted = false; 
-            newObj.IsStatic =false;
-            newObj.$create().then(
-                function (data, status) {
-        blockUI.start("Loading..."); 
-        blockUI.start("Loading..."); 
-        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success"); 
-                    $state.go('Area');
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-            blockUI.stop();        
-        }
-        blockUI.stop();
-
-  	}	
-}());
-(function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('editAreaDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate', 'AreaResource', 'ToastService',
-            'AreaByIdPrepService', editAreaDialogController])
-
-    function editAreaDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, AreaResource, ToastService, AreaByIdPrepService) {
-        blockUI.start("Loading..."); 
-
-                var vm = this; 
-		vm.language = appCONSTANTS.supportedLanguage;
-        vm.Area = AreaByIdPrepService; 
-        vm.Close = function () {
-            $state.go('Area');
-        }
-        vm.UpdateArea = function () { 
-            blockUI.start("Loading..."); 
-
-                        var updateObj = new AreaResource();
-            updateObj.AreaId = vm.Area.areaId;
-            updateObj.titleDictionary = vm.Area.titleDictionary;
-		    updateObj.IsDeleted = false;
-		    updateObj.IsStatic = false;
-		    updateObj.$update().then(
-                function (data, status) {
-                    blockUI.stop();
-
-                                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-
-                     $state.go('Area');
-
-                },
-                function (data, status) {
-                    blockUI.stop();
-
-                                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        blockUI.stop();
-
-        	}	
-}());
 (function () {
     'use strict';
 
@@ -656,13 +501,14 @@
 	    angular
         .module('home')
         .controller('createCategoryDialogController', ['$scope', '$http', '$state', 'appCONSTANTS', '$translate',
-            'CategoryResource', 'ToastService', '$rootScope', 'DepartmentByIdPrepService', createCategoryDialogController])
+            'CategoryResource','RolePrepService', 'ToastService', '$rootScope', 'DepartmentByIdPrepService', createCategoryDialogController])
 
-    function createCategoryDialogController($scope, $http, $state, appCONSTANTS, $translate, CategoryResource,
+    function createCategoryDialogController($scope, $http, $state, appCONSTANTS, $translate, CategoryResource,RolePrepService,
         ToastService, $rootScope, DepartmentByIdPrepService) {
 		var vm = this;
 		vm.Department = DepartmentByIdPrepService;
 		vm.language = appCONSTANTS.supportedLanguage;
+        $scope.roleList = RolePrepService.results;
 		vm.close = function(){
 		    $state.go('Department');
 		} 
@@ -673,6 +519,7 @@
             newObj.titleDictionary = vm.titleDictionary;
             newObj.IsDeleted = false; 
             newObj.IsStatic =false;
+            newObj.CategoryRoles = vm.selectedCategoryRoles;
             newObj.$create().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success"); 
@@ -692,13 +539,25 @@
 
 	    angular
         .module('home')
-        .controller('editCategoryDialogController', ['$scope', '$http', '$state', 'appCONSTANTS', '$translate', 'CategoryResource', 'ToastService',
-            'CategoryByIdPrepService', editCategoryDialogController])
+        .controller('editCategoryDialogController', ['$scope', '$http', '$state', 'appCONSTANTS', '$translate',
+         'CategoryResource', 'RolePrepService','ToastService','CategoryByIdPrepService', editCategoryDialogController])
 
-    function editCategoryDialogController($scope, $http, $state, appCONSTANTS, $translate, CategoryResource, ToastService, CategoryByIdPrepService) {
+    function editCategoryDialogController($scope, $http, $state, appCONSTANTS, $translate, CategoryResource,RolePrepService,
+         ToastService,CategoryByIdPrepService) {
 		var vm = this; 
 		vm.language = appCONSTANTS.supportedLanguage;
         vm.Category = CategoryByIdPrepService; 
+        $scope.roleList = RolePrepService.results; 
+        vm.selectedCategoryRoles = [];
+
+                console.log(vm.Category);
+        var i;
+        for (i = 0; i < vm.Category.categoryRoles.length; i++) {
+            var indexRate = $scope.roleList.indexOf($filter('filter')($scope.roleList, { 'roleId': vm.Category.categoryRoles[i].roleId }, true)[0]);
+            vm.selectedCategoryRoles.push($scope.roleList[indexRate]);
+
+        }
+
         vm.Close = function () {
             $state.go('Department');
         }
@@ -708,6 +567,7 @@
             updateObj.titleDictionary = vm.Category.titleDictionary;
 		    updateObj.IsDeleted = false;
 		    updateObj.IsStatic = false;
+            updateObj.CategoryRoles = vm.selectedCategoryRoles;
 		    updateObj.$update().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
@@ -721,6 +581,161 @@
             );
         }
 	}	
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('AreaController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
+            '$state', 'AreaResource', 'AreaPrepService',  '$localStorage',
+            'authorizationService', 'appCONSTANTS',
+            'ToastService', AreaController]);
+
+
+    function AreaController($rootScope, blockUI, $scope, $filter, $translate,
+        $state, AreaResource, AreaPrepService, $localStorage, authorizationService,
+        appCONSTANTS, ToastService) { 
+
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
+
+        blockUI.start("Loading..."); 
+
+                    var vm = this;
+        $scope.totalCount = AreaPrepService.totalCount;
+        $scope.AreaList = AreaPrepService;
+        function refreshAreas() {
+
+            blockUI.start("Loading..."); 
+
+                        var k = AreaResource.getAllAreas({page:vm.currentPage}).$promise.then(function (results) { 
+                $scope.AreaList = results  
+                blockUI.stop();
+
+                            },
+            function (data, status) {
+                blockUI.stop();
+
+                                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+            });
+        }
+        vm.showMore = function (element) {
+            $(element.currentTarget).toggleClass("child-table-collapse");
+        }
+        vm.currentPage = 1;
+        $scope.changePage = function (page) {
+            vm.currentPage = page;
+            refreshAreas();
+        }
+        blockUI.stop();
+
+            }
+
+})();
+(function () {
+    angular
+      .module('home')
+        .factory('AreaResource', ['$resource', 'appCONSTANTS', AreaResource]) 
+
+    function AreaResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Areas/', {}, {
+            getAllAreas: { method: 'GET', url: appCONSTANTS.API_URL + 'Areas/GetAllAreas', useToken: true,  params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Areas/EditArea', useToken: true },
+            getArea: { method: 'GET', url: appCONSTANTS.API_URL + 'Areas/GetAreaById/:AreaId', useToken: true }
+        })
+    } 
+
+}());
+(function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('createAreaDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
+            'AreaResource', 'ToastService', '$rootScope', createAreaDialogController])
+
+    function createAreaDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, AreaResource,
+        ToastService, $rootScope) {
+
+                blockUI.start("Loading..."); 
+
+            		var vm = this;
+		vm.language = appCONSTANTS.supportedLanguage;
+		vm.close = function(){
+			$state.go('Area');
+		} 
+
+		 		vm.AddNewArea = function () {
+            blockUI.start("Loading..."); 
+
+                        var newObj = new AreaResource();
+            newObj.titleDictionary = vm.titleDictionary; 
+            newObj.IsDeleted = false; 
+            newObj.IsStatic =false;
+            newObj.$create().then(
+                function (data, status) {
+        blockUI.start("Loading..."); 
+        blockUI.start("Loading..."); 
+        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success"); 
+                    $state.go('Area');
+
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+            blockUI.stop();        
+        }
+        blockUI.stop();
+
+  	}	
+}());
+(function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('editAreaDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate', 'AreaResource', 'ToastService',
+            'AreaByIdPrepService', editAreaDialogController])
+
+    function editAreaDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, AreaResource, ToastService, AreaByIdPrepService) {
+        blockUI.start("Loading..."); 
+
+                var vm = this; 
+		vm.language = appCONSTANTS.supportedLanguage;
+        vm.Area = AreaByIdPrepService; 
+        vm.Close = function () {
+            $state.go('Area');
+        }
+        vm.UpdateArea = function () { 
+            blockUI.start("Loading..."); 
+
+                        var updateObj = new AreaResource();
+            updateObj.AreaId = vm.Area.areaId;
+            updateObj.titleDictionary = vm.Area.titleDictionary;
+		    updateObj.IsDeleted = false;
+		    updateObj.IsStatic = false;
+		    updateObj.$update().then(
+                function (data, status) {
+                    blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+
+                     $state.go('Area');
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        blockUI.stop();
+
+        	}	
 }());
 (function () {
     'use strict';

@@ -94,11 +94,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataServices\CategoryRoleService.cs" />
     <Compile Include="DataServices\CategoryService.cs" />
     <Compile Include="DataServices\CategoryTranslationService.cs" />
     <Compile Include="DataServices\DepartmentService.cs" />
     <Compile Include="DataServices\DepartmentTranslationService.cs" />
     <Compile Include="DataServices\BackgroundService.cs" />
+    <Compile Include="DataServices\Interfaces\ICategoryRoleService.cs" />
     <Compile Include="DataServices\Interfaces\ICategoryService.cs" />
     <Compile Include="DataServices\Interfaces\ICategoryTranslationService.cs" />
     <Compile Include="DataServices\Interfaces\IDepartmentService.cs" />
@@ -133,6 +135,7 @@
     <Compile Include="DataServices\UserTypeService.cs" />
     <Compile Include="DataServices\UserService.cs" />
     <Compile Include="DTOs\CategoryDto.cs" />
+    <Compile Include="DTOs\CategoryRoleDto.cs" />
     <Compile Include="DTOs\DepartmentDto.cs" />
     <Compile Include="DTOs\BackgroundDto.cs" />
     <Compile Include="DTOs\PagedResultsDto.cs" />

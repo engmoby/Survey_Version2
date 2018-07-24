@@ -22,7 +22,7 @@ namespace OperationSurvey.API.Controllers
         [HttpGet]
         public IHttpActionResult GetAllDepartments(int page = Page, int pagesize = PageSize)
         {
-            PagedResultsDto departmentObj = _departmentFacade.GetAllDepartments(page, pagesize);
+            PagedResultsDto departmentObj = _departmentFacade.GetAllDepartments(page, pagesize, TenantId);
             var data = Mapper.Map<List<DepartmentModel>>(departmentObj.Data);
             return PagedResponse("GetAllDepartments", page, pagesize, departmentObj.TotalCount, data, departmentObj.IsParentTranslated);
         }
@@ -32,7 +32,7 @@ namespace OperationSurvey.API.Controllers
         [HttpPost]
         public IHttpActionResult CreateDepartment([FromBody] DepartmentModel departmentModel)
         {
-            var reurnDepartment = _departmentFacade.CreateDepartment(Mapper.Map<DepartmentDto>(departmentModel));
+            var reurnDepartment = _departmentFacade.CreateDepartment(Mapper.Map<DepartmentDto>(departmentModel), UserId, TenantId);
 
             return Ok(reurnDepartment);
         }
@@ -42,7 +42,7 @@ namespace OperationSurvey.API.Controllers
         [HttpPost]
         public IHttpActionResult EditDepartment([FromBody] DepartmentModel departmentModel)
         {
-            var reurnDepartment = _departmentFacade.EditDepartment(Mapper.Map<DepartmentDto>(departmentModel));
+            var reurnDepartment = _departmentFacade.EditDepartment(Mapper.Map<DepartmentDto>(departmentModel), UserId, TenantId);
 
             return Ok(reurnDepartment);
         }
@@ -52,7 +52,7 @@ namespace OperationSurvey.API.Controllers
         [HttpGet]
         public IHttpActionResult GetDepartmentById(long departmentId)
         {
-            var reurnDepartment = _departmentFacade.GetDepartment(departmentId);
+            var reurnDepartment = _departmentFacade.GetDepartment(departmentId, TenantId);
             return Ok(reurnDepartment);
         }
     }

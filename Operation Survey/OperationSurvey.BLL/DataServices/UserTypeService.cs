@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using OperationSurvey.BLL.DataServices.Interfaces;
@@ -16,13 +17,13 @@ namespace OperationSurvey.BLL.DataServices
             _repository = repository;
         }
         
-        public PagedResultsDto GetAllUserTypes(int page, int pageSize)
+        public PagedResultsDto GetAllUserTypes(int page, int pageSize, int tenantId)
         { 
             //results.TotalCount = _repository.Query(x => !x.IsDeleted).Select().Count(x => !x.IsDeleted); 
             //var obj = _repository.Query(x => !x.IsDeleted).Include(p => p.UserTypeTranslations).Select().OrderBy(x => x.UserTypeId).ToList();
             //results.Data = Mapper.Map<List<UserType>, List<UserTypeDto>>(obj);
            
-            var query = Queryable().Where(x => !x.IsDeleted).OrderBy(x => x.UserTypeId);
+            var query = Queryable().Where(x => !x.IsDeleted && (x.TenantId== tenantId || x.TenantId == null)).OrderBy(x => x.UserTypeId);
             PagedResultsDto results = new PagedResultsDto();
             results.TotalCount = query.Select(x => x).Count();
 

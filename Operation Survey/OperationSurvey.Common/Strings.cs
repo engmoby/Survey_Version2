@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace OperationSurvey.Common
 {
@@ -10,12 +11,12 @@ namespace OperationSurvey.Common
         public const string userName = "Name";
         public const string userRole = "Role";
         public const string TenantId = "TenantId";
+        public static DateTime CurrentDateTime = DateTime.Now;
 
 
-        public static readonly List<string> SupportedLanguages = new List<string> { "ar-eg",  "en-US" };
+        public static readonly List<string> SupportedLanguages = new List<string> { "ar-eg", "en-US" };
         public const string DefaultLanguage = "en-US";
         public const int BackgroundId = 3;
-
 
         public const long DefaultTemplateId = 1;
     }

@@ -3,6 +3,7 @@ using AutoMapper;
 using OperationSurvey.BLL.DataServices.Interfaces;
 using OperationSurvey.BLL.DTOs;
 using OperationSurvey.BLL.Services.Interfaces;
+using OperationSurvey.Common;
 using OperationSurvey.Common.CustomException;
 using Repository.Pattern.UnitOfWork;
 using OperationSurvey.DAL.Entities.Model;
@@ -26,17 +27,16 @@ namespace OperationSurvey.BLL.Services
             _typeTranslationService = typeTranslationService;
         }
 
-        public AreaDto GetArea(long areaId)
+        public AreaDto GetArea(long areaId, int tenantId)
         {
-            var ddd = _areaService.Find(areaId);
-            return Mapper.Map<AreaDto>(ddd);
+            return Mapper.Map<AreaDto>(_areaService.Query(x => x.AreaId == areaId && x.TenantId == tenantId).Select().FirstOrDefault());
         }
 
-        public AreaDto CreateArea(AreaDto areaDto)
+        public AreaDto CreateArea(AreaDto areaDto, int userId, int tenantId)
         {
-            if (GetArea(areaDto.AreaId) != null)
+            if (GetArea(areaDto.AreaId, tenantId) != null)
             {
-                return EditArea(areaDto);
+                return EditArea(areaDto, userId, tenantId);
             }
 
             var areaObj = Mapper.Map<Area>(areaDto);
@@ -48,20 +48,25 @@ namespace OperationSurvey.BLL.Services
                     Language = areaName.Key
                 });
             }
+
+            areaObj.CreationTime = Strings.CurrentDateTime;
+            areaObj.CreatorUserId = userId;
+            areaObj.TenantId = tenantId;
             _typeTranslationService.InsertRange(areaObj.AreaTranslations);
             _areaService.Insert(areaObj);
             SaveChanges();
             return areaDto;
         }
 
-        public AreaDto EditArea(AreaDto areaDto)
-        {
-            var areaObj = _areaService.Find(areaDto.AreaId);
+        public AreaDto EditArea(AreaDto areaDto, int userId, int tenantId)
+        { 
+            var areaObj = _areaService.Query(x => x.AreaId == areaDto.AreaId && x.TenantId == tenantId).Select().FirstOrDefault();
             if (areaObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
 
             foreach (var areaName in areaDto.TitleDictionary)
             {
-                var areaTranslation = areaObj.AreaTranslations.FirstOrDefault(x => x.Language.ToLower() == areaName.Key.ToLower() && x.AreaId == areaDto.AreaId);
+                var areaTranslation = areaObj.AreaTranslations.FirstOrDefault(x => x.Language.ToLower() == areaName.Key.ToLower() 
+                && x.AreaId == areaDto.AreaId);
                 if (areaTranslation == null)
                 {
                     areaObj.AreaTranslations.Add(new AreaTranslation
@@ -73,6 +78,9 @@ namespace OperationSurvey.BLL.Services
                 else
                     areaTranslation.Title = areaName.Value;
             }
+
+            areaObj.LastModificationTime = Strings.CurrentDateTime;
+            areaObj.LastModifierUserId = userId;
             areaObj.IsDeleted = areaDto.IsDeleted;
             areaObj.IsStatic = areaDto.IsStatic;
             _areaService.Update(areaObj);
@@ -81,9 +89,9 @@ namespace OperationSurvey.BLL.Services
 
         }
 
-        public PagedResultsDto GetAllAreas(int page, int pageSize)
+        public PagedResultsDto GetAllAreas(int page, int pageSize, int tenantId)
         {
-            return _areaService.GetAllAreas(page, pageSize);
+            return _areaService.GetAllAreas(page, pageSize, tenantId);
         }
 
     }

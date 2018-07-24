@@ -6,6 +6,6 @@ namespace OperationSurvey.BLL.DataServices.Interfaces
 {
     public interface IAreaService : IService<Area>
     {
-         PagedResultsDto GetAllAreas(int page, int pageSize);
+         PagedResultsDto GetAllAreas(int page, int pageSize, int tenantId);
     }
 }

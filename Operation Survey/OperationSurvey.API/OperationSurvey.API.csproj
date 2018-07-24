@@ -282,6 +282,7 @@
     <Compile Include="Infrastructure\ImageConvert.cs" />
     <Compile Include="Infrastructure\LanguageMessageHandler.cs" />
     <Compile Include="Models\CategoryModel.cs" />
+    <Compile Include="Models\CategoryRoleModel.cs" />
     <Compile Include="Models\DepartmentModel.cs" />
     <Compile Include="Models\AreaModel.cs" />
     <Compile Include="Models\PermissionModel.cs" />

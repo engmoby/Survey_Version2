@@ -6,6 +6,6 @@ namespace OperationSurvey.BLL.DataServices.Interfaces
 {
     public interface IRoleService : IService<Role>
     {
-         PagedResultsDto GetAllRoles(int page, int pageSize);
+         PagedResultsDto GetAllRoles(int page, int pageSize, int tenantId);
     }
 }

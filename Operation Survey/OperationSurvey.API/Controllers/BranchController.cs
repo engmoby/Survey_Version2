@@ -12,27 +12,27 @@ namespace OperationSurvey.API.Controllers
 {
     public class BranchController : BaseApiController
     { 
-        private readonly IBranchFacade _BranchFacade;
-        public BranchController(IBranchFacade BranchFacade)
+        private readonly IBranchFacade _branchFacade;
+        public BranchController(IBranchFacade branchFacade)
         {
-            _BranchFacade = BranchFacade; 
+            _branchFacade = branchFacade; 
         }
 
         [Route("api/Branchs/GetAllBranchs", Name = "GetAllBranchs")]
         [HttpGet]
         public IHttpActionResult GetAllBranchs(int page = Page, int pagesize = PageSize)
         {
-            PagedResultsDto BranchObj = _BranchFacade.GetAllBranchs(page, pagesize);
-            var data = Mapper.Map<List<BranchModel>>(BranchObj.Data);
-            return PagedResponse("GetAllAreas", page, pagesize, BranchObj.TotalCount, data, BranchObj.IsParentTranslated);
+            PagedResultsDto branchObj = _branchFacade.GetAllBranchs(page, pagesize, TenantId);
+            var data = Mapper.Map<List<BranchModel>>(branchObj.Data);
+            return PagedResponse("GetAllAreas", page, pagesize, branchObj.TotalCount, data, branchObj.IsParentTranslated);
         }
 
 
         [Route("api/Branchs", Name = "CreateBranch")]
         [HttpPost]
-        public IHttpActionResult CreateBranch([FromBody] BranchModel BranchModel)
+        public IHttpActionResult CreateBranch([FromBody] BranchModel branchModel)
         {
-            var reurnBranch = _BranchFacade.CreateBranch(Mapper.Map<BranchDto>(BranchModel));
+            var reurnBranch = _branchFacade.CreateBranch(Mapper.Map<BranchDto>(branchModel), UserId, TenantId);
 
             return Ok(reurnBranch);
         }
@@ -42,7 +42,7 @@ namespace OperationSurvey.API.Controllers
         [HttpPost]
         public IHttpActionResult EditBranch([FromBody] BranchModel BranchModel)
         {
-            var reurnBranch = _BranchFacade.EditBranch(Mapper.Map<BranchDto>(BranchModel));
+            var reurnBranch = _branchFacade.EditBranch(Mapper.Map<BranchDto>(BranchModel), UserId, TenantId);
 
             return Ok(reurnBranch);
         }
@@ -52,7 +52,7 @@ namespace OperationSurvey.API.Controllers
         [HttpGet]
         public IHttpActionResult GetBranchById(long BranchId)
         {
-            var reurnBranch = _BranchFacade.GetBranch(BranchId);
+            var reurnBranch = _branchFacade.GetBranch(BranchId, TenantId);
             return Ok(reurnBranch);
         }
     }

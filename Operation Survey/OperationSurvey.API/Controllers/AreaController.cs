@@ -22,7 +22,7 @@ namespace OperationSurvey.API.Controllers
         [HttpGet]
         public IHttpActionResult GetAllAreas(int page = Page, int pagesize = PageSize)
         {
-            PagedResultsDto areaObj = _areaFacade.GetAllAreas(page, pagesize);
+            PagedResultsDto areaObj = _areaFacade.GetAllAreas(page, pagesize, TenantId);
             var data = Mapper.Map<List<AreaModel>>(areaObj.Data);
             return PagedResponse("GetAllAreas", page, pagesize, areaObj.TotalCount, data, areaObj.IsParentTranslated);
         }
@@ -32,7 +32,7 @@ namespace OperationSurvey.API.Controllers
         [HttpPost]
         public IHttpActionResult CreateArea([FromBody] AreaModel areaModel)
         {
-            var reurnArea = _areaFacade.CreateArea(Mapper.Map<AreaDto>(areaModel));
+            var reurnArea = _areaFacade.CreateArea(Mapper.Map<AreaDto>(areaModel),UserId, TenantId);
 
             return Ok(reurnArea);
         }
@@ -42,7 +42,7 @@ namespace OperationSurvey.API.Controllers
         [HttpPost]
         public IHttpActionResult EditArea([FromBody] AreaModel areaModel)
         {
-            var reurnArea = _areaFacade.EditArea(Mapper.Map<AreaDto>(areaModel));
+            var reurnArea = _areaFacade.EditArea(Mapper.Map<AreaDto>(areaModel), UserId, TenantId);
 
             return Ok(reurnArea);
         }
@@ -52,7 +52,7 @@ namespace OperationSurvey.API.Controllers
         [HttpGet]
         public IHttpActionResult GetAreaById(long areaId)
         {
-            var reurnArea = _areaFacade.GetArea(areaId);
+            var reurnArea = _areaFacade.GetArea(areaId, TenantId);
             return Ok(reurnArea);
         }
     }

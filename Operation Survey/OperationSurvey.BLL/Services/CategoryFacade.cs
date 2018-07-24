@@ -3,6 +3,7 @@ using AutoMapper;
 using OperationSurvey.BLL.DataServices.Interfaces;
 using OperationSurvey.BLL.DTOs;
 using OperationSurvey.BLL.Services.Interfaces;
+using OperationSurvey.Common;
 using OperationSurvey.Common.CustomException;
 using Repository.Pattern.UnitOfWork;
 using OperationSurvey.DAL.Entities.Model;
@@ -13,33 +14,36 @@ namespace OperationSurvey.BLL.Services
     {
         private readonly ICategoryService _categoryService;
         private readonly ICategoryTranslationService _typeTranslationService;
+        private readonly ICategoryRoleService _categoryRoleService;
 
-        public CategoryFacade(ICategoryService categoryService, IUnitOfWorkAsync unitOfWork, ICategoryTranslationService typeTranslationService) : base(unitOfWork)
+        public CategoryFacade(ICategoryService categoryService, IUnitOfWorkAsync unitOfWork, ICategoryTranslationService typeTranslationService, ICategoryRoleService categoryRoleService) : base(unitOfWork)
         {
             _categoryService = categoryService;
             _typeTranslationService = typeTranslationService;
+            _categoryRoleService = categoryRoleService;
         }
 
-        public CategoryFacade(ICategoryService CategoryService, ICategoryTranslationService typeTranslationService)
+        public CategoryFacade(ICategoryService categoryService, ICategoryTranslationService typeTranslationService, ICategoryRoleService categoryRoleService)
         {
-            _categoryService = CategoryService;
+            _categoryService = categoryService;
             _typeTranslationService = typeTranslationService;
+            _categoryRoleService = categoryRoleService;
         }
 
-        public CategoryDto GetCategory(long CategoryId)
+        public CategoryDto GetCategory(long categoryId, int tenantId)
         {
-            return Mapper.Map<CategoryDto>(_categoryService.Find(CategoryId));
+            return Mapper.Map<CategoryDto>(_categoryService.Query(x => x.CategoryId == categoryId && x.TenantId == tenantId).Select().FirstOrDefault());
         }
 
-        public CategoryDto CreateCategory(CategoryDto CategoryDto)
+        public CategoryDto CreateCategory(CategoryDto categoryDto, int userId, int tenantId)
         {
-            if (GetCategory(CategoryDto.CategoryId) != null)
+            if (GetCategory(categoryDto.CategoryId, tenantId) != null)
             {
-                return EditCategory(CategoryDto);
+                return EditCategory(categoryDto, userId, tenantId);
             }
 
-            var categoryObj = Mapper.Map<Category>(CategoryDto);
-            foreach (var categoryName in CategoryDto.TitleDictionary)
+            var categoryObj = Mapper.Map<Category>(categoryDto);
+            foreach (var categoryName in categoryDto.TitleDictionary)
             {
                 categoryObj.CategoryTranslations.Add(new CategoryTranslation
                 {
@@ -47,42 +51,74 @@ namespace OperationSurvey.BLL.Services
                     Language = categoryName.Key
                 });
             }
+            foreach (var roleper in categoryDto.CategoryRoles)
+            {
+
+                categoryObj.CategoryRoles.Add(new CategoryRole
+                {
+                    RoleId = roleper.RoleId
+                });
+            }
+            _categoryRoleService.InsertRange(categoryObj.CategoryRoles);
+
+            categoryObj.CreationTime = Strings.CurrentDateTime;
+            categoryObj.CreatorUserId = userId;
+            categoryObj.TenantId = tenantId;
             _typeTranslationService.InsertRange(categoryObj.CategoryTranslations);
             _categoryService.Insert(categoryObj);
             SaveChanges();
-            return CategoryDto;
+            return categoryDto;
         }
 
-        public CategoryDto EditCategory(CategoryDto CategoryDto)
+        public CategoryDto EditCategory(CategoryDto categoryDto, int userId, int tenantId)
         {
-            var CategoryObj = _categoryService.Find(CategoryDto.CategoryId);
-            if (CategoryObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
+            var categoryObj = _categoryService.Find(categoryDto.CategoryId);
+            if (categoryObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
 
-            foreach (var CategoryName in CategoryDto.TitleDictionary)
+            foreach (var categoryName in categoryDto.TitleDictionary)
             {
-                var CategoryTranslation = CategoryObj.CategoryTranslations.FirstOrDefault(x => x.Language.ToLower() == CategoryName.Key.ToLower() && x.CategoryId == CategoryDto.CategoryId);
-                if (CategoryTranslation == null)
+                var categoryTranslation = categoryObj.CategoryTranslations.FirstOrDefault(x => x.Language.ToLower() == categoryName.Key.ToLower() && x.CategoryId == categoryDto.CategoryId);
+                if (categoryTranslation == null)
                 {
-                    CategoryObj.CategoryTranslations.Add(new CategoryTranslation
+                    categoryObj.CategoryTranslations.Add(new CategoryTranslation
                     {
-                        Title = CategoryName.Value,
-                        Language = CategoryName.Key
+                        Title = categoryName.Value,
+                        Language = categoryName.Key
                     });
                 }
                 else
-                    CategoryTranslation.Title = CategoryName.Value;
+                    categoryTranslation.Title = categoryName.Value;
             }
-            //CategoryObj.IsDeleted = CategoryDto.IsDeleted;
-            //CategoryObj.IsStatic = CategoryDto.IsStatic;
-            _categoryService.Update(CategoryObj);
+
+            var deleteuserRoles = new CategoryRole[categoryObj.CategoryRoles.Count];
+            categoryObj.CategoryRoles.CopyTo(deleteuserRoles, 0);
+            foreach (var roleObjRoleuserRole in deleteuserRoles)
+            {
+                _categoryRoleService.Delete(roleObjRoleuserRole);
+
+            }
+            foreach (var roleper in categoryDto.CategoryRoles)
+            {
+                categoryObj.CategoryRoles.Add(new CategoryRole
+                {
+                    RoleId = roleper.RoleId
+                });
+            }
+
+
+            categoryObj.LastModificationTime = Strings.CurrentDateTime;
+            categoryObj.LastModifierUserId = userId;
+            categoryObj.IsDeleted = categoryDto.IsDeleted;
+            categoryObj.IsStatic = categoryDto.IsStatic;
+            _categoryService.Update(categoryObj);
             SaveChanges();
-            return CategoryDto;
+            return categoryDto;
 
         }
 
-        public PagedResultsDto GetAllCategorys(int page, int pageSize)
+        public PagedResultsDto GetAllCategorys(int page, int pageSize, int tenantId)
         {
-            return _categoryService.GetAllCategorys(page, pageSize);
+            return _categoryService.GetAllCategorys(page, pageSize, tenantId);
         }
 
     }

@@ -7,6 +7,6 @@ namespace OperationSurvey.BLL.DataServices.Interfaces
 {
     public interface IRolePermissionService : IService<RolePermission>
     {
-        List<RolePermissionDto> GetRolePermissionById(long roleId);
+        List<RolePermissionDto> GetRolePermissionById(long roleId, int tenantId);
     }
 }

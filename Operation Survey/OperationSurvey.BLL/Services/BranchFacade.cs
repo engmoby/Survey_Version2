@@ -3,6 +3,7 @@ using AutoMapper;
 using OperationSurvey.BLL.DataServices.Interfaces;
 using OperationSurvey.BLL.DTOs;
 using OperationSurvey.BLL.Services.Interfaces;
+using OperationSurvey.Common;
 using OperationSurvey.Common.CustomException;
 using Repository.Pattern.UnitOfWork;
 using OperationSurvey.DAL.Entities.Model;
@@ -26,63 +27,70 @@ namespace OperationSurvey.BLL.Services
             _typeTranslationService = typeTranslationService;
         }
 
-        public BranchDto GetBranch(long branchId)
+        public BranchDto GetBranch(long branchId, int tenantId)
         {
-            return Mapper.Map<BranchDto>(_branchService.Find(branchId));
+            return Mapper.Map<BranchDto>(_branchService.Query(x => x.BranchId == branchId && x.TenantId == tenantId)
+                .Select().FirstOrDefault());
         }
 
-        public BranchDto CreateBranch(BranchDto branchDto)
+        public BranchDto CreateBranch(BranchDto branchDto, int userId, int tenantId)
         {
-            if (GetBranch(branchDto.BranchId) != null)
+            if (GetBranch(branchDto.BranchId, tenantId) != null)
             {
-                return EditBranch(branchDto);
+                return EditBranch(branchDto, userId, tenantId);
             }
 
-            var BranchObj = Mapper.Map<Branch>(branchDto);
-            foreach (var BranchName in branchDto.TitleDictionary)
+            var branchObj = Mapper.Map<Branch>(branchDto);
+            foreach (var branchName in branchDto.TitleDictionary)
             {
-                BranchObj.BranchTranslations.Add(new BranchTranslation
+                branchObj.BranchTranslations.Add(new BranchTranslation
                 {
-                    Title = BranchName.Value,
-                    Language = BranchName.Key
+                    Title = branchName.Value,
+                    Language = branchName.Key
                 });
             }
-            _typeTranslationService.InsertRange(BranchObj.BranchTranslations);
-            _branchService.Insert(BranchObj);
+
+            branchObj.CreationTime = Strings.CurrentDateTime;
+            branchObj.CreatorUserId = userId;
+            _typeTranslationService.InsertRange(branchObj.BranchTranslations);
+            _branchService.Insert(branchObj);
             SaveChanges();
             return branchDto;
         }
 
-        public BranchDto EditBranch(BranchDto BranchDto)
-        {
-            var BranchObj = _branchService.Find(BranchDto.BranchId);
-            if (BranchObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
+        public BranchDto EditBranch(BranchDto branchDto, int userId, int tenantId)
+        { 
+            var branchObj = _branchService.Query(x => x.BranchId == branchDto.BranchId && x.TenantId == tenantId)
+                .Select().FirstOrDefault();
+            if (branchObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
 
-            foreach (var BranchName in BranchDto.TitleDictionary)
+            foreach (var branchName in branchDto.TitleDictionary)
             {
-                var BranchTranslation = BranchObj.BranchTranslations.FirstOrDefault(x => x.Language.ToLower() == BranchName.Key.ToLower() && x.BranchId == BranchDto.BranchId);
-                if (BranchTranslation == null)
+                var branchTranslation = branchObj.BranchTranslations.FirstOrDefault(x => x.Language.ToLower() == branchName.Key.ToLower() && x.BranchId == branchDto.BranchId);
+                if (branchTranslation == null)
                 {
-                    BranchObj.BranchTranslations.Add(new BranchTranslation
+                    branchObj.BranchTranslations.Add(new BranchTranslation
                     {
-                        Title = BranchName.Value,
-                        Language = BranchName.Key
+                        Title = branchName.Value,
+                        Language = branchName.Key
                     });
                 }
                 else
-                    BranchTranslation.Title = BranchName.Value;
+                    branchTranslation.Title = branchName.Value;
             }
-            //BranchObj.IsDeleted = BranchDto.IsDeleted;
-            //BranchObj.IsStatic = BranchDto.IsStatic;
-            _branchService.Update(BranchObj);
+            branchObj.LastModificationTime = Strings.CurrentDateTime;
+            branchObj.LastModifierUserId = userId;
+            branchObj.IsDeleted = branchDto.IsDeleted;
+            branchObj.IsStatic = branchDto.IsStatic;
+            _branchService.Update(branchObj);
             SaveChanges();
-            return BranchDto;
+            return branchDto;
 
         }
 
-        public PagedResultsDto GetAllBranchs(int page, int pageSize)
+        public PagedResultsDto GetAllBranchs(int page, int pageSize, int tenantId)
         {
-            return _branchService.GetAllBranchs(page, pageSize);
+            return _branchService.GetAllBranchs(page, pageSize, tenantId);
         }
 
     }

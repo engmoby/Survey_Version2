@@ -123,4 +123,7 @@
   <data name="PhoneExist" xml:space="preserve">
     <value>رقم الهاتف موجود بالفعل</value>
   </data>
+  <data name="RecordIsExist" xml:space="preserve">
+    <value>موجود بالفعل</value>
+  </data>
 </root>

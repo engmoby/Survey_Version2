@@ -123,4 +123,7 @@
   <data name="PhoneExist" xml:space="preserve">
     <value>Phone Is Already Exist</value>
   </data>
+  <data name="RecordIsExist" xml:space="preserve">
+    <value>Record Is Exist</value>
+  </data>
 </root>

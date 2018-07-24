@@ -23,7 +23,7 @@ namespace OperationSurvey.API.Controllers
         [HttpGet]
         public IHttpActionResult GetAllRoles(int page = Page, int pagesize = PageSize)
         {
-            PagedResultsDto roleObj = _roleFacade.GetAllRoles(page, pagesize);
+            PagedResultsDto roleObj = _roleFacade.GetAllRoles(page, pagesize, TenantId);
             var data = Mapper.Map<List<RoleModel>>(roleObj.Data);
             return PagedResponse("GetAllRoles", page, pagesize, roleObj.TotalCount, data, roleObj.IsParentTranslated);
         }
@@ -33,7 +33,7 @@ namespace OperationSurvey.API.Controllers
         [HttpPost]
         public IHttpActionResult CreateRole([FromBody] RoleModel roleModel)
         { 
-            var reurnRole = _roleFacade.CreateRole(Mapper.Map<RoleDto>(roleModel));
+            var reurnRole = _roleFacade.CreateRole(Mapper.Map<RoleDto>(roleModel), UserId, TenantId);
 
             return Ok(reurnRole);
         }
@@ -43,7 +43,7 @@ namespace OperationSurvey.API.Controllers
         [HttpPost]
         public IHttpActionResult EditRole([FromBody] RoleModel roleModel)
         {
-            var reurnRole = _roleFacade.EditRole(Mapper.Map<RoleDto>(roleModel));
+            var reurnRole = _roleFacade.EditRole(Mapper.Map<RoleDto>(roleModel), UserId, TenantId);
 
             return Ok(reurnRole);
         }
@@ -53,9 +53,7 @@ namespace OperationSurvey.API.Controllers
         [HttpGet]
         public IHttpActionResult GetRoleById(long roleId)
         {
-            var reurnRole = _roleFacade.GetRole(roleId);
-          //  reurnRole.Permissions = _rolePermissionService.GetRolePermissionById(roleId);
-
+            var reurnRole = _roleFacade.GetRole(roleId, TenantId);  
             return Ok(reurnRole);
         }
     }

@@ -6,6 +6,6 @@ namespace OperationSurvey.BLL.DataServices.Interfaces
 {
     public interface IBranchService : IService<Branch>
     {
-         PagedResultsDto GetAllBranchs(int page, int pageSize);
+         PagedResultsDto GetAllBranchs(int page, int pageSize, int tenantId);
     }
 }

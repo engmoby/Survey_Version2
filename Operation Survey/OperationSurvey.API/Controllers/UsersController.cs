@@ -2,16 +2,9 @@
 using AutoMapper;
 using OperationSurvey.API.Infrastructure;
 using OperationSurvey.API.Models;
-using OperationSurvey.API.Providers;
 using OperationSurvey.BLL.DTOs;
 using OperationSurvey.BLL.Services.Interfaces;
-using OperationSurvey.Common;
 using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Linq;
-using System.Net;
-using Newtonsoft.Json;
 using OperationSurvey.BLL.DataServices.Interfaces;
 
 namespace OperationSurvey.API.Controllers
@@ -29,14 +22,14 @@ namespace OperationSurvey.API.Controllers
         [HttpPost]
         public IHttpActionResult RegisterUser([FromBody] UserModel userModel)
         {
-            var reurnUser = _userFacade.RegisterUser(Mapper.Map<UserDto>(userModel)); 
+            var reurnUser = _userFacade.RegisterUser(Mapper.Map<UserDto>(userModel), UserId, TenantId); 
             return Ok(reurnUser);
         } 
         [Route("api/Users/EditRegisterUser", Name = "EditRegisterUser")]
         [HttpPost]
         public IHttpActionResult EditRegisterUser([FromBody] UserModel userModel)
         {
-            var reurnUser = _userFacade.EditUserInfo(Mapper.Map<UserDto>(userModel));
+            var reurnUser = _userFacade.EditUserInfo(Mapper.Map<UserDto>(userModel), UserId, TenantId);
  
             return Ok(reurnUser);
         }
@@ -45,7 +38,7 @@ namespace OperationSurvey.API.Controllers
         [HttpGet]
         public IHttpActionResult GetAllUsers(int page = Page, int pagesize = PageSize)
         {
-            var getAllDataForuser = _userService.GetAllUsers(page, pagesize);
+            var getAllDataForuser = _userService.GetAllUsers(page, pagesize, TenantId);
             var userList = Mapper.Map<List<UserModel>>(getAllDataForuser.Data); 
             PagedResultsDto results = new PagedResultsDto();
             results.TotalCount = getAllDataForuser.TotalCount;
@@ -57,7 +50,7 @@ namespace OperationSurvey.API.Controllers
         [HttpGet]
         public IHttpActionResult GetUserById(long userId)
         {
-            var reurnUser = _userFacade.GetUser(userId);
+            var reurnUser = _userFacade.GetUser(userId, TenantId);
             return Ok(reurnUser);
         }
     }

@@ -77,5 +77,14 @@ namespace OperationSurvey.Resources {
                 return ResourceManager.GetString("PhoneExist", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record Is Exist.
+        /// </summary>
+        public static string RecordIsExist {
+            get {
+                return ResourceManager.GetString("RecordIsExist", resourceCulture);
+            }
+        }
     }
 }

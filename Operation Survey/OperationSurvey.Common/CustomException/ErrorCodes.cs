@@ -85,6 +85,7 @@ namespace OperationSurvey.Common.CustomException
         MailExist,
         PhoneExist,
         ProductNotFound,
-        UserTypeNotFound
+        UserTypeNotFound,
+        RecordIsExist
     }
 }

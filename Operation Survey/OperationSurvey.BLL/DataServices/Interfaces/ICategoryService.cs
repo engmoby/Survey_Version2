@@ -6,6 +6,6 @@ namespace OperationSurvey.BLL.DataServices.Interfaces
 {
     public interface ICategoryService : IService<Category>
     {
-         PagedResultsDto GetAllCategorys(int page, int pageSize);
+         PagedResultsDto GetAllCategorys(int page, int pageSize, int tenantId);
     }
 }

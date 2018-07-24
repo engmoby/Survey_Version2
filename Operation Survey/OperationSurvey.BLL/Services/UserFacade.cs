@@ -29,7 +29,7 @@ namespace OperationSurvey.BLL.Services
             _userRoleService = userRoleService;
         }
 
-      
+
         public UserDto ValidateUser(string email, string password)
         {
             string encryptedPassword = PasswordHelper.Encrypt(password);
@@ -48,25 +48,57 @@ namespace OperationSurvey.BLL.Services
             {
                 return null;
             }
-            var getRole = _userService.Find(userId);
-            getRole.UserRoles= new List<UserRole>();
-            getRole.UserType= new UserType();
+           var getRole = _userService.Find(userId); 
+            getRole.UserRoles = new List<UserRole>();
+            getRole.UserType = new UserType();
 
             var userDto = new UserDto();
 
-            userDto.UserTypeId = (int) getRole.UserTypeId;
+            userDto.UserTypeId = (int)getRole.UserTypeId;
             userDto.UserId = getRole.UserId;
             userDto.FirstName = getRole.FirstName;
             userDto.LastName = getRole.LastName;
             userDto.Email = getRole.Email;
             userDto.Phone = getRole.Phone;
+            userDto.UserAccountId = getRole.UserAccountId;
+            userDto.TenantId = getRole.TenantId;
             userDto.Password = PasswordHelper.Decrypt(getRole.Password);
 
 
             var afterMap = userDto;
             //var afterMap = Mapper.Map<UserDto>(getRole);
 
-            afterMap.UserRoles = _userRoleService.GetUserRoleById(userId);
+            afterMap.UserRoles = _userRoleService.GetUserRoleById(userId, userDto.TenantId);
+
+            return afterMap;
+        }
+        public UserDto GetUser(long userId, int tenantId)
+        {
+            if (userId == 0)
+            {
+                return null;
+            }
+            //var getRole = _userService.Find(userId);
+            var getRole = _userService.Query(x => x.UserId == userId && x.TenantId == tenantId).Select().FirstOrDefault();
+            getRole.UserRoles = new List<UserRole>();
+            getRole.UserType = new UserType();
+
+            var userDto = new UserDto();
+
+            userDto.UserTypeId = (int)getRole.UserTypeId;
+            userDto.UserId = getRole.UserId;
+            userDto.FirstName = getRole.FirstName;
+            userDto.LastName = getRole.LastName;
+            userDto.Email = getRole.Email;
+            userDto.Phone = getRole.Phone;
+            userDto.UserAccountId = getRole.UserAccountId;
+            userDto.Password = PasswordHelper.Decrypt(getRole.Password);
+
+
+            var afterMap = userDto;
+            //var afterMap = Mapper.Map<UserDto>(getRole);
+
+            afterMap.UserRoles = _userRoleService.GetUserRoleById(userId, tenantId);
 
             return afterMap;
         }
@@ -76,25 +108,25 @@ namespace OperationSurvey.BLL.Services
         {
             return Mapper.Map<UserDto>(_userService.Query(x => x.UserAccountId == userAccountId).Select().FirstOrDefault());
         }
-        public UserDto RegisterUser(UserDto userDto)
+        public UserDto RegisterUser(UserDto userDto, int userId, int tenantId)
         {
-            if (GetUser(userDto.UserId) != null)
+            if (GetUser(userDto.UserId, tenantId) != null)
             {
-                return EditUser(userDto);
+                return EditUser(userDto, userId, tenantId);
             }
-            if (_userService.CheckEmailDuplicated(userDto.Email))
+            if (_userService.CheckEmailDuplicated(userDto.Email, tenantId))
             {
                 throw new ValidationException(ErrorCodes.MailExist);
             }
-            if (_userService.CheckPhoneDuplicated(userDto.Phone))
+            if (_userService.CheckPhoneDuplicated(userDto.Phone, tenantId))
             {
                 throw new ValidationException(ErrorCodes.PhoneExist);
             }
 
-          
+
             var userObj = Mapper.Map<User>(userDto);
             userObj.FirstName = userDto.FirstName;
-            userObj.UserAccountId = Guid.NewGuid();
+            // userObj.UserAccountId = Guid.NewGuid();
             userObj.LastName = userDto.LastName;
             userObj.Email = userDto.Email;
             userObj.Phone = userDto.Phone;
@@ -103,7 +135,9 @@ namespace OperationSurvey.BLL.Services
             userObj.IsActive = userDto.IsActive;
             userObj.IsDeleted = false;
             userObj.UserTypeId = userDto.UserTypeId;
-
+            userObj.TenantId = tenantId;
+            userObj.CreationTime = Strings.CurrentDateTime;
+            userObj.CreatorUserId = userId;
 
             foreach (var roleper in userDto.UserRoles)
             {
@@ -113,24 +147,26 @@ namespace OperationSurvey.BLL.Services
                     RoleId = roleper.RoleId
                 });
             }
-            _userRoleService.InsertRange(userObj.UserRoles); 
+            _userRoleService.InsertRange(userObj.UserRoles);
             _userService.Insert(userObj);
             SaveChanges();
             //var userRetuenDto = Mapper.Map<UserDto>(userObj);
             return userDto;
         }
 
-        public UserDto EditUserInfo(UserDto userDto)
+        public UserDto EditUserInfo(UserDto userDto, int userId, int tenantId)
         {
-          //  var getUser = GetUser(userDto.UserId);
-            var returnUser = EditUser(userDto);
+            //  var getUser = GetUser(userDto.UserId);
+            var returnUser = EditUser(userDto, userId, tenantId);
             return returnUser;
         }
-        public UserDto EditUser(UserDto userDto)
+        public UserDto EditUser(UserDto userDto, int userId, int tenantId)
         {
-            var userObj = _userService.Find(userDto.UserId);
+
+            var userObj = _userService.Query(x => x.UserId == userId && x.TenantId == tenantId)
+                .Select().FirstOrDefault(); 
             //userObj.Phone = (userDto.Phone == "" || userDto.Phone == "0") ? null : userDto.Phone;
-            userObj.Phone =   userDto.Phone;
+            userObj.Phone = userDto.Phone;
             userObj.Password = (userDto.Password != null) ? PasswordHelper.Encrypt(userDto.Password) : userObj.Password;
             userObj.IsActive = userDto.IsActive;
             userObj.IsDeleted = false;
@@ -149,7 +185,7 @@ namespace OperationSurvey.BLL.Services
             {
                 userObj.UserRoles.Add(new UserRole
                 {
-                    RoleId = roleper.RoleId 
+                    RoleId = roleper.RoleId
                 });
             }
 
@@ -158,10 +194,10 @@ namespace OperationSurvey.BLL.Services
             SaveChanges();
 
 
-           // var userRetuenDto = Mapper.Map<UserDto>(userObj);
+            // var userRetuenDto = Mapper.Map<UserDto>(userObj);
             return userDto;
         }
- 
+
 
     }
 }

@@ -18,9 +18,9 @@ namespace OperationSurvey.BLL.DataServices
         public PagedResultsDto GetAllUserTypes()
         {
             PagedResultsDto results = new PagedResultsDto();
-            results.TotalCount = _repository.Query(x => !x.UserType.IsDeleted ).Select(x => x.UserType).Count(x => !x.IsDeleted);
+            results.TotalCount = _repository.Query(x => !x.UserType.IsDeleted).Select(x => x.UserType).Count(x => !x.IsDeleted);
             var aaax = _repository.Query(x => !x.UserType.IsDeleted).Select().ToList();
-            var userTypes = _repository.Query(x => !x.UserType.IsDeleted ).Select(x => x.UserType)
+            var userTypes = _repository.Query(x => !x.UserType.IsDeleted).Select(x => x.UserType)
                 .OrderBy(x => x.UserTypeId).ToList();
             results.Data = Mapper.Map<List<UserType>, List<UserTypeDto>>(userTypes);
             return results;
@@ -46,10 +46,10 @@ namespace OperationSurvey.BLL.DataServices
             });
             return results;
         }
-        public PagedResultsDto GetUserTypeTranslationByUserTypeId(string language,long userTypeId)
+        public PagedResultsDto GetUserTypeTranslationByUserTypeId(string language, long userTypeId)
         {
             PagedResultsDto results = new PagedResultsDto();
-            results.TotalCount = _repository.Query(x => !x.UserType.IsDeleted && x.Language.ToLower() == language.ToLower()  && x.UserTypeId == userTypeId).Select(x => x.UserType).Count(x => !x.IsDeleted);
+            results.TotalCount = _repository.Query(x => !x.UserType.IsDeleted && x.Language.ToLower() == language.ToLower() && x.UserTypeId == userTypeId).Select(x => x.UserType).Count(x => !x.IsDeleted);
             var aaax = _repository.Query(x => !x.UserType.IsDeleted && x.Language.ToLower() == language.ToLower()).Select().ToList();
             var UserTypes = _repository.Query(x => !x.UserType.IsDeleted && x.Language.ToLower() == language.ToLower() && x.UserTypeId == userTypeId).Select(x => x.UserType)
                 .OrderBy(x => x.UserTypeId).ToList();
@@ -85,7 +85,12 @@ namespace OperationSurvey.BLL.DataServices
             });
             return results;
         }
-
+        public bool CheckNameExist(string objName, string language, long recordId, long tenantId)
+        {
+            return Queryable()
+                .Any(x => x.Language.ToLower() == language.ToLower() && x.Title.ToLower() == objName.ToLower() &&
+                          x.UserTypeId != recordId && x.UserType.TenantId == tenantId && !x.UserType.IsDeleted);
+        }
 
     }
 }

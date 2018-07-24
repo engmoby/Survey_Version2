@@ -6,6 +6,6 @@ namespace OperationSurvey.BLL.DataServices.Interfaces
 {
     public interface IDepartmentService : IService<Department>
     {
-         PagedResultsDto GetAllDepartments(int page, int pageSize);
+         PagedResultsDto GetAllDepartments(int page, int pageSize, int tenantId);
     }
 }

@@ -16,12 +16,14 @@ namespace OperationSurvey.BLL.DataServices
             _repository = repository;
         }
         
-        public PagedResultsDto GetAllCategorys(int page, int pageSize)
+        public PagedResultsDto GetAllCategorys(int page, int pageSize,int tenantId)
         {
+            var query = Queryable().Where(x => !x.IsDeleted && (x.TenantId == tenantId || x.TenantId == null)).OrderBy(x => x.CategoryId);
             PagedResultsDto results = new PagedResultsDto();
-            results.TotalCount = _repository.Query(x => !x.IsDeleted).Select().Count(x => !x.IsDeleted); 
-            var obj = _repository.Query(x => !x.IsDeleted).Include(p => p.CategoryTranslations).Select().OrderBy(x => x.CategoryId).ToList();
-            results.Data = Mapper.Map<List<Category>, List<CategoryDto>>(obj);
+            results.TotalCount = query.Select(x => x).Count();
+
+            results.Data = Mapper.Map<List<Category>, List<CategoryDto>>(query.OrderBy(x => x.CategoryId).Skip((page - 1) * pageSize).Take(pageSize).ToList());
+               
             return results;
         }
 

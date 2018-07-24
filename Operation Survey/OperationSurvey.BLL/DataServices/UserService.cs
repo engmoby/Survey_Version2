@@ -17,25 +17,24 @@ namespace OperationSurvey.BLL.DataServices
         }
         public User ValidateUser(string email, string password)
         {
-            return _repository.Query(u => u.Email.ToLower() == email.ToLower() && u.Password == password && !u.IsDeleted).Select().FirstOrDefault();
+            return _repository.Query(u => u.Email.ToLower() == email.ToLower() && u.Password == password && !u.IsDeleted   ).Select().FirstOrDefault();
 
         }
         public User CheckUserIsDeleted(string email, string password)
         {
             return _repository.Query(u => u.Email.ToLower() == email.ToLower() && u.Password == password).Select().FirstOrDefault();
-
         }
-        public bool CheckEmailDuplicated(string email)
+        public bool CheckEmailDuplicated(string email, int tenantId)
         {
             return _repository.Queryable().Any(u => u.Email.ToLower() == email.ToLower() && !u.IsDeleted);
         }
-        public bool CheckPhoneDuplicated(string phone)
+        public bool CheckPhoneDuplicated(string phone, int tenantId)
         {
             return _repository.Queryable().Any(u => u.Phone == phone.ToLower() && !u.IsDeleted);
         }
-        public PagedResultsDto GetAllUsers(int page, int pageSize)
+        public PagedResultsDto GetAllUsers(int page, int pageSize, int tenantId)
         {
-            var query = Queryable().Where(x => x.IsActive).OrderBy(x => x.UserId);
+            var query = Queryable().Where(x => !x.IsActive && (x.TenantId == tenantId)).OrderBy(x => x.UserId);
             PagedResultsDto results = new PagedResultsDto();
             results.TotalCount = _repository.Query(x => !x.IsDeleted).Select().Count(x => !x.IsDeleted);
             var modelReturn = query.OrderBy(x => x.UserId).Skip((page - 1) * pageSize).Take(pageSize).ToList();

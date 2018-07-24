@@ -17,6 +17,7 @@ namespace OperationSurvey.BLL.DTOs
         public long? CreatorUserId { get; set; }
         public DateTime? DeletionTime { get; set; }
         public long? DeleterUserId { get; set; }
+        public List<CategoryRoleDto> CategoryRoles { get; set; }
     }
 }
 

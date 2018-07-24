@@ -39,6 +39,9 @@ namespace OperationSurvey.API
             mapperConfiguration.CreateMap<CategoryModel, CategoryDto>();
             mapperConfiguration.CreateMap<CategoryDto, CategoryModel>();
 
+            
+            mapperConfiguration.CreateMap<CategoryRoleModel, CategoryRoleDto>();
+            mapperConfiguration.CreateMap<CategoryRoleDto, CategoryRoleModel>();
 
             mapperConfiguration.CreateMap<PermissionModel, PermissionDto>();
             mapperConfiguration.CreateMap<PermissionDto, PermissionModel>();

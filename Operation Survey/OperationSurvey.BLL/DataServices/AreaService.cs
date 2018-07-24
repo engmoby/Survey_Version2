@@ -16,9 +16,9 @@ namespace OperationSurvey.BLL.DataServices
             _repository = repository;
         }
         
-        public PagedResultsDto GetAllAreas(int page, int pageSize)
-        {
-            var query = Queryable().Where(x => !x.IsDeleted).OrderBy(x => x.AreaId);
+        public PagedResultsDto GetAllAreas(int page, int pageSize, int tenantId)
+        { 
+            var query = Queryable().Where(x => !x.IsDeleted && (x.TenantId == tenantId || x.TenantId == null)).OrderBy(x => x.AreaId);
             PagedResultsDto results = new PagedResultsDto();
             results.TotalCount = query.Select(x => x).Count();
            // results.TotalCount = _repository.Query(x => !x.IsDeleted).Select().Count(x => !x.IsDeleted);

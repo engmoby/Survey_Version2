@@ -7,6 +7,6 @@ namespace OperationSurvey.BLL.DataServices.Interfaces
 {
     public interface IUserRoleService : IService<UserRole>
     {
-        List<UserRoleDto> GetUserRoleById(long roleId);
+        List<UserRoleDto> GetUserRoleById(long roleId, int tenantId);
     }
 }

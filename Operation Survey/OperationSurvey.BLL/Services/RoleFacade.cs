@@ -4,6 +4,7 @@ using AutoMapper;
 using OperationSurvey.BLL.DataServices.Interfaces;
 using OperationSurvey.BLL.DTOs;
 using OperationSurvey.BLL.Services.Interfaces;
+using OperationSurvey.Common;
 using OperationSurvey.Common.CustomException;
 using Repository.Pattern.UnitOfWork;
 using OperationSurvey.DAL.Entities.Model;
@@ -30,25 +31,28 @@ namespace OperationSurvey.BLL.Services
             _rolePermissionService = rolePermissionService;
         }
 
-        public RoleDto GetRole(long roleId)
+        public RoleDto GetRole(long roleId, int tenantId)
         {
             if (roleId == 0)
             {
                 return null;
             }
-            var getRole = _roleService.Find(roleId);
+            //var getRole = _roleService.Find(roleId);
+
+            var getRole = _roleService.Query(x => x.RoleId == roleId && x.TenantId == tenantId).Select().FirstOrDefault();
+
             var afterMap = Mapper.Map<RoleDto>(getRole);
 
-            afterMap.Permissions = _rolePermissionService.GetRolePermissionById(roleId);
+            afterMap.Permissions = _rolePermissionService.GetRolePermissionById(roleId, tenantId);
 
             return afterMap;
         }
 
-        public RoleDto CreateRole(RoleDto roleDto)
+        public RoleDto CreateRole(RoleDto roleDto, int userId, int tenantId)
         {
-            if (GetRole(roleDto.RoleId) != null)
+            if (GetRole(roleDto.RoleId,tenantId) != null)
             {
-                return EditRole(roleDto);
+                return EditRole(roleDto, userId, tenantId);
             }
 
             var roleObj = Mapper.Map<Role>(roleDto);
@@ -69,7 +73,10 @@ namespace OperationSurvey.BLL.Services
                     ActionId = 1
                 });
             }
-         
+
+            roleObj.CreationTime = Strings.CurrentDateTime;
+            roleObj.CreatorUserId = userId;
+            roleObj.TenantId = tenantId;
             _rolePermissionService.InsertRange(roleObj.RolePermissions);
             _typeTranslationService.InsertRange(roleObj.RoleTranslations);
             _roleService.Insert(roleObj);
@@ -78,9 +85,13 @@ namespace OperationSurvey.BLL.Services
             return roleDto;
         }
 
-        public RoleDto EditRole(RoleDto roleDto)
+        public RoleDto EditRole(RoleDto roleDto, int userId, int tenantId)
         {
-            var roleObj = _roleService.Find(roleDto.RoleId);
+            //var roleObj = _roleService.Find(roleDto.RoleId);
+
+            var roleObj = _roleService.Query(x => x.RoleId == roleDto.RoleId && x.TenantId == tenantId)
+                .Select().FirstOrDefault();
+
             if (roleObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
 
             foreach (var roleName in roleDto.TitleDictionary)
@@ -112,6 +123,8 @@ namespace OperationSurvey.BLL.Services
                     ActionId = 1
                 });
             }
+            roleObj.LastModificationTime = Strings.CurrentDateTime;
+            roleObj.LastModifierUserId = userId;
             roleObj.IsDeleted = roleDto.IsDeleted;
             roleObj.IsStatic = roleDto.IsStatic;
             _roleService.Update(roleObj);
@@ -120,9 +133,9 @@ namespace OperationSurvey.BLL.Services
 
         }
 
-        public PagedResultsDto GetAllRoles(int page, int pageSize)
+        public PagedResultsDto GetAllRoles(int page, int pageSize, int tenantId)
         {
-            return _roleService.GetAllRoles(page, pageSize);
+            return _roleService.GetAllRoles(page, pageSize, tenantId);
         }
 
     }
