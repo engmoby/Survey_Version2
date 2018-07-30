@@ -65,6 +65,7 @@ E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationS
 E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\ar-EG\OperationSurvey.Resources.resources.dll
 E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\obj\Debug\OperationSurvey.Resources.csprojResolveAssemblyReference.cache
 E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\obj\Debug\OperationSurvey.Resources.Resource.resources
 E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\obj\Debug\OperationSurvey.Resources.Resource.ar-EG.resources
 E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\obj\Debug\OperationSurvey.Resources.csproj.GenerateResource.Cache

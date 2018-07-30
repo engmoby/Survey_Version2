@@ -29,11 +29,25 @@ namespace OperationSurvey.BLL.Services
 
         public DepartmentDto GetDepartment(long departmentId, int tenantId)
         {
-            return Mapper.Map<DepartmentDto>(_departmentService.Query(x => x.DepartmentId == departmentId && x.TenantId == tenantId).Select().FirstOrDefault());
+            //return Mapper.Map<DepartmentDto>(_departmentService.Query(x => x.DepartmentId == departmentId && x.TenantId == tenantId).Select().FirstOrDefault());
+            if (departmentId == 0) return null;
+
+            var query = _departmentService.Query(x => x.DepartmentId == departmentId && x.TenantId == tenantId).Select()
+                .FirstOrDefault();
+
+            var departmetn = new DepartmentDto();
+            if (query != null)
+            {
+                departmetn.DepartmentId = query.DepartmentId;
+                departmetn.TitleDictionary = query.DepartmentTranslations.ToDictionary(translation => translation.Language.ToLower(), 
+                    translation => translation.Title);}
+
+            return departmetn;
         }
 
         public DepartmentDto CreateDepartment(DepartmentDto departmentDto, int userId, int tenantId)
         {
+
             if (GetDepartment(departmentDto.DepartmentId, tenantId) != null)
             {
                 return EditDepartment(departmentDto, userId, tenantId);
@@ -45,7 +59,8 @@ namespace OperationSurvey.BLL.Services
                 departmentObj.DepartmentTranslations.Add(new DepartmentTranslation
                 {
                     Title = departmentName.Value,
-                    Language = departmentName.Key
+                    Language = departmentName.Key,
+                    TenantId = tenantId
                 });
             }
             departmentObj.CreationTime = Strings.CurrentDateTime;
@@ -58,7 +73,7 @@ namespace OperationSurvey.BLL.Services
         }
 
         public DepartmentDto EditDepartment(DepartmentDto departmentDto, int userId, int tenantId)
-        { 
+        {
             var departmentObj = _departmentService.Query(x => x.DepartmentId == departmentDto.DepartmentId && x.TenantId == tenantId)
                 .Select().FirstOrDefault();
             if (departmentObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);

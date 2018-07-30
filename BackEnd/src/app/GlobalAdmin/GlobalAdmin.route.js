@@ -189,7 +189,8 @@
                     controller: 'createCategoryDialogController',
                     'controllerAs': 'newCategoryCtrl',
                     resolve: {
-                        DepartmentByIdPrepService: DepartmentByIdPrepService
+                        DepartmentByIdPrepService: DepartmentByIdPrepService,
+                        RolePrepService:RolePrepService
                     }
 
                 })
@@ -199,7 +200,8 @@
                     controller: 'editCategoryDialogController',
                     'controllerAs': 'editCategoryCtrl',
                     resolve: {
-                        CategoryByIdPrepService: CategoryByIdPrepService
+                        CategoryByIdPrepService: CategoryByIdPrepService,
+                        RolePrepService:RolePrepService
                     }
 
                 })

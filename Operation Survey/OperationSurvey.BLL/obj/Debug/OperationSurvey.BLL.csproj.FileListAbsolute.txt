@@ -82,7 +82,6 @@ E:\Projects\SurveyV2\Operation Survey\OperationSurvey.BLL\bin\Debug\LinqKit.xml
 E:\Projects\SurveyV2\Operation Survey\OperationSurvey.BLL\obj\Debug\OperationSurvey.BLL.csprojResolveAssemblyReference.cache
 E:\Projects\SurveyV2\Operation Survey\OperationSurvey.BLL\obj\Debug\OperationSurvey.BLL.dll
 E:\Projects\SurveyV2\Operation Survey\OperationSurvey.BLL\obj\Debug\OperationSurvey.BLL.pdb
-E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.BLL\obj\Debug\OperationSurvey.BLL.csprojResolveAssemblyReference.cache
 E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.BLL\bin\Debug\OperationSurvey.BLL.dll.config
 E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.BLL\bin\Debug\OperationSurvey.BLL.dll
 E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.BLL\bin\Debug\OperationSurvey.BLL.pdb
@@ -122,5 +121,6 @@ E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationS
 E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.BLL\bin\Debug\EntityFramework.xml
 E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.BLL\bin\Debug\LinqKit.pdb
 E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.BLL\bin\Debug\LinqKit.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.BLL\obj\Debug\OperationSurvey.BLL.csprojResolveAssemblyReference.cache
 E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.BLL\obj\Debug\OperationSurvey.BLL.dll
 E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.BLL\obj\Debug\OperationSurvey.BLL.pdb

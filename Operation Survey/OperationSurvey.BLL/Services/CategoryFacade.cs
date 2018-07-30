@@ -32,7 +32,25 @@ namespace OperationSurvey.BLL.Services
 
         public CategoryDto GetCategory(long categoryId, int tenantId)
         {
-            return Mapper.Map<CategoryDto>(_categoryService.Query(x => x.CategoryId == categoryId && x.TenantId == tenantId).Select().FirstOrDefault());
+            // return Mapper.Map<CategoryDto>(_categoryService.Query(x => x.CategoryId == categoryId && x.TenantId == tenantId).Select().FirstOrDefault());
+            if (categoryId == 0) return null;
+
+            var query = _categoryService.Query(x => x.CategoryId == categoryId && x.TenantId == tenantId).Select()
+                .FirstOrDefault();
+
+
+            var category = new CategoryDto();
+            if (query != null)
+            {
+                category.CategoryId = query.CategoryId;
+                category.DepartmentId = query.DepartmentId;
+                category.TitleDictionary = query.CategoryTranslations.ToDictionary(translation => translation.Language.ToLower(),
+                    translation => translation.Title);
+
+                category.CategoryRoles = _categoryRoleService.GetCategoryRoleById(categoryId, tenantId);
+            }
+
+            return category;
         }
 
         public CategoryDto CreateCategory(CategoryDto categoryDto, int userId, int tenantId)
@@ -48,7 +66,8 @@ namespace OperationSurvey.BLL.Services
                 categoryObj.CategoryTranslations.Add(new CategoryTranslation
                 {
                     Title = categoryName.Value,
-                    Language = categoryName.Key
+                    Language = categoryName.Key,
+                    TenantId = tenantId
                 });
             }
             foreach (var roleper in categoryDto.CategoryRoles)

@@ -61,7 +61,8 @@ namespace OperationSurvey.BLL.Services
                 roleObj.RoleTranslations.Add(new RoleTranslation
                 {
                     Title = roleName.Value,
-                    Language = roleName.Key
+                    Language = roleName.Key,
+                    TenantId = tenantId
                 });
             }
             foreach (var roleper in roleDto.Permissions)

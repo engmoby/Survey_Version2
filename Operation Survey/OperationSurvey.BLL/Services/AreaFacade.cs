@@ -45,7 +45,8 @@ namespace OperationSurvey.BLL.Services
                 areaObj.AreaTranslations.Add(new AreaTranslation
                 {
                     Title = areaName.Value,
-                    Language = areaName.Key
+                    Language = areaName.Key,
+                    TenantId = tenantId
                 });
             }
 

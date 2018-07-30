@@ -11,7 +11,7 @@
 		var vm = this;
 		vm.Area = AreaByIdPrepService;
 		vm.language = appCONSTANTS.supportedLanguage;
-		vm.close = function(){
+		vm.Close = function(){
 		    $state.go('Area');
 		} 
 		 

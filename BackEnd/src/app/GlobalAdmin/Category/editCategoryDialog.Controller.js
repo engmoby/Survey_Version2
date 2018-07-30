@@ -3,10 +3,10 @@
 	
     angular
         .module('home')
-        .controller('editCategoryDialogController', ['$scope', '$http', '$state', 'appCONSTANTS', '$translate',
+        .controller('editCategoryDialogController', ['$scope','$filter', '$http', '$state', 'appCONSTANTS', '$translate',
          'CategoryResource', 'RolePrepService','ToastService','CategoryByIdPrepService', editCategoryDialogController])
 
-    function editCategoryDialogController($scope, $http, $state, appCONSTANTS, $translate, CategoryResource,RolePrepService,
+    function editCategoryDialogController($scope,$filter, $http, $state, appCONSTANTS, $translate, CategoryResource,RolePrepService,
          ToastService,CategoryByIdPrepService) {
 		var vm = this; 
 		vm.language = appCONSTANTS.supportedLanguage;
@@ -15,6 +15,7 @@
         vm.selectedCategoryRoles = [];
         
         console.log(vm.Category);
+         
         var i;
         for (i = 0; i < vm.Category.categoryRoles.length; i++) {
             var indexRate = $scope.roleList.indexOf($filter('filter')($scope.roleList, { 'roleId': vm.Category.categoryRoles[i].roleId }, true)[0]);

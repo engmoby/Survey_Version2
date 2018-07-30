@@ -46,7 +46,8 @@ namespace OperationSurvey.BLL.Services
                 branchObj.BranchTranslations.Add(new BranchTranslation
                 {
                     Title = branchName.Value,
-                    Language = branchName.Key
+                    Language = branchName.Key,
+                    TenantId = tenantId
                 });
             }
 

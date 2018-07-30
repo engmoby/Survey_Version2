@@ -62,10 +62,15 @@ namespace OperationSurvey.BLL
             mapperConfiguration.CreateMap<Department, DepartmentDto>()
                 .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.DepartmentTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
 
-            mapperConfiguration.CreateMap<CategoryDto, Category>();
+            mapperConfiguration.CreateMap<CategoryDto, Category>()
+                .ForMember(dto => dto.CategoryRoles, m => m.Ignore());
+
             mapperConfiguration.CreateMap<Category, CategoryDto>()
                 .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.CategoryTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
 
+
+            mapperConfiguration.CreateMap<CategoryRoleDto, CategoryRole>();
+            mapperConfiguration.CreateMap<CategoryRole, CategoryRoleDto>();
 
             //mapperConfiguration.CreateMap<ItemSideItem, SideItemDTO>()
             //    .ForMember(dest => dest.SideItemName, m => m.MapFrom(src => src.SideItem.SideItemTranslations.FirstOrDefault(x => x.Language.ToLower() == Thread.CurrentThread.CurrentCulture.Name.ToLower()).SideItemName))
@@ -101,6 +106,7 @@ namespace OperationSurvey.BLL
                 .RegisterType<IPermissionService, PermissionService>(new PerResolveLifetimeManager())
                 .RegisterType<IPermissionTranslationService, PermissionTranslationService>(new PerResolveLifetimeManager())
                 .RegisterType<IRolePermissionService, RolePermissionService>(new PerResolveLifetimeManager())
+                .RegisterType<ICategoryRoleService, CategoryRoleService>(new PerResolveLifetimeManager())
                 .RegisterType<IFormToMail, FormToMail>(new PerResolveLifetimeManager());
         }
 

@@ -20,6 +20,8 @@
             
         $scope.totalCount = DepartmentPrepService.totalCount;
         $scope.DepartmentList = DepartmentPrepService;
+
+        console.log( $scope.DepartmentList);
         var vm = this;
         function refreshDepartments() {
         blockUI.start("Loading..."); 
