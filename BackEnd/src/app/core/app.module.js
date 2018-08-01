@@ -15,6 +15,7 @@
     'ui.bootstrap',
     'pascalprecht.translate',
     'ADM-treeView',
-    'blockUI'
+    'blockUI',
+    'jkAngularRatingStars','angular.filter'
     ]);
 }());

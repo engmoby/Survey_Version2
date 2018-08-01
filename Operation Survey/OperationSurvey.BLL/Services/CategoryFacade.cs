@@ -75,7 +75,8 @@ namespace OperationSurvey.BLL.Services
 
                 categoryObj.CategoryRoles.Add(new CategoryRole
                 {
-                    RoleId = roleper.RoleId
+                    RoleId = roleper.RoleId,
+                    TenantId = tenantId
                 });
             }
             _categoryRoleService.InsertRange(categoryObj.CategoryRoles);
@@ -120,7 +121,8 @@ namespace OperationSurvey.BLL.Services
             {
                 categoryObj.CategoryRoles.Add(new CategoryRole
                 {
-                    RoleId = roleper.RoleId
+                    RoleId = roleper.RoleId,
+                    TenantId = tenantId
                 });
             }
 

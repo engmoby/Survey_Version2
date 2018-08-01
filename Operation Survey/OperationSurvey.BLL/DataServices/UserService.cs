@@ -34,7 +34,7 @@ namespace OperationSurvey.BLL.DataServices
         }
         public PagedResultsDto GetAllUsers(int page, int pageSize, int tenantId)
         {
-            var query = Queryable().Where(x => !x.IsActive && (x.TenantId == tenantId)).OrderBy(x => x.UserId);
+            var query = Queryable().Where(x => x.IsActive && (x.TenantId == tenantId)).OrderBy(x => x.UserId);
             PagedResultsDto results = new PagedResultsDto();
             results.TotalCount = _repository.Query(x => !x.IsDeleted).Select().Count(x => !x.IsDeleted);
             var modelReturn = query.OrderBy(x => x.UserId).Skip((page - 1) * pageSize).Take(pageSize).ToList();

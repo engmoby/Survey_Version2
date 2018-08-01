@@ -30,7 +30,7 @@ namespace OperationSurvey.DAL.Entities.Model
         public long CategoryId { get; set; }
         public virtual Category Category { get; set; }
 
-        public ICollection<QuestionTranslation> QuestionTranslations { get; set; }
+        public virtual ICollection<QuestionTranslation> QuestionTranslations { get; set; }
         public virtual ICollection<QuestionDetails> QuestionDetailses { get; set; }
         public virtual ICollection<AnswerDetails> AnswersdDetailses { get; set; }
         public int TenantId { get; set; }

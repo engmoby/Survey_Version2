@@ -206,6 +206,18 @@
 
                 })
 
+                .state('AnswerQuestion', {
+                    url: '/AnswerQuestion',
+                    templateUrl: './app/GlobalAdmin/AnswerQuestion/templates/AnswerQuestion.html',
+                    controller: 'AnswerQuestionDialogController',
+                    'controllerAs': 'AnswerQuestionCtrl',
+                    resolve: {
+                        AreaPrepService: AreaPrepService,
+                        BranchPrepService:BranchPrepService,
+                        QuestionPrepService:QuestionPrepService 
+                    }
+
+                })
         });
     /*User */
     userPrepService.$inject = ['UserResource']
@@ -290,5 +302,12 @@
     CategoryByIdPrepService.$inject = ['CategoryResource', '$stateParams']
     function CategoryByIdPrepService(CategoryResource, $stateParams) {
         return CategoryResource.getCategory({ categoryId: $stateParams.categoryId }).$promise;
+    }
+
+
+    /*Question */
+    QuestionPrepService.$inject = ['QuestionResource']
+    function QuestionPrepService(QuestionResource) {
+        return QuestionResource.getAllQuestions().$promise;
     }
 }());

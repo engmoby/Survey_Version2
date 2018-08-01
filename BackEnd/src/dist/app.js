@@ -206,6 +206,18 @@
 
                 })
 
+                .state('AnswerQuestion', {
+                    url: '/AnswerQuestion',
+                    templateUrl: './app/GlobalAdmin/AnswerQuestion/templates/AnswerQuestion.html',
+                    controller: 'AnswerQuestionDialogController',
+                    'controllerAs': 'AnswerQuestionCtrl',
+                    resolve: {
+                        AreaPrepService: AreaPrepService,
+                        BranchPrepService:BranchPrepService,
+                        QuestionPrepService:QuestionPrepService 
+                    }
+
+                })
         });
     userPrepService.$inject = ['UserResource']
     function userPrepService(UserResource) {
@@ -284,6 +296,12 @@
     function CategoryByIdPrepService(CategoryResource, $stateParams) {
         return CategoryResource.getCategory({ categoryId: $stateParams.categoryId }).$promise;
     }
+
+
+    QuestionPrepService.$inject = ['QuestionResource']
+    function QuestionPrepService(QuestionResource) {
+        return QuestionResource.getAllQuestions().$promise;
+    }
 }());
 (function() {
     'use strict';
@@ -325,6 +343,219 @@
       }
   })();
   (function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('AnswerQuestionDialogController', [  'blockUI', '$scope',  '$translate','$filter', 'CategoryResource','$state','QuestionPrepService', 'QuestionResource',  'AreaPrepService',   
+         'ToastService', AnswerQuestionDialogController]);
+
+    function AnswerQuestionDialogController(  blockUI, $scope,  $translate,$filter,CategoryResource, $state,QuestionPrepService, QuestionResource, AreaPrepService, ToastService) {
+
+                $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active") 
+        blockUI.start("Loading..."); 
+
+            var vm = this;  
+        $scope.likeText = "";
+        $scope.selectedArea = "";
+        $scope.areaList = AreaPrepService.results; 
+        $scope.questionList = QuestionPrepService.results;  
+        console.log( $scope.questionList);
+         $scope.IsLike = 0;
+        $scope.isLikeSub = 0;
+        $scope.selection = [];
+        $scope.selectedRate =0;
+        $scope.catet =" ";
+
+        angular.forEach($scope.questionList, function(value, key) {
+           debugger;
+           value.categoryTitle="dddddd" ;
+            console.log(key + ': ' + value);
+          });
+
+        $scope.oncateInit = function(val){
+            refreshCurrentProduct(val);
+            alert('On Rating: ' + val);
+          };
+          function refreshCurrentProduct(val) {
+
+            var k = CategoryResource.getCategory({ categoryId: val }).$promise.then(function (results) {
+
+                            $scope.catet =results;
+
+                           console.log($scope.catet);
+            },
+            function (data, status) {
+                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+            });
+        }
+  $scope.toggleSelection = function toggleSelection(fruitName) {
+    var idx = $scope.selection.indexOf(fruitName);
+
+    if (idx > -1) {
+      $scope.selection.splice(idx, 1);
+    }
+
+    else {
+      $scope.selection.push(fruitName);
+    }
+  };
+  $scope.rate = 3;
+  $scope.onItemRating = function(rating){
+    $scope.selectedRate =rating;
+     alert('On Rating: ' + rating);
+  };
+
+
+        $scope.areaChange = function () { 
+    $scope.branchList =  $scope.selectedArea.branches;
+ }
+
+
+        $scope.AddNewclient = function () {
+            blockUI.start("Loading..."); 
+
+                        var newClient = new UserResource();
+            newClient.FirstName = $scope.FirstName;
+            newClient.LastName = $scope.LastName;
+            newClient.Email = $scope.Email;
+            newClient.Phone = $scope.Phone;
+            newClient.Password = $scope.Password;
+            newClient.IsActive = true;
+            newClient.UserTypeId = $scope.selectedType.userTypeId;
+            newClient.UserRoles = vm.selectedUserRoles;
+            newClient.$create().then(
+                function (data, status) {
+                    blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientAddSuccess'), "success");
+
+                    localStorage.setItem('data', JSON.stringify(data.userId));
+                    $state.go('users');
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        vm.currentPage = 1;
+        $scope.changePage = function (page) {
+            vm.currentPage = page;
+            refreshUsers();
+        }
+
+        blockUI.stop();
+
+        }
+
+}());(function () {
+    angular
+        .module('home')
+        .factory('QuestionResource', ['$resource', 'appCONSTANTS', UserResource])
+
+    function UserResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Questions/', {}, {
+            getAllQuestions: { method: 'GET', url: appCONSTANTS.API_URL + 'Questions/GetAllQuestionsByUserId', useToken: true, params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Users/EditRegisterUser', useToken: true },
+            getUser: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/GetUserById/:UserId', useToken: true }
+        })
+    }
+
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('editUserController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate', '$state', 'UserResource', 'UserTypeResource',
+            'RoleResource', 'RolePrepService','$localStorage', 'authorizationService', 'appCONSTANTS', 'EditUserPrepService', 'ToastService', editUserController]);
+
+
+    function editUserController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource, UserTypeResource,
+        RoleResource,RolePrepService, $localStorage, authorizationService, appCONSTANTS, EditUserPrepService, ToastService) {
+
+        blockUI.start("Loading..."); 
+
+                $scope.isPaneShown = true;
+        $scope.$emit('LOAD')
+        var vm = this;
+        BindUserType();
+        vm.show = true;
+        $scope.roleList = RolePrepService.results; 
+        vm.selectedUserRoles = [];
+        $scope.userObj = EditUserPrepService;
+        $scope.userTypeList = [];
+        $scope.selectedType = "";
+        console.log($scope.userObj);
+        var i;
+        for (i = 0; i < $scope.userObj.userRoles.length; i++) {
+            var indexRate = $scope.roleList.indexOf($filter('filter')($scope.roleList, { 'roleId': $scope.userObj.userRoles[i].roleId }, true)[0]);
+            vm.selectedUserRoles.push($scope.roleList[indexRate]);
+
+        }
+
+
+
+        function BindUserType() {
+            blockUI.start("Loading..."); 
+
+                        var k = UserTypeResource.getAllUserTypes().$promise.then(function (results) {
+                    vm.getPageData = results;
+                    $scope.userTypeList = vm.getPageData.results;
+
+                    var indexRate = $scope.userTypeList.indexOf($filter('filter')($scope.userTypeList, { 'userTypeId': $scope.userObj.userTypeId }, true)[0]);
+                    $scope.selectedType = $scope.userTypeList[indexRate];
+                    blockUI.stop();
+
+
+                                                     },
+                function (data, status) {
+                    blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+        $scope.Updateclient = function () {
+            blockUI.start("Loading..."); 
+
+                        vm.show=false;
+            var newClient = new UserResource();
+            newClient.UserId =$scope.userObj.userId;             
+            newClient.Phone = $scope.userObj.phone;
+            newClient.Email = $scope.userObj.email;
+            newClient.Password = $scope.userObj.password;
+            newClient.IsActive = true;
+            newClient.UserTypeId = $scope.selectedType.userTypeId;
+            newClient.UserRoles = vm.selectedUserRoles;
+            newClient.$update().then(
+                function (data, status) {
+                    blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    vm.show=true;
+                    localStorage.setItem('data', JSON.stringify(data.userId));
+                    $state.go('users');
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        blockUI.stop();
+
+
+                    }
+
+})();(function () {
     'use strict';
 
     angular
@@ -645,7 +876,7 @@
 
     function CategoryResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Category/', {}, {
-            getAllCategorys: { method: 'GET', url: appCONSTANTS.API_URL + 'Category/GetAllCategorys', useToken: true, params: { lang: '@lang' } },
+            getAllCategorys: { method: 'GET', url: appCONSTANTS.API_URL + 'Category/GetAllCategories', useToken: true, params: { lang: '@lang' } },
             create: { method: 'POST', useToken: true },
             update: { method: 'POST', url: appCONSTANTS.API_URL + 'Category/EditCategory', useToken: true },
             getCategory: { method: 'GET', url: appCONSTANTS.API_URL + 'Category/GetCategoryById/:CategoryId', useToken: true }
@@ -898,6 +1129,158 @@
 
     angular
         .module('home')
+        .controller('QuestionController', [ 'blockUI', '$scope',  'QuestionResource', 'QuestionPrepService',  
+            'ToastService', QuestionController]);
+
+
+    function QuestionController(  blockUI, $scope,   QuestionResource, QuestionPrepService, ToastService) { 
+
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
+
+        blockUI.start("Loading..."); 
+
+                    var vm = this;
+        $scope.totalCount = QuestionPrepService.totalCount;
+        $scope.QuestionList = QuestionPrepService;
+        function refreshQuestions() {
+
+            blockUI.start("Loading..."); 
+
+                        var k = QuestionResource.getAllQuestions({page:vm.currentPage}).$promise.then(function (results) { 
+                $scope.QuestionList = results  
+                blockUI.stop();
+
+                            },
+            function (data, status) {
+                blockUI.stop();
+
+                                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+            });
+        }
+        vm.showMore = function (element) {
+            $(element.currentTarget).toggleClass("child-table-collapse");
+        }
+        vm.currentPage = 1;
+        $scope.changePage = function (page) {
+            vm.currentPage = page;
+            refreshQuestions();
+        }
+        blockUI.stop();
+
+            }
+
+})();
+(function () {
+    angular
+      .module('home')
+        .factory('QuestionResource', ['$resource', 'appCONSTANTS', QuestionResource]) 
+
+    function QuestionResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Questions/', {}, {
+            getAllQuestions: { method: 'GET', url: appCONSTANTS.API_URL + 'Questions/GetAllQuestions', useToken: true,  params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Questions/EditQuestion', useToken: true },
+            getQuestion: { method: 'GET', url: appCONSTANTS.API_URL + 'Questions/GetQuestionById/:QuestionId', useToken: true }
+        })
+    } 
+
+}());
+(function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('createQuestionDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
+            'QuestionResource', 'ToastService', '$rootScope', createQuestionDialogController])
+
+    function createQuestionDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, QuestionResource,
+        ToastService, $rootScope) {
+
+                blockUI.start("Loading..."); 
+
+            		var vm = this;
+		vm.language = appCONSTANTS.supportedLanguage;
+		vm.close = function(){
+			$state.go('Question');
+		} 
+
+		 		vm.AddNewQuestion = function () {
+            blockUI.start("Loading..."); 
+
+                        var newObj = new QuestionResource();
+            newObj.titleDictionary = vm.titleDictionary; 
+            newObj.IsDeleted = false; 
+            newObj.IsStatic =false;
+            newObj.$create().then(
+                function (data, status) { 
+        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success"); 
+                    $state.go('Question');
+                     blockUI.stop();        
+
+
+                },
+                function (data, status) {
+               blockUI.stop();        
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        blockUI.stop();
+
+  	}	
+}());
+(function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('editQuestionDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate', 'QuestionResource', 'ToastService',
+            'QuestionByIdPrepService', editQuestionDialogController])
+
+    function editQuestionDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, QuestionResource, ToastService, QuestionByIdPrepService) {
+        blockUI.start("Loading..."); 
+
+                var vm = this; 
+		vm.language = appCONSTANTS.supportedLanguage;
+        vm.Question = QuestionByIdPrepService; 
+        vm.Close = function () {
+            $state.go('Question');
+        }
+        vm.UpdateQuestion = function () { 
+            blockUI.start("Loading..."); 
+
+                        var updateObj = new QuestionResource();
+            updateObj.QuestionId = vm.Question.QuestionId;
+            updateObj.titleDictionary = vm.Question.titleDictionary;
+		    updateObj.IsDeleted = false;
+		    updateObj.IsStatic = false;
+		    updateObj.$update().then(
+                function (data, status) {
+                    blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+
+                     $state.go('Question');
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        blockUI.stop();
+
+        	}	
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
         .controller('createRoleDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
             'RoleResource','PermissionResource', 'ToastService', '$rootScope', createRoleDialogController])
 
@@ -1081,367 +1464,14 @@
     }
 }());
 (function () {
-    angular
-      .module('home')
-      .factory('getProductResource', ['$resource', 'appCONSTANTS', getProductResource])
-      .factory('EditResource', ['$resource', 'appCONSTANTS', EditResource])
-      .factory('CreateProductResource', ['$resource', 'appCONSTANTS', CreateProductResource]) ;
-
-    function getProductResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Products/GetProduct/:productId', {}, {
-            getProductInfo: { method: 'GET', useToken: true, params: { lang: '@lang' } }
-        })
-    }
-
-    function CreateProductResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Products/CreateProduct', {}, {
-            addProduct: { method: 'POST', useToken: true },
-        })
-    }
-
-     function EditResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Products/EditProduct', {}, {
-            updateProduct: { method: 'POST', useToken: true },
-         })
-    }
-
-            }());
-(function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('editProductDialogController', ['$scope','$http', '$state','appCONSTANTS','$translate', 'EditResource','ToastService','EditProductPrepService',  editProductDialogController])
-
-	function editProductDialogController($scope,$http, $state , appCONSTANTS, $translate, EditResource,ToastService, EditProductPrepService){
-		var vm = this; 
-		vm.language = appCONSTANTS.supportedLanguage;
-        vm.product = EditProductPrepService;
-        console.log(vm.product);
-		vm.close = function(){
-			$state.go('productList');
-		}
-		vm.Updateproduct = function () {
-            debugger;
-            var updateProduct = new EditResource();
-
-            updateProduct.productId = vm.product.productId;
-            updateProduct.titleDictionary = vm.product.titleDictionary;
-            updateProduct.ApiUrl = vm.product.apiUrl;  
-            updateProduct.$updateProduct().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('productEditSuccess'), "success");
-
-                   $state.go('productList');
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-	}	
-}());
-(function () {
     'use strict';
 
     angular
         .module('home')
-        .controller('productController', ['$rootScope', '$scope', '$filter', '$translate', '$state', 'ProductResource', 'AddProductResource', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', productController]);
+        .controller('editUserController', ['$rootScope', '$scope', '$filter', '$translate', '$state',    'UserResource', 'AddUserResource', 'UserProductResource', 'GetUserResource', '$localStorage', 'authorizationService', 'appCONSTANTS','EditUserPrepService', 'ToastService', editUserController]);
 
 
-    function productController($rootScope, $scope, $filter, $translate, $state, ProductResource, AddProductResource, $localStorage, authorizationService, appCONSTANTS, ToastService) {
-        $scope.numberLimit = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
-        $scope.Backages = [{
-            value: '1',
-            title: '1 Month'
-          }, 
-
-                  {
-            value: '3',
-            title: '3 Month'
-          },
-
-                  {
-            value: '6',
-            title: '6 Month'
-          },
-          {
-            value: '9',
-            title: '9 Month'
-          },
-          {
-            value: '12',
-            title: '12 Month'
-          },
-        ];   
-          $scope.showSelectValue = function(selectedBackage) {
-            $scope.packageLimit=selectedBackage.value;
-        }
-
-                 $scope.checkradioasd = -1;
-        $scope.productDetails = "";
-        $scope.UserId = JSON.parse(localStorage.getItem("data"));
-
-        refreshBackgrounds();
-        function refreshBackgrounds() {
-            var k = ProductResource.getProductsList().$promise.then(function (results) {
-                $scope.productList = results
-            },
-            function (data, status) {
-                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-            });
-        }
-
-        $scope.radioProductClick = function (product) {
-            $scope.checkradioasd = product.productId;
-            var indexRate = $scope.productList.results.indexOf($filter('filter')($scope.productList.results, { 'productId': product.productId }, true)[0]);
-            $scope.productDetails = $scope.productList.results[indexRate];
-        };
-
-        $scope.AddProductRequest = function () {
-
-                       if( $scope.UserLimit <= 0){
-
-                                ToastService.show("right", "bottom", "fadeInUp", $translate.instant('LimitUserValidation'), "error");
-
-                           return;
-                         }
-
-                                                        $scope.startDate1 = new Date($('#startdate').data('date'));
-            $scope.startDate = new Date($('#startdate').data('date'));
-            var numberOfDaysToAdd = parseInt($scope.packageLimit.value) ; 
-
-                        $scope.newdate = $scope.startDate.setMonth($scope.startDate.getMonth() + numberOfDaysToAdd); 
-            $scope.endDate = new Date($scope.newdate); 
-            var newRequest = new AddProductResource();
-            newRequest.ProductId = $scope.productDetails.productId;
-            newRequest.UserLimit = $scope.UserLimit;
-            newRequest.UserId = $scope.UserId;
-            newRequest.TotalPrice = $scope.totalPrice;
-            newRequest.StartDate = $scope.startDate1;
-            newRequest.EndDate = $scope.endDate;
-            newRequest.$addRequest().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('BackageAddSuccess'), "success");
-                    localStorage.removeItem('data');
-                    $state.go('users');
-
-                                    },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-
-
-
-    }
-
-})();(function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('productDialogController', ['$scope','$http','$state','appCONSTANTS','$translate' , 'CreateProductResource','ToastService','$rootScope',  productDialogController ])
-
-	function productDialogController($scope,$http , $state , appCONSTANTS, $translate , CreateProductResource,ToastService,$rootScope){
-		var vm = this;
-		vm.language = appCONSTANTS.supportedLanguage;
-		vm.close = function(){
-			$state.go('productList');
-		} 
-
-		         vm.AddNewProduct = function () {
-            var newProduct = new CreateProductResource();
-            newProduct.titleDictionary = vm.titleDictionary;
-            newProduct.ApiUrl = vm.apiUrl; 
-            newProduct.IsDeleted = false; 
-            newProduct.IsActive =true;
-            newProduct.$addProduct().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('productAddSuccess'), "success"); 
-                    $state.go('productList');
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-
-  	}	
-}());
-(function () {
-    angular
-      .module('home')
-      .factory('ProductResource', ['$resource', 'appCONSTANTS', ProductResource])
-      .factory('AddProductResource', ['$resource', 'appCONSTANTS', AddProductResource])
-      .factory('UserResource', ['$resource', 'appCONSTANTS', UserResource])
-      .factory('AddUserResource', ['$resource', 'appCONSTANTS', AddUserResource])
-      .factory('UserProductResource', ['$resource', 'appCONSTANTS', UserProductResource])
-      .factory('GetUserResource', ['$resource', 'appCONSTANTS', GetUserResource])
-      .factory('GetBackageResource', ['$resource', 'appCONSTANTS', GetBackageResource]);
-
-    function ProductResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Products/GetAllProducts', {}, {
-            getProductsList: { method: 'GET', params: { lang: '@lang' } }
-        })
-    }
-
-    function AddProductResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Products/AddProductRequest', {}, {
-            addRequest: { method: 'POST' },
-        })
-    }
-
-    function UserResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Users/GetAllUsers', {}, {
-          getAllUsers: { method: 'GET', params: { lang: '@lang' }  }
-        })
-    }
-    function AddUserResource($resource, appCONSTANTS) {
-              return $resource(appCONSTANTS.API_URL + 'Users/', {}, { 
-                create: { method: 'POST',useToken: true}
-              })
-            }
-
-            function UserProductResource($resource, appCONSTANTS) {
-                return $resource(appCONSTANTS.API_URL + 'Products/GetUserProductByUserId/:UserId', {}, {
-                    getUserProductList: { method: 'GET', params: { lang: '@lang' } }
-                })
-            }
-
-                        function GetUserResource($resource, appCONSTANTS) {
-                return $resource(appCONSTANTS.API_URL + 'Users/GetUserById/:UserId', {}, {
-                    getUserInfo: { method: 'GET', params: { lang: '@lang' } }
-                })
-            }
-
-                        function GetBackageResource($resource, appCONSTANTS) {
-                return $resource(appCONSTANTS.API_URL + 'Users/GetUserById/:UserId', {}, {
-                    getBackageInfo: { method: 'GET', params: { lang: '@lang' } }
-                })
-            }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('editProductController', ['$rootScope', '$scope', '$filter', '$translate', '$state', '$stateParams', 'ProductResource', 'AddProductResource', 'GetBackageResource', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', editProductController]);
-
-
-    function editProductController($rootScope, $scope, $filter, $translate, $state, $stateParams, ProductResource, AddProductResource, GetBackageResource, $localStorage, authorizationService, appCONSTANTS, ToastService) {
-        $scope.Backages = [{
-            value: '1',
-            title: '1 Month'
-        }, 
-          {
-              value: '3',
-              title: '3 Month'
-          },
-
-          {
-              value: '6',
-              title: '6 Month'
-          },
-          {
-              value: '9',
-              title: '9 Month'
-          },
-          {
-              value: '12',
-              title: '12 Month'
-          },
-        ];
-        $scope.showSelectValue = function (selectedBackage) {
-            $scope.packageLimit = selectedBackage.value;
-        }
-        $scope.ShowDate = true;
-        $scope.checkradioasd = -1;
-        $scope.productDetails = "";
-        $scope.UserId = JSON.parse(localStorage.getItem("data"));
-
-        refreshCurrentProduct();
-        function refreshCurrentProduct() {
-
-            var k = GetBackageResource.getBackageInfo({ backageGuid: $stateParams.backageGuid }).$promise.then(function (results) {
-                $scope.currentProduct = results
-                var inputDate = new Date($scope.currentProduct.endDate);
-                var todaysDate = new Date();
-
-                if (inputDate.setHours(0, 0, 0, 0) > todaysDate.setHours(0, 0, 0, 0)) {
-                    $scope.ShowDate = false;
-                }
-                console.log($scope.currentProduct);
-            },
-            function (data, status) {
-                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-            });
-        }
-
-        $scope.radioProductClick = function (product) {
-            $scope.checkradioasd = product.productId;
-            var indexRate = $scope.productList.results.indexOf($filter('filter')($scope.productList.results, { 'productId': product.productId }, true)[0]);
-            $scope.productDetails = $scope.productList.results[indexRate];
-        };
-
-        $scope.AddProductRequest = function () {
-            $scope.UserId = JSON.parse(localStorage.getItem("data"));
-            var x = 12;
-            $scope.startDate1 = "";
-            $scope.endDate = "";
-            x= parseInt($scope.packageLimit.value); 
-            if ($scope.ShowDate == true) {
-                $scope.startDate1 = new Date($('#startdate').data('date'));
-                $scope.startDate = new Date($('#startdate').data('date'));
-                $scope.newdate = $scope.startDate.setMonth($scope.startDate.getMonth() + x);
-                $scope.endDate = new Date($scope.newdate);
-            }
-            else {
-                $scope.startDate1 = $scope.currentProduct.startDate;
-                $scope.today = new Date($scope.currentProduct.endDate); 
-
-                             $scope.today.setMonth($scope.today.getMonth() + x);
-
-
-                                          $scope.newdate = $scope.today;
-                $scope.endDate = new Date($scope.newdate);
-            }
-
-            var newRequest = new AddProductResource();
-            newRequest.BackageGuid = $scope.currentProduct.backageGuid;
-            newRequest.StartDate = $scope.startDate1;
-            newRequest.EndDate = $scope.endDate;
-            newRequest.UserId = $scope.UserId;
-
-            newRequest.$addRequest().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp",  $translate.instant('Editeduccessfully'), "success");
-                    localStorage.removeItem('data');
-                    $state.go('users');
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-
-
-
-    }
-
-})();(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('editUserController', ['$rootScope', '$scope', '$filter', '$translate', '$state', 'ProductResource', 'AddProductResource', 'UserResource', 'AddUserResource', 'UserProductResource', 'GetUserResource', '$localStorage', 'authorizationService', 'appCONSTANTS','EditUserPrepService', 'ToastService', editUserController]);
-
-
-    function editUserController($rootScope, $scope, $filter, $translate, $state, ProductResource, AddProductResource, UserResource, AddUserResource, UserProductResource, GetUserResource, $localStorage, authorizationService, appCONSTANTS, EditUserPrepService,ToastService) {
+    function editUserController($rootScope, $scope, $filter, $translate, $state,   UserResource, AddUserResource, UserProductResource, GetUserResource, $localStorage, authorizationService, appCONSTANTS, EditUserPrepService,ToastService) {
         $scope.isPaneShown = true;
         $scope.$emit('LOAD')
         var vm = this;
@@ -1488,161 +1518,6 @@
         }
 
      }
-
-})();(function () {
-    angular
-      .module('home')
-      .factory('ProductResource', ['$resource', 'appCONSTANTS', ProductResource])
-      .factory('AddProductResource', ['$resource', 'appCONSTANTS', AddProductResource])
-      .factory('UserResource', ['$resource', 'appCONSTANTS', UserResource])
-      .factory('AddUserResource', ['$resource', 'appCONSTANTS', AddUserResource])
-      .factory('UserProductResource', ['$resource', 'appCONSTANTS', UserProductResource])
-      .factory('GetUserResource', ['$resource', 'appCONSTANTS', GetUserResource])
-      .factory('GetBackageResource', ['$resource', 'appCONSTANTS', GetBackageResource]);
-
-    function ProductResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Products/GetAllProducts', {}, {
-            getProductsList: { method: 'GET',  useToken: true,params: { lang: '@lang' } }
-        })
-    }
-
-    function AddProductResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Products/AddProductRequest', {}, {
-            addRequest: { method: 'POST', useToken: true },
-        })
-    }
-
-    function UserResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Users/GetAllUsers', {}, {
-          getAllUsers: { method: 'GET', useToken: true, params: { lang: '@lang' }  }
-        })
-    }
-    function AddUserResource($resource, appCONSTANTS) {
-              return $resource(appCONSTANTS.API_URL + 'Users/', {}, { 
-                create: { method: 'POST',useToken: true}
-              })
-            }
-
-            function UserProductResource($resource, appCONSTANTS) {
-                return $resource(appCONSTANTS.API_URL + 'Products/GetUserProductByUserId/:UserId', {}, {
-                    getUserProductList: { method: 'GET', useToken: true, params: { lang: '@lang' } }
-                })
-            }
-
-                        function GetUserResource($resource, appCONSTANTS) {
-                return $resource(appCONSTANTS.API_URL + 'Users/GetUserById/:UserId', {}, {
-                    getUserInfo: { method: 'GET', useToken: true, params: { lang: '@lang' } }
-                })
-            }
-
-                        function GetBackageResource($resource, appCONSTANTS) {
-                return $resource(appCONSTANTS.API_URL + 'Products/GetProductByBackageId/:backageGuid', {}, {
-                    getBackageInfo: { method: 'GET', useToken: true, params: { lang: '@lang' } }
-                })
-            }
-
-            }());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('productController', ['$rootScope', '$scope', '$filter', '$translate', '$state', 'ProductResource', 'AddProductResource', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', productController]);
-
-
-    function productController($rootScope, $scope, $filter, $translate, $state, ProductResource, AddProductResource, $localStorage, authorizationService, appCONSTANTS, ToastService) {
-        var vm = this;
-        vm.hide=false;
-         $scope.numberLimit = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
-        $scope.Backages = [{
-            value: '1',
-            title: '1 Month'
-          }, 
-
-                  {
-            value: '3',
-            title: '3 Month'
-          },
-
-                  {
-            value: '6',
-            title: '6 Month'
-          },
-          {
-            value: '9',
-            title: '9 Month'
-          },
-          {
-            value: '12',
-            title: '12 Month'
-          },
-        ];   
-          $scope.showSelectValue = function(selectedBackage) {
-            $scope.packageLimit=selectedBackage.value;
-        }
-
-                 $scope.checkradioasd = -1;
-        $scope.productDetails = "";
-        $scope.UserId = JSON.parse(localStorage.getItem("data"));
-
-        refreshBackgrounds();
-        function refreshBackgrounds() {
-            var k = ProductResource.getProductsList().$promise.then(function (results) {
-                $scope.productList = results
-
-                          console.log( $scope.productList); 
-              },
-            function (data, status) {
-                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-            });
-        }
-
-        $scope.radioProductClick = function (product) {
-            $scope.checkradioasd = product.productId;
-            var indexRate = $scope.productList.results.indexOf($filter('filter')($scope.productList.results, { 'productId': product.productId }, true)[0]);
-            $scope.productDetails = $scope.productList.results[indexRate];
-        };
-
-        $scope.AddProductRequest = function () {
-            vm.hide=true;
-
-                        if( $scope.UserLimit <= 0){
-
-                                ToastService.show("right", "bottom", "fadeInUp", $translate.instant('LimitUserValidation'), "error");
-
-                           return;
-                         }
-
-                                                        $scope.startDate1 = new Date($('#startdate').data('date'));
-            $scope.startDate = new Date($('#startdate').data('date'));
-            var numberOfDaysToAdd = parseInt($scope.packageLimit.value) ; 
-
-                        $scope.newdate = $scope.startDate.setMonth($scope.startDate.getMonth() + numberOfDaysToAdd); 
-            $scope.endDate = new Date($scope.newdate); 
-            var newRequest = new AddProductResource();
-            newRequest.ProductId = $scope.productDetails.productId;
-            newRequest.UserLimit = $scope.UserLimit;
-            newRequest.UserId = $scope.UserId;
-            newRequest.TotalPrice = $scope.totalPrice;
-            newRequest.StartDate = $scope.startDate1;
-            newRequest.EndDate = $scope.endDate;
-            newRequest.$addRequest().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('BackageAddSuccess'), "success");
-                    localStorage.removeItem('data');
-                    $state.go('users');
-                                       vm.hide=false;
-
-                 },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-
-
-
-    }
 
 })();(function () {
     'use strict';

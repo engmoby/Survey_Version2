@@ -71,7 +71,8 @@ namespace OperationSurvey.BLL.Services
                 roleObj.RolePermissions.Add(new RolePermission
                 { 
                     PermissionId = roleper.PermissionId,
-                    ActionId = 1
+                    ActionId = 1,
+                    TenantId = tenantId
                 });
             }
 
@@ -121,7 +122,8 @@ namespace OperationSurvey.BLL.Services
                 roleObj.RolePermissions.Add(new RolePermission
                 { 
                     PermissionId = roleper.PermissionId,
-                    ActionId = 1
+                    ActionId = 1,
+                    TenantId = tenantId
                 });
             }
             roleObj.LastModificationTime = Strings.CurrentDateTime;

@@ -3,10 +3,10 @@
 
     angular
         .module('home')
-        .controller('editUserController', ['$rootScope', '$scope', '$filter', '$translate', '$state', 'ProductResource', 'AddProductResource', 'UserResource', 'AddUserResource', 'UserProductResource', 'GetUserResource', '$localStorage', 'authorizationService', 'appCONSTANTS','EditUserPrepService', 'ToastService', editUserController]);
+        .controller('editUserController', ['$rootScope', '$scope', '$filter', '$translate', '$state',    'UserResource', 'AddUserResource', 'UserProductResource', 'GetUserResource', '$localStorage', 'authorizationService', 'appCONSTANTS','EditUserPrepService', 'ToastService', editUserController]);
 
 
-    function editUserController($rootScope, $scope, $filter, $translate, $state, ProductResource, AddProductResource, UserResource, AddUserResource, UserProductResource, GetUserResource, $localStorage, authorizationService, appCONSTANTS, EditUserPrepService,ToastService) {
+    function editUserController($rootScope, $scope, $filter, $translate, $state,   UserResource, AddUserResource, UserProductResource, GetUserResource, $localStorage, authorizationService, appCONSTANTS, EditUserPrepService,ToastService) {
         $scope.isPaneShown = true;
         $scope.$emit('LOAD')
         var vm = this;

@@ -20,7 +20,7 @@ namespace OperationSurvey.DAL.Migrations
             context.UserTypes.AddOrUpdate(h => h.UserTypeId,suerType1);
             context.UserTypes.AddOrUpdate(h => h.UserTypeId,suerType2);
 
-            var suerTypeTreanslation1 = new UserTypeTranslation { Language = "en", Title = "EMployee",UserType = suerType1};
+            var suerTypeTreanslation1 = new UserTypeTranslation { Language = "en", Title = "Employee",UserType = suerType1};
             var suerTypeTreanslation2 = new UserTypeTranslation { Language = "ar", Title = "الموظفين",UserType = suerType1 };
             context.UserTypeTranslations.AddOrUpdate(h => h.UserTypeTranslationId, suerTypeTreanslation1);
             context.UserTypeTranslations.AddOrUpdate(h => h.UserTypeTranslationId, suerTypeTreanslation2);
@@ -31,7 +31,7 @@ namespace OperationSurvey.DAL.Migrations
             context.UserTypeTranslations.AddOrUpdate(h => h.UserTypeTranslationId, suerTypeTreanslation3);
             context.UserTypeTranslations.AddOrUpdate(h => h.UserTypeTranslationId, suerTypeTreanslation4);
 
-            context.Users.Add(new User
+            context.Users.AddOrUpdate(new User
             {
                 IsDeleted = false,
                 FirstName = "Admin",
@@ -39,7 +39,7 @@ namespace OperationSurvey.DAL.Migrations
                 Password = "wArilz/QIT55GuLgpRQlCHX0lir/WTXM8yc33MPiN3Bl26dnvS752gHPadYZoL20",
                 Phone = "0411111111",
                 Email = "admin@gmail.com",
-                UserTypeId = 1,
+                UserType = suerType1,
                 TenantId = 1
             });
 

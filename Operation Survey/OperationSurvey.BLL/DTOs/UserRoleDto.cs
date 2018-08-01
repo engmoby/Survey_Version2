@@ -8,10 +8,10 @@ namespace OperationSurvey.BLL.DTOs
         public long UserRoleId { get; set; }
 
         public long UserId { get; set; }
-        public virtual UserDto User { get; set; }
+        //public UserDto User { get; set; }
 
         public long RoleId { get; set; }
-        public virtual RoleDto Role { get; set; }
+        public RoleDto Role { get; set; }
     }
 }
 

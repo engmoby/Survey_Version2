@@ -266,6 +266,8 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AnswerController.cs" />
+    <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\BranchController.cs" />
@@ -281,6 +283,10 @@
     <Compile Include="Infrastructure\Filters\CustomExceptionFilter.cs" />
     <Compile Include="Infrastructure\ImageConvert.cs" />
     <Compile Include="Infrastructure\LanguageMessageHandler.cs" />
+    <Compile Include="Models\AnswerDetailsModel.cs" />
+    <Compile Include="Models\AnswerModel.cs" />
+    <Compile Include="Models\QuestionDetailsModel.cs" />
+    <Compile Include="Models\QuestionModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\CategoryRoleModel.cs" />
     <Compile Include="Models\DepartmentModel.cs" />

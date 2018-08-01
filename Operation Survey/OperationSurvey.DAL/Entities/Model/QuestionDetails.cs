@@ -5,13 +5,13 @@ using Repository.Pattern.Ef6;
 
 namespace OperationSurvey.DAL.Entities.Model
 {
-    public   class QuestionDetails : Entity
+    public class QuestionDetails : Entity
     {
         public QuestionDetails()
         {
             QuestionDetailsTranslations = new List<QuestionDetailsTranslation>();
         }
-        public ICollection<QuestionDetailsTranslation> QuestionDetailsTranslations { get; set; }
+        public virtual ICollection<QuestionDetailsTranslation> QuestionDetailsTranslations { get; set; }
         public long QuestionDetailsId { get; set; }
         public bool IsStatic { get; set; }
         public bool IsDeleted { get; set; }

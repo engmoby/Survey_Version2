@@ -72,14 +72,16 @@ namespace OperationSurvey.BLL
             mapperConfiguration.CreateMap<CategoryRoleDto, CategoryRole>();
             mapperConfiguration.CreateMap<CategoryRole, CategoryRoleDto>();
 
-            //mapperConfiguration.CreateMap<ItemSideItem, SideItemDTO>()
-            //    .ForMember(dest => dest.SideItemName, m => m.MapFrom(src => src.SideItem.SideItemTranslations.FirstOrDefault(x => x.Language.ToLower() == Thread.CurrentThread.CurrentCulture.Name.ToLower()).SideItemName))
-            //    .ForMember(dest => dest.Value, m => m.MapFrom(src => src.SideItem.Value))
-            //    .ForAllMembers(opts => opts.Condition(src =>
-            //    {
-            //        var sideItemTranslation = src.SideItem.SideItemTranslations.FirstOrDefault(x => x.Language.ToLower() ==Thread.CurrentThread.CurrentCulture.Name.ToLower());
-            //        return sideItemTranslation != null && sideItemTranslation.SideItemName != null;
-            //    }));
+            mapperConfiguration.CreateMap<QuestionDto, Question>();
+            mapperConfiguration.CreateMap<Question, QuestionDto>()
+                .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.QuestionTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
+                .ForMember(dto => dto.CategoryId, m => m.MapFrom(src => src.Category.CategoryId));
+
+
+            mapperConfiguration.CreateMap<QuestionDetailsDto, QuestionDetails>();
+            mapperConfiguration.CreateMap<QuestionDetails, QuestionDetailsDto>()
+                .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.QuestionDetailsTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
+
 
             Mapper.Initialize(mapperConfiguration);
         }
@@ -107,6 +109,8 @@ namespace OperationSurvey.BLL
                 .RegisterType<IPermissionTranslationService, PermissionTranslationService>(new PerResolveLifetimeManager())
                 .RegisterType<IRolePermissionService, RolePermissionService>(new PerResolveLifetimeManager())
                 .RegisterType<ICategoryRoleService, CategoryRoleService>(new PerResolveLifetimeManager())
+                .RegisterType<IQuestionService, QuestionService>(new PerResolveLifetimeManager())
+                .RegisterType<IQuestionTranslationService, QuestionTranslationService>(new PerResolveLifetimeManager())
                 .RegisterType<IFormToMail, FormToMail>(new PerResolveLifetimeManager());
         }
 
