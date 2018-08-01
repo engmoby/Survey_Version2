@@ -23,6 +23,7 @@ namespace OperationSurvey.BLL.DTOs
         public long? DeleterUserId { get; set; }
         public int UserTypeId { get; set; }
         public int BranchId { get; set; }
+        public UserTypeDto UserType { get; set; }
         public List<UserRoleDto> UserRoles { get; set; }
         public int TenantId { get; set; }
 

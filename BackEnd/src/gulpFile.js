@@ -76,6 +76,8 @@ var runSequence = require('run-sequence').use(gulp);
      './node_modules/select2/dist/js/select2.full.min.js',
      './assets/js/moment-with-locales.js',
      './assets/js/bootstrap-datetimepicker.js', 
+     './assets/js/jk-rating-stars.min.js', 
+     './assets/js/angular-filter.js', 
       './node_modules/adm-trv/dist/ADM-treeView.js',   
        
   ],

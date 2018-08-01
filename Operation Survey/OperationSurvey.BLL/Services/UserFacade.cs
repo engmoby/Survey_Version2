@@ -33,6 +33,8 @@ namespace OperationSurvey.BLL.Services
         public UserDto ValidateUser(string email, string password)
         {
             string encryptedPassword = PasswordHelper.Encrypt(password);
+            var t = _userService.ValidateUser(email, encryptedPassword);
+            var kk = Mapper.Map<UserDto>(t);
             var user = Mapper.Map<UserDto>(_userService.ValidateUser(email, encryptedPassword)) ?? Mapper.Map<UserDto>(_userService.CheckUserIsDeleted(email, encryptedPassword));
             if (user == null) throw new ValidationException(ErrorCodes.UserNotFound);
 
@@ -144,7 +146,8 @@ namespace OperationSurvey.BLL.Services
 
                 userObj.UserRoles.Add(new UserRole
                 {
-                    RoleId = roleper.RoleId
+                    RoleId = roleper.RoleId,
+                    TenantId = tenantId
                 });
             }
             _userRoleService.InsertRange(userObj.UserRoles);
@@ -185,7 +188,8 @@ namespace OperationSurvey.BLL.Services
             {
                 userObj.UserRoles.Add(new UserRole
                 {
-                    RoleId = roleper.RoleId
+                    RoleId = roleper.RoleId,
+                    TenantId = tenantId
                 });
             }
 

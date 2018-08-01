@@ -53,6 +53,7 @@ namespace OperationSurvey.BLL.Services
 
             branchObj.CreationTime = Strings.CurrentDateTime;
             branchObj.CreatorUserId = userId;
+            branchObj.TenantId = tenantId;
             _typeTranslationService.InsertRange(branchObj.BranchTranslations);
             _branchService.Insert(branchObj);
             SaveChanges();

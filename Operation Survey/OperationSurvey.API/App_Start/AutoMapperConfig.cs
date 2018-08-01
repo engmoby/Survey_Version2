@@ -2,6 +2,7 @@
 using OperationSurvey.API.Models;
 using OperationSurvey.BLL;
 using OperationSurvey.BLL.DTOs;
+using OperationSurvey.DAL.Entities.Model;
 
 namespace OperationSurvey.API
 {
@@ -50,8 +51,12 @@ namespace OperationSurvey.API
             mapperConfiguration.CreateMap<PermissionModel, RolePermissionDto>();
             mapperConfiguration.CreateMap<RolePermissionDto, PermissionModel>();
 
-            mapperConfiguration.CreateMap<BackgroundModel, BackgroundDto>();
-            mapperConfiguration.CreateMap<BackgroundDto, BackgroundModel>(); 
+
+            mapperConfiguration.CreateMap<QuestionModel, QuestionDto>();
+            mapperConfiguration.CreateMap<QuestionDto, QuestionModel>();
+
+            mapperConfiguration.CreateMap<QuestionDetailsModel, QuestionDetails>();
+            mapperConfiguration.CreateMap<QuestionDetailsDto, QuestionDetailsModel>();
 
             OperationSurveyBllConfig.RegisterMappings(mapperConfiguration); 
 

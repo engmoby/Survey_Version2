@@ -94,6 +94,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataServices\AnswerService.cs" />
+    <Compile Include="DataServices\Interfaces\IAnswerService.cs" />
+    <Compile Include="DataServices\Interfaces\IQuestionService.cs" />
+    <Compile Include="DataServices\Interfaces\IQuestionTranslationService.cs" />
+    <Compile Include="DataServices\QuestionService.cs" />
+    <Compile Include="DataServices\QuestionTranslationService.cs" />
     <Compile Include="DataServices\CategoryRoleService.cs" />
     <Compile Include="DataServices\CategoryService.cs" />
     <Compile Include="DataServices\CategoryTranslationService.cs" />
@@ -134,6 +140,10 @@
     <Compile Include="DataServices\RefreshTokenService.cs" />
     <Compile Include="DataServices\UserTypeService.cs" />
     <Compile Include="DataServices\UserService.cs" />
+    <Compile Include="DTOs\AnswerDetailsDto.cs" />
+    <Compile Include="DTOs\AnswerDto.cs" />
+    <Compile Include="DTOs\QuestionDetailsDto.cs" />
+    <Compile Include="DTOs\QuestionDto.cs" />
     <Compile Include="DTOs\CategoryDto.cs" />
     <Compile Include="DTOs\CategoryRoleDto.cs" />
     <Compile Include="DTOs\DepartmentDto.cs" />
@@ -149,6 +159,10 @@
     <Compile Include="DTOs\BranchDto.cs" />
     <Compile Include="DTOs\UserTypeDto.cs" />
     <Compile Include="DTOs\UserDto.cs" />
+    <Compile Include="Services\AnswerFacade.cs" />
+    <Compile Include="Services\Interfaces\IAnswerFacade.cs" />
+    <Compile Include="Services\Interfaces\IQuestionFacade.cs" />
+    <Compile Include="Services\QuestionFacade.cs" />
     <Compile Include="Services\CategoryFacade.cs" />
     <Compile Include="Services\DepartmentFacade.cs" />
     <Compile Include="Services\BackgroundFacade.cs" />
