@@ -49,14 +49,14 @@
         <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'Area' | translate}}</label>
 
-            <select style="width:50% !important" class="form-control select-add-tags pmd-select2-tags" ng-change="areaChange()"
+            <select style="width:50% !important" class="form-control select-with-search pmd-select2-tags" ng-change="areaChange()"
                     ng-model="selectedArea" ng-options="a as a.titleDictionary[selectedLanguage] for a in areaList"></select>
         </div>
 
         <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'Branch' | translate}}</label>
 
-            <select style="width:50% !important" class="form-control select-add-tags pmd-select2-tags"
+            <select style="width:50% !important" class="form-control select-with-search pmd-select2-tags"   
                     ng-model="selectedBranch" ng-options="a as a.titleDictionary[selectedLanguage] for a in branchList"></select>
         </div>
 
@@ -85,7 +85,8 @@
                                     <input 
                                       type="checkbox"
                                       name="selectedDetails[]"
-                                      value="{{QuestionDetail.QuestionDetailsId}}"
+                                      ng-model="ques.answer.value=selection"
+                                       value="{{QuestionDetail.QuestionDetailsId}}"
                                       ng-checked="selection.indexOf(QuestionDetail) > -1"
                                       ng-click="toggleSelection(QuestionDetail)">
                                      {{QuestionDetail.titleDictionary[selectedLanguage]}} 
@@ -94,19 +95,21 @@
         
                             <div ng-if="ques.questionTypeId == 2">
                                 <!--Rate-->
-                <jk-rating-stars rating="rate"   on-rating="onItemRating(rating)" class="my-custom-stars hideMinus"></jk-rating-stars>
+                <jk-rating-stars rating="rate" ng-model="ques.answer.value==rate" on-rating="onItemRating(rating,ques.questionId,ques.Comment)" class="my-custom-stars hideMinus"></jk-rating-stars>
                             </div>
         
                             <div ng-if="ques.questionTypeId == 3">
-                                <!--Like / DisLike-->
-                                <i ng-init="ques.IsLike=1" ng-model="ques.IsLike" required name="likeDis" ng-click="ques.IsLike = LikeDisLikeSubmit(1)" class="fa fa-thumbs-up" style="font-size:24px"></i>
-                                <i ng-model="ques.IsLike" required name="likeDis" ng-click="ques.IsLike = LikeDisLikeSubmit(0)" class="fa fa-thumbs-down" style="font-size:24px"></i>
+                         
+                            <!--Like / DisLike-->
+                                <!-- <i ng-init="ques.answer.value=1" ng-model="ques.answer.value" required name="likeDis" ng-click="ques.answer.ques.IsLike = LikeDisLikeSubmit(1)" class="fa fa-thumbs-up" style="font-size:24px"></i> -->
+           <i ng-model="ques.answer.value" required name="likeDis" ng-click="ques.answer.value = 1" class="fa fa-thumbs-up" style="font-size:24px"></i>
+          <i ng-model="ques.answer.value" required name="like" ng-click="ques.answer.value = 0" class="fa fa-thumbs-down" style="font-size:24px"></i>
+                              
+                                <div ng-if="ques.answer.value == 1">Like</div>
+                                <div ng-if="ques.answer.value == 0">Disike</div>
         
-                                <div ng-if="ques.IsLike == 1">Like</div>
-                                <div ng-if="ques.IsLike == 0">Disike</div>
-        
-                            </div>
-                            <textarea class="form-control" ng-model="ques.Comment" placeholder="Type Notes" name="comment"></textarea>
+                            </div> 
+                            <textarea class="form-control" ng-model="ques.answer.note" placeholder="Type Notes" name="comment"></textarea>
                         </div>
                 </li>
                      
@@ -117,20 +120,16 @@
         </div> 
 
  
-    <button ng-click="save(SurveyListTabDisplay)" type="button" class="btn btn-primary btn-with-icon" ng-disabled="FormAnswer.$invalid">
+    <button ng-click="AddAnswer(questionList)" type="button" class="btn btn-primary btn-with-icon" >
         <i class="ion-android-checkmark-circle"></i>Save
     </button>
 </form>
  
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".select-add-tags").select2({
-            tags: true,
-            theme: "bootstrap",
-            insertTag: function (data, tag) {
-                data.push(tag);
-            }
-        });
+        $(".select-with-search").select2({
+			theme: "bootstrap"
+		});
     });
 </script>
 <script type="text/javascript">

@@ -11,6 +11,7 @@ namespace OperationSurvey.API.Models
         public DateTime CreationTime { get; set; }
         public long? CreatorUserId { get; set; }
         public Enums.QuestionType QuestionTypeId { get; set; }
+        public string[] Values { get; set; }
         public string Value { get; set; }
         public string Note { get; set; }
 

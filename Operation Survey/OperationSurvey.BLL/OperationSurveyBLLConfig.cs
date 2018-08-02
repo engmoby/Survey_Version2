@@ -111,6 +111,8 @@ namespace OperationSurvey.BLL
                 .RegisterType<ICategoryRoleService, CategoryRoleService>(new PerResolveLifetimeManager())
                 .RegisterType<IQuestionService, QuestionService>(new PerResolveLifetimeManager())
                 .RegisterType<IQuestionTranslationService, QuestionTranslationService>(new PerResolveLifetimeManager())
+                .RegisterType<IAnswerService, AnswerService>(new PerResolveLifetimeManager())
+                .RegisterType<IAnswerDetailsService, AnswerDetailsService>(new PerResolveLifetimeManager())
                 .RegisterType<IFormToMail, FormToMail>(new PerResolveLifetimeManager());
         }
 

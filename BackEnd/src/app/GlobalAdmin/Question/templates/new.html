@@ -28,6 +28,28 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label for="first-name">{{'Department' | translate}}</label>
+                        
+                                    <select style="width:50% !important" class="form-control select-with-search pmd-select2-tags" ng-change="newQuestionCtrl.departmentChange()"
+                                            ng-model="selectedDepartment" ng-options="a as a.titleDictionary[selectedLanguage] for a in newQuestionCtrl.departmentList"></select>
+                                </div>
+                        
+                                <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label for="first-name">{{'Category' | translate}}</label>
+                        
+                                    <select style="width:50% !important" class="form-control select-with-search pmd-select2-tags"   
+                                            ng-model="selectedCategory" ng-options="a as a.titleDictionary[selectedLanguage] for a in newQuestionCtrl.categoryList"></select>
+                                </div>
+                                <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label for="first-name">{{'QuestionType' | translate}}</label>
+                        
+                                    <select style="width:50% !important" class="form-control select-with-search pmd-select2-tags"  
+                                            ng-model="selectedDepartment" ng-options="a as a.titleDictionary[selectedLanguage] for a in newQuestionCtrl.QuestionTypeList"></select>
+                                </div>
+                        
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -39,3 +61,11 @@
         <button class="btn pmd-ripple-effect btn-default" Question="button" ng-click="$state.go('Question');">{{'DiscardBtn' | translate}}</button>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select-with-search").select2({
+			theme: "bootstrap"
+		});
+    });
+</script>

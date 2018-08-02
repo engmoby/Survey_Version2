@@ -58,6 +58,13 @@ namespace OperationSurvey.API
             mapperConfiguration.CreateMap<QuestionDetailsModel, QuestionDetails>();
             mapperConfiguration.CreateMap<QuestionDetailsDto, QuestionDetailsModel>();
 
+
+            mapperConfiguration.CreateMap<Answer, AnswerDto>();
+            mapperConfiguration.CreateMap<AnswerDto, Answer>();
+
+            mapperConfiguration.CreateMap<AnswerDetails, AnswerDetailsDto>();
+            mapperConfiguration.CreateMap<AnswerDetailsDto, AnswerDetails>();
+
             OperationSurveyBllConfig.RegisterMappings(mapperConfiguration); 
 
         }

@@ -8,7 +8,6 @@ namespace OperationSurvey.BLL.DTOs
     {
         public long QuestionId { get; set; }
         public Dictionary<string, string> TitleDictionary { get; set; }
-
         public bool IsStatic { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? LastModificationTime { get; set; }
@@ -17,10 +16,13 @@ namespace OperationSurvey.BLL.DTOs
         public long? CreatorUserId { get; set; }
         public DateTime? DeletionTime { get; set; }
         public long? DeleterUserId { get; set; }
-        public int CategoryId { get; set; }
         public List<QuestionDetailsDto> QuestionDetailses { get; set; }
+        public int CategoryId { get; set; }
         public Enums.QuestionType QuestionTypeId { get; set; }
-        public   CategoryDto Category { get; set; }
+        public CategoryDto Category { get; set; }
+        public List<AnswerDetailsDto> AnswersdDetailses { get; set; }
+      //  public AnswerDetailsDto Answer { get; set; }
+
     }
 }
 

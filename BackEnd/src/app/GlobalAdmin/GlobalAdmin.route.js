@@ -182,14 +182,13 @@
                     }
 
                 })
-
                 .state('newCategory', {
-                    url: '/newCategory/:departmentId',
+                    url: '/newCategory/:QuestionId',
                     templateUrl: './app/GlobalAdmin/Category/templates/new.html',
                     controller: 'createCategoryDialogController',
                     'controllerAs': 'newCategoryCtrl',
                     resolve: {
-                        DepartmentByIdPrepService: DepartmentByIdPrepService,
+                        QuestionByIdPrepService: QuestionByIdPrepService,
                         RolePrepService:RolePrepService
                     }
 
@@ -218,6 +217,40 @@
                     }
 
                 })
+                
+
+                .state('Question', {
+                    url: '/Question',
+                    templateUrl: './app/GlobalAdmin/Question/templates/Question.html',
+                    controller: 'QuestionController',
+                    'controllerAs': 'QuestionCtrl',
+                    resolve: {
+                        QuestionPrepService: QuestionPrepService
+                    }
+
+                })
+                .state('newQuestion', {
+                    url: '/newQuestion',
+                    templateUrl: './app/GlobalAdmin/Question/templates/new.html',
+                    controller: 'createQuestionDialogController',
+                    'controllerAs': 'newQuestionCtrl',
+                    resolve: {
+                        DepartmentPrepService: DepartmentPrepService
+                    }
+
+                })
+                .state('editQuestion', {
+                    url: '/editQuestion/:QuestionId',
+                    templateUrl: './app/GlobalAdmin/Question/templates/edit.html',
+                    controller: 'editQuestionDialogController',
+                    'controllerAs': 'editQuestionCtrl',
+                    resolve: {
+                        QuestionByIdPrepService: QuestionByIdPrepService
+                    }
+
+                })
+
+ 
         });
     /*User */
     userPrepService.$inject = ['UserResource']
@@ -293,6 +326,7 @@
     }
 
 
+
     /*Category */
     CategoryPrepService.$inject = ['CategoryResource']
     function CategoryPrepService(CategoryResource) {
@@ -310,4 +344,10 @@
     function QuestionPrepService(QuestionResource) {
         return QuestionResource.getAllQuestions().$promise;
     }
+
+    QuestionByIdPrepService.$inject = ['QuestionResource', '$stateParams']
+    function QuestionByIdPrepService(QuestionResource, $stateParams) {
+        return QuestionResource.getQuestion({ QuestionId: $stateParams.QuestionId }).$promise;
+    }
+
 }());

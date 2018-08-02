@@ -15,6 +15,7 @@ namespace OperationSurvey.BLL.DTOs
 
         public long UserId { get; set; }
         public UserDto User { get; set; }
+        public QuestionDto QuestionModel { get; set; }
 
         public ICollection<AnswerDetailsDto> AnswersdDetailses { get; set; }
         public int TenantId { get; set; }

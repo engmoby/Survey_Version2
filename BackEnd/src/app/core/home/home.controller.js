@@ -51,9 +51,10 @@
                 $scope.afterSubmit = false;
             }
         };
-		
+		 
         $scope.reloadPage = true;
         $rootScope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams) {
+        
             if(fromState.name != "" && $scope.reloadPage){
                     e.preventDefault();
                     $scope.reloadPage = false;

@@ -11,17 +11,17 @@ namespace OperationSurvey.API.Controllers
 {
     public class AnswerController : BaseApiController
     { 
-        private readonly IAnswerFacade _AnswerFacade;
-        public AnswerController(IAnswerFacade AnswerFacade)
+        private readonly IAnswerFacade _answerFacade;
+        public AnswerController(IAnswerFacade answerFacade)
         {
-            _AnswerFacade = AnswerFacade; 
+            _answerFacade = answerFacade; 
         }
 
         [Route("api/Answers/GetAllAnswers", Name = "GetAllAnswers")]
         [HttpGet]
         public IHttpActionResult GetAllAnswers(int page = Page, int pagesize = PageSize)
         {
-            PagedResultsDto answerObj = _AnswerFacade.GetAllAnswers(page, pagesize, TenantId);
+            PagedResultsDto answerObj = _answerFacade.GetAllAnswers(page, pagesize, TenantId);
             var data = Mapper.Map<List<AnswerModel>>(answerObj.Data);
             return PagedResponse("GetAllAnswers", page, pagesize, answerObj.TotalCount, data, answerObj.IsParentTranslated);
         }
@@ -31,27 +31,26 @@ namespace OperationSurvey.API.Controllers
         [HttpPost]
         public IHttpActionResult CreateAnswer([FromBody] AnswerModel answerModel)
         {
-            var reurnAnswer = _AnswerFacade.CreateAnswer(Mapper.Map<AnswerDto>(answerModel),UserId, TenantId);
+            var reurnAnswer = _answerFacade.CreateAnswer(Mapper.Map<AnswerDto>(answerModel), UserId, TenantId);
 
             return Ok(reurnAnswer);
         }
 
 
-        [Route("api/Answers/EditAnswer", Name = "EditAnswer")]
-        [HttpPost]
-        public IHttpActionResult EditAnswer([FromBody] AnswerModel answerModel)
-        {
-            var reurnAnswer = _AnswerFacade.EditAnswer(Mapper.Map<AnswerDto>(answerModel), UserId, TenantId);
+        //[Route("api/Answers", Name = "CreateAnswer")]
+        //[HttpPost]
+        //public IHttpActionResult CreateAnswer([FromBody] AnswerModel answerModel)
+        //{
+        //    var reurnAnswer = _answerFacade.CreateAnswer(Mapper.Map<AnswerDto>(answerModel), UserId, TenantId);
 
-            return Ok(reurnAnswer);
-        }
-
+        //    return Ok(reurnAnswer);
+        //}
 
         [Route("api/Answers/GetAnswerById", Name = "GetAnswerById")]
         [HttpGet]
         public IHttpActionResult GetAnswerById(long answerId)
         {
-            var reurnAnswer = _AnswerFacade.GetAnswer(answerId, TenantId);
+            var reurnAnswer = _answerFacade.GetAnswer(answerId, TenantId);
             return Ok(reurnAnswer);
         }
     }

@@ -14,7 +14,7 @@
                 <tr>
                     <th>{{'Name' | translate}}</th>
                     <th>{{'status' | translate}}</th>
-                    <th>Branches</th>
+                    <th>{{'Type' | translate}}</th>
                     <th></th>
                 </tr>
             </thead>
@@ -26,9 +26,7 @@
                         <p ng-show="Question.isStatic"> Static</p>
                     </td>
                     <td>
-                        <button ng-click="$state.go('newBranch',{QuestionId: Question.QuestionId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddNewBranch' | translate}}</button>
-                        <span href="javascript:void(0);" ng-click="Question.show=!Question.show;editQuestionCtrl.showMore($event)" ng-show="Question.branches.length != 0"
-                              class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"><i class="material-icons md-dark pmd-sm"></i></span>
+                      
                     </td>
                    
                     <td width="30%" ng-show="!Question.isStatic">

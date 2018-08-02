@@ -34,6 +34,7 @@ namespace OperationSurvey.API.Controllers
         public IHttpActionResult GetAllQuestions(int page = Page, int pagesize = PageSize)
         {
             PagedResultsDto questionObj = _questionFacade.GetAllQuestions(page, pagesize, TenantId);
+            
             var data = Mapper.Map<List<QuestionModel>>(questionObj.Data);
             return PagedResponse("GetAllQuestions", page, pagesize, questionObj.TotalCount, data, questionObj.IsParentTranslated);
         }

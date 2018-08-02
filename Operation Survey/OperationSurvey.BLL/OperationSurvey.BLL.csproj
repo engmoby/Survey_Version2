@@ -98,6 +98,7 @@
     <Compile Include="DataServices\Interfaces\IAnswerService.cs" />
     <Compile Include="DataServices\Interfaces\IQuestionService.cs" />
     <Compile Include="DataServices\Interfaces\IQuestionTranslationService.cs" />
+    <Compile Include="DataServices\Interfaces\IAnswerDetailsService.cs" />
     <Compile Include="DataServices\QuestionService.cs" />
     <Compile Include="DataServices\QuestionTranslationService.cs" />
     <Compile Include="DataServices\CategoryRoleService.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="DataServices\Interfaces\IUserTypeService.cs" />
     <Compile Include="DataServices\Interfaces\IUserService.cs" />
     <Compile Include="DataServices\PermissionService.cs" />
+    <Compile Include="DataServices\AnswerDetailsService.cs" />
     <Compile Include="DataServices\UserRoleService.cs" />
     <Compile Include="DataServices\RolePermissionService.cs" />
     <Compile Include="DataServices\RoleService.cs" />

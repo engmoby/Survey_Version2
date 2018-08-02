@@ -18,7 +18,7 @@
         public enum QuestionType
         {
             Checkbox,
-            TrueFalse,
+            Rate,
             LikeDislike
         }
     }
