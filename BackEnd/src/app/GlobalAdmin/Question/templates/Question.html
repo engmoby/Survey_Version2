@@ -19,44 +19,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat-start="Question in QuestionList.results">
+                <tr ng-repeat="Question in QuestionList.results">
                     <td data-title="Name">{{Question.titleDictionary[selectedLanguage]}}</td>
                     
                     <td>
                         <p ng-show="Question.isStatic"> Static</p>
                     </td>
                     <td>
-                      
+                    {{(QuestionTypeList  |filter: {id: key})[Question.questionTypeId].text}}
+ 
                     </td>
                    
                     <td width="30%" ng-show="!Question.isStatic">
-                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editQuestion',{QuestionId: Question.QuestionId});">mode_edit</i>
+                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editQuestion',{questionId: Question.questionId});">mode_edit</i>
                     </td>
                 </tr>
-                <tr ng-repeat-end ng-show="Question.show">
-                    <td>
-                        <table class="table pmd-table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>{{'Name' | translate}}</th>
-                                    <th>{{'status' | translate}}</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="Branch in Question.branches">
-                                    <td data-title="Name">{{Branch.titleDictionary[selectedLanguage]}}</td> 
-                                    <td>
-                                        <p ng-show="Branch.isStatic"> Static</p>
-                                    </td>
-                                    <td width="30%" ng-show="!Branch.isStatic">
-                                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editBranch',{branchId: Branch.branchId});">mode_edit</i>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
+               
             </tbody>
         </table>
     </div>

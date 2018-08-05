@@ -20,7 +20,7 @@ namespace OperationSurvey.BLL.DTOs
         public int CategoryId { get; set; }
         public Enums.QuestionType QuestionTypeId { get; set; }
         public CategoryDto Category { get; set; }
-        public List<AnswerDetailsDto> AnswersdDetailses { get; set; }
+      //  public List<AnswerDetailsDto> AnswersdDetailses { get; set; }
       //  public AnswerDetailsDto Answer { get; set; }
 
     }

@@ -96,10 +96,14 @@
   <ItemGroup>
     <Compile Include="DataServices\AnswerService.cs" />
     <Compile Include="DataServices\Interfaces\IAnswerService.cs" />
+    <Compile Include="DataServices\Interfaces\IQuestionDetailsService.cs" />
     <Compile Include="DataServices\Interfaces\IQuestionService.cs" />
+    <Compile Include="DataServices\Interfaces\IQuestionDetailsTranslationService.cs" />
     <Compile Include="DataServices\Interfaces\IQuestionTranslationService.cs" />
     <Compile Include="DataServices\Interfaces\IAnswerDetailsService.cs" />
+    <Compile Include="DataServices\QuestionDetailsService.cs" />
     <Compile Include="DataServices\QuestionService.cs" />
+    <Compile Include="DataServices\QuestionDetailsTranslationService.cs" />
     <Compile Include="DataServices\QuestionTranslationService.cs" />
     <Compile Include="DataServices\CategoryRoleService.cs" />
     <Compile Include="DataServices\CategoryService.cs" />

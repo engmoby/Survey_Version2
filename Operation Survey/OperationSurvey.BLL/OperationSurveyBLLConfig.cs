@@ -78,7 +78,10 @@ namespace OperationSurvey.BLL
                 .ForMember(dto => dto.CategoryId, m => m.MapFrom(src => src.Category.CategoryId));
 
 
-            mapperConfiguration.CreateMap<QuestionDetailsDto, QuestionDetails>();
+            mapperConfiguration.CreateMap<QuestionDetailsDto, QuestionDetails>()
+                .ForMember(dto => dto.QuestionDetailsTranslations, m => m.MapFrom(src => src.TitleDictionary.Select(x=>new QuestionDetailsTranslation {
+                    Language = x.Key, Title = x.Value}).ToList()));
+
             mapperConfiguration.CreateMap<QuestionDetails, QuestionDetailsDto>()
                 .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.QuestionDetailsTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
 
@@ -111,6 +114,9 @@ namespace OperationSurvey.BLL
                 .RegisterType<ICategoryRoleService, CategoryRoleService>(new PerResolveLifetimeManager())
                 .RegisterType<IQuestionService, QuestionService>(new PerResolveLifetimeManager())
                 .RegisterType<IQuestionTranslationService, QuestionTranslationService>(new PerResolveLifetimeManager())
+                .RegisterType<IQuestionDetailsService, QuestionDetailsService>(new PerResolveLifetimeManager())
+                .RegisterType<IQuestionDetailsTranslationService, QuestionDetailsTranslationService>(new PerResolveLifetimeManager())
+
                 .RegisterType<IAnswerService, AnswerService>(new PerResolveLifetimeManager())
                 .RegisterType<IAnswerDetailsService, AnswerDetailsService>(new PerResolveLifetimeManager())
                 .RegisterType<IFormToMail, FormToMail>(new PerResolveLifetimeManager());

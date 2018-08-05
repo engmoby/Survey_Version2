@@ -55,7 +55,7 @@ namespace OperationSurvey.API
             mapperConfiguration.CreateMap<QuestionModel, QuestionDto>();
             mapperConfiguration.CreateMap<QuestionDto, QuestionModel>();
 
-            mapperConfiguration.CreateMap<QuestionDetailsModel, QuestionDetails>();
+            mapperConfiguration.CreateMap<QuestionDetailsModel, QuestionDetailsDto>();
             mapperConfiguration.CreateMap<QuestionDetailsDto, QuestionDetailsModel>();
 
 

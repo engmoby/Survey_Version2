@@ -3,10 +3,10 @@
 	
     angular
         .module('home')
-        .controller('createQuestionDialogController', [ 'blockUI',  '$state', 'appCONSTANTS', '$translate',
+        .controller('createQuestionDialogController', ['$scope','$window', 'blockUI',  '$state', 'appCONSTANTS', '$translate',
             'QuestionResource', 'ToastService' ,'DepartmentPrepService', createQuestionDialogController])
 
-    function createQuestionDialogController( blockUI,  $state, appCONSTANTS, $translate, QuestionResource,ToastService,DepartmentPrepService) {
+    function createQuestionDialogController($scope,$window, blockUI,  $state, appCONSTANTS, $translate, QuestionResource,ToastService,DepartmentPrepService) {
         
         blockUI.start("Loading..."); 
             
@@ -15,25 +15,30 @@
         vm.selectedCategory = "";
         vm.selectedQuestionType="";
 		vm.QuestionTypeList = appCONSTANTS.QuestionType;
-		vm.DepartmentList=DepartmentPrepService;
-		vm.CategoryList=[];
+		vm.DepartmentList=DepartmentPrepService.results;
+ 
 		vm.language = appCONSTANTS.supportedLanguage;
 		vm.close = function(){
 			$state.go('Question');
         } 
         
         vm.departmentChange = function () {
-            vm.categoryList = $scope.selectedDepartment.categories;
+            vm.categoryList = vm.selectedDepartment.categories;
         }
-		 
+ 
 		vm.AddNewQuestion = function () {
             blockUI.start("Loading..."); 
             
             var newObj = new QuestionResource();
             newObj.titleDictionary = vm.titleDictionary; 
-            newObj.QuestionDetailses = false; 
-            newObj.Category = false; 
-            newObj.QuestionTypeId = false; 
+           newObj.QuestionDetailses = []; 
+            $scope.questionelemnt.forEach(element => {
+                newObj.QuestionDetailses.push({titleDictionary:{en:element.questionEn,ar:element.questionAr}});
+            });
+            
+            //newObj.QuestionDetailses = null; 
+            newObj.CategoryId =  vm.selectedCategory.categoryId; 
+            newObj.QuestionTypeId = vm.selectedQuestionType.id; 
             newObj.IsDeleted = false; 
             newObj.IsStatic =false;
             newObj.$create().then(
@@ -51,5 +56,27 @@
         }
         blockUI.stop();
   
+        var counter=0;
+        $scope.questionelemnt = [ {id:counter, questionEn : '', questionAr : '',inline:true} ];
+    
+        $scope.newItem = function($event){
+            counter++;
+            $scope.questionelemnt.push(  { id:counter, questionEn : '', questionAr : '',inline:true} );
+            $event.preventDefault();
+        }
+        $scope.inlinef= function($event,inlinecontrol){
+            var checkbox = $event.target;
+            if(checkbox.checked){
+                $('#'+ inlinecontrol).css('display','inline');
+            }else{
+                $('#'+ inlinecontrol).css('display','');
+            }
+    
+        }
+        $scope.showitems = function($event){
+            $('#displayitems').css('visibility','none');
+        }
+
+
 	}	
 }());
