@@ -9,7 +9,7 @@ namespace OperationSurvey.DAL.Entities.Model
     {
         public Answer()
         {
-            AnswersdDetailses = new List<AnswerDetails>(); 
+            AnswerDetails = new List<AnswerDetails>(); 
         }
         public long AnswerId { get; set; }
         public DateTime Date { get; set; }
@@ -24,7 +24,14 @@ namespace OperationSurvey.DAL.Entities.Model
         public long UserId { get; set; }
         public virtual User User { get; set; }
 
-        public virtual ICollection<AnswerDetails> AnswersdDetailses { get; set; }
+        public virtual ICollection<AnswerDetails> AnswerDetails { get; set; }
         public int TenantId { get; set; }
+
+
+        [ForeignKey("Question")]
+        public long QuestionId { get; set; }
+        public virtual Question Question { get; set; }
+        public string Note { get; set; }
+
     }
 }

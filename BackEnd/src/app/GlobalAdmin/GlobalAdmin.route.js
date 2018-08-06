@@ -212,7 +212,7 @@
                     'controllerAs': 'AnswerQuestionCtrl',
                     resolve: {
                         AreaPrepService: AreaPrepService,
-                        BranchPrepService:BranchPrepService,
+                        /* BranchPrepService:BranchPrepService,*/
                         QuestionPrepService:QuestionPrepService 
                     }
 
@@ -250,6 +250,17 @@
 
                 })
 
+                .state('Answers', {
+                    url: '/Answers',
+                    templateUrl: './app/GlobalAdmin/Answers/templates/answers.html',
+                    controller: 'AnswersController',
+                    'controllerAs': 'answersCtrl',
+                    resolve: {
+                        AreaPrepService: AreaPrepService,
+                        QuestionPrepService:QuestionPrepService 
+                    }
+
+                })
  
         });
     /*User */

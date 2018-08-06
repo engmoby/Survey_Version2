@@ -1,47 +1,61 @@
+<style>
+    .my-custom-stars .button .material-icons {
+        font-size: 30px;
+    }
 
- <style>
-.my-custom-stars .button .material-icons {
- font-size: 30px; 
-}
-.my-custom-stars .star-button.star-on .material-icons {
-  color: #003399; 
-}
+    .my-custom-stars .star-button.star-on .material-icons {
+        color: #003399;
+    }
 
-.my-custom-stars .star-button.star-off .material-icons {
-  color: #99ccff; 
-}
-.my-custom-stars .button .material-icons a:focus, a:hover{
-   text-decoration: none;
-}
-.hideMinus a:first-child{
-   display: none;
-}
-.accordion {
-    background-color: #eee;
-    color: #444;
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 15px;
-    transition: 0.4s;
-}
+    .my-custom-stars .star-button.star-off .material-icons {
+        color: #99ccff;
+    }
+
+    .my-custom-stars .button .material-icons a:focus,
+    a:hover {
+        text-decoration: none;
+    }
+
+    .hideMinus a:first-child {
+        display: none;
+    }
+
+    .accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+    }
 
 
-.active, .accordion:hover {
-    background-color: #ccc;
-}  
- /* .panel {
+    .active,
+    .accordion:hover {
+        background-color: #ccc;
+    }
+
+    .like {
+        color: green;
+    }
+
+    .dislike {
+        color: red;
+    }
+
+    /* .panel {
     padding: 0 18px;
     background-color: white;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
 }  */
-    </style>
- 
+</style>
+
 
 {{'AnswerQuestion' | translate}}
 <form class="form-horizontal" name="newclientForm">
@@ -49,87 +63,95 @@
         <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'Area' | translate}}</label>
 
-            <select style="width:50% !important" class="form-control select-with-search pmd-select2-tags" ng-change="areaChange()"
-                    ng-model="selectedArea" ng-options="a as a.titleDictionary[selectedLanguage] for a in areaList"></select>
+            <select required style="width:50% !important" class="form-control select-with-search pmd-select2-tags" ng-change="areaChange()"
+                ng-model="selectedArea" ng-options="a as a.titleDictionary[selectedLanguage] for a in areaList"></select>
         </div>
 
         <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'Branch' | translate}}</label>
 
-            <select style="width:50% !important" class="form-control select-with-search pmd-select2-tags"   
-                    ng-model="selectedBranch" ng-options="a as a.titleDictionary[selectedLanguage] for a in branchList"></select>
+            <select required style="width:50% !important" class="form-control select-with-search pmd-select2-tags" ng-change="branchChange()"
+                ng-model="selectedBranch" ng-options="a as a.titleDictionary[selectedLanguage] for a in branchList"></select>
         </div>
 
-   
+
         <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-            <label >{{'startDateLbl' | translate}}</label>
+            <label>{{'startDateLbl' | translate}}</label>
             <input style="width:50% !important" type="text" id="startdate" class="form-control" required />
         </div>
     </div>
- 
-</form> 
-<form name="FormAnswer" novalidate autocomplete="off" style="width: 50%;"> 
-        <div ng-repeat="(k,v) in questionList| groupBy: 'categoryId'"> 
-              <div style="font-weight:bold; color:#1C2B36"> 
-                    {{v[0].category.titleDictionary[selectedLanguage]}} 
-            </div> 
-            <ul>
-                <li  ng-repeat="ques in v">
-                        <button class="accordion"  >{{ques.titleDictionary[selectedLanguage]}}</button>
 
-                        <!--submit answers-->
-                        <div class="panel">
-                            <div ng-if="ques.questionTypeId == 1"> 
-                                <!--checkbox-->
-                                <label ng-repeat="QuestionDetail in ques.questionDetailses" style="    display: block;">
-                                    <input 
-                                      type="checkbox"
-                                      name="selectedDetails[]"
-                                      ng-model="ques.answer.value=selection"
-                                       value="{{QuestionDetail.QuestionDetailsId}}"
-                                      ng-checked="selection.indexOf(QuestionDetail) > -1"
-                                      ng-click="toggleSelection(QuestionDetail)">
-                                     {{QuestionDetail.titleDictionary[selectedLanguage]}} 
-                                  </label>
-                            </div>
-        
-                            <div ng-if="ques.questionTypeId == 2">
-                                <!--Rate-->
-                <jk-rating-stars rating="rate" ng-model="ques.answer.value==rate" on-rating="onItemRating(rating,ques.questionId,ques.Comment)" class="my-custom-stars hideMinus"></jk-rating-stars>
-                            </div>
-        
-                            <div ng-if="ques.questionTypeId == 3">
-                         
-                            <!--Like / DisLike-->
-                                <!-- <i ng-init="ques.answer.value=1" ng-model="ques.answer.value" required name="likeDis" ng-click="ques.answer.ques.IsLike = LikeDisLikeSubmit(1)" class="fa fa-thumbs-up" style="font-size:24px"></i> -->
-           <i ng-model="ques.answer.value" required name="likeDis" ng-click="ques.answer.value = 1" class="fa fa-thumbs-up" style="font-size:24px"></i>
-          <i ng-model="ques.answer.value" required name="like" ng-click="ques.answer.value = 0" class="fa fa-thumbs-down" style="font-size:24px"></i>
-                              
-                                <div ng-if="ques.answer.value == 1">Like</div>
-                                <div ng-if="ques.answer.value == 0">Disike</div>
-        
-                            </div> 
-                            <textarea class="form-control" ng-model="ques.answer.note" placeholder="Type Notes" name="comment"></textarea>
-                        </div>
-                </li>
-                     
-            </ul>   
-          
-     
+</form>
+<form name="FormAnswer" novalidate autocomplete="off">
+    <div ng-repeat="(k,v) in questionList| groupBy: 'categoryId'">
+        <div style="cursor: pointer;    background-color: #ccc;">
 
-        </div> 
+            <h1 style="padding: 7px" ng-init="t = false" ng-click="t=!t">
+                {{v[0].category.titleDictionary[selectedLanguage]}}
+            </h1>
+        </div>
+        <!-- <div style="font-weight:bold; color:#1C2B36;cursor: pointer;" ng-init="t = false" ng-click="t=!t">
+            {{v[0].category.titleDictionary[selectedLanguage]}}
+        </div> -->
+        <ul ng-show="t">
+            <li ng-repeat="ques in v">
+                <!-- <button class="accordion">{{ques.titleDictionary[selectedLanguage]}}</button> -->
+                <div style="cursor: pointer;    background-color: #ccc;">
+                    <h3 style="padding: 4px"ng-init="showAnswerForm = false"  ng-click="showAnswerForm=!showAnswerForm">
+                        {{ques.titleDictionary[selectedLanguage]}}
+                    </h3>
+                </div>
+                <!--submit answers-->
+                <div class="panel" ng-show="showAnswerForm">
+                    <div ng-if="ques.questionTypeId == 1">
+                        <!--checkbox ng-model="ques.answer.value=selection" value="{{QuestionDetail.QuestionDetailsId}}"-->
+                        <label ng-repeat="QuestionDetail in ques.questionDetailses" style="    display: block;">
+                            <input type="checkbox" name="selectedDetails[]" ng-model="QuestionDetail.values"  value="{{QuestionDetail.QuestionDetailsId}}" ng-checked="selection.indexOf(QuestionDetail) > -1"
+                                ng-click="toggleSelection(QuestionDetail,ques.questionId)"> {{QuestionDetail.titleDictionary[selectedLanguage]}}
+                        </label>
+                    </div>
 
- 
-    <button ng-click="AddAnswer(questionList)" type="button" class="btn btn-primary btn-with-icon" >
+                    <div ng-if="ques.questionTypeId == 2">
+                        <!--Rate-->
+                        <jk-rating-stars rating="(AnswerQuestionCtrl.answers|filter:{questionId:ques.questionId})[0].answerDetails[0].value" on-rating="onItemRating(rating,ques.questionId)"
+                            class="my-custom-stars hideMinus"></jk-rating-stars>
+                    </div>
+
+                    <div ng-if="ques.questionTypeId == 3" ng-init="ques.l = null">
+                        <!--Like / DisLike-->
+                        <!-- <i ng-init="ques.answer.value=1" ng-model="ques.answer.value" required name="likeDis" ng-click="ques.answer.ques.IsLike = LikeDisLikeSubmit(1)" class="fa fa-thumbs-up" style="font-size:24px"></i> -->
+                        <i required name="likeDis" ng-class="{'like':ques.l == true}" ng-click="ques.l=true;onItemRating(1,ques.questionId)" class="fa fa-thumbs-up"
+                            style="font-size:24px;cursor: pointer"></i>
+                        <i required name="like" ng-class="{'dislike':ques.l == false}" ng-click="ques.l=false;onItemRating(0,ques.questionId)" class="fa fa-thumbs-down"
+                            style="font-size:24px;cursor: pointer"></i>
+
+                        <div ng-if="ques.answer.value == 1">Like</div>
+                        <div ng-if="ques.answer.value == 0">Disike</div>
+
+                    </div>
+
+                    <textarea class="form-control" ng-model="(AnswerQuestionCtrl.answers|filter:{questionId:ques.questionId})[0].note" placeholder="Type Notes"
+                        name="comment"></textarea>
+                </div>
+            </li>
+
+        </ul>
+
+
+
+    </div>
+
+    <button ng-disabled="AnswerQuestionCtrl.answersValid() || newclientForm.$invalid " ng-click="AddAnswer(questionList)" type="button"
+        class="btn btn-primary btn-with-icon">
         <i class="ion-android-checkmark-circle"></i>Save
     </button>
 </form>
- 
+
 <script type="text/javascript">
     $(document).ready(function () {
         $(".select-with-search").select2({
-			theme: "bootstrap"
-		});
+            theme: "bootstrap"
+        });
     });
 </script>
 <script type="text/javascript">
@@ -140,26 +162,26 @@
         $('#startdate').datetimepicker(
             {
                 //   viewMode: 'years',
-                  format: 'DD/MM/YYYY',
+                format: 'DD/MM/YYYY',
                 minDate: new Date()
             }
-    );
+        );
     });
 
 </script>
 <script>
-var acc = document.getElementsByClassName("accordion");
-var i;
+    var acc = document.getElementsByClassName("accordion");
+    var i;
 
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var panel = this.nextElementSibling;
-    if (panel.style.maxHeight){
-      panel.style.maxHeight = null;
-    } else {
-      panel.style.maxHeight = panel.scrollHeight + "px";
-    } 
-  });
-}
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    }
 </script>

@@ -20,8 +20,8 @@ namespace OperationSurvey.API.Models
         public int CategoryId { get; set; }
         public Enums.QuestionType QuestionTypeId { get; set; }
         public CategoryModel Category { get; set; }
-       public List<AnswerDetailsModel> AnswersdDetailses { get; set; }
-      public AnswerDetailsModel Answer { get; set; }
+      // public List<AnswerDetailsModel> AnswersdDetailses { get; set; }
+      //public AnswerDetailsModel Answer { get; set; }
 
     }
 }

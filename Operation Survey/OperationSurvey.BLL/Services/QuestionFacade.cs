@@ -138,7 +138,7 @@ namespace OperationSurvey.BLL.Services
 
             PagedResultsDto results = new PagedResultsDto();
             results.TotalCount = returnQuestionList.Select(x => x).Count();
-            results.Data = returnQuestionList.OrderBy(x => x.QuestionId).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            results.Data = returnQuestionList.OrderBy(x => x.QuestionId).ToList();
             return results;
         }
     }

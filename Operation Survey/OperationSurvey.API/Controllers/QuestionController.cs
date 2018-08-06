@@ -13,9 +13,12 @@ namespace OperationSurvey.API.Controllers
     public class QuestionController : BaseApiController
     { 
         private readonly IQuestionFacade _questionFacade;
-        public QuestionController(IQuestionFacade questionFacade)
+        private readonly IAnswerFacade _answerFacade;
+
+        public QuestionController(IQuestionFacade questionFacade, IAnswerFacade answerFacade)
         {
-            _questionFacade = questionFacade; 
+            _questionFacade = questionFacade;
+            _answerFacade = answerFacade;
         }
 
         [Route("api/Questions/GetAllQuestionsByUserId", Name = "GetAllQuestionsByUserId")]
@@ -66,6 +69,17 @@ namespace OperationSurvey.API.Controllers
         {
             var reurnQuestion = _questionFacade.GetQuestion(questionId, TenantId);
             return Ok(reurnQuestion);
+        }
+
+        [Route("api/Questions/{questionId:long}/answers", Name = "GetAnswers")]
+        [HttpGet]
+        //[ResponseType(typeof(List<RequestModel>))]
+        public IHttpActionResult GetAnswers(long questionId, int page = Page, int pagesize = PageSize, long areaId = 0, long branchId = 0, string from = "", string to = "")
+        {
+            PagedResultsDto answers = _answerFacade.GetAnswers(page, pagesize, questionId, areaId, branchId, from, to);
+            var data = Mapper.Map<List<AnswerModel>>(answers.Data);
+
+            return PagedResponse("GetAnswers", page, pagesize, answers.TotalCount, data, false);
         }
     }
 

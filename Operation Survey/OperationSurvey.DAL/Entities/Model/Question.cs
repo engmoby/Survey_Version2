@@ -12,7 +12,7 @@ namespace OperationSurvey.DAL.Entities.Model
         {
             QuestionTranslations = new List<QuestionTranslation>();
             QuestionDetailses = new List<QuestionDetails>();
-            AnswersdDetailses = new List<AnswerDetails>();
+            Answers = new List<Answer>();
         }
 
         public long QuestionId { get; set; }
@@ -32,7 +32,7 @@ namespace OperationSurvey.DAL.Entities.Model
 
         public virtual ICollection<QuestionTranslation> QuestionTranslations { get; set; }
         public virtual ICollection<QuestionDetails> QuestionDetailses { get; set; }
-        public virtual ICollection<AnswerDetails> AnswersdDetailses { get; set; }
+        public virtual ICollection<Answer> Answers { get; set; }
         public int TenantId { get; set; }
     }
 }

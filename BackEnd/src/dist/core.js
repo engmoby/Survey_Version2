@@ -337,6 +337,12 @@ angular.module('core')
               "AddNewBranch": "Add Branch",
               "AddedSuccessfully": "Added Successfully",
               "Editeduccessfully": "Edited Successfully",
+              "Answers":"Answers",
+              "filterBtn":"Apply filter",
+              "noAnswersLbl":"There is no answers",
+              "fromLbl":"from",
+              "toLbl":"to",
+              "Branch":"Branch"
           }
           
           var ar_translations = {
@@ -424,6 +430,12 @@ angular.module('core')
               "NoBackageAvailable":"لا يوجد باقاات",
               "View":"عرض",
             "AddNew":"إضافه",
+            "Answers":"الأجوبة",
+            "filterBtn":"تطبيق مرشح",
+            "noAnswersLbl":"لا يوجد اجوبة",
+            "fromLbl":"من",
+            "toLbl":"الي",
+            "Branch":"فرع"  
          }
           
           $translateProvider.translations('en',en_translations);

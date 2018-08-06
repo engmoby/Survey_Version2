@@ -11,14 +11,19 @@ namespace OperationSurvey.BLL.DTOs
         public long? CreatorUserId { get; set; }
 
         public long BranchId { get; set; }
-        public BranchDto Branch { get; set; }
+        //public BranchDto Branch { get; set; }
 
         public long UserId { get; set; }
         public UserDto User { get; set; }
-        public QuestionDto QuestionModel { get; set; }
+        //public QuestionDto QuestionModel { get; set; }
+        public long QuestionId { get; set; }
 
-        public ICollection<AnswerDetailsDto> AnswersdDetailses { get; set; }
+        public ICollection<AnswerDetailsDto> AnswerDetails { get; set; }
+        //public List<string> AnswerDetails { get; set; }
+
         public int TenantId { get; set; }
+        public string Note { get; set; }
+
     }
 }
 

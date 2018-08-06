@@ -59,11 +59,13 @@ namespace OperationSurvey.API
             mapperConfiguration.CreateMap<QuestionDetailsDto, QuestionDetailsModel>();
 
 
-            mapperConfiguration.CreateMap<Answer, AnswerDto>();
-            mapperConfiguration.CreateMap<AnswerDto, Answer>();
 
-            mapperConfiguration.CreateMap<AnswerDetails, AnswerDetailsDto>();
-            mapperConfiguration.CreateMap<AnswerDetailsDto, AnswerDetails>();
+            mapperConfiguration.CreateMap<AnswerDetailsModel, AnswerDetailsDto>();
+            mapperConfiguration.CreateMap<AnswerDetailsDto, AnswerDetailsModel>();
+
+            mapperConfiguration.CreateMap<AnswerModel, AnswerDto>();
+            mapperConfiguration.CreateMap<AnswerDto, AnswerModel>()
+                .ForMember(dto => dto.UserName, m => m.MapFrom(src => src.User.FirstName+" "+src.User.LastName));
 
             OperationSurveyBllConfig.RegisterMappings(mapperConfiguration); 
 

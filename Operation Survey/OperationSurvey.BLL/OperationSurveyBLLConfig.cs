@@ -83,6 +83,15 @@ namespace OperationSurvey.BLL
                 .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.QuestionDetailsTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
 
 
+            mapperConfiguration.CreateMap<AnswerDetails, AnswerDetailsDto>()
+                .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.QuestionDetails.QuestionDetailsTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
+            mapperConfiguration.CreateMap<AnswerDetailsDto, AnswerDetails>()
+                .ForMember(dto => dto.QuestionDetails, m => m.Ignore());
+            mapperConfiguration.CreateMap<Answer, AnswerDto>();
+                //.ForMember(dto=>dto.AnswerDetails,m=>m.MapFrom(src=>src.AnswerDetailses.Select(x=>x.Value).ToList()));
+            mapperConfiguration.CreateMap<AnswerDto, Answer>();
+                //.ForMember(dto => dto.AnswerDetailses, m => m.MapFrom(src => src.AnswerDetails.Select(x => new AnswerDetails {Value = x}).ToList()));
+
             Mapper.Initialize(mapperConfiguration);
         }
 

@@ -212,14 +212,14 @@
                     'controllerAs': 'AnswerQuestionCtrl',
                     resolve: {
                         AreaPrepService: AreaPrepService,
-                        BranchPrepService:BranchPrepService,
+                        
                         QuestionPrepService:QuestionPrepService 
                     }
 
                 })
+                
 
-
-                                .state('Question', {
+                .state('Question', {
                     url: '/Question',
                     templateUrl: './app/GlobalAdmin/Question/templates/Question.html',
                     controller: 'QuestionController',
@@ -250,8 +250,20 @@
 
                 })
 
+                .state('Answers', {
+                    url: '/Answers',
+                    templateUrl: './app/GlobalAdmin/Answers/templates/answers.html',
+                    controller: 'AnswersController',
+                    'controllerAs': 'answersCtrl',
+                    resolve: {
+                        AreaPrepService: AreaPrepService,
+                        QuestionPrepService:QuestionPrepService 
+                    }
 
-         });
+                })
+ 
+        });
+    
     userPrepService.$inject = ['UserResource']
     function userPrepService(UserResource) {
         return UserResource.getAllUsers().$promise;
@@ -263,6 +275,7 @@
     }
 
 
+    
     userTypePrepService.$inject = ['UserTypeResource']
     function userTypePrepService(UserTypeResource) {
         return UserTypeResource.getAllUserTypes().$promise;
@@ -274,6 +287,7 @@
         return UserTypeResource.getUserType({ userTypeId: $stateParams.userTypeId }).$promise;
     }
 
+    
     RolePrepService.$inject = ['RoleResource']
     function RolePrepService(RoleResource) {
         return RoleResource.getAllRoles().$promise;
@@ -288,6 +302,7 @@
     function PermissionPrepService(PermissionResource) {
         return PermissionResource.getAllPermissions().$promise;
     }
+    
     AreaPrepService.$inject = ['AreaResource']
     function AreaPrepService(AreaResource) {
         return AreaResource.getAllAreas().$promise;
@@ -299,6 +314,7 @@
     }
 
 
+    
     BranchPrepService.$inject = ['BranchResource']
     function BranchPrepService(BranchResource) {
         return BranchResource.getAllBranchs().$promise;
@@ -309,6 +325,7 @@
         return BranchResource.getBranch({ branchId: $stateParams.branchId }).$promise;
     }
 
+    
     DepartmentPrepService.$inject = ['DepartmentResource']
     function DepartmentPrepService(DepartmentResource) {
         return DepartmentResource.getAllDepartments().$promise;
@@ -321,6 +338,7 @@
 
 
 
+    
     CategoryPrepService.$inject = ['CategoryResource']
     function CategoryPrepService(CategoryResource) {
         return CategoryResource.getAllCategorys().$promise;
@@ -332,6 +350,7 @@
     }
 
 
+    
     QuestionPrepService.$inject = ['QuestionResource']
     function QuestionPrepService(QuestionResource) {
         return QuestionResource.getAllQuestions().$promise;
@@ -390,7 +409,9 @@
     function AnswerResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Answers/', {}, {
             getAllAnswers: { method: 'GET', url: appCONSTANTS.API_URL + 'Answers/GetAllAnswers', useToken: true, params: { lang: '@lang' } },
-            create: { method: 'POST', useToken: true }, 
+            create: { method: 'POST', useToken: true,isArray:true }, 
+            getAnswer: { method: 'GET', url: appCONSTANTS.API_URL + 'Questions/:questionId/answers', useToken: true }
+            
         })
     }
 
@@ -401,48 +422,94 @@
     angular
         .module('home')
         .controller('AnswerQuestionDialogController', ['blockUI', '$scope', '$translate', 'AnswerResource', '$state', 'QuestionPrepService', 'QuestionResource', 'AreaPrepService',
-         'ToastService', AnswerQuestionDialogController]);
+            'ToastService', AnswerQuestionDialogController]);
 
     function AnswerQuestionDialogController(blockUI, $scope, $translate, AnswerResource, $state, QuestionPrepService, QuestionResource, AreaPrepService, ToastService) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[7].children[0]).addClass("active")
         blockUI.start("Loading...");
 
         var vm = this;
-        $scope.likeText = "";
-        $scope.selectedArea = "";
-        $scope.areaList = AreaPrepService.results;
-        $scope.questionList = QuestionPrepService.results;
-        $scope.IsLike = 0;
-        $scope.isLikeSub = 0;
-        $scope.selection = [];
-        $scope.selectedRate = 0;
-        $scope.selectedBranch = ""; 
+       
+        console.log($scope.questionList);
+        
+        function init(){
+            $scope.likeText = "";
+            $scope.selectedArea = { areaId: 0, titleDictionary: { "en": "Select Area", "ar": "اختار منطقه" } };
+            $scope.areaList = [];
+            $scope.areaList.push($scope.selectedArea);
+            $scope.areaList = $scope.areaList.concat(AreaPrepService.results)
+            $scope.questionList = QuestionPrepService.results;
+            $scope.IsLike = 0;
+            $scope.isLikeSub = 0;
+            $scope.selection = [];
+            $scope.selectedRate = 0;
+            $scope.selectedBranch = { branchId: 0, titleDictionary: { "en": "Select Branch", "ar": "اختار فرع" } };
+            $scope.branchList = [];
+            $scope.branchList.push($scope.selectedBranch);
+        }
+        init();
+        vm.answers = []
+        $scope.questionList.forEach(function (element) {
+            vm.answers.push({
+                branchId: 0,
+                date: new Date(),
+                questionId: element.questionId,
+                answerDetails: [],
+                note: ""
 
-           console.log($scope.questionList);
-        $scope.toggleSelection = function toggleSelection(fruitName) {
-            var idx = $scope.selection.indexOf(fruitName);
+            })
+        }, this);
+        $scope.toggleSelection = function toggleSelection(QuestionDetail, questionId) {
 
-            if (idx > -1) {
-                $scope.selection.splice(idx, 1);
-            }
+            vm.answers.forEach(function (element) {
+                if (element.questionId == questionId) {
+                    var idx = element.answerDetails.indexOf(QuestionDetail);
+                    
+                    if (idx > -1) {
+                        
+                        element.answerDetails.splice(idx, 1);
 
-            else {
-                $scope.selection.push(fruitName);
-            }
+                    }
+
+                    
+                    else {
+                        
+                        element.answerDetails.push({ questionDetailsId: QuestionDetail.questionDetailsId });
+                    }
+                }
+            }, this);
+
         };
         $scope.rate = 3;
-        $scope.onItemRating = function (rating, questionId, note) {
-            $scope.selectedRate = rating;
-            quesObject.question = questionId;
-            quesObject.value = rating;
-            quesObject.note = note;
+        $scope.onItemRating = function (rating, questionId) {
+            
+            vm.answers.forEach(function (element) {
+                if (element.questionId == questionId) {
+                    element.answerDetails = [];
+                    element.answerDetails.push({ value: rating });
+                }
+            }, this);
+            
+            
         };
 
 
         $scope.areaChange = function () {
-            $scope.branchList = $scope.selectedArea.branches;
+            $scope.areaList.splice(0, 1);
+            $scope.branchList = [];
+            $scope.selectedBranch = { branchId: 0, titleDictionary: { "en": "Select Branch", "ar": "اختار فرع" } };
+            $scope.branchList.push($scope.selectedBranch);
+            $scope.branchList = $scope.branchList.concat($scope.selectedArea.branches);
+        }
+
+        $scope.branchChange = function () {
+            for (var i = $scope.branchList.length - 1; i >= 0; i--) {
+                if ($scope.branchList[i].branchId == 0) {
+                    $scope.branchList.splice(i, 1);
+                }
+            }
         }
 
 
@@ -450,24 +517,35 @@
             blockUI.start("Loading...");
             debugger;
             var submitAnswer = new AnswerResource();
-            submitAnswer.Date = new Date($('#startdate').data('date'));
-            submitAnswer.branchId = $scope.selectedBranch.branchId;
-           submitAnswer.questionModel = list;
-            submitAnswer.$create().then(
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientAddSuccess'), "success");
-
-                    $state.go('AnswerQuestion');
-
-                },
+            vm.answers.forEach(function (element) {
+                element.branchId = $scope.selectedBranch.branchId;
+                element.date = new Date($('#startdate').data('date'));
+            }, this);
+            
+            AnswerResource.create(vm.answers, function (data, status) {
+                blockUI.stop();
+                ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientAddSuccess'), "success");
+                init();
+                vm.answers = []
+                $scope.questionList.forEach(function (element) {
+                    vm.answers.push({
+                        branchId: 0,
+                        date: new Date(),
+                        questionId: element.questionId,
+                        answerDetails: [],
+                        note: ""
+                    })
+                    element.l = null;
+                    element.questionDetailses.forEach(function(QuestionDetail) {
+                        QuestionDetail.values = null;
+                    }, this);
+                }, this);
+            },
                 function (data, status) {
                     blockUI.stop();
 
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
+                });
         }
         vm.currentPage = 1;
         $scope.changePage = function (page) {
@@ -477,6 +555,19 @@
 
         blockUI.stop();
 
+
+        vm.answersValid = function () {
+            var isInValid = false;
+            vm.answers.forEach(function (element) {
+                if (element.answerDetails.length <= 0) {
+                    isInValid = true
+                }
+            }, this);
+            if ($('#startdate').data('date') == null || $scope.selectedArea.areaId == 0 || $scope.selectedBranch.branchId == 0) {
+                isInValid = true
+            }
+            return isInValid;
+        }
     }
 
 }());(function () {
@@ -489,7 +580,7 @@
             getAllQuestions: { method: 'GET', url: appCONSTANTS.API_URL + 'Questions/GetAllQuestionsByUserId', useToken: true, params: { lang: '@lang' } },
             create: { method: 'POST', useToken: true },
             update: { method: 'POST', url: appCONSTANTS.API_URL + 'Users/EditRegisterUser', useToken: true },
-            getUser: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/GetUserById/:UserId', useToken: true }
+            getUser: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/GetUserById/:UserId', useToken: true },
         })
     }
 
@@ -587,126 +678,95 @@
 
     angular
         .module('home')
-        .controller('BranchController', ['$rootScope', '$scope', '$filter', '$translate',
-            '$state', 'BranchResource',   '$localStorage',
-            'authorizationService', 'appCONSTANTS',
-            'ToastService', BranchController]);
+        .controller('AnswersController', ['blockUI', '$scope', '$translate', 'AnswerResource', '$state', 'QuestionPrepService', 'QuestionResource', 'AreaPrepService',
+            'ToastService', AnswersController]);
+
+    function AnswersController(blockUI, $scope, $translate, AnswerResource, $state, QuestionPrepService, QuestionResource, AreaPrepService, ToastService) {
+
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[8].children[0]).addClass("active")
+
+        var vm = this;
+        vm.selectedArea = { areaId: 0, titleDictionary: { "en": "All Areas", "ar": "جميع المناطق" } };
+        vm.areaList = [];
+        vm.areaList.push(vm.selectedArea);
+        vm.areaList = vm.areaList.concat(AreaPrepService.results)
+        vm.questionList = QuestionPrepService.results;
+        vm.selectedBranch = { branchId: 0, titleDictionary: { "en": "All Branches", "ar": "كل الفروع" } };
+        vm.branchList = [];
+        vm.branchList.push(vm.selectedBranch);
+        console.log(vm.questionList);
+
+        vm.questionList.forEach(function (element) {
+            element.page = 1;
+            element.answers = [];
+            element.showAnswer = false
+        }, this);
 
 
-    function BranchController($rootScope, $scope, $filter, $translate,
-        $state, BranchResource,  $localStorage, authorizationService,
-        appCONSTANTS, ToastService) {
-
-        blockUI.start("Loading..."); 
-
-                    refreshBranchs();
-
-        function refreshBranchs() {
-           blockUI.start("Loading..."); 
-
-                        var k = BranchResource.getAllBranchs().$promise.then(function (results) {
-                $scope.BranchList = results;
-                blockUI.stop();
-
-                            },
-            function (data, status) {
-                blockUI.stop();
-
-                                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-            });
+        vm.areaChange = function () {
+            vm.branchList = [];
+            vm.selectedBranch = { branchId: 0, titleDictionary: { "en": "All Branches", "ar": "كل الفروع" } };
+            vm.branchList.push(vm.selectedBranch);
+            vm.branchList = vm.branchList.concat(vm.selectedArea.branches);
         }
+
+        vm.branchChange = function () {
+            for (var i = vm.branchList.length - 1; i >= 0; i--) {
+                if (vm.branchList[i].branchId == 0) {
+                    vm.branchList.splice(i, 1);
+                }
+            }
+        }
+        vm.viewAnswer = function (ques) {
+
+            ques.isloading = true;
+            AnswerResource.getAnswer({ questionId: ques.questionId, page: ques.page, areaId: vm.areaId, branchId: vm.branchId, from: from, to: to }).$promise.then(function (results) {
+                ques.isloading = false;
+                ques.answers = results;
+            },
+                function (data, status) {
+                    ques.isloading = false;
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+        var from = ""
+        var to = ""
+        vm.areaId = 0
+        vm.branchId = 0
+        vm.applyFilter = function () {
+            vm.questionList.forEach(function (element) {
+                element.page = 1;
+                element.answers = [];
+                element.showAnswer = false
+            }, this);
+            from = ""
+            if ($('#fromdate').val() != "")
+                from = (new Date($('#fromdate').val())).toISOString().replace('Z', '');
+
+            to = ""
+            if ($('#todate').val() != "")
+                to = (new Date($('#todate').val())).toISOString().replace('Z', '');
+            vm.areaId = vm.selectedArea.areaId;
+            vm.branchId = vm.selectedBranch.branchId;
+        }
+
+        vm.changePage = function (page, ques) {
+            ques.isloading = true;
+            ques.page = page
+            AnswerResource.getAnswer({ questionId: ques.questionId, page: ques.page, areaId: vm.areaId, branchId: vm.branchId, from: from, to: to }).$promise.then(function (results) {
+                ques.isloading = false;
+                ques.answers = results;
+            },
+                function (data, status) {
+                    ques.isloading = false;
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
 
     }
-
-})();
-(function () {
-    angular
-      .module('home')
-        .factory('BranchResource', ['$resource', 'appCONSTANTS', BranchResource]) 
-
-    function BranchResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Branchs/', {}, {
-            getAllBranchs: { method: 'GET', url: appCONSTANTS.API_URL + 'Branchs/GetAllBranchs', useToken: true,  params: { lang: '@lang' } },
-            create: { method: 'POST', useToken: true },
-            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Branchs/EditBranch', useToken: true },
-            getBranch: { method: 'GET', url: appCONSTANTS.API_URL + 'Branchs/GetBranchById/:BranchId', useToken: true }
-        })
-    } 
-
-}());
-(function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('createBranchDialogController', ['$scope', '$http', '$state', 'appCONSTANTS', '$translate',
-            'BranchResource', 'ToastService', '$rootScope', 'AreaByIdPrepService', createBranchDialogController])
-
-    function createBranchDialogController($scope, $http, $state, appCONSTANTS, $translate, BranchResource,
-        ToastService, $rootScope, AreaByIdPrepService) {
-		var vm = this;
-		vm.Area = AreaByIdPrepService;
-		vm.language = appCONSTANTS.supportedLanguage;
-		vm.Close = function(){
-		    $state.go('Area');
-		} 
-
-		 		vm.AddNewBranch = function () {
-            var newObj = new BranchResource();
-		    newObj.AreaId = vm.Area.areaId;
-            newObj.titleDictionary = vm.titleDictionary;
-            newObj.IsDeleted = false; 
-            newObj.IsStatic =false;
-            newObj.$create().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success"); 
-                    $state.go('Area');
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-
-  	}	
-}());
-(function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('editBranchDialogController', ['$scope', '$http', '$state', 'appCONSTANTS', '$translate', 'BranchResource', 'ToastService',
-            'BranchByIdPrepService', editBranchDialogController])
-
-    function editBranchDialogController($scope, $http, $state, appCONSTANTS, $translate, BranchResource, ToastService, BranchByIdPrepService) {
-		var vm = this; 
-		vm.language = appCONSTANTS.supportedLanguage;
-        vm.Branch = BranchByIdPrepService; 
-        vm.Close = function () {
-            $state.go('Area');
-        }
-        vm.UpdateBranch = function () { 
-            var updateObj = new BranchResource();
-            updateObj.BranchId = vm.Branch.branchId;
-            updateObj.titleDictionary = vm.Branch.titleDictionary;
-		    updateObj.IsDeleted = false;
-		    updateObj.IsStatic = false;
-		    updateObj.$update().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-
-                     $state.go('Area');
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-	}	
-}());
-(function () {
+}());(function () {
     'use strict';
 
     angular
@@ -867,6 +927,267 @@
 
     angular
         .module('home')
+        .controller('BranchController', ['$rootScope', '$scope', '$filter', '$translate',
+            '$state', 'BranchResource',   '$localStorage',
+            'authorizationService', 'appCONSTANTS',
+            'ToastService', BranchController]);
+
+
+    function BranchController($rootScope, $scope, $filter, $translate,
+        $state, BranchResource,  $localStorage, authorizationService,
+        appCONSTANTS, ToastService) {
+
+        blockUI.start("Loading..."); 
+
+                    refreshBranchs();
+
+        function refreshBranchs() {
+           blockUI.start("Loading..."); 
+
+                        var k = BranchResource.getAllBranchs().$promise.then(function (results) {
+                $scope.BranchList = results;
+                blockUI.stop();
+
+                            },
+            function (data, status) {
+                blockUI.stop();
+
+                                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+            });
+        }
+
+    }
+
+})();
+(function () {
+    angular
+      .module('home')
+        .factory('BranchResource', ['$resource', 'appCONSTANTS', BranchResource]) 
+
+    function BranchResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Branchs/', {}, {
+            getAllBranchs: { method: 'GET', url: appCONSTANTS.API_URL + 'Branchs/GetAllBranchs', useToken: true,  params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Branchs/EditBranch', useToken: true },
+            getBranch: { method: 'GET', url: appCONSTANTS.API_URL + 'Branchs/GetBranchById/:BranchId', useToken: true }
+        })
+    } 
+
+}());
+(function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('createBranchDialogController', ['$scope', '$http', '$state', 'appCONSTANTS', '$translate',
+            'BranchResource', 'ToastService', '$rootScope', 'AreaByIdPrepService', createBranchDialogController])
+
+    function createBranchDialogController($scope, $http, $state, appCONSTANTS, $translate, BranchResource,
+        ToastService, $rootScope, AreaByIdPrepService) {
+		var vm = this;
+		vm.Area = AreaByIdPrepService;
+		vm.language = appCONSTANTS.supportedLanguage;
+		vm.Close = function(){
+		    $state.go('Area');
+		} 
+
+		 		vm.AddNewBranch = function () {
+            var newObj = new BranchResource();
+		    newObj.AreaId = vm.Area.areaId;
+            newObj.titleDictionary = vm.titleDictionary;
+            newObj.IsDeleted = false; 
+            newObj.IsStatic =false;
+            newObj.$create().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success"); 
+                    $state.go('Area');
+
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+  	}	
+}());
+(function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('editBranchDialogController', ['$scope', '$http', '$state', 'appCONSTANTS', '$translate', 'BranchResource', 'ToastService',
+            'BranchByIdPrepService', editBranchDialogController])
+
+    function editBranchDialogController($scope, $http, $state, appCONSTANTS, $translate, BranchResource, ToastService, BranchByIdPrepService) {
+		var vm = this; 
+		vm.language = appCONSTANTS.supportedLanguage;
+        vm.Branch = BranchByIdPrepService; 
+        vm.Close = function () {
+            $state.go('Area');
+        }
+        vm.UpdateBranch = function () { 
+            var updateObj = new BranchResource();
+            updateObj.BranchId = vm.Branch.branchId;
+            updateObj.titleDictionary = vm.Branch.titleDictionary;
+		    updateObj.IsDeleted = false;
+		    updateObj.IsStatic = false;
+		    updateObj.$update().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+
+                     $state.go('Area');
+
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+	}	
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('CategoryController', ['$rootScope', '$scope', '$filter', '$translate',
+            '$state', 'CategoryResource',   '$localStorage',
+            'authorizationService', 'appCONSTANTS',
+            'ToastService', CategoryController]);
+
+
+    function CategoryController($rootScope, $scope, $filter, $translate,
+        $state, CategoryResource,  $localStorage, authorizationService,
+        appCONSTANTS, ToastService) {
+
+        refreshCategorys();
+
+        function refreshCategorys() {
+            blockUI.start("Loading..."); 
+
+                        var k = CategoryResource.getAllCategorys().$promise.then(function (results) {
+                $scope.CategoryList = results;
+                blockUI.stop();
+
+                            },
+            function (data, status) {
+                blockUI.stop();                
+                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+            });
+        }
+
+    }
+
+})();
+(function () {
+    angular
+      .module('home')
+        .factory('CategoryResource', ['$resource', 'appCONSTANTS', CategoryResource]) 
+
+    function CategoryResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Category/', {}, {
+            getAllCategorys: { method: 'GET', url: appCONSTANTS.API_URL + 'Category/GetAllCategories', useToken: true, params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Category/EditCategory', useToken: true },
+            getCategory: { method: 'GET', url: appCONSTANTS.API_URL + 'Category/GetCategoryById/:CategoryId', useToken: true }
+        })
+    } 
+
+}());
+(function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('createCategoryDialogController', ['$scope', '$http', '$state', 'appCONSTANTS', '$translate',
+            'CategoryResource','RolePrepService', 'ToastService', '$rootScope', 'DepartmentByIdPrepService', createCategoryDialogController])
+
+    function createCategoryDialogController($scope, $http, $state, appCONSTANTS, $translate, CategoryResource,RolePrepService,
+        ToastService, $rootScope, DepartmentByIdPrepService) {
+		var vm = this;
+		vm.Department = DepartmentByIdPrepService;
+		vm.language = appCONSTANTS.supportedLanguage;
+        $scope.roleList = RolePrepService.results;
+		vm.close = function(){
+		    $state.go('Department');
+		} 
+
+		 		vm.AddNewCategory = function () {
+            var newObj = new CategoryResource();
+		    newObj.DepartmentId = vm.Department.departmentId;
+            newObj.titleDictionary = vm.titleDictionary;
+            newObj.IsDeleted = false; 
+            newObj.IsStatic =false;
+            newObj.CategoryRoles = vm.selectedCategoryRoles;
+            newObj.$create().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success"); 
+                    $state.go('Department');
+
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+  	}	
+}());
+(function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('editCategoryDialogController', ['$scope','$filter', '$http', '$state', 'appCONSTANTS', '$translate',
+         'CategoryResource', 'RolePrepService','ToastService','CategoryByIdPrepService', editCategoryDialogController])
+
+    function editCategoryDialogController($scope,$filter, $http, $state, appCONSTANTS, $translate, CategoryResource,RolePrepService,
+         ToastService,CategoryByIdPrepService) {
+		var vm = this; 
+		vm.language = appCONSTANTS.supportedLanguage;
+        vm.Category = CategoryByIdPrepService; 
+        $scope.roleList = RolePrepService.results; 
+        vm.selectedCategoryRoles = [];
+
+                console.log(vm.Category);
+
+                 var i;
+        for (i = 0; i < vm.Category.categoryRoles.length; i++) {
+            var indexRate = $scope.roleList.indexOf($filter('filter')($scope.roleList, { 'roleId': vm.Category.categoryRoles[i].roleId }, true)[0]);
+            vm.selectedCategoryRoles.push($scope.roleList[indexRate]);
+
+        }
+
+        vm.Close = function () {
+            $state.go('Department');
+        }
+        vm.UpdateCategory = function () { 
+            var updateObj = new CategoryResource();
+            updateObj.CategoryId = vm.Category.categoryId;
+            updateObj.titleDictionary = vm.Category.titleDictionary;
+		    updateObj.IsDeleted = false;
+		    updateObj.IsStatic = false;
+            updateObj.CategoryRoles = vm.selectedCategoryRoles;
+		    updateObj.$update().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+
+                     $state.go('Department');
+
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+	}	
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
         .controller('DepartmentController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
             '$state', 'DepartmentResource', 'DepartmentPrepService', '$localStorage',
             'authorizationService', 'appCONSTANTS',
@@ -1019,143 +1340,6 @@
 
     angular
         .module('home')
-        .controller('CategoryController', ['$rootScope', '$scope', '$filter', '$translate',
-            '$state', 'CategoryResource',   '$localStorage',
-            'authorizationService', 'appCONSTANTS',
-            'ToastService', CategoryController]);
-
-
-    function CategoryController($rootScope, $scope, $filter, $translate,
-        $state, CategoryResource,  $localStorage, authorizationService,
-        appCONSTANTS, ToastService) {
-
-        refreshCategorys();
-
-        function refreshCategorys() {
-            blockUI.start("Loading..."); 
-
-                        var k = CategoryResource.getAllCategorys().$promise.then(function (results) {
-                $scope.CategoryList = results;
-                blockUI.stop();
-
-                            },
-            function (data, status) {
-                blockUI.stop();                
-                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-            });
-        }
-
-    }
-
-})();
-(function () {
-    angular
-      .module('home')
-        .factory('CategoryResource', ['$resource', 'appCONSTANTS', CategoryResource]) 
-
-    function CategoryResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Category/', {}, {
-            getAllCategorys: { method: 'GET', url: appCONSTANTS.API_URL + 'Category/GetAllCategories', useToken: true, params: { lang: '@lang' } },
-            create: { method: 'POST', useToken: true },
-            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Category/EditCategory', useToken: true },
-            getCategory: { method: 'GET', url: appCONSTANTS.API_URL + 'Category/GetCategoryById/:CategoryId', useToken: true }
-        })
-    } 
-
-}());
-(function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('createCategoryDialogController', ['$scope', '$http', '$state', 'appCONSTANTS', '$translate',
-            'CategoryResource','RolePrepService', 'ToastService', '$rootScope', 'DepartmentByIdPrepService', createCategoryDialogController])
-
-    function createCategoryDialogController($scope, $http, $state, appCONSTANTS, $translate, CategoryResource,RolePrepService,
-        ToastService, $rootScope, DepartmentByIdPrepService) {
-		var vm = this;
-		vm.Department = DepartmentByIdPrepService;
-		vm.language = appCONSTANTS.supportedLanguage;
-        $scope.roleList = RolePrepService.results;
-		vm.close = function(){
-		    $state.go('Department');
-		} 
-
-		 		vm.AddNewCategory = function () {
-            var newObj = new CategoryResource();
-		    newObj.DepartmentId = vm.Department.departmentId;
-            newObj.titleDictionary = vm.titleDictionary;
-            newObj.IsDeleted = false; 
-            newObj.IsStatic =false;
-            newObj.CategoryRoles = vm.selectedCategoryRoles;
-            newObj.$create().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success"); 
-                    $state.go('Department');
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-
-  	}	
-}());
-(function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('editCategoryDialogController', ['$scope','$filter', '$http', '$state', 'appCONSTANTS', '$translate',
-         'CategoryResource', 'RolePrepService','ToastService','CategoryByIdPrepService', editCategoryDialogController])
-
-    function editCategoryDialogController($scope,$filter, $http, $state, appCONSTANTS, $translate, CategoryResource,RolePrepService,
-         ToastService,CategoryByIdPrepService) {
-		var vm = this; 
-		vm.language = appCONSTANTS.supportedLanguage;
-        vm.Category = CategoryByIdPrepService; 
-        $scope.roleList = RolePrepService.results; 
-        vm.selectedCategoryRoles = [];
-
-                console.log(vm.Category);
-
-                 var i;
-        for (i = 0; i < vm.Category.categoryRoles.length; i++) {
-            var indexRate = $scope.roleList.indexOf($filter('filter')($scope.roleList, { 'roleId': vm.Category.categoryRoles[i].roleId }, true)[0]);
-            vm.selectedCategoryRoles.push($scope.roleList[indexRate]);
-
-        }
-
-        vm.Close = function () {
-            $state.go('Department');
-        }
-        vm.UpdateCategory = function () { 
-            var updateObj = new CategoryResource();
-            updateObj.CategoryId = vm.Category.categoryId;
-            updateObj.titleDictionary = vm.Category.titleDictionary;
-		    updateObj.IsDeleted = false;
-		    updateObj.IsStatic = false;
-            updateObj.CategoryRoles = vm.selectedCategoryRoles;
-		    updateObj.$update().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-
-                     $state.go('Department');
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-	}	
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
         .controller('QuestionController', [ 'blockUI', '$scope',  'QuestionResource', 'QuestionPrepService',  
             'ToastService', QuestionController]);
 
@@ -1215,17 +1399,17 @@
 }());
 (function () {
     'use strict';
-
-	    angular
+	
+    angular
         .module('home')
         .controller('createQuestionDialogController', [ 'blockUI',  '$state', 'appCONSTANTS', '$translate',
             'QuestionResource', 'ToastService' ,'DepartmentPrepService', createQuestionDialogController])
 
     function createQuestionDialogController( blockUI,  $state, appCONSTANTS, $translate, QuestionResource,ToastService,DepartmentPrepService) {
-
-                blockUI.start("Loading..."); 
-
-                    var vm = this;
+        
+        blockUI.start("Loading..."); 
+            
+        var vm = this;
         vm.selectedDepartment = "";
         vm.selectedCategory = "";
         vm.selectedQuestionType="";
@@ -1236,15 +1420,15 @@
 		vm.close = function(){
 			$state.go('Question');
         } 
-
-                vm.departmentChange = function () {
+        
+        vm.departmentChange = function () {
             vm.categoryList = $scope.selectedDepartment.categories;
         }
-
-		 		vm.AddNewQuestion = function () {
+		 
+		vm.AddNewQuestion = function () {
             blockUI.start("Loading..."); 
-
-                        var newObj = new QuestionResource();
+            
+            var newObj = new QuestionResource();
             newObj.titleDictionary = vm.titleDictionary; 
             newObj.QuestionDetailses = false; 
             newObj.Category = false; 
@@ -1265,21 +1449,21 @@
             );
         }
         blockUI.stop();
-
-  	}	
+  
+	}	
 }());
 (function () {
     'use strict';
-
-	    angular
+	
+    angular
         .module('home')
         .controller('editQuestionDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate', 'QuestionResource', 'ToastService',
             'QuestionByIdPrepService', editQuestionDialogController])
 
     function editQuestionDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, QuestionResource, ToastService, QuestionByIdPrepService) {
         blockUI.start("Loading..."); 
-
-                var vm = this; 
+        
+        var vm = this; 
 		vm.language = appCONSTANTS.supportedLanguage;
         vm.Question = QuestionByIdPrepService; 
         vm.Close = function () {
@@ -1287,8 +1471,8 @@
         }
         vm.UpdateQuestion = function () { 
             blockUI.start("Loading..."); 
-
-                        var updateObj = new QuestionResource();
+            
+            var updateObj = new QuestionResource();
             updateObj.QuestionId = vm.Question.QuestionId;
             updateObj.titleDictionary = vm.Question.titleDictionary;
 		    updateObj.IsDeleted = false;
@@ -1296,24 +1480,80 @@
 		    updateObj.$update().then(
                 function (data, status) {
                     blockUI.stop();
-
-                                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-
-                     $state.go('Question');
+                    
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+ 
+                    $state.go('Question');
 
                 },
                 function (data, status) {
                     blockUI.stop();
-
-                                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                    
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
         }
         blockUI.stop();
-
-        	}	
+        
+	}	
 }());
 (function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('editUserController', ['$rootScope', '$scope', '$filter', '$translate', '$state',    'UserResource', 'AddUserResource', 'UserProductResource', 'GetUserResource', '$localStorage', 'authorizationService', 'appCONSTANTS','EditUserPrepService', 'ToastService', editUserController]);
+
+
+    function editUserController($rootScope, $scope, $filter, $translate, $state,   UserResource, AddUserResource, UserProductResource, GetUserResource, $localStorage, authorizationService, appCONSTANTS, EditUserPrepService,ToastService) {
+        $scope.isPaneShown = true;
+        $scope.$emit('LOAD')
+        var vm = this;
+        vm.show=true;
+        $scope.userObj = "";
+        $scope.productList = [];
+        $scope.checkradioasd = -1;
+        $scope.productDetails = "";
+        $scope.userObj =  EditUserPrepService; 
+        console.log($scope.userObj );
+        localStorage.setItem('data', JSON.stringify($scope.userObj.userId));
+
+        refreshuserProducts();
+
+        function refreshuserProducts() {
+            var k = UserProductResource.getUserProductList({ userId: $scope.userObj.userId }).$promise.then(function (results) {
+                $scope.userProductList = results 
+                $scope.isPaneShown = false;
+			$scope.$emit('UNLOAD')
+            },
+            function (data, status) {
+                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+            });
+        } 
+        $scope.Updateclient = function () {
+            vm.show=false;
+            var newClient = new AddUserResource();
+            newClient.UserId =$scope.userObj.userId;             
+            newClient.Phone1 = $scope.userObj.phone1;
+            newClient.Phone2 = $scope.userObj.phone2;
+            newClient.Password = $scope.userObj.password;
+            newClient.IsActive = $scope.userObj.isActive;
+            newClient.$create().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    vm.show=true;
+                    localStorage.setItem('data', JSON.stringify(data.userId));
+
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+     }
+
+})();(function () {
     'use strict';
 
     angular
@@ -1501,62 +1741,6 @@
     }
 }());
 (function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('editUserController', ['$rootScope', '$scope', '$filter', '$translate', '$state',    'UserResource', 'AddUserResource', 'UserProductResource', 'GetUserResource', '$localStorage', 'authorizationService', 'appCONSTANTS','EditUserPrepService', 'ToastService', editUserController]);
-
-
-    function editUserController($rootScope, $scope, $filter, $translate, $state,   UserResource, AddUserResource, UserProductResource, GetUserResource, $localStorage, authorizationService, appCONSTANTS, EditUserPrepService,ToastService) {
-        $scope.isPaneShown = true;
-        $scope.$emit('LOAD')
-        var vm = this;
-        vm.show=true;
-        $scope.userObj = "";
-        $scope.productList = [];
-        $scope.checkradioasd = -1;
-        $scope.productDetails = "";
-        $scope.userObj =  EditUserPrepService; 
-        console.log($scope.userObj );
-        localStorage.setItem('data', JSON.stringify($scope.userObj.userId));
-
-        refreshuserProducts();
-
-        function refreshuserProducts() {
-            var k = UserProductResource.getUserProductList({ userId: $scope.userObj.userId }).$promise.then(function (results) {
-                $scope.userProductList = results 
-                $scope.isPaneShown = false;
-			$scope.$emit('UNLOAD')
-            },
-            function (data, status) {
-                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-            });
-        } 
-        $scope.Updateclient = function () {
-            vm.show=false;
-            var newClient = new AddUserResource();
-            newClient.UserId =$scope.userObj.userId;             
-            newClient.Phone1 = $scope.userObj.phone1;
-            newClient.Phone2 = $scope.userObj.phone2;
-            newClient.Password = $scope.userObj.password;
-            newClient.IsActive = $scope.userObj.isActive;
-            newClient.$create().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    vm.show=true;
-                    localStorage.setItem('data', JSON.stringify(data.userId));
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-
-     }
-
-})();(function () {
     'use strict';
 
     angular

@@ -29,11 +29,11 @@ namespace OperationSurvey.API.Controllers
 
         [Route("api/Answers", Name = "CreateAnswer")]
         [HttpPost]
-        public IHttpActionResult CreateAnswer([FromBody] AnswerModel answerModel)
+        public IHttpActionResult CreateAnswer([FromBody] List<AnswerModel> answerModel)
         {
-            var reurnAnswer = _answerFacade.CreateAnswer(Mapper.Map<AnswerDto>(answerModel), UserId, TenantId);
+            _answerFacade.CreateAnswer(Mapper.Map<List<AnswerDto>>(answerModel), UserId, TenantId);
 
-            return Ok(reurnAnswer);
+            return Ok();
         }
 
 
@@ -53,6 +53,9 @@ namespace OperationSurvey.API.Controllers
             var reurnAnswer = _answerFacade.GetAnswer(answerId, TenantId);
             return Ok(reurnAnswer);
         }
+
+        
+
     }
 
 }

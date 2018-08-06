@@ -4,53 +4,97 @@
     angular
         .module('home')
         .controller('AnswerQuestionDialogController', ['blockUI', '$scope', '$translate', 'AnswerResource', '$state', 'QuestionPrepService', 'QuestionResource', 'AreaPrepService',
-         'ToastService', AnswerQuestionDialogController]);
+            'ToastService', AnswerQuestionDialogController]);
 
     function AnswerQuestionDialogController(blockUI, $scope, $translate, AnswerResource, $state, QuestionPrepService, QuestionResource, AreaPrepService, ToastService) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[7].children[0]).addClass("active")
         blockUI.start("Loading...");
 
         var vm = this;
-        $scope.likeText = "";
-        $scope.selectedArea = "";
-        $scope.areaList = AreaPrepService.results;
-        $scope.questionList = QuestionPrepService.results;
-        $scope.IsLike = 0;
-        $scope.isLikeSub = 0;
-        $scope.selection = [];
-        $scope.selectedRate = 0;
-        $scope.selectedBranch = ""; 
-   
+       
         console.log($scope.questionList);
-        // Toggle selection for a given fruit by name
-        $scope.toggleSelection = function toggleSelection(fruitName) {
-            var idx = $scope.selection.indexOf(fruitName);
+        /*// Toggle selection for a given fruit by name*/
+        function init(){
+            $scope.likeText = "";
+            $scope.selectedArea = { areaId: 0, titleDictionary: { "en": "Select Area", "ar": "اختار منطقه" } };
+            $scope.areaList = [];
+            $scope.areaList.push($scope.selectedArea);
+            $scope.areaList = $scope.areaList.concat(AreaPrepService.results)
+            $scope.questionList = QuestionPrepService.results;
+            $scope.IsLike = 0;
+            $scope.isLikeSub = 0;
+            $scope.selection = [];
+            $scope.selectedRate = 0;
+            $scope.selectedBranch = { branchId: 0, titleDictionary: { "en": "Select Branch", "ar": "اختار فرع" } };
+            $scope.branchList = [];
+            $scope.branchList.push($scope.selectedBranch);
+        }
+        init();
+        vm.answers = []
+        $scope.questionList.forEach(function (element) {
+            vm.answers.push({
+                branchId: 0,
+                date: new Date(),
+                questionId: element.questionId,
+                answerDetails: [],
+                note: ""
 
-            // Is currently selected
-            if (idx > -1) {
-                $scope.selection.splice(idx, 1);
-            }
+            })
+        }, this);
+        $scope.toggleSelection = function toggleSelection(QuestionDetail, questionId) {
 
-                // Is newly selected
-            else {
-                $scope.selection.push(fruitName);
-            }
+            vm.answers.forEach(function (element) {
+                if (element.questionId == questionId) {
+                    var idx = element.answerDetails.indexOf(QuestionDetail);
+                    /*// Is currently selected*/
+                    if (idx > -1) {
+                        /*$scope.selection.splice(idx, 1);*/
+                        element.answerDetails.splice(idx, 1);
+
+                    }
+
+                    /* // Is newly selected*/
+                    else {
+                        /* $scope.selection.push({ questionDetailsId: QuestionDetail.questionDetailsId });*/
+                        element.answerDetails.push({ questionDetailsId: QuestionDetail.questionDetailsId });
+                    }
+                }
+            }, this);
+
         };
         $scope.rate = 3;
-        $scope.onItemRating = function (rating, questionId, note) {
-            $scope.selectedRate = rating;
-            quesObject.question = questionId;
+        $scope.onItemRating = function (rating, questionId) {
+            /*$scope.selectedRate = rating;*/
+            vm.answers.forEach(function (element) {
+                if (element.questionId == questionId) {
+                    element.answerDetails = [];
+                    element.answerDetails.push({ value: rating });
+                }
+            }, this);
+            /*quesObject.question = questionId;
             quesObject.value = rating;
-            quesObject.note = note;
-            //  vm.selectedAnswerDetails.push(quesObject)
-            // alert('On Rating: ' + rating);
+            quesObject.note = note;*/
+            /* //  vm.selectedAnswerDetails.push(quesObject)
+             // alert('On Rating: ' + rating);*/
         };
 
 
         $scope.areaChange = function () {
-            $scope.branchList = $scope.selectedArea.branches;
+            $scope.areaList.splice(0, 1);
+            $scope.branchList = [];
+            $scope.selectedBranch = { branchId: 0, titleDictionary: { "en": "Select Branch", "ar": "اختار فرع" } };
+            $scope.branchList.push($scope.selectedBranch);
+            $scope.branchList = $scope.branchList.concat($scope.selectedArea.branches);
+        }
+
+        $scope.branchChange = function () {
+            for (var i = $scope.branchList.length - 1; i >= 0; i--) {
+                if ($scope.branchList[i].branchId == 0) {
+                    $scope.branchList.splice(i, 1);
+                }
+            }
         }
 
 
@@ -58,24 +102,37 @@
             blockUI.start("Loading...");
             debugger;
             var submitAnswer = new AnswerResource();
-            submitAnswer.Date = new Date($('#startdate').data('date'));
-            submitAnswer.branchId = $scope.selectedBranch.branchId;
-           submitAnswer.questionModel = list;
-            submitAnswer.$create().then(
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientAddSuccess'), "success");
-
-                    $state.go('AnswerQuestion');
-
-                },
+            vm.answers.forEach(function (element) {
+                element.branchId = $scope.selectedBranch.branchId;
+                element.date = new Date($('#startdate').data('date'));
+            }, this);
+            /*   // submitAnswer.Date = new Date($('#startdate').data('date'));
+               // submitAnswer.branchId = $scope.selectedBranch.branchId;
+           //    submitAnswer.questionModel = list;*/
+            AnswerResource.create(vm.answers, function (data, status) {
+                blockUI.stop();
+                ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientAddSuccess'), "success");
+                init();
+                vm.answers = []
+                $scope.questionList.forEach(function (element) {
+                    vm.answers.push({
+                        branchId: 0,
+                        date: new Date(),
+                        questionId: element.questionId,
+                        answerDetails: [],
+                        note: ""
+                    })
+                    element.l = null;
+                    element.questionDetailses.forEach(function(QuestionDetail) {
+                        QuestionDetail.values = null;
+                    }, this);
+                }, this);
+            },
                 function (data, status) {
                     blockUI.stop();
 
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
+                });
         }
         vm.currentPage = 1;
         $scope.changePage = function (page) {
@@ -85,6 +142,19 @@
 
         blockUI.stop();
 
+
+        vm.answersValid = function () {
+            var isInValid = false;
+            vm.answers.forEach(function (element) {
+                if (element.answerDetails.length <= 0) {
+                    isInValid = true
+                }
+            }, this);
+            if ($('#startdate').data('date') == null || $scope.selectedArea.areaId == 0 || $scope.selectedBranch.branchId == 0) {
+                isInValid = true
+            }
+            return isInValid;
+        }
     }
 
 }());
