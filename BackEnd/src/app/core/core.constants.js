@@ -9,11 +9,11 @@
 			 'en':{'key':'en','value':'english'},
 			 'ar':{'key':'ar','value':'arabic'}
 		 },
-		 'QuestionType':{
-			 'Checkbox':"1",
-			 'Rate':"2",
-			 'LikeDislike':"3"
-		 }
+		 'QuestionType':[
+			 {id:0,text:"Checkbox"},
+			 {id:1,text:"Rate"},
+			 {id:2,text:"LikeDislike"}
+		]
 		})
 		.constant('messageTypeEnum', {
       success: 0,

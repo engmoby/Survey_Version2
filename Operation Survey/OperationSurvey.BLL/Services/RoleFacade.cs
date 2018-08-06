@@ -112,6 +112,7 @@ namespace OperationSurvey.BLL.Services
             }
             var deletePermissions = new RolePermission[roleObj.RolePermissions.Count];
             roleObj.RolePermissions.CopyTo(deletePermissions, 0);
+
             foreach (var roleObjRolePermission in deletePermissions)
             { 
                 _rolePermissionService.Delete(roleObjRolePermission);

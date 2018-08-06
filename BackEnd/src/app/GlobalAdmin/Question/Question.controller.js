@@ -3,11 +3,11 @@
 
     angular
         .module('home')
-        .controller('QuestionController', [ 'blockUI', '$scope',  'QuestionResource', 'QuestionPrepService',  
+        .controller('QuestionController', [ 'blockUI', '$scope', 'appCONSTANTS', 'QuestionResource', 'QuestionPrepService',  
             'ToastService', QuestionController]);
 
 
-    function QuestionController(  blockUI, $scope,   QuestionResource, QuestionPrepService, ToastService) { 
+    function QuestionController(  blockUI, $scope, appCONSTANTS,  QuestionResource, QuestionPrepService, ToastService) { 
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
@@ -15,8 +15,9 @@
         blockUI.start("Loading..."); 
             
         var vm = this;
+		$scope.QuestionTypeList = appCONSTANTS.QuestionType;
         $scope.totalCount = QuestionPrepService.totalCount;
-        $scope.QuestionList = QuestionPrepService;
+        $scope.QuestionList = QuestionPrepService; 
         function refreshQuestions() {
 
             blockUI.start("Loading..."); 

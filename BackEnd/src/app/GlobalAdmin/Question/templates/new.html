@@ -1,6 +1,6 @@
 <div class="modal-content">
     <div class="modal-header bordered">
-        <h2 class="pmd-card-title-text">{{'NewQuestion' | translate}}</h2>
+        <h2 class="pmd-card-title-text">{{'New' | translate}}</h2>
     </div>
     <div class="modal-body">
         <form class="form-horizontal" name="newQuestionForm"> 
@@ -33,22 +33,56 @@
                                     <label for="first-name">{{'Department' | translate}}</label>
                         
                                     <select style="width:50% !important" class="form-control select-with-search pmd-select2-tags" ng-change="newQuestionCtrl.departmentChange()"
-                                            ng-model="selectedDepartment" ng-options="a as a.titleDictionary[selectedLanguage] for a in newQuestionCtrl.departmentList"></select>
-                                </div>
-                        
+                                            ng-model="newQuestionCtrl.selectedDepartment" ng-options="a as a.titleDictionary[selectedLanguage] for a in newQuestionCtrl.DepartmentList"></select>
+                                </div> 
                                 <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                     <label for="first-name">{{'Category' | translate}}</label>
-                        
                                     <select style="width:50% !important" class="form-control select-with-search pmd-select2-tags"   
-                                            ng-model="selectedCategory" ng-options="a as a.titleDictionary[selectedLanguage] for a in newQuestionCtrl.categoryList"></select>
+                                            ng-model="newQuestionCtrl.selectedCategory" ng-options="a as a.titleDictionary[selectedLanguage] for a in newQuestionCtrl.categoryList"></select>
                                 </div>
                                 <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                     <label for="first-name">{{'QuestionType' | translate}}</label>
                         
                                     <select style="width:50% !important" class="form-control select-with-search pmd-select2-tags"  
-                                            ng-model="selectedDepartment" ng-options="a as a.titleDictionary[selectedLanguage] for a in newQuestionCtrl.QuestionTypeList"></select>
-                                </div>
-                        
+                                            ng-model="newQuestionCtrl.selectedQuestionType" ng-options="a as a.text for a in newQuestionCtrl.QuestionTypeList"></select>
+                                </div> 
+                            </div> 
+                            <div class="row" ng-show="newQuestionCtrl.selectedQuestionType.id==0">
+                                
+                                <ul>
+                                    <li ng-repeat="elemnt in questionelemnt">
+                    
+                                        <div>
+                                            <div id={{elemnt.id}} style="display:inline" >
+                                                <span  ng-model="elemnt.question" ng-hide="editorEnabled" ng-click="editorEnabled=true">
+                                                    {{elemnt.question}}
+                                                </span>
+                                                <div  ng-show="editorEnabled">
+                                                    <input  ng-model="elemnt.question" ng-show="editorEnabled" >
+                                                    <button href="#" ng-click="editorEnabled=false">Done editing</button>
+                                                </div>
+                                            </div>
+                                            <div style="display:inline">
+                                                <span>
+                                                    <input type="text" ng-model="elemnt.questionEn" placeholder="questionEn" required/>
+                                                    <input type="text" ng-model="elemnt.questionAr" placeholder="questionAr" required/>
+                                                </span>
+                                            </div>
+                                         
+                                            <span ng-hide="elemnt.length == 1">
+                                                <!-- <a  href ng-click="questionelemnt.splice($index, 1)">Remove</a> -->
+                                        <a href ng-click="newItem($event)">Add</a>
+                                    </span>
+                                        </div>
+                                        <hr/>
+                                    </li>
+                                    <!-- <li>
+                                        <a href ng-click="newItem($event)">New Item</a>
+                                    </li> -->
+                                </ul>
+                                <!-- <div>
+                                    <button ng-click="showitems($event)">Submit</button>
+                                </div> -->
                             </div>
                         </div>
                     </div>
