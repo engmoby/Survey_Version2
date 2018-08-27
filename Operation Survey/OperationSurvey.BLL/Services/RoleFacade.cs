@@ -54,6 +54,10 @@ namespace OperationSurvey.BLL.Services
             {
                 return EditRole(roleDto, userId, tenantId);
             }
+                if (roleDto.TitleDictionary.Any(name => _typeTranslationService.CheckNameExist(name.Key, name.Value, roleDto.RoleId, tenantId)))
+                {
+                    throw new ValidationException(ErrorCodes.NameIsExist);
+                }
 
             var roleObj = Mapper.Map<Role>(roleDto);
             foreach (var roleName in roleDto.TitleDictionary)
@@ -90,7 +94,10 @@ namespace OperationSurvey.BLL.Services
         public RoleDto EditRole(RoleDto roleDto, int userId, int tenantId)
         {
             //var roleObj = _roleService.Find(roleDto.RoleId);
-
+            if (roleDto.TitleDictionary.Any(name => _typeTranslationService.CheckNameExist(name.Key,name.Value, roleDto.RoleId, tenantId)))
+            {
+                throw new ValidationException(ErrorCodes.NameIsExist);
+            }
             var roleObj = _roleService.Query(x => x.RoleId == roleDto.RoleId && x.TenantId == tenantId)
                 .Select().FirstOrDefault();
 

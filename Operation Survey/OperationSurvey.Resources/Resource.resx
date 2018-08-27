@@ -120,10 +120,16 @@
   <data name="MailExist" xml:space="preserve">
     <value>Email Is Already Exist</value>
   </data>
+  <data name="NameIsExist" xml:space="preserve">
+    <value>Name Is Exist</value>
+  </data>
+  <data name="PackageExpired" xml:space="preserve">
+    <value>Your account is expired, please contact your admin.</value>
+  </data>
+  <data name="PackageNotActivated" xml:space="preserve">
+    <value>Your account is not active, please contact your admin.</value>
+  </data>
   <data name="PhoneExist" xml:space="preserve">
     <value>Phone Is Already Exist</value>
-  </data>
-  <data name="RecordIsExist" xml:space="preserve">
-    <value>Record Is Exist</value>
   </data>
 </root>

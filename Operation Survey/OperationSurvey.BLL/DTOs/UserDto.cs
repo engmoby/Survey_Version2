@@ -26,6 +26,10 @@ namespace OperationSurvey.BLL.DTOs
         public UserTypeDto UserType { get; set; }
         public List<UserRoleDto> UserRoles { get; set; }
         public int TenantId { get; set; }
-
+        public List<long> PermissionId { get; set; }
+        public long? DepartmentId { get; set; }
+        public long? AreaId { get; set; }
+        public List<long> CateoriesId { get; set; }
+        public List<long> BranchesId { get; set; }
     }
 }

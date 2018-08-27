@@ -1,6 +1,6 @@
 <div class="modal-content">
 	<div class="modal-header bordered">
-		<h2 class="pmd-card-title-text">{{'Category' | translate}}</h2>
+		<h2 class="pmd-card-title-text">{{'CategoryLbl' | translate}}</h2>
 	</div>
 	<div class="modal-body">
 		<form class="form-horizontal" name="editTypeForm"> 
@@ -20,19 +20,19 @@
                                 <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in editCategoryCtrl.language" id="{{lang.value}}-form">
                                     <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
                                         <label for="first-name"> {{ lang.value+'Name' | translate}} </label>
-                                        <input required type="text" class="mat-input form-control" name="titleDictionary{{lang.value+'Name'}}" ng-model="editCategoryCtrl.Category.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="40">
+                                        <input required type="text" class="mat-input form-control" name="titleDictionary{{lang.value+'Name'}}" ng-model="editCategoryCtrl.Category.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="255">
                                         <div ng-messages="editTypeForm.titleDictionary{{lang.value+'Name'}}.$error" >
                                             
                                             <div ng-show="editTypeForm.titleDictionary{{lang.value+'Name'}}.$error.required && !editTypeForm.titleDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr' | translate}}</div>
-                                            <div ng-show="(editTypeForm.titleDictionary{{lang.value+'Name'}}.$error.minlength || editTypeForm.titleDictionary{{lang.value+'Name'}}.$error.maxlength) && !editTypeForm.titleDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError' | translate}}</div>
+                                            <div ng-show="(editTypeForm.titleDictionary{{lang.value+'Name'}}.$error.minlength || editTypeForm.titleDictionary{{lang.value+'Name'}}.$error.maxlength) && !editTypeForm.titleDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError255' | translate}}</div>
                                         </div>
                                     </div>
                                 </div>
                                 
         
-                                    <div class="form-group pmd-textfield pmd-textfield-floating-label">
-                                        role   <label> {{ role | translate}} </label>
-                                        <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple
+                                    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                            <label> {{ 'Role' | translate}} </label>
+                                            <select required style="width:100% !important" class="form-control select-with-search pmd-select2-tags" multiple
                                                 ng-model="editCategoryCtrl.selectedCategoryRoles" ng-options="role as role.titleDictionary[selectedLanguage] for role in roleList"></select>
                             
                                     </div>
@@ -62,5 +62,8 @@
                 // console.log(data);
             }
         });
+        $(".select-with-search").select2({
+			theme: "bootstrap"
+		});
     });
 </script>

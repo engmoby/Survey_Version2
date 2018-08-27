@@ -38,7 +38,9 @@
       return {
         name: info? info.Username : "",
         role: info ? info.Role : "",
-        id: info ? info.UserId : ""
+        id: info ? info.UserId : "",
+        PermissionId: info && info.PermissionId ? info.PermissionId.split(';'):[],
+        userTypeId: info && info.TypeId ? info.TypeId:0
       };
     }
 

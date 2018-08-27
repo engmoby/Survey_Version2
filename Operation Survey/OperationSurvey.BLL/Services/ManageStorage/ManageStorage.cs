@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Drawing; 
-using System.Drawing.Imaging;
+using System.Drawing;
 using System.IO;
-using System.Net.Mime; 
+using System.Drawing.Imaging;
+
 namespace OperationSurvey.BLL.Services.ManageStorage
 {
 
@@ -10,26 +10,27 @@ namespace OperationSurvey.BLL.Services.ManageStorage
     {
         public void UploadImage(string path, MemoryStream image, string id)
         {
-            //if (!Directory.Exists(path))
-            //{
-            //    Directory.CreateDirectory(path);
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
 
-            //}
-            //MediaTypeNames.Image img = MediaTypeNames.Image.FromStream(image);
-            //var filePath = path + "\\" + id + ".png";
-            //if (File.Exists(filePath))
-            //{
-            //    File.Delete(filePath);
-            //}
-            //var thumbPath = path + "\\" + id + "-thumbnail.png";
-            //if (File.Exists(thumbPath))
-            //{
-            //    File.Delete(thumbPath);
-            //}
+            }
 
-            //var thumb = img.GetThumbnailImage(120, 120, () => false, IntPtr.Zero);
-            //img.Save(filePath, ImageOptimizer.ImageFormat.Png);
-            //thumb.Save(thumbPath, ImageOptimizer.ImageFormat.Png);
+            Image img = Image.FromStream(image);
+            var filePath = path + "\\" + id + ".png";
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+            var thumbPath = path + "\\" + id + "-thumbnail.png";
+            if (File.Exists(thumbPath))
+            {
+                File.Delete(thumbPath);
+            }
+
+            var thumb = img.GetThumbnailImage(120, 120, () => false, IntPtr.Zero);
+            img.Save(filePath, ImageFormat.Png);
+            thumb.Save(thumbPath, ImageFormat.Png);
         }
 
      }

@@ -13,10 +13,14 @@ namespace OperationSurvey.API.Controllers
     {
         private readonly IUserService _userService; 
         private readonly IUserFacade _userFacade; 
-        public UsersController(IUserFacade userFacade, IUserService userService  )
+        private readonly IAreaFacade _areaFacade; 
+        private readonly IDepartmentFacade _departmentFacade;
+        public UsersController(IUserFacade userFacade, IUserService userService, IAreaFacade areaFacade, IDepartmentFacade departmentFacade)
         {
             _userFacade = userFacade;
-            _userService = userService; 
+            _userService = userService;
+            _areaFacade = areaFacade;
+            _departmentFacade = departmentFacade;
         } 
         [Route("api/Users", Name = "RegisterUser")]
         [HttpPost]
@@ -53,6 +57,69 @@ namespace OperationSurvey.API.Controllers
             var reurnUser = _userFacade.GetUser(userId, TenantId);
             return Ok(reurnUser);
         }
+        
+
+        [Route("api/Users/GetMaxAndConUsers", Name = "GetMaxAndConUsers")]
+        [HttpGet]
+        public IHttpActionResult GetMaxAndConUsers()
+        {
+            UserConsumedModel maxCon = Mapper.Map<UserConsumedModel>(_userFacade.GetMaxAndConsumedUsers(TenantId));
+
+            return Ok(maxCon);
+
+        }
+
+        [Route("api/Users/Register", Name = "Register")]
+        [HttpPost]
+        public IHttpActionResult Register([FromBody] AdminModel adminModel)
+        {
+            //if (Request.Headers.Authorization.Scheme == "X-Auth-Token" &&
+            //    Request.Headers.Authorization.Parameter == "asdasdas")
+
+            _userFacade.AddNewGlobalUser(Mapper.Map<AdminDto>(adminModel));
+            return Ok();
+            //return Unauthorized();
+        }
+
+        [Route("api/Users/", Name = "UpdateGlobalUser")]
+        [HttpPut]
+        public IHttpActionResult UpdateGlobalUser([FromBody] AdminModel adminModel)
+        {
+            //if (Request.Headers.Authorization.Scheme == "X-Auth-Token" &&
+            //    Request.Headers.Authorization.Parameter == "asdasdas")
+
+            _userFacade.UpdateGlobalUser(Mapper.Map<AdminDto>(adminModel));
+            return Ok();
+            //return Unauthorized();
+        }
+        [Route("api/Users/Package", Name = "UpdatePackage")]
+        [HttpPut]
+        public IHttpActionResult UpdatePackage([FromBody] AdminModel adminModel)
+        {
+            //if (Request.Headers.Authorization.Scheme == "X-Auth-Token" &&
+            //    Request.Headers.Authorization.Parameter == "asdasdas")
+
+            _userFacade.UpdateAdminPackage(Mapper.Map<AdminDto>(adminModel));
+            return Ok();
+            //return Unauthorized();
+        }
+
+        [Route("api/Users/Departments", Name = "GetAllDepartmentsByUserId")]
+        [HttpGet]
+        public IHttpActionResult GetAllDepartmentsByUserId()
+        {
+            var data = Mapper.Map<DepartmentModel>(_departmentFacade.GetAllDepartmentByUserId(UserId));
+            return Ok(data);
+        }
+
+        [Route("api/Users/Area", Name = "GetAllAreasByUserId")]
+        [HttpGet]
+        public IHttpActionResult GetAllAreasByUserId()
+        {
+            var data = Mapper.Map<AreaModel>(_areaFacade.GetAllAreasByUserId(UserId));
+            return Ok(data);
+        }
+
     }
 
 }

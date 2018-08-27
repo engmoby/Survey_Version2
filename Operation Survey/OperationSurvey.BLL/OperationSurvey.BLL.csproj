@@ -65,6 +65,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -96,11 +97,16 @@
   <ItemGroup>
     <Compile Include="DataServices\AnswerService.cs" />
     <Compile Include="DataServices\Interfaces\IAnswerService.cs" />
+    <Compile Include="DataServices\Interfaces\IPackageService.cs" />
     <Compile Include="DataServices\Interfaces\IQuestionDetailsService.cs" />
     <Compile Include="DataServices\Interfaces\IQuestionService.cs" />
     <Compile Include="DataServices\Interfaces\IQuestionDetailsTranslationService.cs" />
     <Compile Include="DataServices\Interfaces\IQuestionTranslationService.cs" />
     <Compile Include="DataServices\Interfaces\IAnswerDetailsService.cs" />
+    <Compile Include="DataServices\Interfaces\ITicketService.cs" />
+    <Compile Include="DataServices\Interfaces\IUserBranchService.cs" />
+    <Compile Include="DataServices\Interfaces\IUserCategoryService.cs" />
+    <Compile Include="DataServices\PackageService.cs" />
     <Compile Include="DataServices\QuestionDetailsService.cs" />
     <Compile Include="DataServices\QuestionService.cs" />
     <Compile Include="DataServices\QuestionDetailsTranslationService.cs" />
@@ -133,6 +139,9 @@
     <Compile Include="DataServices\Interfaces\IUserService.cs" />
     <Compile Include="DataServices\PermissionService.cs" />
     <Compile Include="DataServices\AnswerDetailsService.cs" />
+    <Compile Include="DataServices\TicketService.cs" />
+    <Compile Include="DataServices\UserBranchService.cs" />
+    <Compile Include="DataServices\UserCategoryService.cs" />
     <Compile Include="DataServices\UserRoleService.cs" />
     <Compile Include="DataServices\RolePermissionService.cs" />
     <Compile Include="DataServices\RoleService.cs" />
@@ -146,8 +155,10 @@
     <Compile Include="DataServices\RefreshTokenService.cs" />
     <Compile Include="DataServices\UserTypeService.cs" />
     <Compile Include="DataServices\UserService.cs" />
+    <Compile Include="DTOs\AdminDto.cs" />
     <Compile Include="DTOs\AnswerDetailsDto.cs" />
     <Compile Include="DTOs\AnswerDto.cs" />
+    <Compile Include="DTOs\QuestionDashBoard.cs" />
     <Compile Include="DTOs\QuestionDetailsDto.cs" />
     <Compile Include="DTOs\QuestionDto.cs" />
     <Compile Include="DTOs\CategoryDto.cs" />
@@ -158,6 +169,9 @@
     <Compile Include="DTOs\ProductNamesDto.cs" />
     <Compile Include="DTOs\RefreshTokenDto.cs" />
     <Compile Include="DTOs\PermissionDto.cs" />
+    <Compile Include="DTOs\TicketDashboard.cs" />
+    <Compile Include="DTOs\TicketDto.cs" />
+    <Compile Include="DTOs\UserConsumed.cs" />
     <Compile Include="DTOs\UserRoleDto.cs" />
     <Compile Include="DTOs\RolePermissionDto.cs" />
     <Compile Include="DTOs\RoleDto.cs" />
@@ -168,6 +182,7 @@
     <Compile Include="Services\AnswerFacade.cs" />
     <Compile Include="Services\Interfaces\IAnswerFacade.cs" />
     <Compile Include="Services\Interfaces\IQuestionFacade.cs" />
+    <Compile Include="Services\Interfaces\ITicketFacade.cs" />
     <Compile Include="Services\QuestionFacade.cs" />
     <Compile Include="Services\CategoryFacade.cs" />
     <Compile Include="Services\DepartmentFacade.cs" />
@@ -192,6 +207,7 @@
     <Compile Include="Services\RoleFacade.cs" />
     <Compile Include="Services\AreaFacade.cs" />
     <Compile Include="Services\BranchFacade.cs" />
+    <Compile Include="Services\TicketFacade.cs" />
     <Compile Include="Services\UserTypeFacade.cs" />
     <Compile Include="Services\UserFacade.cs" />
     <Compile Include="OperationSurveyBLLConfig.cs" />

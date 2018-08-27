@@ -63,6 +63,7 @@ namespace OperationSurvey.API
                 .RegisterType<IPermissionFacade, PermissionFacade>(new PerResolveLifetimeManager())
                 .RegisterType<IQuestionFacade, QuestionFacade>(new PerResolveLifetimeManager())
                 .RegisterType<IAnswerFacade, AnswerFacade>(new PerResolveLifetimeManager())
+                .RegisterType<ITicketFacade, TicketFacade>(new PerResolveLifetimeManager())
                 ;
             // .RegisterType<IProductFacade, ProductFacade>(new PerResolveLifetimeManager());
 

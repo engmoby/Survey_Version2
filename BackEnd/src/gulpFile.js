@@ -76,6 +76,7 @@ var runSequence = require('run-sequence').use(gulp);
      './node_modules/select2/dist/js/select2.full.min.js',
      './assets/js/moment-with-locales.js',
      './assets/js/bootstrap-datetimepicker.js', 
+     './node_modules/angular-ui-carousel/dist/ui-carousel.min.js',      
      './assets/js/jk-rating-stars.min.js', 
      './assets/js/angular-filter.js', 
       './node_modules/adm-trv/dist/ADM-treeView.js',   
@@ -101,6 +102,7 @@ var runSequence = require('run-sequence').use(gulp);
     './assets/css/ADM-treeView.css',
     './node_modules/ngprogress-lite/ngprogress-lite.css',
     './node_modules/nvd3/build/nv.d3.min.css',
+    './node_modules/angular-ui-carousel/dist/ui-carousel.min.css',     
     
   ],
   cssAR: [
@@ -112,6 +114,8 @@ var runSequence = require('run-sequence').use(gulp);
     './assets/css/ADM-treeView.css',
     './node_modules/ngprogress-lite/ngprogress-lite.css',
     './node_modules/nvd3/build/nv.d3.min.css',
+    './node_modules/angular-ui-carousel/dist/ui-carousel.min.css', 
+    
   ],
   templates: [
     './app/**/*.html'

@@ -121,6 +121,7 @@ namespace OperationSurvey.API.Providers
             identity.AddClaim(new Claim(Strings.userName, user.FirstName));
             identity.AddClaim(new Claim(Strings.userID, user.UserId.ToString()));
            identity.AddClaim(new Claim(Strings.TenantId, user.TenantId.ToString()));
+            //identity.AddClaim(new Claim(Strings.PermissionId, string.Join(";", user.PermissionId)));
             // identity.AddClaim(new Claim(ClaimTypes.Role, user.Role.ToString()));
 
             var props = new AuthenticationProperties(AuthProps(user));
@@ -136,10 +137,16 @@ namespace OperationSurvey.API.Providers
                     "UserId", user.UserId.ToString()
                 },
                 {
-                    "Username", user.FirstName +""+user.LastName
+                    "Username", user.FirstName +" "+user.LastName
                 },
                 {
                     "TenantId", user.TenantId.ToString()
+                },
+                {
+                    "PermissionId", string.Join(";", user.PermissionId)
+                },
+                {
+                    "TypeId", user.UserTypeId.ToString()
                 },
                 //{
                 //    "Role", user.Role.ToString()

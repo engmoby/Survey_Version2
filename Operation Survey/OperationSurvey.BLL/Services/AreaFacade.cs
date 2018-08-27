@@ -14,17 +14,21 @@ namespace OperationSurvey.BLL.Services
     {
         private readonly IAreaService _areaService;
         private readonly IAreaTranslationService _typeTranslationService;
+        private readonly IUserService _userService;
 
-        public AreaFacade(IAreaService areaService, IUnitOfWorkAsync unitOfWork, IAreaTranslationService typeTranslationService) : base(unitOfWork)
+
+        public AreaFacade(IAreaService areaService, IUnitOfWorkAsync unitOfWork, IAreaTranslationService typeTranslationService, IUserService userService) : base(unitOfWork)
         {
             _areaService = areaService;
             _typeTranslationService = typeTranslationService;
+            _userService = userService;
         }
 
-        public AreaFacade(IAreaService areaService, IAreaTranslationService typeTranslationService)
+        public AreaFacade(IAreaService areaService, IAreaTranslationService typeTranslationService, IUserService userService)
         {
             _areaService = areaService;
             _typeTranslationService = typeTranslationService;
+            _userService = userService;
         }
 
         public AreaDto GetArea(long areaId, int tenantId)
@@ -38,7 +42,7 @@ namespace OperationSurvey.BLL.Services
             {
                 return EditArea(areaDto, userId, tenantId);
             }
-
+            ValidateArea(areaDto, tenantId);
             var areaObj = Mapper.Map<Area>(areaDto);
             foreach (var areaName in areaDto.TitleDictionary)
             {
@@ -63,7 +67,7 @@ namespace OperationSurvey.BLL.Services
         { 
             var areaObj = _areaService.Query(x => x.AreaId == areaDto.AreaId && x.TenantId == tenantId).Select().FirstOrDefault();
             if (areaObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
-
+            ValidateArea(areaDto, tenantId);
             foreach (var areaName in areaDto.TitleDictionary)
             {
                 var areaTranslation = areaObj.AreaTranslations.FirstOrDefault(x => x.Language.ToLower() == areaName.Key.ToLower() 
@@ -95,5 +99,21 @@ namespace OperationSurvey.BLL.Services
             return _areaService.GetAllAreas(page, pageSize, tenantId);
         }
 
+        public AreaDto GetAllAreasByUserId(long userId)
+        {
+            return Mapper.Map<AreaDto>(_userService.Find(userId).Area);
+        }
+
+        private void ValidateArea(AreaDto areaDto, long tenantId)
+        {
+            foreach (var name in areaDto.TitleDictionary)
+            {
+                if (name.Value.Length > 300)
+                    throw new ValidationException(ErrorCodes.MenuNameExceedLength);
+
+                if (_typeTranslationService.CheckNameExist(name.Value, name.Key, areaDto.AreaId, tenantId))
+                    throw new ValidationException(ErrorCodes.NameIsExist);
+            }
+        }
     }
 }

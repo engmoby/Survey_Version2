@@ -1,7 +1,9 @@
-﻿using AutoMapper.Configuration;
+﻿using System;
+using AutoMapper.Configuration;
 using OperationSurvey.API.Models;
 using OperationSurvey.BLL;
 using OperationSurvey.BLL.DTOs;
+using OperationSurvey.Common;
 using OperationSurvey.DAL.Entities.Model;
 
 namespace OperationSurvey.API
@@ -66,6 +68,14 @@ namespace OperationSurvey.API
             mapperConfiguration.CreateMap<AnswerModel, AnswerDto>();
             mapperConfiguration.CreateMap<AnswerDto, AnswerModel>()
                 .ForMember(dto => dto.UserName, m => m.MapFrom(src => src.User.FirstName+" "+src.User.LastName));
+
+            mapperConfiguration.CreateMap<AdminModel, AdminDto>();
+            mapperConfiguration.CreateMap<UserConsumed, UserConsumedModel>();
+
+            mapperConfiguration.CreateMap<TicketModel, TicketDto>()
+                .ForMember(dto => dto.Status, m => m.MapFrom(src => Enum.Parse(typeof(Enums.TicketStatus), src.Status)));
+            mapperConfiguration.CreateMap<TicketDto, TicketModel>()
+                .ForMember(dto => dto.Status, m => m.MapFrom(src => src.Status.ToString()));
 
             OperationSurveyBllConfig.RegisterMappings(mapperConfiguration); 
 

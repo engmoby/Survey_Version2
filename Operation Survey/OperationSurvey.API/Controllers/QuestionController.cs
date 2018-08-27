@@ -31,7 +31,6 @@ namespace OperationSurvey.API.Controllers
         }
 
 
-
         [Route("api/Questions/GetAllQuestions", Name = "GetAllQuestions")]
         [HttpGet]
         public IHttpActionResult GetAllQuestions(int page = Page, int pagesize = PageSize)
@@ -80,6 +79,13 @@ namespace OperationSurvey.API.Controllers
             var data = Mapper.Map<List<AnswerModel>>(answers.Data);
 
             return PagedResponse("GetAnswers", page, pagesize, answers.TotalCount, data, false);
+        }
+
+        [Route("api/Questions/{questionId:long}/dashboard", Name = "GetQuestionDashBoard")]
+        [HttpGet]
+        public IHttpActionResult GetQuestionDashBoard(long questionId)
+        {
+            return Ok(_questionFacade.GetQuestionDashBoard(questionId));
         }
     }
 

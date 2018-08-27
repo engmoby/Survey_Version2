@@ -3,20 +3,20 @@
 
     angular
         .module('home')
-        .controller('AnswersController', ['blockUI', '$scope', '$translate', 'AnswerResource', '$state', 'QuestionPrepService', 'QuestionResource', 'AreaPrepService',
+        .controller('AnswersController', ['blockUI', '$scope', '$translate', 'AnswerResource', '$state', 'AnswerQuestionPrepService', 'QuestionResource', 'AreaPrepService',
             'ToastService', AnswersController]);
 
-    function AnswersController(blockUI, $scope, $translate, AnswerResource, $state, QuestionPrepService, QuestionResource, AreaPrepService, ToastService) {
+    function AnswersController(blockUI, $scope, $translate, AnswerResource, $state, AnswerQuestionPrepService, QuestionResource, AreaPrepService, ToastService) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[8].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[7].children[0]).addClass("active")
 
         var vm = this;
         vm.selectedArea = { areaId: 0, titleDictionary: { "en": "All Areas", "ar": "جميع المناطق" } };
         vm.areaList = [];
         vm.areaList.push(vm.selectedArea);
         vm.areaList = vm.areaList.concat(AreaPrepService.results)
-        vm.questionList = QuestionPrepService.results;
+        vm.questionList = AnswerQuestionPrepService.results;
         vm.selectedBranch = { branchId: 0, titleDictionary: { "en": "All Branches", "ar": "كل الفروع" } };
         vm.branchList = [];
         vm.branchList.push(vm.selectedBranch);
@@ -46,11 +46,11 @@
             }
         }
         vm.viewAnswer = function (ques) {
-
             ques.isloading = true;
             AnswerResource.getAnswer({ questionId: ques.questionId, page: ques.page, areaId: vm.areaId, branchId: vm.branchId, from: from, to: to }).$promise.then(function (results) {
                 ques.isloading = false;
                 ques.answers = results;
+                // $scope.$apply()
             },
                 function (data, status) {
                     ques.isloading = false;
@@ -68,12 +68,15 @@
                 element.showAnswer = false
             }, this);
             from = ""
-            if ($('#fromdate').val() != "")
-                from = (new Date($('#fromdate').val())).toISOString().replace('Z', '');
-
+            if ($('#fromdate').val() != "") {
+                var fromDate = $('#fromdate').val().split('/')
+                from = (new Date(fromDate[1] + "/" + fromDate[0] + "/" + fromDate[2])).toISOString().replace('Z', '');
+            }
             to = ""
-            if ($('#todate').val() != "")
-                to = (new Date($('#todate').val())).toISOString().replace('Z', '');
+            if ($('#todate').val() != "") {
+                var toDate = $('#todate').val().split('/')
+                to = (new Date(toDate[1] + "/" + toDate[0] + "/" + toDate[2])).toISOString().replace('Z', '');
+            }
             vm.areaId = vm.selectedArea.areaId;
             vm.branchId = vm.selectedBranch.branchId;
         }

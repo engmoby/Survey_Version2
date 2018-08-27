@@ -36,7 +36,6 @@
                 newObj.QuestionDetailses.push({titleDictionary:{en:element.questionEn,ar:element.questionAr}});
             });
             
-            //newObj.QuestionDetailses = null; 
             newObj.CategoryId =  vm.selectedCategory.categoryId; 
             newObj.QuestionTypeId = vm.selectedQuestionType.id; 
             newObj.IsDeleted = false; 

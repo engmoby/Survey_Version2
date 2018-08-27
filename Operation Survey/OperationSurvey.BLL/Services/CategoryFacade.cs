@@ -59,7 +59,7 @@ namespace OperationSurvey.BLL.Services
             {
                 return EditCategory(categoryDto, userId, tenantId);
             }
-
+            ValidateCategory(categoryDto, tenantId);
             var categoryObj = Mapper.Map<Category>(categoryDto);
             foreach (var categoryName in categoryDto.TitleDictionary)
             {
@@ -94,7 +94,7 @@ namespace OperationSurvey.BLL.Services
         {
             var categoryObj = _categoryService.Find(categoryDto.CategoryId);
             if (categoryObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
-
+            ValidateCategory(categoryDto, tenantId);
             foreach (var categoryName in categoryDto.TitleDictionary)
             {
                 var categoryTranslation = categoryObj.CategoryTranslations.FirstOrDefault(x => x.Language.ToLower() == categoryName.Key.ToLower() && x.CategoryId == categoryDto.CategoryId);
@@ -142,5 +142,16 @@ namespace OperationSurvey.BLL.Services
             return _categoryService.GetAllCategorys(page, pageSize, tenantId);
         }
 
+        private void ValidateCategory(CategoryDto categoryDto, long tenantId)
+        {
+            foreach (var name in categoryDto.TitleDictionary)
+            {
+                if (name.Value.Length > 300)
+                    throw new ValidationException(ErrorCodes.MenuNameExceedLength);
+
+                if (_typeTranslationService.CheckNameExist(name.Value, name.Key, categoryDto.CategoryId, tenantId))
+                    throw new ValidationException(ErrorCodes.NameIsExist);
+            }
+        }
     }
 }

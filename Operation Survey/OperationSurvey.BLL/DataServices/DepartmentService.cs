@@ -24,8 +24,9 @@ namespace OperationSurvey.BLL.DataServices
 
             PagedResultsDto results = new PagedResultsDto();
             results.TotalCount = query.Select(x => x).Count();
-
-            var modelReturn = query.OrderBy(x => x.DepartmentId).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            var modelReturn = pageSize > 0
+                ? query.OrderBy(x => x.DepartmentId).Skip((page - 1) * pageSize).Take(pageSize).ToList()
+                : query.Where(x => x.Categories.Count > 0).OrderBy(x => x.DepartmentId).ToList();
 
             var userDto = new List<DepartmentDto>();
             foreach (var user in modelReturn)

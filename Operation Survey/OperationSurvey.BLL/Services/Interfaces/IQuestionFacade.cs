@@ -10,5 +10,6 @@ namespace OperationSurvey.BLL.Services.Interfaces
         PagedResultsDto GetAllQuestions(int page, int pageSize, int tenantId);
         PagedResultsDto GetAllQuestionsByUserId(int page, int pageSize, int userId, int tenantId);
 
+        QuestionDashBoard GetQuestionDashBoard(long questionId);
     }
 }

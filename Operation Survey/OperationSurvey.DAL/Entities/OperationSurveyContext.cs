@@ -14,7 +14,7 @@ namespace OperationSurvey.DAL.Entities
         public DbSet<AnswerDetails> AnswerDetailses { get; set; }
 
         public DbSet<Role> Roles { get; set; }
-        public DbSet<RoleTranslation> RoleTranslations{ get; set; }
+        public DbSet<RoleTranslation> RoleTranslations { get; set; }
 
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<PermissionTranslation> PermissionTranslations { get; set; }
@@ -33,16 +33,36 @@ namespace OperationSurvey.DAL.Entities
 
         public DbSet<Branch> Branches { get; set; }
         public DbSet<BranchTranslation> BranchTranslations { get; set; }
-         
+
         public DbSet<Question> Questions { get; set; }
         public DbSet<QuestionTranslation> QuestionTranslations { get; set; }
 
         public DbSet<QuestionDetails> QuestionDetailses { get; set; }
         public DbSet<QuestionDetailsTranslation> QuestionDetailsTranslations { get; set; }
+        public DbSet<Package> Packages { get; set; }
+        public DbSet<UserBranch> UserBranches { get; set; }
+        public DbSet<UserCategory> UserCategories { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
 
         public OperationSurveyContext() : base("name=OperationSurveyDB")
         {
             Database.SetInitializer<OperationSurveyContext>(null);
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Ticket>()
+                .HasRequired(c => c.Department)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
+
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Ticket>()
+                .HasRequired(c => c.Branch)
+                .WithMany()
+                .WillCascadeOnDelete(false);
         }
     }
 }

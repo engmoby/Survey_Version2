@@ -1,6 +1,6 @@
 <div class="modal-content">
     <div class="modal-header bordered">
-        <h2 class="pmd-card-title-text">{{'Category' | translate}}</h2>
+        <h2 class="pmd-card-title-text">{{'CategoryLbl' | translate}}</h2>
     </div>
     <div class="modal-body">
         <form class="form-horizontal" name="newCategoryForm"> 
@@ -20,17 +20,17 @@
                             <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in newCategoryCtrl.language" id="{{lang.value}}-form">
                                 <div class="form-group pmd-textfield pmd-textfield-floating-label">
                                     <label for="first-name"> {{ lang.value+'Name' | translate}} </label>
-                                    <input required Category="text" class="mat-input form-control" name="titleDictionary{{lang.value+'Name'}}" ng-model="newCategoryCtrl.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="40">
+                                    <input required Category="text" class="mat-input form-control" name="titleDictionary{{lang.value+'Name'}}" ng-model="newCategoryCtrl.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="255">
                                     <div ng-messages="newCategoryForm.titleDictionary{{lang.value+'Name'}}.$error" >
 										
                                         <div ng-show="newCategoryForm.titleDictionary{{lang.value+'Name'}}.$error.required && !newCategoryForm.titleDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr' | translate}}</div>
-                                        <div ng-show="(newCategoryForm.titleDictionary{{lang.value+'Name'}}.$error.minlength || newCategoryForm.titleDictionary{{lang.value+'Name'}}.$error.maxlength) && !newCategoryForm.titleDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError' | translate}}</div>
+                                        <div ng-show="(newCategoryForm.titleDictionary{{lang.value+'Name'}}.$error.minlength || newCategoryForm.titleDictionary{{lang.value+'Name'}}.$error.maxlength) && !newCategoryForm.titleDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError255' | translate}}</div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group pmd-textfield pmd-textfield-floating-label">
-                                role   <label> {{ role | translate}} </label>
-                                <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple
+                            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label> {{ 'Role' | translate}} </label>
+                                    <select required style="width:100% !important" class="form-control select-with-search pmd-select2-tags" multiple
                                         ng-model="newCategoryCtrl.selectedCategoryRoles" ng-options="role as role.titleDictionary[selectedLanguage] for role in roleList"></select>
                          
                             </div>
@@ -42,7 +42,7 @@
     </div>
     <div class="pmd-modal-action text-right">
         <button ng-disabled="newCategoryForm.$invalid" class="btn pmd-ripple-effect btn-primary" Category="button" ng-click="newCategoryCtrl.AddNewCategory()">{{'saveChangesBtn' | translate}}</button>
-        <button class="btn pmd-ripple-effect btn-default" Category="button" ng-click="$state.go('Category');">{{'DiscardBtn' | translate}}</button>
+        <button class="btn pmd-ripple-effect btn-default" Category="button" ng-click="newCategoryCtrl.close()">{{'DiscardBtn' | translate}}</button>
     </div>
 </div>
 
@@ -55,5 +55,8 @@
                 data.push(tag); 
             }
         });
+        $(".select-with-search").select2({
+			theme: "bootstrap"
+		});
     });
 </script>

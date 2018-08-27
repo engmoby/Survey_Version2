@@ -20,11 +20,11 @@
                             <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in newAreaCtrl.language" id="{{lang.value}}-form">
                                 <div class="form-group pmd-textfield pmd-textfield-floating-label">
                                     <label for="first-name"> {{ lang.value+'Name' | translate}} </label>
-                                    <input required Area="text" class="mat-input form-control" name="titleDictionary{{lang.value+'Name'}}" ng-model="newAreaCtrl.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="40">
+                                    <input required Area="text" class="mat-input form-control" name="titleDictionary{{lang.value+'Name'}}" ng-model="newAreaCtrl.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="255">
                                     <div ng-messages="newAreaForm.titleDictionary{{lang.value+'Name'}}.$error" >
 										
                                         <div ng-show="newAreaForm.titleDictionary{{lang.value+'Name'}}.$error.required && !newAreaForm.titleDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr' | translate}}</div>
-                                        <div ng-show="(newAreaForm.titleDictionary{{lang.value+'Name'}}.$error.minlength || newAreaForm.titleDictionary{{lang.value+'Name'}}.$error.maxlength) && !newAreaForm.titleDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError' | translate}}</div>
+                                        <div ng-show="(newAreaForm.titleDictionary{{lang.value+'Name'}}.$error.minlength || newAreaForm.titleDictionary{{lang.value+'Name'}}.$error.maxlength) && !newAreaForm.titleDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError255' | translate}}</div>
                                     </div>
                                 </div>
                             </div>

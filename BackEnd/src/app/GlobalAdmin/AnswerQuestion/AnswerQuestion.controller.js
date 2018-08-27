@@ -3,13 +3,13 @@
 
     angular
         .module('home')
-        .controller('AnswerQuestionDialogController', ['blockUI', '$scope', '$translate', 'AnswerResource', '$state', 'QuestionPrepService', 'QuestionResource', 'AreaPrepService',
+        .controller('AnswerQuestionDialogController', ['blockUI', '$scope', '$translate', 'AnswerResource', '$state', 'AnswerQuestionPrepService', 'QuestionResource', 'AreaPrepService',
             'ToastService', AnswerQuestionDialogController]);
 
-    function AnswerQuestionDialogController(blockUI, $scope, $translate, AnswerResource, $state, QuestionPrepService, QuestionResource, AreaPrepService, ToastService) {
+    function AnswerQuestionDialogController(blockUI, $scope, $translate, AnswerResource, $state, AnswerQuestionPrepService, QuestionResource, AreaPrepService, ToastService) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[7].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
         blockUI.start("Loading...");
 
         var vm = this;
@@ -22,7 +22,7 @@
             $scope.areaList = [];
             $scope.areaList.push($scope.selectedArea);
             $scope.areaList = $scope.areaList.concat(AreaPrepService.results)
-            $scope.questionList = QuestionPrepService.results;
+            $scope.questionList = AnswerQuestionPrepService.results;
             $scope.IsLike = 0;
             $scope.isLikeSub = 0;
             $scope.selection = [];
@@ -82,7 +82,12 @@
 
 
         $scope.areaChange = function () {
-            $scope.areaList.splice(0, 1);
+            /*$scope.areaList.splice(0, 1);*/
+            for (var i = $scope.areaList.length - 1; i >= 0; i--) {
+                if ($scope.areaList[i].areaId == 0) {
+                    $scope.areaList.splice(i, 1);
+                }
+            }
             $scope.branchList = [];
             $scope.selectedBranch = { branchId: 0, titleDictionary: { "en": "Select Branch", "ar": "اختار فرع" } };
             $scope.branchList.push($scope.selectedBranch);
@@ -104,14 +109,16 @@
             var submitAnswer = new AnswerResource();
             vm.answers.forEach(function (element) {
                 element.branchId = $scope.selectedBranch.branchId;
-                element.date = new Date($('#startdate').data('date'));
+                var fromDate = $('#startdate').val().split('/')
+                element.date =(new Date(fromDate[1] + "/" + fromDate[0] + "/" + fromDate[2])).toISOString().replace('Z', '');
+                /*element.date = new Date($('#startdate').data('date'));*/
             }, this);
             /*   // submitAnswer.Date = new Date($('#startdate').data('date'));
                // submitAnswer.branchId = $scope.selectedBranch.branchId;
            //    submitAnswer.questionModel = list;*/
             AnswerResource.create(vm.answers, function (data, status) {
                 blockUI.stop();
-                ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientAddSuccess'), "success");
+                ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
                 init();
                 vm.answers = []
                 $scope.questionList.forEach(function (element) {

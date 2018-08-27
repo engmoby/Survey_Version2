@@ -11,5 +11,9 @@ namespace OperationSurvey.BLL.Services.Interfaces
         UserDto GetUserByAccountId(Guid userAccountId);
         UserDto EditUserInfo(UserDto userDto, int userId, int tenantId);
         UserDto RegisterUser(UserDto userDto, int userId, int tenantId);
+        void AddNewGlobalUser(AdminDto adminDto);
+        void UpdateGlobalUser(AdminDto adminDto);
+        void UpdateAdminPackage(AdminDto adminDto);
+        UserConsumed GetMaxAndConsumedUsers(long tenantId);
     }
 }

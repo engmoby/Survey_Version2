@@ -23,6 +23,9 @@ namespace OperationSurvey.API.Models
         public int UserTypeId { get; set; }
         public int BranchId { get; set; }
         public virtual ICollection<UserRoleModel> UserRoles { get; set; }
-
+        public long? DepartmentId { get; set; }
+        public long? AreaId { get; set; }
+        public List<long> CateoriesId { get; set; }
+        public List<long> BranchesId { get; set; }
     }
 }

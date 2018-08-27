@@ -21,5 +21,14 @@
             Rate,
             LikeDislike
         }
+
+        public enum TicketStatus
+        {
+            Pending,
+            Assigned,
+            InProgress,
+            Closed,
+            Rejected
+        }
     }
 }

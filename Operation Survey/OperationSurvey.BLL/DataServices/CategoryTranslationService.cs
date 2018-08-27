@@ -15,22 +15,29 @@ namespace OperationSurvey.BLL.DataServices
         {
             _repository = repository;
         }
+
         public PagedResultsDto GetAllCategorys()
         {
             PagedResultsDto results = new PagedResultsDto();
-            results.TotalCount = _repository.Query(x => !x.Category.IsDeleted ).Select(x => x.Category).Count(x => !x.IsDeleted);
+            results.TotalCount = _repository.Query(x => !x.Category.IsDeleted).Select(x => x.Category)
+                .Count(x => !x.IsDeleted);
             var aaax = _repository.Query(x => !x.Category.IsDeleted).Select().ToList();
-            var categorys = _repository.Query(x => !x.Category.IsDeleted ).Select(x => x.Category)
+            var categorys = _repository.Query(x => !x.Category.IsDeleted).Select(x => x.Category)
                 .OrderBy(x => x.CategoryId).ToList();
             results.Data = Mapper.Map<List<Category>, List<CategoryDto>>(categorys);
             return results;
         }
+
         public PagedResultsDto GetAllCategorysTranslation(string language)
         {
             PagedResultsDto results = new PagedResultsDto();
-            results.TotalCount = _repository.Query(x => !x.Category.IsDeleted && x.Language.ToLower() == language.ToLower()).Select(x => x.Category).Count(x => !x.IsDeleted);
-            var aaax = _repository.Query(x => !x.Category.IsDeleted && x.Language.ToLower() == language.ToLower()).Select().ToList();
-            var Categorys = _repository.Query(x => !x.Category.IsDeleted && x.Language.ToLower() == language.ToLower()).Select(x => x.Category)
+            results.TotalCount = _repository
+                .Query(x => !x.Category.IsDeleted && x.Language.ToLower() == language.ToLower()).Select(x => x.Category)
+                .Count(x => !x.IsDeleted);
+            var aaax = _repository.Query(x => !x.Category.IsDeleted && x.Language.ToLower() == language.ToLower())
+                .Select().ToList();
+            var Categorys = _repository.Query(x => !x.Category.IsDeleted && x.Language.ToLower() == language.ToLower())
+                .Select(x => x.Category)
                 .OrderBy(x => x.CategoryId).ToList();
             results.Data = Mapper.Map<List<Category>, List<CategoryDto>>(Categorys, opt =>
             {
@@ -38,7 +45,8 @@ namespace OperationSurvey.BLL.DataServices
                     {
                         foreach (Category Category in src)
                         {
-                            Category.CategoryTranslations = Category.CategoryTranslations.Where(x => x.Language.ToLower() == language.ToLower()).ToList();
+                            Category.CategoryTranslations = Category.CategoryTranslations
+                                .Where(x => x.Language.ToLower() == language.ToLower()).ToList();
                         }
 
                     }
@@ -46,12 +54,18 @@ namespace OperationSurvey.BLL.DataServices
             });
             return results;
         }
-        public PagedResultsDto GetCategoryTranslationByCategoryId(string language,long CategoryId)
+
+        public PagedResultsDto GetCategoryTranslationByCategoryId(string language, long CategoryId)
         {
             PagedResultsDto results = new PagedResultsDto();
-            results.TotalCount = _repository.Query(x => !x.Category.IsDeleted && x.Language.ToLower() == language.ToLower()  && x.CategoryId == CategoryId).Select(x => x.Category).Count(x => !x.IsDeleted);
-            var aaax = _repository.Query(x => !x.Category.IsDeleted && x.Language.ToLower() == language.ToLower()).Select().ToList();
-            var Categorys = _repository.Query(x => !x.Category.IsDeleted && x.Language.ToLower() == language.ToLower() && x.CategoryId == CategoryId).Select(x => x.Category)
+            results.TotalCount = _repository
+                .Query(x => !x.Category.IsDeleted && x.Language.ToLower() == language.ToLower() &&
+                            x.CategoryId == CategoryId).Select(x => x.Category).Count(x => !x.IsDeleted);
+            var aaax = _repository.Query(x => !x.Category.IsDeleted && x.Language.ToLower() == language.ToLower())
+                .Select().ToList();
+            var Categorys = _repository
+                .Query(x => !x.Category.IsDeleted && x.Language.ToLower() == language.ToLower() &&
+                            x.CategoryId == CategoryId).Select(x => x.Category)
                 .OrderBy(x => x.CategoryId).ToList();
             results.Data = Mapper.Map<List<Category>, List<CategoryDto>>(Categorys, opt =>
             {
@@ -59,7 +73,8 @@ namespace OperationSurvey.BLL.DataServices
                     {
                         foreach (Category Category in src)
                         {
-                            Category.CategoryTranslations = Category.CategoryTranslations.Where(x => x.Language.ToLower() == language.ToLower()).ToList();
+                            Category.CategoryTranslations = Category.CategoryTranslations
+                                .Where(x => x.Language.ToLower() == language.ToLower()).ToList();
                         }
 
                     }
@@ -67,17 +82,22 @@ namespace OperationSurvey.BLL.DataServices
             });
             return results;
         }
+
         public CategoryDto CategoryTranslationByCategoryId(string language, long CategoryId)
         {
-            var aaax = _repository.Query(x => !x.Category.IsDeleted && x.Language.ToLower() == language.ToLower()).Select().ToList();
-            var Categorys = _repository.Query(x => !x.Category.IsDeleted && x.Language.ToLower() == language.ToLower() && x.CategoryId == CategoryId).Select(x => x.Category)
+            var aaax = _repository.Query(x => !x.Category.IsDeleted && x.Language.ToLower() == language.ToLower())
+                .Select().ToList();
+            var Categorys = _repository
+                .Query(x => !x.Category.IsDeleted && x.Language.ToLower() == language.ToLower() &&
+                            x.CategoryId == CategoryId).Select(x => x.Category)
                 .OrderBy(x => x.CategoryId).FirstOrDefault();
             var results = Mapper.Map<Category, CategoryDto>(Categorys, opt =>
             {
                 opt.BeforeMap((src, dest) =>
                     {
 
-                        src.CategoryTranslations = src.CategoryTranslations.Where(x => x.Language.ToLower() == language.ToLower()).ToList();
+                        src.CategoryTranslations = src.CategoryTranslations
+                            .Where(x => x.Language.ToLower() == language.ToLower()).ToList();
 
 
                     }
@@ -86,6 +106,12 @@ namespace OperationSurvey.BLL.DataServices
             return results;
         }
 
+        public bool CheckNameExist(string objName, string language, long recordId, long tenantId)
+        {
+            return Queryable()
+                .Any(x => x.Language.ToLower() == language.ToLower() && x.Title.ToLower() == objName.ToLower() &&
+                          x.CategoryId != recordId && x.Category.TenantId == tenantId && !x.Category.IsDeleted);
 
+        }
     }
 }

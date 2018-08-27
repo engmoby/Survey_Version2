@@ -1,0 +1,117 @@
+<style>
+    .my-custom-stars .button .material-icons {
+        font-size: 20px;
+    }
+
+    .my-custom-stars .star-button.star-on .material-icons {
+        color: #003399;
+    }
+
+    .my-custom-stars .star-button.star-off .material-icons {
+        color: #99ccff;
+    }
+
+    .my-custom-stars .button .material-icons a:focus,
+    a:hover {
+        text-decoration: none;
+    }
+</style>
+<div style="cursor: pointer;    background-color: #ccc;">
+    <h1 style="padding: 4px" ng-init="showTicket = false" ng-click="showTicket=!showTicket">
+        {{'Tickets' | translate}}
+    </h1>
+</div>
+<div ng-show="showTicket">
+    <div class="form-group pmd-textfield pmd-textfield-floating-label">
+        <select style="width:15% !important" class="select-tags form-control pmd-select2-tags" ng-change="dashboardCtrl.ticketFilterChange()"
+            ng-model="dashboardCtrl.selectedTicketFilter" ng-options="f.value as f.name for f  in dashboardCtrl.ticketsFilter">
+        </select>
+    </div>
+    <nvd3 style="direction: ltr" options="dashboardCtrl.options" data="dashboardCtrl.data"></nvd3>
+</div>
+
+<div style="cursor: pointer;    background-color: #ccc;">
+    <h1 style="padding: 4px" ng-init="showSurvey = false" ng-click="showSurvey=!showSurvey">
+        {{'Survey' | translate}}
+    </h1>
+</div>
+<div ng-show="showSurvey">
+    <ul>
+
+        <li ng-repeat="(k,v) in dashboardCtrl.questionList| groupBy: 'categoryId'">
+            <div style="cursor: pointer;    background-color: #ccc;">
+
+                <h2 style="padding: 7px" ng-init="t = false" ng-click="t=!t">
+                    {{v[0].category.titleDictionary[selectedLanguage]}}
+                </h2>
+            </div>
+            <ul ng-show="t">
+                <li ng-repeat="ques in v">
+                    <!-- <button class="accordion">{{ques.titleDictionary[selectedLanguage]}}</button> -->
+                    <div style="cursor: pointer;    background-color: #ccc;">
+
+                        <h3 style="padding: 4px" ng-click="ques.showAnswer=!ques.showAnswer;ques.showAnswer?dashboardCtrl.getQuestionDashbard(ques):ques.showAnswer=ques.showAnswer">
+                            {{ques.titleDictionary[selectedLanguage]}} 
+                        </h3>
+                    </div>
+                    <div ng-show="ques.showAnswer">
+                        <div style="text-align: center;">
+                            <img ng-show="ques.isloading" src="assets/img/loading.gif" style="height: 80px;">
+                        </div>
+                        <span ng-if="!ques.isloading"
+                         ng-show="(ques.data.length == 0 && ques.questionTypeId ==0) 
+                         || (ques.questionTypeId == 1 && ques.dashboard.oneStartCount == 0 && ques.dashboard.twoStartCount == 0 && ques.dashboard.threeStartCount == 0 && ques.dashboard.fourStartCount == 0 && ques.dashboard.fiveStartCount == 0)
+                         || (ques.questionTypeId == 2 && ques.dashboard.likeCount == 0 && ques.dashboard.disLikeCount == 0 )
+                         ">{{'noAnswersLbl'|translate}}</span>
+                        <div ng-if="!ques.isloading &&  
+                        ((ques.questionTypeId == 1 && (ques.dashboard.oneStartCount != 0 || ques.dashboard.twoStartCount != 0 || ques.dashboard.threeStartCount != 0 || ques.dashboard.fourStartCount != 0 || ques.dashboard.fiveStartCount != 0))
+                        ||(ques.questionTypeId == 2 && (ques.dashboard.likeCount != 0 || ques.dashboard.disLikeCount != 0 ))
+                        || (ques.data.length > 0 && ques.questionTypeId ==0))">
+                            <nvd3 style="direction: ltr" options="ques.options" data="ques.data"></nvd3>
+                        </div>
+                        <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-show="!ques.isloading  && 
+                        (ques.questionTypeId == 1 && (ques.dashboard.oneStartCount != 0 || ques.dashboard.twoStartCount != 0 || ques.dashboard.threeStartCount != 0 || ques.dashboard.fourStartCount != 0 || ques.dashboard.fiveStartCount != 0))" ng-if="ques.questionTypeId == 1">
+                            <div class="table-responsive">
+                                <table class="table pmd-table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <jk-rating-stars rating="1" max-rating="5" read-only="true" class="my-custom-stars "></jk-rating-stars>
+                                            </th>
+                                            <th>
+                                                <jk-rating-stars rating="2" max-rating="5" read-only="true" class="my-custom-stars "></jk-rating-stars>
+                                            </th>
+                                            <th>
+                                                <jk-rating-stars rating="3" max-rating="5" read-only="true" class="my-custom-stars "></jk-rating-stars>
+                                            </th>
+                                            <th>
+                                                <jk-rating-stars rating="4" max-rating="5" read-only="true" class="my-custom-stars "></jk-rating-stars>
+                                            </th>
+                                            <th>
+                                                <jk-rating-stars rating="5" max-rating="5" read-only="true" class="my-custom-stars "></jk-rating-stars>
+                                            </th>
+                                            <th>{{'averageLbl' | translate}}</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ques.dashboard.oneStartCount}}</td>
+                                            <td>{{ques.dashboard.twoStartCount}}</td>
+                                            <td>{{ques.dashboard.threeStartCount}}</td>
+                                            <td>{{ques.dashboard.fourStartCount}}</td>
+                                            <td>{{ques.dashboard.fiveStartCount}}</td>
+                                            <td>{{ques.dashboard.average | number:2}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </li>
+
+            </ul>
+        </li>
+    </ul>
+</div>

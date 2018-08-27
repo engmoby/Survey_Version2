@@ -11,7 +11,9 @@ namespace OperationSurvey.DAL.Entities.Model
     {
         public User()
         {
-            UserRoles = new List<UserRole>(); 
+            UserRoles = new List<UserRole>();
+            UserBranches = new List<UserBranch>();
+            UserCategories = new List<UserCategory>();
         }
 
         [Key]
@@ -20,13 +22,12 @@ namespace OperationSurvey.DAL.Entities.Model
         public Guid UserAccountId { get; set; }
         [Required]
         public string FirstName { get; set; }
-        [Required]
         public string LastName { get; set; }
         [Required]
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
-        [Required]
+        
         public string Phone { get; set; }  
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
@@ -43,10 +44,20 @@ namespace OperationSurvey.DAL.Entities.Model
         public virtual ICollection<UserRole> UserRoles { get; set; }
          
         public int TenantId { get; set; }
+        [ForeignKey("Package")]
+        public long? PackageId { get; set; }
+        public virtual Package Package { get; set; }
 
-        //[ForeignKey("Branch")]
-        //public long BranchId { get; set; }
-        //public virtual Branch Branch { get; set; }
+        public bool IsStatic { get; set; }
+        [ForeignKey("Department")]
+        public long? DepartmentId { get; set; }
+        public virtual Department Department { get; set; }
+
+        [ForeignKey("Area")]
+        public long? AreaId { get; set; }
+        public virtual Area Area { get; set; }
+        public virtual ICollection<UserBranch> UserBranches { get; set; }
+        public virtual ICollection<UserCategory> UserCategories { get; set; }
 
     }
 }

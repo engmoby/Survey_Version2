@@ -27,6 +27,7 @@
             vm.selectedDepartment=vm.DepartmentList[indexDepartment];
  
             
+            vm.categoryList = vm.selectedDepartment.categories;
         var indexCategory = vm.selectedDepartment.categories.indexOf($filter('filter')(vm.selectedDepartment.categories, { 'categoryId': vm.Question.category.categoryId }, true)[0]);
         vm.selectedCategory=vm.selectedDepartment.categories[indexCategory];  
  
@@ -52,7 +53,7 @@
         }
 
         var counter=0;
-      //  $scope.questionelemnt = [ {id:counter, questionEn : '', questionAr : '',inline:true} ];
+      /* $scope.questionelemnt = [ {id:counter, questionEn : '', questionAr : '',inline:true} ];*/
     
         $scope.newItem = function($event){
             counter++;
@@ -91,7 +92,7 @@
                     });
              });
              
-             //updateObj.QuestionDetailses = null; 
+             /*updateObj.QuestionDetailses = null; */
              updateObj.CategoryId =  vm.selectedCategory.categoryId; 
              updateObj.QuestionTypeId = vm.selectedQuestionType.id; 
              updateObj.IsDeleted = false; 

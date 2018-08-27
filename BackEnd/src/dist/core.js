@@ -16,6 +16,8 @@
     'pascalprecht.translate',
     'ADM-treeView',
     'blockUI',
+    'ui.carousel',
+    'nvd3',
     'jkAngularRatingStars','angular.filter'
     ]);
 }());
@@ -56,8 +58,8 @@
 	angular
 		.module('core')
 		.constant('appCONSTANTS', {
-			   'API_URL': 'http://localhost:32569/api/', 
-			//	'API_URL': 'https://surveyv2.azurewebsites.net/api/',
+			//    'API_URL': 'http://localhost:32569/api/', 
+				'API_URL': 'https://surveyv2.azurewebsites.net/api/',
 		 'defaultLanguage':'en',
 		 'supportedLanguage':{
 			 'en':{'key':'en','value':'english'},
@@ -268,6 +270,8 @@ angular.module('core')
               "PhoneReqError" : "Phone is required",
               "PhoneLengthError" : "digits must be from 10 :50",
               "NameLengthError" : "character must be from 3 :50",
+              "NameLengthError200" : "character must be from 3 :200",
+              "NameLengthError255" : "character must be from 3 :255",
               "NotPhoneNumber" : "please enter numbers only",
               "PasswordLengthError" : "Password is required",
               "UserPasswordLbl":"password",
@@ -342,7 +346,64 @@ angular.module('core')
               "noAnswersLbl":"There is no answers",
               "fromLbl":"from",
               "toLbl":"to",
-              "Branch":"Branch"
+              "Branch":"Branch",
+              "AddNewCategoryBtn":"Add Category",
+              "requiredErr":"Required",
+              "Dynamic":"Dynamic",
+              "Question":"Question",
+              "AnswerQuestion":"Answers Questions",
+              "Tickets":"Tickets",
+              "NoTicketAvailable":"No Tickets Available",
+              "titleLbl":"Title",
+              "descLbl":"Description",
+              "NewTicketLbl":"New Ticket",
+              "AddImageBtn":"Add image",
+              "Pending":"Pending",
+              "Assigned":"Assigned To",
+              "InProgress":"In Progress by",
+              "Closed":"Closed by",
+              "Rejected":"Rejected by",
+              "DetailsBtn":"View details",
+              "AssignedBtn":"Assigned to",
+              "CategoryLbl":"Category",
+              "selectTech":"Select Technacian",
+              "ApproveBtn":"Approve",
+              "CloseBtn":"Close",
+              "RejectBtn":"Reject",
+              "commentLbl":"Comment",
+              "Creator":"Created by",
+              "CreatTime":"Creation time",
+              "AssignedBy":"Assigned by",
+              "AssignedTime":"Assigned time",
+              "imageLbl":"Images",
+              "employee":"Employee",
+              "branchManager":"Branch manager",
+              "deptManager":"Department manager",
+              "Tech":"Technacian",
+              "DashboardLbl":"Dashboard",
+              "AssignedStatus":"Assigned",
+              "InProgressStatus":"In Progress",
+              "ClosedStatus":"Closed",
+              "RejectedStatus":"Rejected",
+              "Survey":"Survey",
+              "LikeLbl":"Like",
+              "DisLikeLbl":"Dislike",
+              "averageLbl":"Average",
+              "onestar":"one star",
+              "twostar":"two star",
+              "threestar":"three star",
+              "fourstar":"four star",
+              "fivestar":"five star",
+              "ticketsCount":"tickets count",
+              "QuestionType":"Question Type",
+              "Checkbox":"Checkbox",
+              "Rate":"Rate",
+              "LikeDislike":"Like or dislike",
+              "value":"Answer",
+              "note":"note",
+              "questionEn":"Option english",
+              "questionAr":"Option arabic",
+              "RemoveBtn":"Remove"
           }
           
           var ar_translations = {
@@ -379,6 +440,8 @@ angular.module('core')
               "EmailLengthError" : "البريد الالكتروني مطلوب",
               "PhoneReqError" : "رقم الهاتف مطلوب",
               "NameLengthError" : "يجب أن تكون الحروف من 3 : 50",
+              "NameLengthError200" : "يجب أن تكون الحروف من 3 : 200",
+              "NameLengthError255" : "يجب أن تكون الحروف من 3 : 255",
               "PhoneLengthError" : "يجب أن تكون الأرقام من 10: 50",
               "NotPhoneNumber" : "برجاء إدخال أرقام فقط",
               "PasswordLengthError" : "كلمه المرور مطلوبه", 
@@ -431,11 +494,68 @@ angular.module('core')
               "View":"عرض",
             "AddNew":"إضافه",
             "Answers":"الأجوبة",
-            "filterBtn":"تطبيق مرشح",
+            "filterBtn":"تصفيه",
             "noAnswersLbl":"لا يوجد اجوبة",
             "fromLbl":"من",
             "toLbl":"الي",
-            "Branch":"فرع"  
+            "Branch":"فرع"  ,
+            "AddNewCategoryBtn":"اضافة الفئة",
+            "requiredErr":"مطلوب",
+            "Dynamic":"متحرك",
+            "Question":"سؤال",
+            "AnswerQuestion":"إجابات الأسئلة",
+            "Tickets":"شكاوي",
+            "NoTicketAvailable":"لا يوجد شكاوي",
+            "titleLbl":"عنوان",
+            "descLbl":"شرح",
+            "NewTicketLbl":"شكوي جديد",
+            "AddImageBtn":"أضف صورة",
+            "Pending":"قيد الانتظار",
+            "Assigned":"مخصص ل",
+            "InProgress":"في تَقَدم من طرف",
+            "Closed":"مغلق من طرف",
+            "Rejected":"مرفوض من طرف",
+            "DetailsBtn":"عرض التفاصيل",
+            "AssignedBtn":"مخصص ل",
+            "CategoryLbl":"فئة",
+            "selectTech":"أختار فني",
+            "ApproveBtn":"تأكيد",
+            "CloseBtn":"غلق",
+            "RejectBtn":"رفض",
+            "commentLbl":"تعليق",
+            "Creator":"صنع من قبل",
+            "CreatTime":"وقت الإنشاء",
+            "AssignedBy":"عين من",
+            "AssignedTime":"الوقت التعين",
+            "imageLbl":"صور",
+            "employee":"موظف",
+            "branchManager":"مدير فرع",
+            "deptManager":"مدير أدارة",
+            "Tech":"فني",
+            "DashboardLbl":"لوحة القيادة",
+            "AssignedStatus":"تعيين",
+            "InProgressStatus":"في تَقَدم",
+            "ClosedStatus":"مغلق",
+            "RejectedStatus":"مرفوض",
+            "Survey":"استطلاع",
+            "LikeLbl":"اعجاب",
+            "DisLikeLbl":"رفض",
+            "averageLbl":"متوسط",
+            "onestar":"نجمة واحده",
+            "twostar":"نجمتين",
+            "threestar":"ثلاث نجوم",
+            "fourstar":"اربع نجوم",
+            "fivestar":"خمس نجوم",
+            "ticketsCount":"عدد الشكاوي",
+            "QuestionType":"نوع السؤال",
+            "Checkbox":"اختيار",
+            "Rate":"تقييم",
+            "LikeDislike":"اعجاب او رفض",
+            "value":"أجابة",
+            "note":"ملحوظه",
+            "questionEn":"اختيار انجليزي",
+            "questionAr":"اختيار عربي",
+            "RemoveBtn":"حذف"
          }
           
           $translateProvider.translations('en',en_translations);
@@ -555,66 +675,85 @@ angular.module('core')
 		
 	}	
 }());
-;(function() {
+;(function () {
     'use strict';
 
     angular
         .module('home')
-        .controller('loginController', ['$rootScope', '$scope','$state','$localStorage','authorizationService','appCONSTANTS',loginController]);
-   
-    function loginController($rootScope, $scope,$state, $localStorage,authorizationService,appCONSTANTS) {
-    
-		if ($localStorage.authInfo) {  
-		
-			$state.go('usertype');
-			 
-		}
-		else
-		{
-			 $state.go('login');
-		}
-	}
+        .controller('loginController', ['$rootScope', '$scope', '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', loginController]);
 
-}());(function() {
+    function loginController($rootScope, $scope, $state, $localStorage, authorizationService, appCONSTANTS) {
+
+        if ($localStorage.authInfo) {
+            var user = authorizationService.getUser();
+            if (user.PermissionId[0] == 1)
+                $state.go('users');
+            // if (user.PermissionId[0] == 2)
+            //     $state.go('usertype');
+            if (user.PermissionId[0] == 3)
+                $state.go('Role');
+            if (user.PermissionId[0] == 4)
+                $state.go('Area');
+            if (user.PermissionId[0] == 5)
+                $state.go('Department');
+            if (user.PermissionId[0] == 6)
+                $state.go('Question');
+            if (user.PermissionId[0] == 7)
+                $state.go('AnswerQuestion');
+            if (user.PermissionId[0] == 8)
+                $state.go('Answers');
+            if ($scope.user.PermissionId[0] == 9)
+                $state.go('Tickets');
+            if ($scope.user.PermissionId[0] == 10)
+                $state.go('Dashboard');
+
+        }
+        else {
+            $state.go('login');
+        }
+    }
+
+}());(function () {
     'use strict';
 
     angular
         .module('home')
-        .controller('homeCtrl', ['$rootScope','$translate', '$scope', 'appCONSTANTS',  '$state',  '_', 'authenticationService', 'authorizationService', '$localStorage', homeCtrl])
-       
-    function homeCtrl($rootScope, $translate, $scope, appCONSTANTS, $state, _,authenticationService, authorizationService,$localStorage) {
-        $scope.$on('LOAD',function(){$scope.loading=true});
-        $scope.$on('UNLOAD',function(){$scope.loading=false});
-        var vm=this;
+        .controller('homeCtrl', ['$rootScope', '$transitions', '$translate', '$scope', 'appCONSTANTS', '$state', '_', 'authenticationService', 'authorizationService', '$localStorage', homeCtrl])
+
+    function homeCtrl($rootScope, $transitions, $translate, $scope, appCONSTANTS, $state, _, authenticationService, authorizationService, $localStorage) {
+        $scope.$on('LOAD', function () { $scope.loading = true });
+        $scope.$on('UNLOAD', function () { $scope.loading = false });
+        var vm = this;
         $scope.emailEmpty = false;
         $scope.passwordEmpty = false;
-		$scope.languages = [{
-            id:"en",
-            label:"english"
+        $scope.languages = [{
+            id: "en",
+            label: "english"
         },
         {
-            id:"ar",
-            label:"arabic"
+            id: "ar",
+            label: "arabic"
         }];
-		if($localStorage.language == null){
+        if ($localStorage.language == null) {
             $scope.selectedLanguage = $scope.languages[0].id;
             $localStorage.language = $scope.selectedLanguage;
         }
         else
             $scope.selectedLanguage = $localStorage.language;
-            
-        $translate.use($scope.selectedLanguage); 
-		$scope.init =
-            function() {
-				$scope.user = authorizationService.getUser();
+
+        $translate.use($scope.selectedLanguage);
+        $scope.init =
+            function () {
+                $scope.user = authorizationService.getUser();
+
             }
         $scope.init();
-		
-        $scope.submit = function(username, password) {
-           
-            authorizationService.isPasswordchanged=false;
+
+        $scope.submit = function (username, password) {
+
+            authorizationService.isPasswordchanged = false;
             $('#passwordChanged').hide();
-          //  $('#userInActivated').hide();
+            //  $('#userInActivated').hide();
             if (!username)
                 $scope.emailEmpty = true;
             if (!password)
@@ -622,50 +761,103 @@ angular.module('core')
             if (username && password) {
                 $scope.afterSubmit = false;
                 $scope.emailEmpty = $scope.passwordEmpty = false;
-                authenticationService.authenticate(username, password).then(loginSuccess,loginFailed)
-                    //.error(loginFailed);;
+                authenticationService.authenticate(username, password).then(loginSuccess, loginFailed)
+                //.error(loginFailed);;
             } else {
                 $scope.afterSubmit = false;
             }
         };
-		 
-        $scope.reloadPage = true;
-        $rootScope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams) {
-        
-            if(fromState.name != "" && $scope.reloadPage){
-                    e.preventDefault();
-                    $scope.reloadPage = false;
-                    $state.go(toState.name,toParams, { reload: true });
-                }     
-        });
 
-		$scope.$watch(function () { return $localStorage.authInfo; },function(newVal,oldVal){
-		   if(oldVal!=undefined && newVal === undefined && $localStorage.authInfo == undefined){
-			 console.log('logout'); 
-			   $state.go('login');
-		  }
-		  if(oldVal===undefined && newVal !== undefined&&$localStorage.authInfo != undefined){
-			 console.log('login'); 
-					$scope.user = authorizationService.getUser();
-					loginSuccess()
-			// authorizationService.isLoggedIn() && !location.href.contains('connect')
-		  }
-		})
+        $scope.reloadPage = true;
+        $rootScope.$on('$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
+
+            if (fromState.name != "" && $scope.reloadPage) {
+                e.preventDefault();
+                $scope.reloadPage = false;
+                $state.go(toState.name, toParams, { reload: true });
+            }
+        });
+        $transitions.onStart({}, function (transition) {
+            if (authorizationService.isLoggedIn()) {
+                var user = authorizationService.getUser();
+                var authorize = false;
+                if (transition._targetState._identifier.self != undefined) {
+                    if (transition._targetState._identifier.self.data.permissions.only != undefined) {
+                        transition._targetState._identifier.self.data.permissions.only.forEach(function (element) {
+                            if (user.PermissionId.includes(element.toString()))
+                                authorize = true;
+                        }, this);
+                        if (!authorize)
+                            $state.go(transition._targetState._identifier.self.data.permissions.redirectTo)
+                    }
+                }
+                // if (user.PermissionId[0] == 1)
+                //     $state.go('users');
+                // if (user.PermissionId[0] == 2)
+                //     $state.go('usertype');
+                // if (user.PermissionId[0] == 3)
+                //     $state.go('Role');
+                // if (user.PermissionId[0] == 4)
+                //     $state.go('Area');
+                // if (user.PermissionId[0] == 5)
+                //     $state.go('Department');
+                // if (user.PermissionId[0] == 6)
+                //     $state.go('Question');
+                // if (user.PermissionId[0] == 7)
+                //     $state.go('AnswerQuestion');
+                // if (user.PermissionId[0] == 8)
+                //     $state.go('Answers');
+                // if (user.PermissionId[0] == 9)
+                //     $state.go('Tickets');
+            }
+            else {
+                $state.go('login');
+            }
+        });
+        $scope.$watch(function () { return $localStorage.authInfo; }, function (newVal, oldVal) {
+            if (oldVal != undefined && newVal === undefined && $localStorage.authInfo == undefined) {
+                console.log('logout');
+                $state.go('login');
+            }
+            if (oldVal === undefined && newVal !== undefined && $localStorage.authInfo != undefined) {
+                console.log('login');
+                $scope.user = authorizationService.getUser();
+                loginSuccess()
+                // authorizationService.isLoggedIn() && !location.href.contains('connect')
+            }
+        })
         function loginSuccess(response) {
             $scope.afterSubmit = false;
             $scope.invalidLoginInfo = false;
             $scope.inActiveUser = false;
             $scope.user = authorizationService.getUser();
-            
-                $state.go('usertype');
+            if ($scope.user.PermissionId[0] == 1)
+                $state.go('users');
+            // if ($scope.user.PermissionId[0] == 2)
+            //     $state.go('usertype');
+            if ($scope.user.PermissionId[0] == 3)
+                $state.go('Role');
+            if ($scope.user.PermissionId[0] == 4)
+                $state.go('Area');
+            if ($scope.user.PermissionId[0] == 5)
+                $state.go('Department');
+            if ($scope.user.PermissionId[0] == 6)
+                $state.go('Question');
+            if ($scope.user.PermissionId[0] == 7)
+                $state.go('AnswerQuestion');
+            if ($scope.user.PermissionId[0] == 8)
+                $state.go('Answers');
+            if ($scope.user.PermissionId[0] == 9)
+                $state.go('Tickets');
+            if ($scope.user.PermissionId[0] == 10)
+                $state.go('Dashboard');
 
-         
 
         }
 
         function loginFailed(response) {
             $scope.afterSubmit = true;
-            
+
             // $scope.invalidLoginInfo = true;
             if (response) {
                 if (response.data.error == "invalid grant") {
@@ -683,31 +875,31 @@ angular.module('core')
             }
         }
 
-        $scope.logout = function() {
+        $scope.logout = function () {
             authorizationService.logout();
             $state.go('login');
         }
-        $scope.reset = function() {
+        $scope.reset = function () {
             $scope.invalidLoginInfo = false;
             $scope.inActiveUser = false;
         }
-        $scope.isLoggedIn = function() {
+        $scope.isLoggedIn = function () {
             return authorizationService.isLoggedIn();
         }
-		$scope.changeLanguage = function(language){
-			$scope.selectedLanguage = language;
-			$localStorage.language = $scope.selectedLanguage;
+        $scope.changeLanguage = function (language) {
+            $scope.selectedLanguage = language;
+            $localStorage.language = $scope.selectedLanguage;
             $state.reload();
-            $translate.use(language); 
-		}
-		$scope.getCurrentTime = function(){
-			return (new Date()).getTime()
-		}
-		
-		
+            $translate.use(language);
+        }
+        $scope.getCurrentTime = function () {
+            return (new Date()).getTime()
+        }
+
+
     }
 
-    
+
 }());
 ;(function() {
   'use strict';
@@ -1055,7 +1247,9 @@ angular.module('core')
       return {
         name: info? info.Username : "",
         role: info ? info.Role : "",
-        id: info ? info.UserId : ""
+        id: info ? info.UserId : "",
+        PermissionId: info && info.PermissionId ? info.PermissionId.split(';'):[],
+        userTypeId: info && info.TypeId ? info.TypeId:0
       };
     }
 

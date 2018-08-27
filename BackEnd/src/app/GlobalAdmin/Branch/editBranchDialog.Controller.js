@@ -10,7 +10,7 @@
 		var vm = this; 
 		vm.language = appCONSTANTS.supportedLanguage;
         vm.Branch = BranchByIdPrepService; 
-        vm.Close = function () {
+        vm.close = function () {
             $state.go('Area');
         }
         vm.UpdateBranch = function () { 

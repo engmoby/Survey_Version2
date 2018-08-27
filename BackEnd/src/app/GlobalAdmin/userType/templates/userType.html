@@ -25,6 +25,7 @@
                         
                         <td>
                             <p ng-show="usertype.isStatic">{{'Static' | translate}}</p> 
+                            <p  ng-show="!usertype.isStatic">{{'Dynamic' | translate}}</p>                             
                         </td> 
                         <td width="30%" ng-show="!usertype.isStatic">
                             <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editusertype',{userTypeId: usertype.userTypeId});">mode_edit</i> 

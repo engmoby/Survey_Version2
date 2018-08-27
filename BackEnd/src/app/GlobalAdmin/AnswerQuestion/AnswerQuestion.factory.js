@@ -1,9 +1,9 @@
 (function () {
     angular
         .module('home')
-        .factory('QuestionResource', ['$resource', 'appCONSTANTS', UserResource])
+        .factory('AnswerQuestionResource', ['$resource', 'appCONSTANTS', AnswerQuestionResource])
 
-    function UserResource($resource, appCONSTANTS) {
+    function AnswerQuestionResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Questions/', {}, {
             getAllQuestions: { method: 'GET', url: appCONSTANTS.API_URL + 'Questions/GetAllQuestionsByUserId', useToken: true, params: { lang: '@lang' } },
             create: { method: 'POST', useToken: true },

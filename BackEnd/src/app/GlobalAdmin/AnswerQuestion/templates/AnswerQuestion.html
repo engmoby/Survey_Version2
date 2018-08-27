@@ -75,7 +75,7 @@
         </div>
 
 
-        <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <div style="direction: ltr;"  class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label>{{'startDateLbl' | translate}}</label>
             <input style="width:50% !important" type="text" id="startdate" class="form-control" required />
         </div>
@@ -103,7 +103,7 @@
                 </div>
                 <!--submit answers-->
                 <div class="panel" ng-show="showAnswerForm">
-                    <div ng-if="ques.questionTypeId == 1">
+                    <div ng-if="ques.questionTypeId == 0">
                         <!--checkbox ng-model="ques.answer.value=selection" value="{{QuestionDetail.QuestionDetailsId}}"-->
                         <label ng-repeat="QuestionDetail in ques.questionDetailses" style="    display: block;">
                             <input type="checkbox" name="selectedDetails[]" ng-model="QuestionDetail.values"  value="{{QuestionDetail.QuestionDetailsId}}" ng-checked="selection.indexOf(QuestionDetail) > -1"
@@ -111,13 +111,13 @@
                         </label>
                     </div>
 
-                    <div ng-if="ques.questionTypeId == 2">
+                    <div ng-if="ques.questionTypeId == 1">
                         <!--Rate-->
                         <jk-rating-stars rating="(AnswerQuestionCtrl.answers|filter:{questionId:ques.questionId})[0].answerDetails[0].value" on-rating="onItemRating(rating,ques.questionId)"
                             class="my-custom-stars hideMinus"></jk-rating-stars>
                     </div>
 
-                    <div ng-if="ques.questionTypeId == 3" ng-init="ques.l = null">
+                    <div ng-if="ques.questionTypeId == 2" ng-init="ques.l = null">
                         <!--Like / DisLike-->
                         <!-- <i ng-init="ques.answer.value=1" ng-model="ques.answer.value" required name="likeDis" ng-click="ques.answer.ques.IsLike = LikeDisLikeSubmit(1)" class="fa fa-thumbs-up" style="font-size:24px"></i> -->
                         <i required name="likeDis" ng-class="{'like':ques.l == true}" ng-click="ques.l=true;onItemRating(1,ques.questionId)" class="fa fa-thumbs-up"
@@ -130,7 +130,7 @@
 
                     </div>
 
-                    <textarea class="form-control" ng-model="(AnswerQuestionCtrl.answers|filter:{questionId:ques.questionId})[0].note" placeholder="Type Notes"
+                    <textarea class="form-control" ng-model="(AnswerQuestionCtrl.answers|filter:{questionId:ques.questionId})[0].note" placeholder="{{'note'|translate}}"
                         name="comment"></textarea>
                 </div>
             </li>
@@ -143,7 +143,7 @@
 
     <button ng-disabled="AnswerQuestionCtrl.answersValid() || newclientForm.$invalid " ng-click="AddAnswer(questionList)" type="button"
         class="btn btn-primary btn-with-icon">
-        <i class="ion-android-checkmark-circle"></i>Save
+        <i class="ion-android-checkmark-circle"></i>{{'saveChangesBtn'|translate}}
     </button>
 </form>
 

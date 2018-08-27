@@ -22,8 +22,10 @@ namespace OperationSurvey.BLL.Services
         private readonly IQuestionTranslationService _questionTranslationService;
         private readonly IQuestionDetailsService _questionDetailsService;
         private readonly IQuestionDetailsTranslationService _questionDetailsTranslationService;
+        private readonly IUserService _userService;
+        private readonly IAnswerDetailsService _answerDetailsService;
 
-        public QuestionFacade(IQuestionService questionService, IUnitOfWorkAsync unitOfWork, IQuestionTranslationService typeTranslationService, IUserFacade userFacade, ICategoryFacade categoryFacade, IQuestionDetailsTranslationService questionDetailsTranslationService, IQuestionDetailsService questionDetailsService) : base(unitOfWork)
+        public QuestionFacade(IQuestionService questionService, IUnitOfWorkAsync unitOfWork, IQuestionTranslationService typeTranslationService, IUserFacade userFacade, ICategoryFacade categoryFacade, IQuestionDetailsTranslationService questionDetailsTranslationService, IQuestionDetailsService questionDetailsService, IUserService userService, IAnswerDetailsService answerDetailsService) : base(unitOfWork)
         {
             _questionService = questionService;
             _questionTranslationService = typeTranslationService;
@@ -31,9 +33,11 @@ namespace OperationSurvey.BLL.Services
             _categoryFacade = categoryFacade;
             _questionDetailsTranslationService = questionDetailsTranslationService;
             _questionDetailsService = questionDetailsService;
+            _userService = userService;
+            _answerDetailsService = answerDetailsService;
         }
 
-        public QuestionFacade(IQuestionService questionService, IQuestionTranslationService typeTranslationService, IUserFacade userFacade, ICategoryFacade categoryFacade, IQuestionDetailsTranslationService questionDetailsTranslationService, IQuestionDetailsService questionDetailsService)
+        public QuestionFacade(IQuestionService questionService, IQuestionTranslationService typeTranslationService, IUserFacade userFacade, ICategoryFacade categoryFacade, IQuestionDetailsTranslationService questionDetailsTranslationService, IQuestionDetailsService questionDetailsService, IUserService userService, IAnswerDetailsService answerDetailsService)
         {
             _questionService = questionService;
             _questionTranslationService = typeTranslationService;
@@ -41,6 +45,8 @@ namespace OperationSurvey.BLL.Services
             _categoryFacade = categoryFacade;
             _questionDetailsTranslationService = questionDetailsTranslationService;
             _questionDetailsService = questionDetailsService;
+            _userService = userService;
+            _answerDetailsService = answerDetailsService;
         }
 
         public QuestionDto GetQuestion(long questionId, int tenantId)
@@ -211,41 +217,88 @@ namespace OperationSurvey.BLL.Services
         }
         public PagedResultsDto GetAllQuestionsByUserId(int page, int pageSize, int userId, int tenantId)
         {
-            var questionList = _questionService.GetAllQuestions(tenantId);
-            var userRoles = _userFacade.GetUser(userId).UserRoles;
-            var categoryRoles = new List<CategoryRoleDto>();
-            ArrayList categoryIds = new ArrayList();
-            var returnQuestionList = new List<QuestionDto>();
-            foreach (var quesObj in questionList)
-            {
-                var checkExist = _categoryFacade.GetCategory(quesObj.CategoryId, tenantId).CategoryRoles;
-                if (!categoryRoles.Contains(checkExist.FirstOrDefault()))
-                    categoryRoles.AddRange(checkExist);
-            }
-
-            foreach (var categoryRoleDto in categoryRoles)
-            {
-                var checkUserRoles = userRoles.Where(x => x.RoleId == categoryRoleDto.RoleId);
-                if (checkUserRoles.Any())
-                //if (userRoles.Any(x => x.Role.RoleId == categoryRoleDto.RoleId))
-                {
-                    var id = categoryRoleDto.CategoryId;
-                    if (!categoryIds.Contains(id))
-                        categoryIds.Add(id);
-                }
-            }
-            foreach (long categoryId in categoryIds)
-            {
-                var checkExist = questionList.Where(x => x.CategoryId == categoryId).ToList();
-                if (!returnQuestionList.Contains(checkExist.FirstOrDefault()))
-                    returnQuestionList.AddRange(checkExist);
-
-            }
-
+            var user = _userService.Find(userId);
             PagedResultsDto results = new PagedResultsDto();
-            results.TotalCount = returnQuestionList.Select(x => x).Count();
-            results.Data = returnQuestionList.OrderBy(x => x.QuestionId).ToList();
+            if (user.IsStatic)
+            {
+                results = new PagedResultsDto();
+                results.TotalCount = _questionService.Query(x=>x.TenantId == tenantId && !x.IsDeleted).Select().Count();
+                results.Data = Mapper.Map<List<QuestionDto>>(_questionService
+                    .Query(x => x.TenantId == tenantId && !x.IsDeleted).Select().OrderBy(x => x.QuestionId).ToList());
+            }
+            else
+            {
+                var questionList = _questionService.GetAllQuestions(tenantId);
+                var userRoles = user.UserRoles;
+                var categoryRoles = new List<CategoryRoleDto>();
+                ArrayList categoryIds = new ArrayList();
+                var returnQuestionList = new List<QuestionDto>();
+                foreach (var quesObj in questionList)
+                {
+                    var checkExist = _categoryFacade.GetCategory(quesObj.CategoryId, tenantId).CategoryRoles;
+                    if (!categoryRoles.Contains(checkExist.FirstOrDefault()))
+                        categoryRoles.AddRange(checkExist);
+                }
+
+                foreach (var categoryRoleDto in categoryRoles)
+                {
+                    var checkUserRoles = userRoles.Where(x => x.RoleId == categoryRoleDto.RoleId);
+                    if (checkUserRoles.Any())
+                        //if (userRoles.Any(x => x.Role.RoleId == categoryRoleDto.RoleId))
+                    {
+                        var id = categoryRoleDto.CategoryId;
+                        if (!categoryIds.Contains(id))
+                            categoryIds.Add(id);
+                    }
+                }
+                foreach (long categoryId in categoryIds)
+                {
+                    var checkExist = questionList.Where(x => x.CategoryId == categoryId).ToList();
+                    if (!returnQuestionList.Contains(checkExist.FirstOrDefault()))
+                        returnQuestionList.AddRange(checkExist);
+
+                }
+
+                results = new PagedResultsDto();
+                results.TotalCount = returnQuestionList.Select(x => x).Count();
+                results.Data = returnQuestionList.OrderBy(x => x.QuestionId).ToList();
+            }
             return results;
+        }
+
+        public QuestionDashBoard GetQuestionDashBoard(long questionId)
+        {
+            var question =_questionService.Find(questionId);
+            QuestionDashBoard questionDashBoard = new QuestionDashBoard();
+
+            questionDashBoard.QuestionId = questionId;
+            if (question.QuestionTypeId == Enums.QuestionType.LikeDislike)
+            {
+                questionDashBoard.LikeCount = question.Answers.Count(x => x.AnswerDetails.Any(a => a.Value == 1));
+                questionDashBoard.DisLikeCount = question.Answers.Count(x => x.AnswerDetails.Any(a => a.Value == 0));
+            }
+            else if (question.QuestionTypeId == Enums.QuestionType.Rate)
+            {
+                questionDashBoard.OneStartCount = question.Answers.Count(x => x.AnswerDetails.Any(a => a.Value == 1));
+                questionDashBoard.TwoStartCount = question.Answers.Count(x => x.AnswerDetails.Any(a => a.Value == 2));
+                questionDashBoard.ThreeStartCount = question.Answers.Count(x => x.AnswerDetails.Any(a => a.Value == 3));
+                questionDashBoard.FourStartCount = question.Answers.Count(x => x.AnswerDetails.Any(a => a.Value == 4));
+                questionDashBoard.FiveStartCount = question.Answers.Count(x => x.AnswerDetails.Any(a => a.Value == 5));
+                questionDashBoard.Average =
+                    (questionDashBoard.OneStartCount + (questionDashBoard.TwoStartCount * 2) +
+                     (questionDashBoard.ThreeStartCount * 3) +
+                     (questionDashBoard.FourStartCount * 4) + (questionDashBoard.FiveStartCount * 5))
+                    / (questionDashBoard.OneStartCount + questionDashBoard.TwoStartCount +
+                       questionDashBoard.ThreeStartCount + questionDashBoard.FourStartCount +questionDashBoard.FiveStartCount);
+
+            }
+            else if (question.QuestionTypeId == Enums.QuestionType.Checkbox)
+            {
+                questionDashBoard.OptionsCount = _answerDetailsService.Query(x => x.Answer.QuestionId == questionId)
+                    .Select()
+                    .GroupBy(x => x.QuestionDetailsId, (k, v) => new {key = k, answers = v.ToList()}).ToDictionary(k=>k.key.Value,v=>v.answers.Count);
+            }
+            return questionDashBoard;
         }
     }
 }

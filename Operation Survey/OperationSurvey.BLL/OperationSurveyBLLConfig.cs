@@ -10,6 +10,7 @@ using OperationSurvey.DAL;
 using OperationSurvey.DAL.Entities.Model;
 using System.Linq;
 using System.Threading;
+using OperationSurvey.BLL.Services.ManageStorage;
 
 namespace OperationSurvey.BLL
 {
@@ -18,8 +19,12 @@ namespace OperationSurvey.BLL
         public static void RegisterMappings(MapperConfigurationExpression mapperConfiguration)
         {
             mapperConfiguration.CreateMap<User, UserDto>()
-                .ForMember(dto => dto.Password, m => m.MapFrom(src => PasswordHelper.Decrypt(src.Password)));
-            mapperConfiguration.CreateMap<UserDto, User>();
+                .ForMember(dto => dto.Password, m => m.MapFrom(src => PasswordHelper.Decrypt(src.Password)))
+                .ForMember(dto => dto.CateoriesId, m => m.MapFrom(src => src.UserCategories.Select(x=>x.CategoryId).ToList()))
+                .ForMember(dto => dto.BranchesId, m => m.MapFrom(src => src.UserBranches.Select(x=>x.BranchId).ToList()));
+            mapperConfiguration.CreateMap<UserDto, User>()
+                .ForMember(dto => dto.UserCategories, m => m.MapFrom(src => src.CateoriesId.Select(x => new UserCategory {CategoryId = x}).ToList()))
+                .ForMember(dto => dto.UserBranches, m => m.MapFrom(src => src.BranchesId.Select(x => new UserBranch { BranchId = x }).ToList()));
 
 
             mapperConfiguration.CreateMap<UserRoleDto, UserRole>();
@@ -93,7 +98,22 @@ namespace OperationSurvey.BLL
             mapperConfiguration.CreateMap<Answer, AnswerDto>();
                 //.ForMember(dto=>dto.AnswerDetails,m=>m.MapFrom(src=>src.AnswerDetailses.Select(x=>x.Value).ToList()));
             mapperConfiguration.CreateMap<AnswerDto, Answer>();
-                //.ForMember(dto => dto.AnswerDetailses, m => m.MapFrom(src => src.AnswerDetails.Select(x => new AnswerDetails {Value = x}).ToList()));
+            //.ForMember(dto => dto.AnswerDetailses, m => m.MapFrom(src => src.AnswerDetails.Select(x => new AnswerDetails {Value = x}).ToList()));
+
+
+            mapperConfiguration.CreateMap<Ticket, TicketDto>()
+                .ForMember(dto => dto.CreatorUser, m => m.MapFrom(src => src.CreatorUser.FirstName+" "+src.CreatorUser.LastName))
+                .ForMember(dto => dto.AssignedUser, m => m.MapFrom(src => src.AssignedUser != null? src.AssignedUser.FirstName + " " + src.AssignedUser.LastName:""))
+                .ForMember(dto => dto.ModifierUser, m => m.MapFrom(src => src.ModifierUser != null? src.ModifierUser.FirstName + " " + src.ModifierUser.LastName:""))
+                .ForMember(dto => dto.DepartmentTitleDictionary, m => m.MapFrom(src => src.Department.DepartmentTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
+                .ForMember(dto => dto.CategoryTitleDictionary, m => m.MapFrom(src => src.Category.CategoryTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
+                .ForMember(dto => dto.AreaTitleDictionary, m => m.MapFrom(src => src.Area.AreaTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
+                .ForMember(dto => dto.BranchTitleDictionary, m => m.MapFrom(src => src.Branch.BranchTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
+                .ForMember(dto => dto.TechnacianUsers, m => m.MapFrom(src => src.Category.UserCategories.Where(x=>src.Branch.UserBranches.Select(b=>b.UserId).Contains(x.UserId)).ToDictionary(translation => translation.UserId , translation => translation.User.FirstName + " " + translation.User.LastName.ToLower())));
+            mapperConfiguration.CreateMap<TicketDto, Ticket>()
+                .ForMember(dto => dto.CreatorUser, m => m.Ignore())
+                .ForMember(dto => dto.AssignedUser, m => m.Ignore())
+                .ForMember(dto => dto.ModifierUser, m => m.Ignore());
 
             Mapper.Initialize(mapperConfiguration);
         }
@@ -128,6 +148,11 @@ namespace OperationSurvey.BLL
 
                 .RegisterType<IAnswerService, AnswerService>(new PerResolveLifetimeManager())
                 .RegisterType<IAnswerDetailsService, AnswerDetailsService>(new PerResolveLifetimeManager())
+                .RegisterType<IPackageService, PackageService>(new PerResolveLifetimeManager())
+                .RegisterType<IUserBranchService, UserBranchService>(new PerResolveLifetimeManager())
+                .RegisterType<IUserCategoryService, UserCategoryService>(new PerResolveLifetimeManager())
+                .RegisterType<ITicketService, TicketService>(new PerResolveLifetimeManager())
+                .RegisterType<IManageStorage, ManageStorage>(new PerResolveLifetimeManager())
                 .RegisterType<IFormToMail, FormToMail>(new PerResolveLifetimeManager());
         }
 

@@ -44,7 +44,11 @@ namespace OperationSurvey.DAL
                 .RegisterType<IRepositoryAsync<QuestionTranslation>, Repository<QuestionTranslation>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<QuestionDetails>, Repository<QuestionDetails>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<QuestionDetailsTranslation>, Repository<QuestionDetailsTranslation>>(new PerResolveLifetimeManager())
-                .RegisterType<IRepositoryAsync<User>, Repository<User>>(new PerResolveLifetimeManager());
+                .RegisterType<IRepositoryAsync<User>, Repository<User>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<Package>, Repository<Package>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<UserBranch>, Repository<UserBranch>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<UserCategory>, Repository<UserCategory>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<Ticket>, Repository<Ticket>>(new PerResolveLifetimeManager());
 
 
         }

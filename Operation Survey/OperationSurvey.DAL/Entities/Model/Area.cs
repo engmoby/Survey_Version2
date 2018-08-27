@@ -10,6 +10,7 @@ namespace OperationSurvey.DAL.Entities.Model
         {
             AreaTranslations = new List<AreaTranslation>();
             Branches = new List<Branch>();
+            Tickets = new List<Ticket>();
         }
         public long AreaId { get; set; }
         public bool IsStatic { get; set; }
@@ -23,6 +24,9 @@ namespace OperationSurvey.DAL.Entities.Model
 
         public virtual ICollection<AreaTranslation> AreaTranslations { get; set; }
         public virtual ICollection<Branch> Branches { get; set; }
+        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Ticket> Tickets { get; set; }
+
         public int TenantId { get; set; }
     }
 }
