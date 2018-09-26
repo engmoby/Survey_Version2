@@ -1,3 +1,4 @@
+<div ncy-breadcrumb></div>  
 <div class="modal-content">
     <div class="modal-header bordered">
         <h2 class="pmd-card-title-text">{{'NewArea' | translate}}</h2>
@@ -36,6 +37,6 @@
     </div>
     <div class="pmd-modal-action text-right">
         <button ng-disabled="newAreaForm.$invalid" class="btn pmd-ripple-effect btn-primary" Area="button" ng-click="newAreaCtrl.AddNewArea()">{{'saveChangesBtn' | translate}}</button>
-        <button class="btn pmd-ripple-effect btn-default" Area="button" ng-click="$state.go('Area');">{{'DiscardBtn' | translate}}</button>
+        <button class="btn pmd-ripple-effect btn-default" Area="button" ng-click="$state.go('Area',{countryId: $stateParams.countryId,regionId: $stateParams.regionId,cityId:$stateParams.cityId});">{{'DiscardBtn' | translate}}</button>
     </div>
 </div>

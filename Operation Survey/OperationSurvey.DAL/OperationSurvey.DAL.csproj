@@ -75,11 +75,17 @@
   <ItemGroup>
     <Compile Include="Entities\Model\AnswerDetails.cs" />
     <Compile Include="Entities\Model\Answer.cs" />
+    <Compile Include="Entities\Model\City.cs" />
+    <Compile Include="Entities\Model\CityTranslation.cs" />
+    <Compile Include="Entities\Model\Country.cs" />
+    <Compile Include="Entities\Model\CountryTranslation.cs" />
     <Compile Include="Entities\Model\Package.cs" />
     <Compile Include="Entities\Model\QuestionDetails.cs" />
     <Compile Include="Entities\Model\QuestionDetailsTranslation.cs" />
     <Compile Include="Entities\Model\Question.cs" />
     <Compile Include="Entities\Model\QuestionTranslation.cs" />
+    <Compile Include="Entities\Model\Region.cs" />
+    <Compile Include="Entities\Model\RegionTranslation.cs" />
     <Compile Include="Entities\Model\RolePermission.cs" />
     <Compile Include="Entities\Model\Ticket.cs" />
     <Compile Include="Entities\Model\UserBranch.cs" />

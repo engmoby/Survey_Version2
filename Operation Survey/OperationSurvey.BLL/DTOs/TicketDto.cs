@@ -44,6 +44,7 @@ namespace OperationSurvey.BLL.DTOs
         public Dictionary<string, string> BranchTitleDictionary { get; set; }
 
         public string RejectionComment { get; set; }
+        public string AssignComment { get; set; }
 
         public Dictionary<long, string> TechnacianUsers { get; set; }
 

@@ -266,6 +266,9 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\CitiesController.cs" />
+    <Compile Include="Controllers\CountryController.cs" />
+    <Compile Include="Controllers\RegionsController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Controllers\AnswerController.cs" />
@@ -276,6 +279,9 @@
     <Compile Include="Controllers\PermissionController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\AreaController.cs" />
+    <Compile Include="Models\CityModel.cs" />
+    <Compile Include="Models\CountryModel.cs" />
+    <Compile Include="Models\RegionModel.cs" />
     <Compile Include="Models\TicketModel.cs" />
     <Compile Include="Models\UserConsumedModel.cs" />
     <Compile Include="Controllers\UserTypeController.cs" />
@@ -345,6 +351,8 @@
     <None Include="Properties\PublishProfiles\OperationSurvey.pubxml" />
     <None Include="Properties\PublishProfiles\SurveyV2 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\SurveyV2 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\SurveyV2-testing - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\SurveyV2-testing - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Survey_V2.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

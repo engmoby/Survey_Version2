@@ -82,12 +82,18 @@ namespace OperationSurvey.BLL.Services
             return _answerService.GetAllAnswers(page, pageSize, tenantId);
         }
 
-        public PagedResultsDto GetAnswers(int page, int pageSize, long questionId, long areaId, long branchId, string from, string to)
+        public PagedResultsDto GetAnswers(int page, int pageSize, long questionId, long countryId, long regionId, long cityId, long areaId, long branchId,
+            string from, string to)
         {
             DateTime fromDateTime = !String.IsNullOrEmpty(from) ? DateTime.Parse(from) : DateTime.MinValue;
             DateTime toDateTime = !String.IsNullOrEmpty(to) ? DateTime.Parse(to) : DateTime.MaxValue;
-            var query = _answerService.Query(x => x.QuestionId == questionId && x.Date >= fromDateTime && x.Date <= toDateTime && (areaId <= 0 || x.Branch.AreaId == areaId)
-            && (branchId <= 0 || x.BranchId == branchId)).Select();
+            var query = _answerService.Query(x => x.QuestionId == questionId && x.Date >= fromDateTime &&
+                                                  x.Date <= toDateTime
+                                                  && (countryId <= 0 || x.Branch.Area.City.Region.CountryId == countryId)
+                                                  && (regionId <= 0 || x.Branch.Area.City.RegionId == regionId)
+                                                  && (cityId <= 0 || x.Branch.Area.CityId == cityId)
+                                                  && (areaId <= 0 || x.Branch.AreaId == areaId)
+                                                  && (branchId <= 0 || x.BranchId == branchId)).Select();
             PagedResultsDto result = new PagedResultsDto();
             result.TotalCount = query.Count();
             result.Data = Mapper.Map<List<AnswerDto>>(query.Skip((page - 1) * pageSize).Take(pageSize).ToList());

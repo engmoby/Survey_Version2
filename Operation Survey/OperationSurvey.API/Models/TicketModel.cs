@@ -42,6 +42,7 @@ namespace OperationSurvey.API.Models
         public Dictionary<string, string> BranchTitleDictionary { get; set; }
 
         public string RejectionComment { get; set; }
+        public string AssignComment { get; set; }
         public List<string> ImagesURL { get; set; }
 
         public Dictionary<long, string> TechnacianUsers { get; set; }

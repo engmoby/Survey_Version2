@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using Repository.Pattern.Ef6;
 
 namespace OperationSurvey.DAL.Entities.Model
@@ -28,5 +29,9 @@ namespace OperationSurvey.DAL.Entities.Model
         public virtual ICollection<Ticket> Tickets { get; set; }
 
         public int TenantId { get; set; }
+
+        [ForeignKey("City")]
+        public long? CityId { get; set; }
+        public virtual City City { get; set; }
     }
 }

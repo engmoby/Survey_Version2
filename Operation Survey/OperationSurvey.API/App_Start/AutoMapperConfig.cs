@@ -77,6 +77,14 @@ namespace OperationSurvey.API
             mapperConfiguration.CreateMap<TicketDto, TicketModel>()
                 .ForMember(dto => dto.Status, m => m.MapFrom(src => src.Status.ToString()));
 
+
+            mapperConfiguration.CreateMap<CountryModel, CountryDto>();
+            mapperConfiguration.CreateMap<CountryDto, CountryModel>();
+            mapperConfiguration.CreateMap<RegionModel, RegionDto>();
+            mapperConfiguration.CreateMap<RegionDto, RegionModel>();
+            mapperConfiguration.CreateMap<CityModel, CityDto>();
+            mapperConfiguration.CreateMap<CityDto, CityModel>();
+
             OperationSurveyBllConfig.RegisterMappings(mapperConfiguration); 
 
         }

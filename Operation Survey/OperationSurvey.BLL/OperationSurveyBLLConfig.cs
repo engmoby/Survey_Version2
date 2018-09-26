@@ -115,6 +115,25 @@ namespace OperationSurvey.BLL
                 .ForMember(dto => dto.AssignedUser, m => m.Ignore())
                 .ForMember(dto => dto.ModifierUser, m => m.Ignore());
 
+
+            mapperConfiguration.CreateMap<CountryDto, Country>();
+            mapperConfiguration.CreateMap<Country, CountryDto>()
+                .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.CountryTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
+
+
+            mapperConfiguration.CreateMap<RegionDto, Region>();
+            mapperConfiguration.CreateMap<Region, RegionDto>()
+                .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.RegionTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
+                .ForMember(dto => dto.CountryNameDictionary, m => m.MapFrom(src => src.Country.CountryTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
+
+            mapperConfiguration.CreateMap<CityDto, City>();
+            mapperConfiguration.CreateMap<City, CityDto>()
+                .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.CityTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
+                .ForMember(dto => dto.RegionNameDictionary, m => m.MapFrom(src => src.Region.RegionTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
+
+            mapperConfiguration.CreateMap<User, UserNameDto>()
+                .ForMember(dto => dto.UserName, m => m.MapFrom(src => src.FirstName+" "+src.LastName));
+
             Mapper.Initialize(mapperConfiguration);
         }
 
@@ -153,7 +172,14 @@ namespace OperationSurvey.BLL
                 .RegisterType<IUserCategoryService, UserCategoryService>(new PerResolveLifetimeManager())
                 .RegisterType<ITicketService, TicketService>(new PerResolveLifetimeManager())
                 .RegisterType<IManageStorage, ManageStorage>(new PerResolveLifetimeManager())
-                .RegisterType<IFormToMail, FormToMail>(new PerResolveLifetimeManager());
+                .RegisterType<IFormToMail, FormToMail>(new PerResolveLifetimeManager())
+
+                .RegisterType<ICountryService, CountryService>(new PerResolveLifetimeManager())
+                .RegisterType<ICountryTranslationService, CountryTranslationService>(new PerResolveLifetimeManager())
+                .RegisterType<IRegionService, RegionService>(new PerResolveLifetimeManager())
+                .RegisterType<IRegionTranslationService, RegionTranslationService>(new PerResolveLifetimeManager())
+                .RegisterType<ICityService, CityService>(new PerResolveLifetimeManager())
+                .RegisterType<ICityTranslationService, CityTranslationService>(new PerResolveLifetimeManager());
         }
 
     }

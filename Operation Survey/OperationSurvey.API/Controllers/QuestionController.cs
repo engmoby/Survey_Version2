@@ -73,9 +73,9 @@ namespace OperationSurvey.API.Controllers
         [Route("api/Questions/{questionId:long}/answers", Name = "GetAnswers")]
         [HttpGet]
         //[ResponseType(typeof(List<RequestModel>))]
-        public IHttpActionResult GetAnswers(long questionId, int page = Page, int pagesize = PageSize, long areaId = 0, long branchId = 0, string from = "", string to = "")
+        public IHttpActionResult GetAnswers(long questionId, int page = Page, int pagesize = PageSize, long countryId = 0 , long regionId = 0, long cityId = 0, long areaId = 0, long branchId = 0, string from = "", string to = "")
         {
-            PagedResultsDto answers = _answerFacade.GetAnswers(page, pagesize, questionId, areaId, branchId, from, to);
+            PagedResultsDto answers = _answerFacade.GetAnswers(page, pagesize, questionId,countryId,regionId,cityId, areaId, branchId, from, to);
             var data = Mapper.Map<List<AnswerModel>>(answers.Data);
 
             return PagedResponse("GetAnswers", page, pagesize, answers.TotalCount, data, false);

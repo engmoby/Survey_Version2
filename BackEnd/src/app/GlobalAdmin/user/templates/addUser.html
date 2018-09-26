@@ -80,12 +80,29 @@
             class="form-control select-with-search pmd-select2-tags" ng-model="userCtrl.selectedCategoryId" ng-options="a.categoryId as a.titleDictionary[selectedLanguage] for a in userCtrl.categoryList"></select>
     </div>
     <div ng-show="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-        <label for="first-name">{{'Area' | translate}}</label>
+        <label for="first-name">{{'Country' | translate}}</label>
         <select ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
-            ng-change="userCtrl.areaChange()" ng-model="userCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in userCtrl.area">
+            ng-change="userCtrl.countryChange()" ng-model="userCtrl.selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in userCtrl.counties">
         </select>
     </div>
-
+    <div ng-show="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)&& userCtrl.selectedCountryId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <label for="first-name">{{'Region' | translate}}</label>
+        <select ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)&& userCtrl.selectedCountryId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
+            ng-change="userCtrl.regionChange()" ng-model="userCtrl.selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in userCtrl.regions">
+        </select>
+    </div>
+    <div ng-show="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)&& userCtrl.selectedRegionId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'City' | translate}}</label>
+            <select ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)&& userCtrl.selectedRegionId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
+                ng-change="userCtrl.cityChange()" ng-model="userCtrl.selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in userCtrl.cities">
+            </select>
+        </div>
+    <div ng-show="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)&& userCtrl.selectedCityId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'Area' | translate}}</label>
+            <select ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)&& userCtrl.selectedCityId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
+                ng-change="userCtrl.areaChange()" ng-model="userCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in userCtrl.area">
+            </select>
+        </div>
     <div ng-show="(selectedType.userTypeId == 3 ||selectedType.userTypeId == 4)&& userCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'Branch' | translate}}</label>
         <select ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4) && userCtrl.selectedAreaId > 0 "

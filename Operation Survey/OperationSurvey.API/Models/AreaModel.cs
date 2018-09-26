@@ -16,5 +16,7 @@ namespace OperationSurvey.API.Models
         public DateTime? DeletionTime { get; set; }
         public long? DeleterUserId { get; set; }
         public List<BranchModel> Branches { get; set; }
+        public long CityId { get; set; }
+
     }
 }

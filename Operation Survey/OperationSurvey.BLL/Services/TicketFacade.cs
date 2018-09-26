@@ -53,19 +53,42 @@ namespace OperationSurvey.BLL.Services
         {
             return Mapper.Map<TicketDto>(_ticketService.Find(ticketId));
         }
-        public PagedResultsDto GetAllTickets(long userId, int tenantId, int page, int pageSize)
+        public PagedResultsDto GetAllTickets(long userId, int tenantId, int page, int pageSize,
+            long countryId, long regionId, long cityId, long areaId, long departmentId,
+            long categoryId, long branchId, string from, string to, long technasianId, long branchManagerId, string status)
         {
             PagedResultsDto result = new PagedResultsDto();
             var user =  _userService.Find(userId);
             IOrderedEnumerable<Ticket> query;
             List<long> userCategoriesId;
             List<long> userBranchesId;
+
+            DateTime fromDateTime = !String.IsNullOrEmpty(from) ? DateTime.Parse(from) : DateTime.MinValue;
+            DateTime toDateTime = !String.IsNullOrEmpty(to) ? DateTime.Parse(to) : DateTime.MaxValue;
+            var statusFilter=Enums.TicketStatus.Assigned;
+            if (status == null) status = "";
+            if (status != "")
+                statusFilter =(Enums.TicketStatus) Enum.Parse(typeof(Enums.TicketStatus), status, true);
             switch (user.UserTypeId)
             {
                 case 1:
                     if (user.IsStatic)
                     {
-                        query = _ticketService.Query(x => x.TenantId == tenantId).Select()
+                        query = _ticketService.Query(x => x.TenantId == tenantId
+                                                          && x.CreationTime >= fromDateTime 
+                                                          && x.CreationTime <= toDateTime
+                                                          && (departmentId <= 0 || x.DepartmentId == departmentId)
+                                                          && (categoryId <= 0 || x.CategoryId == categoryId)
+                                                          && (countryId <= 0 || x.Area.City.Region.CountryId == countryId)
+                                                          && (regionId <= 0 || x.Area.City.RegionId== regionId)
+                                                          && (cityId <= 0 || x.Area.CityId == cityId)
+                                                          && (areaId <= 0 || x.AreaId == areaId)
+                                                          && (branchId <= 0 || x.BranchId == branchId)
+                                                          && (branchManagerId <= 0 || x.CreatorUserId == branchManagerId)
+                                                          && (status == "" || x.Status == statusFilter)
+                                                          && (technasianId <= 0 ||
+                                                              (x.AssignedUserId.HasValue && x.AssignedUserId.Value ==
+                                                               technasianId))).Select()
                             .OrderBy(x => x.CreationTime);
                         result.TotalCount = query.Count();
                         result.Data =
@@ -76,7 +99,21 @@ namespace OperationSurvey.BLL.Services
                     userCategoriesId = user.UserCategories.Select(c => c.CategoryId).ToList();
                     query = _ticketService
                         .Query(x => x.TenantId == tenantId && x.DepartmentId == user.DepartmentId &&
-                                    userCategoriesId.Contains(x.CategoryId)).Select()
+                                    userCategoriesId.Contains(x.CategoryId)
+                                    && x.CreationTime >= fromDateTime
+                                    && x.CreationTime <= toDateTime
+                                    && (departmentId <= 0 || x.DepartmentId == departmentId)
+                                    && (categoryId <= 0 || x.CategoryId == categoryId)
+                                    && (countryId <= 0 || x.Area.City.Region.CountryId == countryId)
+                                    && (regionId <= 0 || x.Area.City.RegionId == regionId)
+                                    && (cityId <= 0 || x.Area.CityId == cityId)
+                                    && (areaId <= 0 || x.AreaId == areaId)
+                                    && (branchId <= 0 || x.BranchId == branchId)
+                                    && (branchManagerId <= 0 || x.CreatorUserId == branchManagerId)
+                                    && (status == "" || x.Status == statusFilter)
+                                    && (technasianId <= 0 ||
+                                        (x.AssignedUserId.HasValue && x.AssignedUserId.Value ==
+                                         technasianId))).Select()
                         .OrderBy(x => x.CreationTime);
                     result.TotalCount = query.Count();
                     result.Data =
@@ -86,7 +123,21 @@ namespace OperationSurvey.BLL.Services
                     userBranchesId = user.UserBranches.Select(c => c.BranchId).ToList();
                     query = _ticketService
                         .Query(x => x.TenantId == tenantId && x.AreaId == user.AreaId &&
-                                userBranchesId.Contains(x.BranchId)).Select()
+                                userBranchesId.Contains(x.BranchId)
+                                    && x.CreationTime >= fromDateTime
+                                    && x.CreationTime <= toDateTime
+                                    && (departmentId <= 0 || x.DepartmentId == departmentId)
+                                    && (categoryId <= 0 || x.CategoryId == categoryId)
+                                    && (countryId <= 0 || x.Area.City.Region.CountryId == countryId)
+                                    && (regionId <= 0 || x.Area.City.RegionId == regionId)
+                                    && (cityId <= 0 || x.Area.CityId == cityId)
+                                    && (areaId <= 0 || x.AreaId == areaId)
+                                    && (branchId <= 0 || x.BranchId == branchId)
+                                    //&& (branchManagerId <= 0 || x.CreatorUserId == branchManagerId)
+                                    && (status == "" || x.Status == statusFilter)
+                                    && (technasianId <= 0 ||
+                                        (x.AssignedUserId.HasValue && x.AssignedUserId.Value ==
+                                         technasianId))).Select()
                         .OrderBy(x => x.CreationTime);
                     result.TotalCount = query.Count();
                     result.Data =
@@ -97,7 +148,18 @@ namespace OperationSurvey.BLL.Services
                     //userBranchesId = user.UserBranches.Select(c => c.BranchId).ToList();
                     //userCategoriesId = user.UserCategories.Select(c => c.CategoryId).ToList();
                     query = _ticketService
-                        .Query(x => x.TenantId == tenantId && x.AssignedUserId == user.UserId).Select()
+                        .Query(x => x.TenantId == tenantId && x.AssignedUserId == user.UserId
+                                    && x.CreationTime >= fromDateTime
+                                    && x.CreationTime <= toDateTime
+                                    && (departmentId <= 0 || x.DepartmentId == departmentId)
+                                    && (categoryId <= 0 || x.CategoryId == categoryId)
+                                    && (countryId <= 0 || x.Area.City.Region.CountryId == countryId)
+                                    && (regionId <= 0 || x.Area.City.RegionId == regionId)
+                                    && (cityId <= 0 || x.Area.CityId == cityId)
+                                    && (areaId <= 0 || x.AreaId == areaId)
+                                    && (branchId <= 0 || x.BranchId == branchId)
+                                    && (branchManagerId <= 0 || x.CreatorUserId == branchManagerId)
+                                    && (status == "" || x.Status == statusFilter)).Select()
                         .OrderBy(x => x.CreationTime);
                     result.TotalCount = query.Count();
                     result.Data =
@@ -118,12 +180,13 @@ namespace OperationSurvey.BLL.Services
             return Mapper.Map<List<UserDto>>(_userService.Query(x => userIdForBranch.Contains(x.UserId) && userIdForCategory.Contains(x.UserId)).Select()
                 .ToList());
         }
-        public void AssignedTicket(long userId, long ticketId, long assignedUserId)
+        public void AssignedTicket(long userId, long ticketId, long assignedUserId ,string assignComment)
         {
             var ticket = _ticketService.Find(ticketId);
             ticket.LastModificationTime = DateTime.Now;
             ticket.LastModifierUserId = userId;
             ticket.AssignedUserId = assignedUserId;
+            ticket.AssignComment = assignComment;
             ticket.Status = Enums.TicketStatus.Assigned;
             _ticketService.Update(ticket);
             SaveChanges();
@@ -180,6 +243,54 @@ namespace OperationSurvey.BLL.Services
                     .Select(x => new TicketDashboard
                     {
                         XaxisName = x.tickets.FirstOrDefault().Area.AreaTranslations
+                            .ToDictionary(translation => translation.Language.ToLower(),
+                                translation => translation.Title),
+                        AssignedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Assigned),
+                        PendingCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Pending),
+                        InProgressCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.InProgress),
+                        ClosedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Closed),
+                        RejectedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Rejected),
+                    }).ToList();
+            }
+            else if (xAxis.ToLower() == "city")
+            {
+                ticketDashboards = _ticketService.Queryable()
+                    .GroupBy(x => x.Area.CityId, (k, t) => new { key = k, tickets = t.ToList() }).Select(x => x).ToList()
+                    .Select(x => new TicketDashboard
+                    {
+                        XaxisName = x.tickets.FirstOrDefault().Area.City.CityTranslations
+                            .ToDictionary(translation => translation.Language.ToLower(),
+                                translation => translation.Title),
+                        AssignedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Assigned),
+                        PendingCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Pending),
+                        InProgressCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.InProgress),
+                        ClosedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Closed),
+                        RejectedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Rejected),
+                    }).ToList();
+            }
+            else if (xAxis.ToLower() == "region")
+            {
+                ticketDashboards = _ticketService.Queryable()
+                    .GroupBy(x => x.Area.City.RegionId, (k, t) => new { key = k, tickets = t.ToList() }).Select(x => x).ToList()
+                    .Select(x => new TicketDashboard
+                    {
+                        XaxisName = x.tickets.FirstOrDefault().Area.City.Region.RegionTranslations
+                            .ToDictionary(translation => translation.Language.ToLower(),
+                                translation => translation.Title),
+                        AssignedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Assigned),
+                        PendingCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Pending),
+                        InProgressCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.InProgress),
+                        ClosedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Closed),
+                        RejectedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Rejected),
+                    }).ToList();
+            }
+            else if (xAxis.ToLower() == "country")
+            {
+                ticketDashboards = _ticketService.Queryable()
+                    .GroupBy(x => x.Area.City.Region.CountryId, (k, t) => new { key = k, tickets = t.ToList() }).Select(x => x).ToList()
+                    .Select(x => new TicketDashboard
+                    {
+                        XaxisName = x.tickets.FirstOrDefault().Area.City.Region.Country.CountryTranslations
                             .ToDictionary(translation => translation.Language.ToLower(),
                                 translation => translation.Title),
                         AssignedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Assigned),

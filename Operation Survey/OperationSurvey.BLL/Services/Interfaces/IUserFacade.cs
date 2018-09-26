@@ -15,5 +15,6 @@ namespace OperationSurvey.BLL.Services.Interfaces
         void UpdateGlobalUser(AdminDto adminDto);
         void UpdateAdminPackage(AdminDto adminDto);
         UserConsumed GetMaxAndConsumedUsers(long tenantId);
+        PagedResultsDto GetAllUsersByType(int TenantId,string type);
     }
 }

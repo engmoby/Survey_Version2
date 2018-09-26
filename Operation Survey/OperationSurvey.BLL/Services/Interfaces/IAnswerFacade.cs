@@ -11,6 +11,6 @@ namespace OperationSurvey.BLL.Services.Interfaces
         //AnswerDto CreateAnswer(List<QuestionDto> questionanswerDto, int userId, int tenantId);
         PagedResultsDto GetAllAnswers(int page, int pageSize, int tenantId);
 
-        PagedResultsDto GetAnswers(int page, int pageSize, long questionId, long areaId, long branchId, string from, string to);
+        PagedResultsDto GetAnswers(int page, int pageSize, long questionId, long countryId, long regionId, long cityId, long areaId, long branchId, string from, string to);
     }
 }

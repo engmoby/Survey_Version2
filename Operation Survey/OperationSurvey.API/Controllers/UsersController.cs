@@ -15,12 +15,17 @@ namespace OperationSurvey.API.Controllers
         private readonly IUserFacade _userFacade; 
         private readonly IAreaFacade _areaFacade; 
         private readonly IDepartmentFacade _departmentFacade;
-        public UsersController(IUserFacade userFacade, IUserService userService, IAreaFacade areaFacade, IDepartmentFacade departmentFacade)
+        private IRegionFacade _regionFacade;
+        private ICityFacade _cityFacade;
+
+        public UsersController(IUserFacade userFacade, IUserService userService, IAreaFacade areaFacade, IDepartmentFacade departmentFacade, IRegionFacade regionFacade, ICityFacade cityFacade)
         {
             _userFacade = userFacade;
             _userService = userService;
             _areaFacade = areaFacade;
             _departmentFacade = departmentFacade;
+            _regionFacade = regionFacade;
+            _cityFacade = cityFacade;
         } 
         [Route("api/Users", Name = "RegisterUser")]
         [HttpPost]
@@ -120,6 +125,38 @@ namespace OperationSurvey.API.Controllers
             return Ok(data);
         }
 
+        [Route("api/Users/{userId:long}/Regions/", Name = "GetAllRegionsForUser")]
+        [HttpGet]
+        public IHttpActionResult GetAllRegionsForUser(long userId)
+        {
+            var regionModel = _regionFacade.GetAllRegionsForUser(userId);
+            var data = Mapper.Map<List<RegionModel>>(regionModel.Data);
+            return Ok(data);
+        }
+        [Route("api/Users/{userId:long}/Cities/", Name = "GetAllCitiesForUser")]
+        [HttpGet]
+        public IHttpActionResult GetAllCitiesForUser(long userId)
+        {
+            var cityModel = _cityFacade.GetAllCitiesForUser(userId);
+            var data = Mapper.Map<List<CityModel>>(cityModel.Data);
+            return Ok(data);
+        }
+        [Route("api/Users/{userId:long}/Areas/", Name = "GetAllAreasForUser")]
+        [HttpGet]
+        public IHttpActionResult GetAllAreasForUser(long userId)
+        {
+            var areaObj = _areaFacade.GetAllAreasForUser(userId);
+            var data = Mapper.Map<List<AreaModel>>(areaObj.Data);
+            return Ok(data);
+        }
+
+        [Route("api/Users/", Name = "GetAllUsersByType")]
+        [HttpGet]
+        public IHttpActionResult GetAllUsersByType(string type = "")
+        {
+            var results = _userFacade.GetAllUsersByType(TenantId, type);
+            return PagedResponse("GetAllUsersByType", Page, PageSize, results.TotalCount, results.Data, results.IsParentTranslated);
+        }
     }
 
 }

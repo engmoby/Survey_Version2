@@ -80,6 +80,7 @@ var runSequence = require('run-sequence').use(gulp);
      './assets/js/jk-rating-stars.min.js', 
      './assets/js/angular-filter.js', 
       './node_modules/adm-trv/dist/ADM-treeView.js',   
+      './node_modules/angular-breadcrumb/dist/angular-breadcrumb.min.js',   
        
   ],
 //  sass: {

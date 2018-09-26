@@ -13,5 +13,6 @@ namespace OperationSurvey.BLL.DataServices.Interfaces
         User CheckUserIsDeleted(string firstName, string password);
         PagedResultsDto GetAllUsers(int page, int pageSize, int tenantId);
         User GetAdminByAccountId(Guid userAccountId);
+        PagedResultsDto GetAllUsersByTypeId(int tenantId,long userTypeId);
     }
 }

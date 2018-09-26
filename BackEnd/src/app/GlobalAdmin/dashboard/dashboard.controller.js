@@ -19,6 +19,18 @@
         function init() {
             vm.ticketsFilter = [
                 {
+                    name: $translate.instant('Country'),
+                    value: "country"
+                },
+                {
+                    name: $translate.instant('Region'),
+                    value: "region"
+                },
+                {
+                    name: $translate.instant('City'),
+                    value: "city"
+                },
+                {
                     name: $translate.instant('Area'),
                     value: "area"
                 },

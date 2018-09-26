@@ -27,5 +27,8 @@ namespace OperationSurvey.API.Models
         public long? AreaId { get; set; }
         public List<long> CateoriesId { get; set; }
         public List<long> BranchesId { get; set; }
+        public long? CountryId { get; set; }
+        public long? RegionId { get; set; }
+        public long? CityId { get; set; }
     }
 }

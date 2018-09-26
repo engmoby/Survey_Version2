@@ -14,7 +14,7 @@
                         userPrepService: userPrepService,
                         RolePrepService: RolePrepService,
                         userConsumedPrepService: userConsumedPrepService,
-                        AreaPrepService: AllAreaPrepService,
+                        CountriesPrepService: CountriesPrepService,
                         DepartmentPrepService: AllDepartmentPrepService
                     },
                     data: {
@@ -36,7 +36,7 @@
                         userPrepService: userPrepService,
                         RolePrepService: RolePrepService,
                         userConsumedPrepService: userConsumedPrepService,
-                        AreaPrepService: AllAreaPrepService,
+                        CountriesPrepService: CountriesPrepService,
                         DepartmentPrepService: AllDepartmentPrepService
 
                     },
@@ -58,8 +58,12 @@
                     resolve: {
                         EditUserPrepService: EditUserPrepService,
                         RolePrepService: RolePrepService,
-                        AreaPrepService: AllAreaPrepService,
-                        DepartmentPrepService: AllDepartmentPrepService
+                        /*AreaPrepService: AllAreaPrepService,*/
+                        DepartmentPrepService: AllDepartmentPrepService,
+                        CountriesPrepService: CountriesPrepService,
+                        RegionsForUserPrepService: RegionsForUserPrepService,
+                        CitiesForUserPrepService: CitiesForUserPrepService,
+                        AreasForUserPrepService: AreasForUserPrepService,
 
                     },
                     data: {
@@ -168,80 +172,137 @@
 
 
                 .state('Area', {
-                    url: '/Area',
-                    templateUrl: './app/GlobalAdmin/Area/templates/Area.html',
-                    controller: 'AreaController',
-                    'controllerAs': 'AreaCtrl',
+
+                    url: '/:cityId/Area',
+                    views: {
+                        '@': {
+                            templateUrl: './app/GlobalAdmin/Area/templates/Area.html',
+                            controller: 'AreaController',
+                            'controllerAs': 'AreaCtrl',
+                        }
+                    },
                     resolve: {
-                        AreaPrepService: AreaPrepService
+                        AreaPrepService: AreaPrepService,
+                        CityByIdPrepService: CityByIdPrepService,
+                        RegionByIdPrepService: RegionByIdPrepService,
+
                     },
                     data: {
                         permissions: {
                             only: ['4'],
                             redirectTo: 'root'
                         }
+                    },
+                    parent: "Cities",
+                    ncyBreadcrumb: {
+                        label: '{{cityName}}'
                     }
 
                 })
                 .state('newArea', {
-                    url: '/newArea',
-                    templateUrl: './app/GlobalAdmin/Area/templates/new.html',
-                    controller: 'createAreaDialogController',
-                    'controllerAs': 'newAreaCtrl',
-                    data: {
-                        permissions: {
-                            only: ['4'],
-                            redirectTo: 'root'
+                    url: '/:cityId/newArea',
+                    views: {
+                        '@': {
+                            templateUrl: './app/GlobalAdmin/Area/templates/new.html',
+                            controller: 'createAreaDialogController',
+                            'controllerAs': 'newAreaCtrl',
                         }
-                    }
-
-                })
-                .state('editArea', {
-                    url: '/editArea/:areaId',
-                    templateUrl: './app/GlobalAdmin/Area/templates/edit.html',
-                    controller: 'editAreaDialogController',
-                    'controllerAs': 'editAreaCtrl',
+                    },
                     resolve: {
-                        AreaByIdPrepService: AreaByIdPrepService
+                        CityByIdPrepService: CityByIdPrepService,
+                        RegionByIdPrepService: RegionByIdPrepService,
+
                     },
                     data: {
                         permissions: {
                             only: ['4'],
                             redirectTo: 'root'
                         }
+                    },
+                    parent: "Cities",
+                    ncyBreadcrumb: {
+                        label: '{{cityName}}'
+                    }
+
+                })
+                .state('editArea', {
+                    url: '/:cityId/editArea/:areaId',
+                    views: {
+                        '@': {
+                            templateUrl: './app/GlobalAdmin/Area/templates/edit.html',
+                            controller: 'editAreaDialogController',
+                            'controllerAs': 'editAreaCtrl',
+                        }
+                    },
+                    resolve: {
+                        AreaByIdPrepService: AreaByIdPrepService,
+                        CityByIdPrepService: CityByIdPrepService,
+                        RegionByIdPrepService: RegionByIdPrepService,
+
+                    },
+                    data: {
+                        permissions: {
+                            only: ['4'],
+                            redirectTo: 'root'
+                        }
+                    },
+                    parent: "Cities",
+                    ncyBreadcrumb: {
+                        label: '{{cityName}}'
                     }
 
                 })
 
                 .state('newBranch', {
-                    url: '/newBranch/:areaId',
-                    templateUrl: './app/GlobalAdmin/Branch/templates/new.html',
-                    controller: 'createBranchDialogController',
-                    'controllerAs': 'newBranchCtrl',
+                    url: '/:areaId/newBranch',
+                    views: {
+                        '@': {
+                            templateUrl: './app/GlobalAdmin/Branch/templates/new.html',
+                            controller: 'createBranchDialogController',
+                            'controllerAs': 'newBranchCtrl',
+                        }
+                    },
                     resolve: {
-                        AreaByIdPrepService: AreaByIdPrepService
+                        AreaByIdPrepService: AreaByIdPrepService,
+                        CityByIdPrepService: CityByIdPrepService,
+                        RegionByIdPrepService: RegionByIdPrepService,
                     },
                     data: {
                         permissions: {
                             only: ['4'],
                             redirectTo: 'root'
                         }
+                    },
+                    parent: "Area",
+                    ncyBreadcrumb: {
+                        label: '{{areaName}}'
                     }
 
                 })
                 .state('editBranch', {
-                    url: '/editBranch/:branchId',
-                    templateUrl: './app/GlobalAdmin/Branch/templates/edit.html',
-                    controller: 'editBranchDialogController',
-                    'controllerAs': 'editBranchCtrl',
+                    url: '/:areaId/editBranch/:branchId',
+                    views: {
+                        '@': {
+                            templateUrl: './app/GlobalAdmin/Branch/templates/edit.html',
+                            controller: 'editBranchDialogController',
+                            'controllerAs': 'editBranchCtrl',
+                        }
+                    },
                     resolve: {
-                        BranchByIdPrepService: BranchByIdPrepService
+                        BranchByIdPrepService: BranchByIdPrepService,
+                        AreaByIdPrepService: AreaByIdPrepService,
+                        CityByIdPrepService: CityByIdPrepService,
+                        RegionByIdPrepService: RegionByIdPrepService,
                     },
                     data: {
                         permissions: {
                             only: ['4'],
                             redirectTo: 'root'
                         }
+                    },
+                    parent: "Area",
+                    ncyBreadcrumb: {
+                        label: '{{areaName}}'
                     }
 
                 })
@@ -334,9 +395,10 @@
                     controller: 'AnswerQuestionDialogController',
                     'controllerAs': 'AnswerQuestionCtrl',
                     resolve: {
-                        AreaPrepService: AllAreaPrepService,
-                        /* BranchPrepService:BranchPrepService,*/
-                        AnswerQuestionPrepService: AnswerQuestionPrepService
+                        /*AreaPrepService: AllAreaPrepService,
+                         BranchPrepService:BranchPrepService,*/
+                        AnswerQuestionPrepService: AnswerQuestionPrepService,
+                        CountriesPrepService: CountriesPrepService
                     },
                     data: {
                         permissions: {
@@ -404,7 +466,8 @@
                     controller: 'AnswersController',
                     'controllerAs': 'answersCtrl',
                     resolve: {
-                        AreaPrepService: AllAreaPrepService,
+                        /*AreaPrepService: AllAreaPrepService,*/
+                        CountriesPrepService: CountriesPrepService,
                         AnswerQuestionPrepService: AnswerQuestionPrepService
                     },
                     data: {
@@ -421,11 +484,15 @@
                     controller: 'TicketsController',
                     'controllerAs': 'ticketsCtrl',
                     resolve: {
-                        AreaPrepService: AllAreaPrepService,
-                        DepartmentPrepService: AllDepartmentPrepService,
+                        /*AreaPrepService: UserAreaPrepService,
+                        DepartmentPrepService: UserDepartmentPrepService,*/
                         TicketsPrepService: TicketsPrepService,
-                        UserAreaPrepService: UserAreaPrepService,
-                        UserDepartmentPrepService: UserDepartmentPrepService
+                        /*UserAreaPrepService: UserAreaPrepService,
+                        UserDepartmentPrepService: UserDepartmentPrepService*/
+                        CountriesPrepService: CountriesPrepService,
+                        DepartmentPrepService: AllDepartmentPrepService,
+                        BranchManagerPrepService: BranchManagerPrepService,
+                        TechnasianPrepService: TechnasianPrepService
                     },
                     data: {
                         permissions: {
@@ -529,9 +596,9 @@
         return PermissionResource.getAllPermissions().$promise;
     }
     /*Area */
-    AreaPrepService.$inject = ['AreaResource']
-    function AreaPrepService(AreaResource) {
-        return AreaResource.getAllAreas().$promise;
+    AreaPrepService.$inject = ['AreaResource', '$stateParams']
+    function AreaPrepService(AreaResource, $stateParams) {
+        return AreaResource.getAllAreas({ cityId: $stateParams.cityId }).$promise;
     }
 
     AllAreaPrepService.$inject = ['AreaResource']
@@ -628,4 +695,41 @@
     function TicketDashboardPrepService(dashboardResource) {
         return dashboardResource.getTicketsDashboard().$promise;
     }
+
+
+    CityByIdPrepService.$inject = ['CityResource', '$stateParams']
+    function CityByIdPrepService(CityResource, $stateParams) {
+        return CityResource.getCity({ cityId: $stateParams.cityId }).$promise;
+    }
+
+    RegionByIdPrepService.$inject = ['RegionResource', '$stateParams']
+    function RegionByIdPrepService(RegionResource, $stateParams) {
+        return RegionResource.getRegion({ regionId: $stateParams.regionId }).$promise;
+    }
+    CountriesPrepService.$inject = ['CountryResource']
+    function CountriesPrepService(CountryResource) {
+        return CountryResource.getAllCountries({pageSize: 0 }).$promise;
+    }
+
+    RegionsForUserPrepService.$inject = ['RegionResource', '$stateParams']
+    function RegionsForUserPrepService(RegionResource,$stateParams) {
+        return RegionResource.getAllRegionsForUser({ userId: $stateParams.userId }).$promise;
+    }
+    CitiesForUserPrepService.$inject = ['CityResource', '$stateParams']
+    function CitiesForUserPrepService(CityResource,$stateParams) {
+        return CityResource.getAllCitiesForUser({ userId: $stateParams.userId }).$promise;
+    }
+    AreasForUserPrepService.$inject = ['AreaResource', '$stateParams']
+    function AreasForUserPrepService(AreaResource,$stateParams) {
+        return AreaResource.getAllAreasForUser({ userId: $stateParams.userId }).$promise;
+    }
+    BranchManagerPrepService.$inject = ['UserResource']
+    function BranchManagerPrepService(UserResource) {
+        return UserResource.getUserByTypeName({type:'branchmanager'}).$promise;
+    }
+    TechnasianPrepService.$inject = ['UserResource']
+    function TechnasianPrepService(UserResource) {
+        return UserResource.getUserByTypeName({type:'technician'}).$promise;
+    }
+
 }());

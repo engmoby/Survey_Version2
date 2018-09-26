@@ -11,7 +11,8 @@
             getUser: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/GetUserById/:UserId', useToken: true },
             getUserLimit: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/GetMaxAndConUsers', useToken: true },
             getUserDepartments: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/Departments', useToken: true },
-            getUserArea: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/Area', useToken: true }
+            getUserArea: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/Area', useToken: true },
+            getUserByTypeName: { method: 'GET', url: appCONSTANTS.API_URL + 'Users', useToken: true }
         })
     }
 

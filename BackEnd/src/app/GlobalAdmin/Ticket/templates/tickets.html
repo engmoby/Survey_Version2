@@ -1,12 +1,125 @@
-<div>
+<script type="text/javascript">
+    $(function () {
+        $('#fromdate').datetimepicker(
+            {
+                format: 'DD/MM/YYYY',
+                // minDate: new Date()
+            }
+        );
+        $('#todate').datetimepicker(
+            {
+                format: 'DD/MM/YYYY',
+                // minDate: new Date(),
+                useCurrent: false
+            }
+        );
+        $("#fromdate").on("dp.change", function (e) {
+            $('#todate').data("DateTimePicker").minDate(e.date);
+        });
+        // Start date picke on chagne event [select maxmimum date for start date datepicker]
+        $("#todate").on("dp.change", function (e) {
+            $('#fromdate').data("DateTimePicker").maxDate(e.date);
+        });
+    });
+
+</script>
+<div ng-init="showMoreFilter = false">
     <div style="margin-bottom:10px" ng-if="ticketsCtrl.user.userTypeId == '3'">
         <button ng-click="$state.go('newTicket');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddBtn' | translate}}</button>
 
     </div>
 
+    <div class="row">
+
+        <div style="direction: ltr;" class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label>{{'fromLbl' | translate}}</label>
+            <input type="text" id="fromdate" class="form-control" required />
+        </div>
+
+
+        <div style="direction: ltr;" class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label>{{'toLbl' | translate}}</label>
+            <input type="text" id="todate" class="form-control" required />
+        </div>
+        <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" <label
+            for="first-name">{{'Status' | translate}}</label>
+            <select class="form-control select-with-search pmd-select2-tags" ng-model="ticketsCtrl.selectedStatus">
+                <option value="">All</option>
+                <option value="Pending">{{'Pending'|translate}}</option>
+                <option value="Assigned">{{'Assigned'|translate}}</option>
+                <option value="InProgress">{{'InProgress'|translate}}</option>
+                <option value="Closed">{{'Closed'|translate}}</option>
+                <option value="Rejected">{{'Rejected'|translate}}</option>
+            </select>
+        </div>
+
+    </div>
+    <div class="row" ng-show="showMoreFilter">
+        <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" <label
+            for="first-name">{{'Country' | translate}}</label>
+            <select class="form-control select-with-search pmd-select2-tags" ng-change="ticketsCtrl.countryChange()" ng-model="ticketsCtrl.selectedCountry"
+                ng-options="group as group.titleDictionary[selectedLanguage] for group in ticketsCtrl.counties">
+            </select>
+        </div>
+        <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" <label
+            for="first-name">{{'Region' | translate}}</label>
+            <select class="form-control select-with-search pmd-select2-tags" ng-change="ticketsCtrl.regionChange()" ng-model="ticketsCtrl.selectedRegion"
+                ng-options="group as group.titleDictionary[selectedLanguage] for group in ticketsCtrl.regions">
+            </select>
+        </div>
+        <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" <label
+            for="first-name">{{'City' | translate}}</label>
+            <select class="form-control select-with-search pmd-select2-tags" ng-change="ticketsCtrl.cityChange()" ng-model="ticketsCtrl.selectedCity"
+                ng-options="group as group.titleDictionary[selectedLanguage] for group in ticketsCtrl.cities">
+            </select>
+        </div>
+        <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'Area' | translate}}</label>
+
+            <select required class="form-control select-with-search pmd-select2-tags" ng-change="ticketsCtrl.areaChange()" ng-model="ticketsCtrl.selectedArea"
+                ng-options="a as a.titleDictionary[selectedLanguage] for a in ticketsCtrl.areaList"></select>
+        </div>
+
+        <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'Branch' | translate}}</label>
+
+            <select required class="form-control select-with-search pmd-select2-tags" ng-model="ticketsCtrl.selectedBranch" ng-options="a as a.titleDictionary[selectedLanguage] for a in ticketsCtrl.branchList"></select>
+        </div>
+
+        <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'Department' | translate}}</label>
+
+            <select required class="form-control select-with-search pmd-select2-tags" ng-change="ticketsCtrl.departmentChange()" ng-model="ticketsCtrl.selectedDepartment"
+                ng-options="a as a.titleDictionary[selectedLanguage] for a in ticketsCtrl.departments"></select>
+        </div>
+
+        <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'CategoryLbl' | translate}}</label>
+
+            <select required class="form-control select-with-search pmd-select2-tags" ng-model="ticketsCtrl.selectedCategory" ng-options="a as a.titleDictionary[selectedLanguage] for a in ticketsCtrl.categories"></select>
+        </div>
+        <div  ng-if="ticketsCtrl.user.userTypeId != '3'" class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'branchManager' | translate}}</label>
+
+            <select required class="form-control select-with-search pmd-select2-tags" ng-model="ticketsCtrl.selectedBranchManager" ng-options="a as a.userName for a in ticketsCtrl.BranchManagers"></select>
+        </div>
+
+        <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'Tech' | translate}}</label>
+
+            <select required class="form-control select-with-search pmd-select2-tags" ng-model="ticketsCtrl.selectedTechnician" ng-options="a as a.userName for a in ticketsCtrl.Technicians"></select>
+        </div>
+    </div>
+    <div class="row" style="padding-bottom: 5px;">
+        <div class="col-md-2 ">
+            <button ng-click="ticketsCtrl.applyFilter()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'filterBtn' | translate}}</button>
+        </div>
+        <span ng-show="!showMoreFilter" ng-click="showMoreFilter = !showMoreFilter" style="cursor: pointer">Show More Fiter</span>
+        <span ng-show="showMoreFilter" ng-click="showMoreFilter = !showMoreFilter" style="cursor: pointer">Show Less Fiter</span>
+    </div>
     <div ng-if="ticketsCtrl.tickets.results.length == 0">
         <span>{{'NoTicketAvailable' | translate}}</span>
-    </div>   
+    </div>
     <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="ticketsCtrl.tickets.results.length > 0">
         <div class="table-responsive"></div>
         <table class="table pmd-table table-hover">
@@ -32,15 +145,16 @@
                             type="button">{{'DetailsBtn' | translate}}</button>
                         <button ng-click="ticket.showAssign= true;ticket.assignedUserId ='0';" ng-if="ticket.status === 'Pending' && !ticket.showAssign && ticketsCtrl.user.userTypeId == '2'"
                             class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AssignedBtn' | translate}}</button>
-                        <button ng-click="ticketsCtrl.approveTicket(ticket.ticketId)" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
-                            ng-if="ticketsCtrl.user.userTypeId == '4' && ticket.status == 'Assigned' && !ticket.showReject" type="button">{{'ApproveBtn' | translate}}</button>
-                        <button ng-click="ticketsCtrl.closeTicket(ticket.ticketId)" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
-                            ng-if="ticketsCtrl.user.userTypeId == '4' && ticket.status == 'InProgress'" type="button">{{'CloseBtn' | translate}}</button>
-                        <button ng-click="ticket.showReject = true;" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
-                            ng-if="ticketsCtrl.user.userTypeId == '4' && ticket.status == 'Assigned' && !ticket.showReject " type="button">{{'RejectBtn' | translate}}</button>
+                        <button ng-click="ticketsCtrl.approveTicket(ticket.ticketId)" class="btn pmd-ripple-effect btn-primary pmd-z-depth" ng-if="ticketsCtrl.user.userTypeId == '4' && ticket.status == 'Assigned' && !ticket.showReject"
+                            type="button">{{'ApproveBtn' | translate}}</button>
+                        <button ng-click="ticketsCtrl.closeTicket(ticket.ticketId)" class="btn pmd-ripple-effect btn-primary pmd-z-depth" ng-if="ticketsCtrl.user.userTypeId == '4' && ticket.status == 'InProgress'"
+                            type="button">{{'CloseBtn' | translate}}</button>
+                        <button ng-click="ticket.showReject = true;" class="btn pmd-ripple-effect btn-primary pmd-z-depth" ng-if="ticketsCtrl.user.userTypeId == '4' && ticket.status == 'Assigned' && !ticket.showReject "
+                            type="button">{{'RejectBtn' | translate}}</button>
 
-                        <button ng-click="ticket.showAssign= true;ticketsCtrl.assignTicket(ticket.ticketId,ticket.assignedUserId)" ng-disabled="ticket.assignedUserId <=0"
-                            ng-show="ticket.showAssign" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'saveChangesBtn' | translate}}</button>
+                        <button ng-click="ticket.showAssign= true;ticketsCtrl.assignTicket(ticket.ticketId,ticket.assignedUserId,ticket.comment)"
+                            ng-disabled="ticket.assignedUserId <=0" ng-show="ticket.showAssign" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+                            type="button">{{'saveChangesBtn' | translate}}</button>
                         <button ng-click="ticket.showAssign= false;" ng-show="ticket.showAssign" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
                             type="button">{{'DiscardBtn' | translate}}</button>
                         <div ng-show="ticket.showAssign">
@@ -55,9 +169,9 @@
                             ng-show="ticket.showReject" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'saveChangesBtn' | translate}}</button>
                         <button ng-click="ticket.showReject= false;" ng-show="ticket.showReject" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
                             type="button">{{'DiscardBtn' | translate}}</button>
-                        <div ng-show="ticket.showReject">
+                        <div ng-show="ticket.showReject || ticket.showAssign">
                             <div class="form-group pmd-textfield pmd-textfield-floating-label">
-                                    <input required type="text" placeholder="{{'commentLbl'|translate}}" class="mat-input form-control" name="title" ng-model="ticket.comment">
+                                <input required type="text" placeholder="{{'commentLbl'|translate}}" class="mat-input form-control" name="title" ng-model="ticket.comment">
                             </div>
                         </div>
                     </td>

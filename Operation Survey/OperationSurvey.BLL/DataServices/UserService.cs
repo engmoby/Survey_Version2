@@ -62,5 +62,15 @@ namespace OperationSurvey.BLL.DataServices
         {
             return _repository.Query(x => x.UserAccountId == userAccountId).Select().FirstOrDefault();
         }
+
+        public PagedResultsDto GetAllUsersByTypeId(int tenantId,long userTypeId)
+        {
+            var query = Queryable().Where(x => x.IsActive && (x.TenantId == tenantId) && !x.IsStatic && x.UserTypeId == userTypeId).OrderBy(x => x.UserId);
+            PagedResultsDto results = new PagedResultsDto();
+            results.TotalCount = query.Count(); //_repository.Query(x => !x.IsDeleted).Select().Count(x => !x.IsDeleted);
+            var modelReturn = query.OrderBy(x => x.UserId).ToList();
+            results.Data = Mapper.Map<List<User>, List<UserNameDto>>(modelReturn); 
+            return results;
+        }
     }
 }

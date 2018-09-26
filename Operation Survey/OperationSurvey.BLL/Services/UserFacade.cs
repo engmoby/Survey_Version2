@@ -125,6 +125,9 @@ namespace OperationSurvey.BLL.Services
             userDto.UserAccountId = getRole.UserAccountId;
             userDto.DepartmentId = getRole.DepartmentId;
             userDto.AreaId = getRole.AreaId;
+            userDto.CountryId = getRole.AreaId.HasValue ? getRole.Area.City.Region.CountryId : 0;
+            userDto.RegionId = getRole.AreaId.HasValue ? getRole.Area.City.RegionId : 0;
+            userDto.CityId = getRole.AreaId.HasValue ? getRole.Area.CityId : 0;
             userDto.BranchesId = getRole.UserBranches.Select(x=>x.BranchId).ToList();
             userDto.CateoriesId = getRole.UserCategories.Select(x=>x.CategoryId).ToList();
             userDto.Password = PasswordHelper.Decrypt(getRole.Password);
@@ -448,5 +451,21 @@ namespace OperationSurvey.BLL.Services
 
 
         #endregion
+
+
+
+        public PagedResultsDto GetAllUsersByType(int TenantId,string type)
+        {
+            PagedResultsDto results = new PagedResultsDto();
+            if (type.ToLower() == "branchmanager")
+            {
+                results = _userService.GetAllUsersByTypeId(TenantId,3);
+            }
+            else if (type.ToLower() == "technician")
+            {
+                results = _userService.GetAllUsersByTypeId(TenantId, 4);
+            }
+            return results;
+        }
     }
 }

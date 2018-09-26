@@ -9,7 +9,7 @@
     <button ng-click="ticketDetailsCtrl.ticket.showReject = true;" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
         ng-if="ticketDetailsCtrl.user.userTypeId == '4' && ticketDetailsCtrl.ticket.status == 'Assigned' && !ticketDetailsCtrl.ticket.showReject " type="button">{{'RejectBtn' | translate}}</button>
 
-    <button ng-click="ticketDetailsCtrl.ticket.showAssign= true;ticketDetailsCtrl.assignTicket(ticketDetailsCtrl.ticket.ticketId,ticketDetailsCtrl.ticket.assignedUserId)" ng-disabled="ticketDetailsCtrl.ticket.assignedUserId <=0"
+    <button ng-click="ticketDetailsCtrl.ticket.showAssign= true;ticketDetailsCtrl.assignTicket(ticketDetailsCtrl.ticket.ticketId,ticketDetailsCtrl.ticket.assignedUserId,ticket.comment)" ng-disabled="ticketDetailsCtrl.ticket.assignedUserId <=0"
         ng-show="ticketDetailsCtrl.ticket.showAssign" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'saveChangesBtn' | translate}}</button>
     <button ng-click="ticketDetailsCtrl.ticket.showAssign= false;" ng-show="ticketDetailsCtrl.ticket.showAssign" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
         type="button">{{'DiscardBtn' | translate}}</button>
@@ -25,7 +25,7 @@
         ng-show="ticketDetailsCtrl.ticket.showReject" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'saveChangesBtn' | translate}}</button>
     <button ng-click="ticketDetailsCtrl.ticket.showReject= false;" ng-show="ticketDetailsCtrl.ticket.showReject" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
         type="button">{{'DiscardBtn' | translate}}</button>
-    <div ng-show="ticketDetailsCtrl.ticket.showReject">
+    <div ng-show="ticketDetailsCtrl.ticket.showReject || ticketDetailsCtrl.ticket.showAssign">
         <div class="form-group pmd-textfield pmd-textfield-floating-label">
                 <input required type="text" placeholder="{{'commentLbl'|translate}}" class="mat-input form-control" name="title" ng-model="ticketDetailsCtrl.ticket.comment">
         </div>
@@ -69,8 +69,9 @@
         </tr>
         <tr ng-if="ticketDetailsCtrl.ticket.status === 'Rejected'">
             <td>{{'commentLbl' | translate}}</td>
-            <td>{{ticketDetailsCtrl.ticket.rejectionComment | translate}}</td>
+            <td>{{ticketDetailsCtrl.ticket.rejectionComment}}</td>
         </tr>
+
         <tr>
             <td>{{'Creator' | translate}}</td>
             <td>{{ticketDetailsCtrl.ticket.creatorUser}}</td>
@@ -78,6 +79,10 @@
         <tr>
             <td>{{'CreatTime' | translate}}</td>
             <td>{{ticketDetailsCtrl.ticket.creationTime}}</td>
+        </tr>
+        <tr >
+            <td>{{'commentLbl' | translate}}</td>
+            <td>{{ticketDetailsCtrl.ticket.assignComment}}</td>
         </tr>
         <tr ng-if="ticketDetailsCtrl.ticket.status !== 'Pending'">
             <td>{{'AssignedBy' | translate}}</td>

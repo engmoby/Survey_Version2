@@ -52,5 +52,7 @@ namespace OperationSurvey.DAL.Entities.Model
         public virtual Branch Branch { get; set; }
 
         public string RejectionComment { get; set; }
+
+        public string AssignComment { get; set; }
     }
 }

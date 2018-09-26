@@ -33,9 +33,11 @@
             vm.ticket.technicianModificationTime = $filter('date')(new Date(vm.ticket.technicianModificationTime), "dd/MM/yyyy hh:mm a");
         }
         init();
-        vm.assignTicket = function (ticketId, assignedUserId) {
-            TicketResource.assigned({ ticketId: ticketId, assignedUserId: assignedUserId }).$promise.then(function (results) {
-                $state.go('Tickets');
+        vm.assignTicket = function (ticketId, assignedUserId,comment) {
+            var newObj = new TicketResource();
+            newObj.assignComment = comment;
+            newObj.$assigned({ ticketId: ticketId, assignedUserId: assignedUserId }).then(function (results) {
+                refreshTickets();
             },
                 function (data, status) {
                     blockUI.stop();

@@ -50,26 +50,30 @@ namespace OperationSurvey.API.Controllers
         [Route("api/Tickets/", Name = "GetAllTickets")]
         [HttpGet]
         [ResponseType(typeof(List<TicketModel>))]
-        public IHttpActionResult GetAllTickets(int page = Page, int pagesize = PageSize)
+        public IHttpActionResult GetAllTickets(int page = Page, int pagesize = PageSize,
+            long countryId = 0, long regionId=0, long cityId=0, long areaId=0, long departmentId=0,
+            long categoryId = 0, long branchId = 0, string from = "", string to = "",long technasianId = 0,long branchManagerId = 0,string status = "")
         {
-            PagedResultsDto requests = _ticketFacade.GetAllTickets(UserId, TenantId, page, pagesize);
+            PagedResultsDto requests = _ticketFacade.GetAllTickets(UserId, TenantId, page, pagesize, categoryId,
+                regionId, cityId, areaId, departmentId, categoryId, branchId
+                , from, to, technasianId, branchManagerId, status);
             var data = Mapper.Map<List<TicketModel>>(requests.Data);
-            if (data != null)
-                foreach (var item in data)
-                {
-                    item.ImagesURL = new List<string>();
-                    string path = HostingEnvironment.MapPath("~/Images/") + "\\" + "Ticket-" + item.TicketId;
-                    var imageCounter = Directory.Exists(path) ?Directory
-                        .GetFiles(path)
-                        .Count(x => !Path.GetFileName(x).Contains("thumb")):-1;
-                    int id = 1;
-                    while (id < imageCounter + 1)
-                    {
-                        item.ImagesURL.Add(Url.Link("TicketImage", new {ticketId = item.TicketId, imageId = id}));
-                        id++;
-                    }
+            //if (data != null)
+            //    foreach (var item in data)
+            //    {
+            //        item.ImagesURL = new List<string>();
+            //        string path = HostingEnvironment.MapPath("~/Images/") + "\\" + "Ticket-" + item.TicketId;
+            //        var imageCounter = Directory.Exists(path) ?Directory
+            //            .GetFiles(path)
+            //            .Count(x => !Path.GetFileName(x).Contains("thumb")):-1;
+            //        int id = 1;
+            //        while (id < imageCounter + 1)
+            //        {
+            //            item.ImagesURL.Add(Url.Link("TicketImage", new {ticketId = item.TicketId, imageId = id}));
+            //            id++;
+            //        }
 
-                }
+            //    }
             return PagedResponse("GetAllTickets", page, pagesize, requests.TotalCount, data, false);
         }
 
@@ -124,10 +128,10 @@ namespace OperationSurvey.API.Controllers
         }
 
         [Route("api/Tickets/{ticketId:long}/Assigned/{assignedUserId:long}", Name = "AssignedTicket")]
-        [HttpGet]
-        public IHttpActionResult AssignedTicket(long ticketId, long assignedUserId)
+        [HttpPost]
+        public IHttpActionResult AssignedTicket(long ticketId, long assignedUserId,[FromBody] TicketModel ticketModel)
         {
-            _ticketFacade.AssignedTicket(UserId, ticketId, assignedUserId);
+            _ticketFacade.AssignedTicket(UserId,ticketId, assignedUserId, ticketModel.AssignComment);
             return Ok();
         }
 

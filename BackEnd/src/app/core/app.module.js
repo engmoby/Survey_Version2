@@ -18,6 +18,8 @@
     'blockUI',
     'ui.carousel',
     'nvd3',
-    'jkAngularRatingStars','angular.filter'
+    'jkAngularRatingStars',
+    'angular.filter',
+    'ncy-angular-breadcrumb'
     ]);
 }());

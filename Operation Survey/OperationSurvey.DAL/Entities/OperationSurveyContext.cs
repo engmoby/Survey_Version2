@@ -44,6 +44,14 @@ namespace OperationSurvey.DAL.Entities
         public DbSet<UserCategory> UserCategories { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
 
+
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<CountryTranslation> CountryTranslations { get; set; }
+        public DbSet<Region> Regions { get; set; }
+        public DbSet<RegionTranslation> RegionTranslations { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<CityTranslation> CityTranslations { get; set; }
+
         public OperationSurveyContext() : base("name=OperationSurveyDB")
         {
             Database.SetInitializer<OperationSurveyContext>(null);
