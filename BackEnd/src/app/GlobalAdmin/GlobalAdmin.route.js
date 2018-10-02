@@ -74,13 +74,13 @@
                     }
 
                 })
-                /*.state('usertype', {
-                    url: '/usertype',
-                    templateUrl: './app/GlobalAdmin/userType/templates/userType.html',
-                    controller: 'usertypeController',
-                    'controllerAs': 'usertypeCtrl',
+                .state('categoryType', {
+                    url: '/categoryType',
+                    templateUrl: './app/GlobalAdmin/categoryType/templates/categoryType.html',
+                    controller: 'categoryTypeController',
+                    'controllerAs': 'categoryTypeCtrl',
                     resolve: {
-                        userTypePrepService: userTypePrepService
+                        categoryTypePrepService: categoryTypePrepService
                     },
                     data: {
                         permissions: {
@@ -90,11 +90,11 @@
                     }
 
                 })
-                .state('newusertype', {
-                    url: '/newusertype',
-                    templateUrl: './app/GlobalAdmin/userType/templates/new.html',
+                .state('newcategoryType', {
+                    url: '/newcategoryType',
+                    templateUrl: './app/GlobalAdmin/categoryType/templates/new.html',
                     controller: 'createDialogController',
-                    'controllerAs': 'newusertypeCtrl',
+                    'controllerAs': 'newcategoryTypeCtrl',
                     data: {
                         permissions: {
                             only: ['2'],
@@ -103,13 +103,13 @@
                     }
 
                 })
-                .state('editusertype', {
-                    url: '/editusertype/:userTypeId',
-                    templateUrl: './app/GlobalAdmin/userType/templates/edit.html',
+                .state('editcategoryType', {
+                    url: '/editcategoryType/:categoryTypeId',
+                    templateUrl: './app/GlobalAdmin/categoryType/templates/edit.html',
                     controller: 'editDialogController',
-                    'controllerAs': 'editusertypeCtrl',
+                    'controllerAs': 'editcategoryTypeCtrl',
                     resolve: {
-                        UserTypeByIdPrepService: UserTypeByIdPrepService
+                        categoryTypeByIdPrepService: categoryTypeByIdPrepService
                     },
                     data: {
                         permissions: {
@@ -118,7 +118,7 @@
                         }
                     }
 
-                })*/
+                })
 
                 .state('Role', {
                     url: '/Role',
@@ -360,7 +360,8 @@
                     'controllerAs': 'newCategoryCtrl',
                     resolve: {
                         DepartmentByIdPrepService: DepartmentByIdPrepService,
-                        RolePrepService: RolePrepService
+                        RolePrepService: RolePrepService,
+                        allcategoryTypePrepService:allcategoryTypePrepService
                     },
                     data: {
                         permissions: {
@@ -377,7 +378,8 @@
                     'controllerAs': 'editCategoryCtrl',
                     resolve: {
                         CategoryByIdPrepService: CategoryByIdPrepService,
-                        RolePrepService: RolePrepService
+                        RolePrepService: RolePrepService,
+                        allcategoryTypePrepService:allcategoryTypePrepService
                     },
                     data: {
                         permissions: {
@@ -398,7 +400,8 @@
                         /*AreaPrepService: AllAreaPrepService,
                          BranchPrepService:BranchPrepService,*/
                         AnswerQuestionPrepService: AnswerQuestionPrepService,
-                        CountriesPrepService: CountriesPrepService
+                        CountriesPrepService: CountriesPrepService,
+                        allcategoryTypePrepService:allcategoryTypePrepService
                     },
                     data: {
                         permissions: {
@@ -468,7 +471,8 @@
                     resolve: {
                         /*AreaPrepService: AllAreaPrepService,*/
                         CountriesPrepService: CountriesPrepService,
-                        AnswerQuestionPrepService: AnswerQuestionPrepService
+                        AnswerQuestionPrepService: AnswerQuestionPrepService,
+                        allcategoryTypePrepService:allcategoryTypePrepService             
                     },
                     data: {
                         permissions: {
@@ -540,8 +544,8 @@
                     'controllerAs': 'dashboardCtrl',
                     resolve: {
                         TicketDashboardPrepService: TicketDashboardPrepService,
-                        AnswerQuestionPrepService: AnswerQuestionPrepService
-
+                        AnswerQuestionPrepService: AnswerQuestionPrepService,
+                        allcategoryTypePrepService:allcategoryTypePrepService
                     },
                     data: {
                         permissions: {
@@ -569,15 +573,19 @@
     }
 
     /*User Type*/
-    userTypePrepService.$inject = ['UserTypeResource']
-    function userTypePrepService(UserTypeResource) {
-        return UserTypeResource.getAllUserTypes().$promise;
+    categoryTypePrepService.$inject = ['categoryTypeResource']
+    function categoryTypePrepService(categoryTypeResource) {
+        return categoryTypeResource.getAllcategoryTypes().$promise;
     }
 
+    allcategoryTypePrepService.$inject = ['categoryTypeResource']
+    function allcategoryTypePrepService(categoryTypeResource) {
+        return categoryTypeResource.getAllcategoryTypes({pageSize:0}).$promise;
+    }
 
-    UserTypeByIdPrepService.$inject = ['UserTypeResource', '$stateParams']
-    function UserTypeByIdPrepService(UserTypeResource, $stateParams) {
-        return UserTypeResource.getUserType({ userTypeId: $stateParams.userTypeId }).$promise;
+    categoryTypeByIdPrepService.$inject = ['categoryTypeResource', '$stateParams']
+    function categoryTypeByIdPrepService(categoryTypeResource, $stateParams) {
+        return categoryTypeResource.getcategoryType({ categoryTypeId: $stateParams.categoryTypeId }).$promise;
     }
 
     /*Role */

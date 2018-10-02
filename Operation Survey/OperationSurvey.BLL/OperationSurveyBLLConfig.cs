@@ -71,7 +71,8 @@ namespace OperationSurvey.BLL
                 .ForMember(dto => dto.CategoryRoles, m => m.Ignore());
 
             mapperConfiguration.CreateMap<Category, CategoryDto>()
-                .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.CategoryTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
+                .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.CategoryTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
+                .ForMember(dto => dto.CategoryTypes, m => m.MapFrom(src => src.CategoryTypeCategories.Select(x=>x.CategoryType).ToList()));
 
 
             mapperConfiguration.CreateMap<CategoryRoleDto, CategoryRole>();
@@ -134,6 +135,11 @@ namespace OperationSurvey.BLL
             mapperConfiguration.CreateMap<User, UserNameDto>()
                 .ForMember(dto => dto.UserName, m => m.MapFrom(src => src.FirstName+" "+src.LastName));
 
+            mapperConfiguration.CreateMap<CategoryTypeDto, CategoryType>();
+            mapperConfiguration.CreateMap<CategoryType, CategoryTypeDto>()
+                .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.CategoryTypeTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
+
+
             Mapper.Initialize(mapperConfiguration);
         }
 
@@ -179,7 +185,10 @@ namespace OperationSurvey.BLL
                 .RegisterType<IRegionService, RegionService>(new PerResolveLifetimeManager())
                 .RegisterType<IRegionTranslationService, RegionTranslationService>(new PerResolveLifetimeManager())
                 .RegisterType<ICityService, CityService>(new PerResolveLifetimeManager())
-                .RegisterType<ICityTranslationService, CityTranslationService>(new PerResolveLifetimeManager());
+                .RegisterType<ICityTranslationService, CityTranslationService>(new PerResolveLifetimeManager())
+                .RegisterType<ICategoryTypeTranslationService, CategoryTypeTranslationService>(new PerResolveLifetimeManager())
+                .RegisterType<ICategoryTypeService, CategoryTypeService>(new PerResolveLifetimeManager())
+                .RegisterType<ICategoryTypeCategoryService, CategoryTypeCategoryService>(new PerResolveLifetimeManager());
         }
 
     }

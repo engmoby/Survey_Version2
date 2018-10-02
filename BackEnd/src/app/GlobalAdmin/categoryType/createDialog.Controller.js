@@ -4,19 +4,19 @@
     angular
         .module('home')
         .controller('createDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
-            'UserTypeResource', 'ToastService', '$rootScope', createDialogController])
+            'categoryTypeResource', 'ToastService', '$rootScope', createDialogController])
 
-    function createDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, UserTypeResource,
+    function createDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, categoryTypeResource,
         ToastService, $rootScope) {
 		var vm = this;
 		vm.language = appCONSTANTS.supportedLanguage;
 		vm.close = function(){
-			$state.go('usertype');
+			$state.go('categoryType');
 		} 
 		 
         vm.AddNewType = function () {
             blockUI.start("Saving..."); 
-            var newObj = new UserTypeResource();
+            var newObj = new categoryTypeResource();
             newObj.titleDictionary = vm.titleDictionary; 
             newObj.IsDeleted = false; 
             newObj.IsStatic =false;
@@ -24,7 +24,7 @@
                 function (data, status) {
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success"); 
-                    $state.go('usertype');
+                    $state.go('categoryType');
 
                 },
                 function (data, status) {

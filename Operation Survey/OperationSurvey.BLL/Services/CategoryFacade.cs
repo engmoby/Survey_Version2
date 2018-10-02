@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using OperationSurvey.BLL.DataServices.Interfaces;
 using OperationSurvey.BLL.DTOs;
@@ -15,19 +16,22 @@ namespace OperationSurvey.BLL.Services
         private readonly ICategoryService _categoryService;
         private readonly ICategoryTranslationService _typeTranslationService;
         private readonly ICategoryRoleService _categoryRoleService;
+        private readonly ICategoryTypeCategoryService _categoryTypeCategoryService;
 
-        public CategoryFacade(ICategoryService categoryService, IUnitOfWorkAsync unitOfWork, ICategoryTranslationService typeTranslationService, ICategoryRoleService categoryRoleService) : base(unitOfWork)
+        public CategoryFacade(ICategoryService categoryService, IUnitOfWorkAsync unitOfWork, ICategoryTranslationService typeTranslationService, ICategoryRoleService categoryRoleService, ICategoryTypeCategoryService categoryTypeCategoryService) : base(unitOfWork)
         {
             _categoryService = categoryService;
             _typeTranslationService = typeTranslationService;
             _categoryRoleService = categoryRoleService;
+            _categoryTypeCategoryService = categoryTypeCategoryService;
         }
 
-        public CategoryFacade(ICategoryService categoryService, ICategoryTranslationService typeTranslationService, ICategoryRoleService categoryRoleService)
+        public CategoryFacade(ICategoryService categoryService, ICategoryTranslationService typeTranslationService, ICategoryRoleService categoryRoleService, ICategoryTypeCategoryService categoryTypeCategoryService)
         {
             _categoryService = categoryService;
             _typeTranslationService = typeTranslationService;
             _categoryRoleService = categoryRoleService;
+            _categoryTypeCategoryService = categoryTypeCategoryService;
         }
 
         public CategoryDto GetCategory(long categoryId, int tenantId)
@@ -48,6 +52,7 @@ namespace OperationSurvey.BLL.Services
                     translation => translation.Title);
 
                 category.CategoryRoles = _categoryRoleService.GetCategoryRoleById(categoryId, tenantId);
+                category.CategoryTypes = Mapper.Map<List<CategoryTypeDto>>(query.CategoryTypeCategories.Select(x => x.CategoryType).ToList());
             }
 
             return category;
@@ -79,6 +84,16 @@ namespace OperationSurvey.BLL.Services
                     TenantId = tenantId
                 });
             }
+
+            foreach (var type in categoryDto.CategoryTypes)
+            {
+
+                categoryObj.CategoryTypeCategories.Add(new CategoryTypeCategory
+                {
+                    CategoryTypeId = type.CategoryTypeId,
+                });
+            }
+            _categoryTypeCategoryService.InsertRange(categoryObj.CategoryTypeCategories);
             _categoryRoleService.InsertRange(categoryObj.CategoryRoles);
 
             categoryObj.CreationTime = Strings.CurrentDateTime;
@@ -123,6 +138,21 @@ namespace OperationSurvey.BLL.Services
                 {
                     RoleId = roleper.RoleId,
                     TenantId = tenantId
+                });
+            }
+
+            var categoryTypeCategories = new CategoryTypeCategory[categoryObj.CategoryTypeCategories.Count];
+            categoryObj.CategoryTypeCategories.CopyTo(categoryTypeCategories, 0);
+            foreach (var category in categoryTypeCategories)
+            {
+                _categoryTypeCategoryService.Delete(category);
+
+            }
+            foreach (var type in categoryDto.CategoryTypes)
+            {
+                categoryObj.CategoryTypeCategories.Add(new CategoryTypeCategory
+                {
+                    CategoryTypeId = type.CategoryTypeId
                 });
             }
 

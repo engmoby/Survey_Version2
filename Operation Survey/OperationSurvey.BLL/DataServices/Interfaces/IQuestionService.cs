@@ -8,7 +8,7 @@ namespace OperationSurvey.BLL.DataServices.Interfaces
     public interface IQuestionService : IService<Question>
     {
         PagedResultsDto GetAllQuestions(int page, int pageSize, int tenantId);
-        List<QuestionDto> GetAllQuestions(int tenantId);
+        List<QuestionDto> GetAllQuestions(int tenantId, long catgoryTypeId);
 
     }
 }

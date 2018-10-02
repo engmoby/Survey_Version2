@@ -54,7 +54,7 @@ namespace OperationSurvey.API.Controllers
             long countryId = 0, long regionId=0, long cityId=0, long areaId=0, long departmentId=0,
             long categoryId = 0, long branchId = 0, string from = "", string to = "",long technasianId = 0,long branchManagerId = 0,string status = "")
         {
-            PagedResultsDto requests = _ticketFacade.GetAllTickets(UserId, TenantId, page, pagesize, categoryId,
+            PagedResultsDto requests = _ticketFacade.GetAllTickets(UserId, TenantId, page, pagesize, countryId,
                 regionId, cityId, areaId, departmentId, categoryId, branchId
                 , from, to, technasianId, branchManagerId, status);
             var data = Mapper.Map<List<TicketModel>>(requests.Data);

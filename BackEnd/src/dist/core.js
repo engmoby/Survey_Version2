@@ -62,9 +62,9 @@
 	angular
 		.module('core')
 		.constant('appCONSTANTS', {
-			//    'API_URL': 'http://localhost:32569/api/', 
+			   'API_URL': 'http://localhost:32569/api/', 
 				// 'API_URL': 'https://surveyv2.azurewebsites.net/api/',
-				'API_URL': 'https://surveyv2-testing.azurewebsites.net/api/',
+				// 'API_URL': 'https://surveyv2-testing.azurewebsites.net/api/',
 		 'defaultLanguage':'en',
 		 'supportedLanguage':{
 			 'en':{'key':'en','value':'english'},
@@ -422,6 +422,13 @@ angular.module('core')
         "viewRegions":"view regions",
         "viewCities":"view cities",
         "viewAreas":"view areas",
+        "allBranchesM":"All Branch managers",
+        "allTechnasian":"All technicians",
+        "AllLbl":"All",
+        "moreFilter":"Show More Fiter",
+        "lessFilter":"Show Less Fiter",
+        "categoryType":"Category Type",
+        "NoQuestionsAvailable":"There is no questions available"
         
       }
 
@@ -590,6 +597,13 @@ angular.module('core')
         "viewRegions":"عرض الأقاليم",
         "viewCities":"عرض المدن",
         "viewAreas":"عرض المناطق",
+        "allBranchesM":"كل مديري الفروع",
+        "allTechnasian":"كل الفنيين",
+        "AllLbl":"كل",
+        "moreFilter":"المزيد",
+        "lessFilter":"الاقل",
+        "categoryType":"نوع الفئة",
+        "NoQuestionsAvailable":"لا يوجد اسئلة متاحة"
       }
 
       $translateProvider.translations('en', en_translations);
@@ -722,8 +736,8 @@ angular.module('core')
             var user = authorizationService.getUser();
             if (user.PermissionId[0] == 1)
                 $state.go('users');
-            // if (user.PermissionId[0] == 2)
-            //     $state.go('usertype');
+            if (user.PermissionId[0] == 2)
+                $state.go('categoryType');
             if (user.PermissionId[0] == 3)
                 $state.go('Role');
             if (user.PermissionId[0] == 4)
@@ -867,8 +881,8 @@ angular.module('core')
             $scope.user = authorizationService.getUser();
             if ($scope.user.PermissionId[0] == 1)
                 $state.go('users');
-            // if ($scope.user.PermissionId[0] == 2)
-            //     $state.go('usertype');
+            if ($scope.user.PermissionId[0] == 2)
+                $state.go('categoryType');
             if ($scope.user.PermissionId[0] == 3)
                 $state.go('Role');
             if ($scope.user.PermissionId[0] == 4)

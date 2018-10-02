@@ -118,8 +118,8 @@
 			</li>
 			<!-- End user info -->
 
-			<!-- <li ui-sref-active="active" ng-show="user.PermissionId.indexOf('2') !== -1">
-				<a class="pmd-ripple-effect" ng-click="$state.go('usertype');">
+			<li ui-sref-active="active" ng-show="user.PermissionId.indexOf('2') !== -1">
+				<a class="pmd-ripple-effect" ng-click="$state.go('categoryType');">
 					<i class="media-left media-middle">
 						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18" enable-background="new 287.725 407.535 19.83 18"
 						 xml:space="preserve">
@@ -129,9 +129,9 @@
 							</g>
 						</svg>
 					</i>
-					<span class="media-body" ng-cloak>{{'UserType' | translate}}</span>
+					<span class="media-body" ng-cloak>{{'categoryType' | translate}}</span>
 				</a>
-			</li> -->
+			</li>
 
 			<li ng-show="user.PermissionId.indexOf('3') !== -1">
 				<a class="pmd-ripple-effect " ng-click="$state.go('Role');">
@@ -159,7 +159,7 @@
 							</g>
 						</svg>
 					</i>
-					<span class="media-body" ng-cloak>{{'Area' | translate}}</span>
+					<span class="media-body" ng-cloak>{{'Branch' | translate}}</span>
 				</a>
 			</li>
 			<li ng-show="user.PermissionId.indexOf('5') !== -1">

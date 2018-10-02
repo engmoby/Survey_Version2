@@ -12,7 +12,7 @@
         $state, CountryResource, CountriesPrepService, $localStorage, appCONSTANTS, ToastService) { 
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[2].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
 
         blockUI.start("Loading..."); 
             

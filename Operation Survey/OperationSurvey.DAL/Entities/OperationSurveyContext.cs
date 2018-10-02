@@ -51,6 +51,9 @@ namespace OperationSurvey.DAL.Entities
         public DbSet<RegionTranslation> RegionTranslations { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<CityTranslation> CityTranslations { get; set; }
+        public DbSet<CategoryType> CategoryTypes { get; set; }
+        public DbSet<CategoryTypeTranslation> CategoryTypeTranslations { get; set; }
+        public DbSet<CategoryTypeCategory> CategoryTypeCategories { get; set; }
 
         public OperationSurveyContext() : base("name=OperationSurveyDB")
         {

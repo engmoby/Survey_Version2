@@ -23,9 +23,9 @@ namespace OperationSurvey.API.Controllers
 
         [Route("api/Questions/GetAllQuestionsByUserId", Name = "GetAllQuestionsByUserId")]
         [HttpGet]
-        public IHttpActionResult GetAllQuestionsByUserId(int page = Page, int pagesize = PageSize)
+        public IHttpActionResult GetAllQuestionsByUserId(int page = Page, int pagesize = PageSize, long catgoryTypeId=0)
         {
-            PagedResultsDto questionObj = _questionFacade.GetAllQuestionsByUserId(page, pagesize,UserId, TenantId);
+            PagedResultsDto questionObj = _questionFacade.GetAllQuestionsByUserId(page, pagesize,UserId, TenantId,catgoryTypeId);
             var data = Mapper.Map<List<QuestionModel>>(questionObj.Data);
             return PagedResponse("GetAllQuestionsByUserId", page, pagesize, questionObj.TotalCount, data, questionObj.IsParentTranslated);
         }

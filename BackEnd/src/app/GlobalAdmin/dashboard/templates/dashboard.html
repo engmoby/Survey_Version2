@@ -36,6 +36,17 @@
     </h1>
 </div>
 <div ng-show="showSurvey">
+
+    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <label for="first-name">{{'categoryType' | translate}}</label>
+
+        <select required style="width:50% !important" class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.categoryTypeChange()"
+            ng-model="dashboardCtrl.selectedCategoryType" ng-options="a as a.titleDictionary[selectedLanguage] for a in dashboardCtrl.categoryTypes"></select>
+    </div>
+
+    <div ng-show="dashboardCtrl.questionList.length<=0">
+        <span>{{'NoQuestionsAvailable' | translate}}</span>
+    </div>
     <ul>
 
         <li ng-repeat="(k,v) in dashboardCtrl.questionList| groupBy: 'categoryId'">
@@ -51,15 +62,14 @@
                     <div style="cursor: pointer;    background-color: #ccc;">
 
                         <h3 style="padding: 4px" ng-click="ques.showAnswer=!ques.showAnswer;ques.showAnswer?dashboardCtrl.getQuestionDashbard(ques):ques.showAnswer=ques.showAnswer">
-                            {{ques.titleDictionary[selectedLanguage]}} 
+                            {{ques.titleDictionary[selectedLanguage]}}
                         </h3>
                     </div>
                     <div ng-show="ques.showAnswer">
                         <div style="text-align: center;">
                             <img ng-show="ques.isloading" src="assets/img/loading.gif" style="height: 80px;">
                         </div>
-                        <span ng-if="!ques.isloading"
-                         ng-show="(ques.data.length == 0 && ques.questionTypeId ==0) 
+                        <span ng-if="!ques.isloading" ng-show="(ques.data.length == 0 && ques.questionTypeId ==0) 
                          || (ques.questionTypeId == 1 && ques.dashboard.oneStartCount == 0 && ques.dashboard.twoStartCount == 0 && ques.dashboard.threeStartCount == 0 && ques.dashboard.fourStartCount == 0 && ques.dashboard.fiveStartCount == 0)
                          || (ques.questionTypeId == 2 && ques.dashboard.likeCount == 0 && ques.dashboard.disLikeCount == 0 )
                          ">{{'noAnswersLbl'|translate}}</span>
@@ -70,7 +80,8 @@
                             <nvd3 style="direction: ltr" options="ques.options" data="ques.data"></nvd3>
                         </div>
                         <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-show="!ques.isloading  && 
-                        (ques.questionTypeId == 1 && (ques.dashboard.oneStartCount != 0 || ques.dashboard.twoStartCount != 0 || ques.dashboard.threeStartCount != 0 || ques.dashboard.fourStartCount != 0 || ques.dashboard.fiveStartCount != 0))" ng-if="ques.questionTypeId == 1">
+                        (ques.questionTypeId == 1 && (ques.dashboard.oneStartCount != 0 || ques.dashboard.twoStartCount != 0 || ques.dashboard.threeStartCount != 0 || ques.dashboard.fourStartCount != 0 || ques.dashboard.fiveStartCount != 0))"
+                            ng-if="ques.questionTypeId == 1">
                             <div class="table-responsive">
                                 <table class="table pmd-table table-hover">
                                     <thead>

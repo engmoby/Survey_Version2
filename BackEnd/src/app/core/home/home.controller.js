@@ -118,8 +118,8 @@
             $scope.user = authorizationService.getUser();
             if ($scope.user.PermissionId[0] == 1)
                 $state.go('users');
-            // if ($scope.user.PermissionId[0] == 2)
-            //     $state.go('usertype');
+            if ($scope.user.PermissionId[0] == 2)
+                $state.go('categoryType');
             if ($scope.user.PermissionId[0] == 3)
                 $state.go('Role');
             if ($scope.user.PermissionId[0] == 4)

@@ -1,13 +1,13 @@
 <div class="modal-content">
 	<div class="modal-header bordered">
-		<h2 class="pmd-card-title-text">{{'UserType' | translate}}</h2>
+		<h2 class="pmd-card-title-text">{{'categoryType' | translate}}</h2>
 	</div>
 	<div class="modal-body">
 		<form class="form-horizontal" name="editTypeForm"> 
                 <div> 
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in editusertypeCtrl.language">
+                        <li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in editcategoryTypeCtrl.language">
                             <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">
                                 {{lang.value | translate}}
                             </a>
@@ -17,10 +17,10 @@
                         <div class="pmd-card-body">
                             <!-- Tab panes -->
                             <div class="tab-content">
-                                <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in editusertypeCtrl.language" id="{{lang.value}}-form">
+                                <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in editcategoryTypeCtrl.language" id="{{lang.value}}-form">
                                     <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
                                         <label for="first-name"> {{ lang.value+'Name' | translate}} </label>
-                                        <input required type="text" class="mat-input form-control" name="titleDictionary{{lang.value+'Name'}}" ng-model="editusertypeCtrl.usertype.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="40">
+                                        <input required type="text" class="mat-input form-control" name="titleDictionary{{lang.value+'Name'}}" ng-model="editcategoryTypeCtrl.categoryType.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="40">
                                         <div ng-messages="editTypeForm.titleDictionary{{lang.value+'Name'}}.$error" >
                                             
                                             <div ng-show="editTypeForm.titleDictionary{{lang.value+'Name'}}.$error.required && !editTypeForm.titleDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr' | translate}}</div>
@@ -38,8 +38,8 @@
 		</form>
 	</div>
 	<div class="pmd-modal-action text-right">
-		<button ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editusertypeCtrl.UpdateType()">{{'saveChangesBtn' | translate}}</button>
-		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editusertypeCtrl.Close()">{{'DiscardBtn' | translate}}</button>
+		<button ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editcategoryTypeCtrl.UpdateType()">{{'saveChangesBtn' | translate}}</button>
+		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editcategoryTypeCtrl.Close()">{{'DiscardBtn' | translate}}</button>
 	</div>
 </div>
 

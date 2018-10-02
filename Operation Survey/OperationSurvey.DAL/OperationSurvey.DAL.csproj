@@ -75,6 +75,9 @@
   <ItemGroup>
     <Compile Include="Entities\Model\AnswerDetails.cs" />
     <Compile Include="Entities\Model\Answer.cs" />
+    <Compile Include="Entities\Model\CategoryType.cs" />
+    <Compile Include="Entities\Model\CategoryTypeCategory.cs" />
+    <Compile Include="Entities\Model\CategoryTypeTranslation.cs" />
     <Compile Include="Entities\Model\City.cs" />
     <Compile Include="Entities\Model\CityTranslation.cs" />
     <Compile Include="Entities\Model\Country.cs" />

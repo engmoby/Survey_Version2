@@ -14,6 +14,7 @@ namespace OperationSurvey.DAL.Entities.Model
             CategoryRoles = new List<CategoryRole>();
             UserCategories = new List<UserCategory>();
             Tickets = new List<Ticket>();
+            CategoryTypeCategories = new List<CategoryTypeCategory>();
         }
 
         public long CategoryId { get; set; }
@@ -36,6 +37,7 @@ namespace OperationSurvey.DAL.Entities.Model
         //public virtual ICollection<Category> Categories { get; set; }
         public virtual ICollection<UserCategory> UserCategories { get; set; }
         public virtual ICollection<Ticket> Tickets { get; set; }
+        public virtual ICollection<CategoryTypeCategory> CategoryTypeCategories { get; set; }
 
         public int TenantId { get; set; }
 

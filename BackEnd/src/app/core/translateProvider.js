@@ -163,6 +163,13 @@
         "viewRegions":"view regions",
         "viewCities":"view cities",
         "viewAreas":"view areas",
+        "allBranchesM":"All Branch managers",
+        "allTechnasian":"All technicians",
+        "AllLbl":"All",
+        "moreFilter":"Show More Fiter",
+        "lessFilter":"Show Less Fiter",
+        "categoryType":"Category Type",
+        "NoQuestionsAvailable":"There is no questions available"
         
       }
 
@@ -331,6 +338,13 @@
         "viewRegions":"عرض الأقاليم",
         "viewCities":"عرض المدن",
         "viewAreas":"عرض المناطق",
+        "allBranchesM":"كل مديري الفروع",
+        "allTechnasian":"كل الفنيين",
+        "AllLbl":"كل",
+        "moreFilter":"المزيد",
+        "lessFilter":"الاقل",
+        "categoryType":"نوع الفئة",
+        "NoQuestionsAvailable":"لا يوجد اسئلة متاحة"
       }
 
       $translateProvider.translations('en', en_translations);

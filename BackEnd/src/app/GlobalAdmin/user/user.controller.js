@@ -13,7 +13,7 @@
         RegionResource, CityResource, AreaResource) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
 
         blockUI.start("Loading...");
 

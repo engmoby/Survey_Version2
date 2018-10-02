@@ -96,15 +96,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataServices\AnswerService.cs" />
+    <Compile Include="DataServices\CategoryTypeCategoryService.cs" />
+    <Compile Include="DataServices\CategoryTypeService.cs" />
+    <Compile Include="DataServices\CategoryTypeTranslationService.cs" />
     <Compile Include="DataServices\CityService.cs" />
     <Compile Include="DataServices\CityTranslationService.cs" />
     <Compile Include="DataServices\CountryService.cs" />
     <Compile Include="DataServices\CountryTranslationService.cs" />
     <Compile Include="DataServices\Interfaces\IAnswerService.cs" />
+    <Compile Include="DataServices\Interfaces\ICategoryTypeCategoryService.cs" />
+    <Compile Include="DataServices\Interfaces\ICategoryTypeTranslationService.cs" />
     <Compile Include="DataServices\Interfaces\ICityService.cs" />
     <Compile Include="DataServices\Interfaces\ICityTranslationService.cs" />
     <Compile Include="DataServices\Interfaces\ICountryService.cs" />
     <Compile Include="DataServices\Interfaces\ICountryTranslationService.cs" />
+    <Compile Include="DataServices\Interfaces\ICategoryTypeService.cs" />
     <Compile Include="DataServices\Interfaces\IPackageService.cs" />
     <Compile Include="DataServices\Interfaces\IQuestionDetailsService.cs" />
     <Compile Include="DataServices\Interfaces\IQuestionService.cs" />
@@ -170,6 +176,7 @@
     <Compile Include="DTOs\AdminDto.cs" />
     <Compile Include="DTOs\AnswerDetailsDto.cs" />
     <Compile Include="DTOs\AnswerDto.cs" />
+    <Compile Include="DTOs\CategoryTypeDto.cs" />
     <Compile Include="DTOs\CityDto.cs" />
     <Compile Include="DTOs\CountryDto.cs" />
     <Compile Include="DTOs\QuestionDashBoard.cs" />
@@ -197,8 +204,10 @@
     <Compile Include="DTOs\UserDto.cs" />
     <Compile Include="Services\AnswerFacade.cs" />
     <Compile Include="Services\CityFacade.cs" />
+    <Compile Include="Services\CategoryTypeFacade.cs" />
     <Compile Include="Services\CountryFacade.cs" />
     <Compile Include="Services\Interfaces\IAnswerFacade.cs" />
+    <Compile Include="Services\Interfaces\ICategoryTypeFacade.cs" />
     <Compile Include="Services\Interfaces\ICityFacade.cs" />
     <Compile Include="Services\Interfaces\ICountryFacade.cs" />
     <Compile Include="Services\Interfaces\IQuestionFacade.cs" />

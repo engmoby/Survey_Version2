@@ -2,6 +2,7 @@
     angular
       .module('home')
         .factory('UserTypeResource', ['$resource', 'appCONSTANTS', UserTypeResource])
+        .factory('categoryTypeResource', ['$resource', 'appCONSTANTS', categoryTypeResource])
         //.factory('getUserTypeResource', ['$resource', 'appCONSTANTS', getUserTypeResource])
         //.factory('createUserTypeResource', ['$resource', 'appCONSTANTS', createUserTypeResource])
         //.factory('editUserTypeResource', ['$resource', 'appCONSTANTS', editUserTypeResource])
@@ -14,7 +15,14 @@
             getUserType: { method: 'GET', url: appCONSTANTS.API_URL + 'UserTypes/GetUserTypeById/:UserTypeId', useToken: true }
         })
     }
-
+    function categoryTypeResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'CategoriesTypes/', {}, {
+            getAllcategoryTypes: { method: 'GET', url: appCONSTANTS.API_URL + 'CategoriesTypes/', useToken: true,  params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'CategoriesTypes/:categoryTypeId', useToken: true },
+            getcategoryType: { method: 'GET', url: appCONSTANTS.API_URL + 'CategoriesTypes/:categoryTypeId', useToken: true }
+        })
+    }
     //function UserTypeResource($resource, appCONSTANTS) {
     //    return $resource(appCONSTANTS.API_URL + 'UserTypes/GetAllUserTypes', {}, {
     //        getAllUserTypes: { method: 'GET', useToken: true, params: { lang: '@lang' } }

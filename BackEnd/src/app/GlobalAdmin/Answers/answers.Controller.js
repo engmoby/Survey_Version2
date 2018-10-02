@@ -4,19 +4,24 @@
     angular
         .module('home')
         .controller('AnswersController', ['blockUI', '$scope', '$translate', 'AnswerResource', '$state', 'AnswerQuestionPrepService', 'QuestionResource',
-            'ToastService', '$filter','CountriesPrepService','RegionResource', 'CityResource', 'AreaResource', AnswersController]);
+            'ToastService', '$filter', 'CountriesPrepService', 'RegionResource', 'CityResource', 'AreaResource', 'allcategoryTypePrepService','AnswerQuestionResource', AnswersController]);
 
     function AnswersController(blockUI, $scope, $translate, AnswerResource, $state, AnswerQuestionPrepService, QuestionResource, ToastService, $filter,
-        CountriesPrepService,RegionResource, CityResource, AreaResource) {
+        CountriesPrepService, RegionResource, CityResource, AreaResource, allcategoryTypePrepService,AnswerQuestionResource) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[7].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[8].children[0]).addClass("active")
 
         var vm = this;
         /*vm.selectedArea = { areaId: 0, titleDictionary: { "en": "All Areas", "ar": "جميع المناطق" } };
         vm.areaList = [];
         vm.areaList.push(vm.selectedArea);
         vm.areaList = vm.areaList.concat(AreaPrepService.results)*/
+        vm.categoryTypes = [];
+        vm.selectedCategoryType = { categoryTypeId: 0, titleDictionary: { "en": "All", "ar": "كل" } };
+        vm.categoryTypes.push(vm.selectedCategoryType);
+        vm.categoryTypes = vm.categoryTypes.concat(allcategoryTypePrepService.results)
+
         vm.counties = [];
         vm.selectedCountry = { countryId: 0, titleDictionary: { "en": "All Countries", "ar": "كل البلاد" } };
         vm.counties.push(vm.selectedCountry);
@@ -145,26 +150,36 @@
         vm.areaId = 0
         vm.branchId = 0
         vm.applyFilter = function () {
-            vm.questionList.forEach(function (element) {
-                element.page = 1;
-                element.answers = [];
-                element.showAnswer = false
-            }, this);
-            from = ""
-            if ($('#fromdate').val() != "") {
-                var fromDate = $('#fromdate').val().split('/')
-                from = (new Date(fromDate[1] + "/" + fromDate[0] + "/" + fromDate[2])).toISOString().replace('Z', '');
-            }
-            to = ""
-            if ($('#todate').val() != "") {
-                var toDate = $('#todate').val().split('/')
-                to = (new Date(toDate[1] + "/" + toDate[0] + "/" + toDate[2])).toISOString().replace('Z', '');
-            }
-            vm.countryId = vm.selectedCountry.countryId;
-            vm.regionId = vm.selectedRegion.regionId;
-            vm.cityId = vm.selectedCity.cityId;
-            vm.areaId = vm.selectedArea.areaId;
-            vm.branchId = vm.selectedBranch.branchId;
+            blockUI.start("Loading...");
+            
+            AnswerQuestionResource.getAllQuestions({ catgoryTypeId: vm.selectedCategoryType.categoryTypeId }).$promise.then(function (results) {
+                vm.questionList = results.results;
+                vm.questionList.forEach(function (element) {
+                    element.page = 1;
+                    element.answers = [];
+                    element.showAnswer = false
+                }, this);
+                from = ""
+                if ($('#fromdate').val() != "") {
+                    var fromDate = $('#fromdate').val().split('/')
+                    from = (new Date(fromDate[1] + "/" + fromDate[0] + "/" + fromDate[2])).toISOString().replace('Z', '');
+                }
+                to = ""
+                if ($('#todate').val() != "") {
+                    var toDate = $('#todate').val().split('/')
+                    to = (new Date(toDate[1] + "/" + toDate[0] + "/" + toDate[2])).toISOString().replace('Z', '');
+                }
+                vm.countryId = vm.selectedCountry.countryId;
+                vm.regionId = vm.selectedRegion.regionId;
+                vm.cityId = vm.selectedCity.cityId;
+                vm.areaId = vm.selectedArea.areaId;
+                vm.branchId = vm.selectedBranch.branchId;
+
+                blockUI.stop();
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
         }
 
         vm.changePage = function (page, ques) {

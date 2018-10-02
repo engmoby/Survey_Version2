@@ -42,9 +42,9 @@
             <input type="text" id="todate" class="form-control" required />
         </div>
         <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" <label
-            for="first-name">{{'Status' | translate}}</label>
+            for="first-name">{{'StatusLbl' | translate}}</label>
             <select class="form-control select-with-search pmd-select2-tags" ng-model="ticketsCtrl.selectedStatus">
-                <option value="">All</option>
+                <option value="">{{'AllLbl' | translate}}</option>
                 <option value="Pending">{{'Pending'|translate}}</option>
                 <option value="Assigned">{{'Assigned'|translate}}</option>
                 <option value="InProgress">{{'InProgress'|translate}}</option>
@@ -114,8 +114,8 @@
         <div class="col-md-2 ">
             <button ng-click="ticketsCtrl.applyFilter()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'filterBtn' | translate}}</button>
         </div>
-        <span ng-show="!showMoreFilter" ng-click="showMoreFilter = !showMoreFilter" style="cursor: pointer">Show More Fiter</span>
-        <span ng-show="showMoreFilter" ng-click="showMoreFilter = !showMoreFilter" style="cursor: pointer">Show Less Fiter</span>
+        <span ng-show="!showMoreFilter" ng-click="showMoreFilter = !showMoreFilter" style="cursor: pointer">{{'moreFilter'|translate}}</span>
+        <span ng-show="showMoreFilter" ng-click="showMoreFilter = !showMoreFilter" style="cursor: pointer">{{'lessFilter'|translate}}</span>
     </div>
     <div ng-if="ticketsCtrl.tickets.results.length == 0">
         <span>{{'NoTicketAvailable' | translate}}</span>

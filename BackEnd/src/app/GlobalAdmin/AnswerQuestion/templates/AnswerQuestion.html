@@ -93,7 +93,12 @@
             <select required style="width:50% !important" class="form-control select-with-search pmd-select2-tags" ng-change="branchChange()"
                 ng-model="selectedBranch" ng-options="a as a.titleDictionary[selectedLanguage] for a in branchList"></select>
         </div>
+        <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'categoryType' | translate}}</label>
 
+            <select required style="width:50% !important" class="form-control select-with-search pmd-select2-tags" ng-change="AnswerQuestionCtrl.categoryTypeChange()"
+                ng-model="AnswerQuestionCtrl.selectedCategoryType" ng-options="a as a.titleDictionary[selectedLanguage] for a in AnswerQuestionCtrl.categoryTypes"></select>
+        </div>
 
         <div style="direction: ltr;" class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label>{{'startDateLbl' | translate}}</label>
@@ -103,6 +108,9 @@
 
 </form>
 <form name="FormAnswer" novalidate autocomplete="off">
+    <div ng-show="questionList.length<=0">
+        <span>{{'NoQuestionsAvailable' | translate}}</span>
+    </div>
     <div ng-repeat="(k,v) in questionList| groupBy: 'categoryId'">
         <!-- <div style="cursor: pointer;    background-color: #ccc;"> -->
 
@@ -165,7 +173,7 @@
 
     </div>
 
-    <button ng-disabled="AnswerQuestionCtrl.answersValid() || newclientForm.$invalid " ng-click="AddAnswer(questionList)" type="button"
+    <button ng-show="questionList.length>0" ng-disabled="AnswerQuestionCtrl.answersValid() || newclientForm.$invalid " ng-click="AddAnswer(questionList)" type="button"
         class="btn btn-primary btn-with-icon">
         <i class="ion-android-checkmark-circle"></i>{{'saveChangesBtn'|translate}}
     </button>

@@ -14,7 +14,7 @@
         BranchManagerPrepService, TechnasianPrepService) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[8].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[9].children[0]).addClass("active")
         blockUI.start("Loading...");
 
         var vm = this;
@@ -50,11 +50,11 @@
             vm.categories = [];
             vm.categories.push(vm.selectedCategory);
 
-            vm.selectedBranchManager = { userId: 0, userName: "All Branch managers" };
+            vm.selectedBranchManager = { userId: 0, userName: $translate.instant('allBranchesM') };
             vm.BranchManagers = [];
             vm.BranchManagers.push(vm.selectedBranchManager);
             vm.BranchManagers = vm.BranchManagers.concat(BranchManagerPrepService.results)
-            vm.selectedTechnician = { userId: 0, userName: "All technicians" };
+            vm.selectedTechnician = { userId: 0, userName: $translate.instant('allBranchesM') };
             vm.Technicians = [];
             vm.Technicians.push(vm.selectedTechnician);
             vm.Technicians = vm.Technicians.concat(TechnasianPrepService.results)
@@ -169,6 +169,7 @@
             vm.categories = [];
             vm.selectedCategory = { categoryId: 0, titleDictionary: { "en": "All Categories", "ar": "كل الفئات" } };
             vm.categories.push(vm.selectedCategory);
+            if(vm.selectedDepartment.departmentId > 0)
             vm.categories = vm.categories.concat(vm.selectedDepartment.categories);
         }
 

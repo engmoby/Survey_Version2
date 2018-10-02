@@ -16,6 +16,13 @@ namespace OperationSurvey.DAL.Migrations
 
         protected override void Seed(Entities.OperationSurveyContext context)
         {
+            //var p1 = context.PermissionTranslations.Find(3);
+            //var p2 = context.PermissionTranslations.Find(4);
+            //p1.Title = "Category Type Permissions";
+            //p2.Title = "أذونات نوع الفئة";
+            //context.PermissionTranslations.AddOrUpdate(p1);
+            //context.PermissionTranslations.AddOrUpdate(p2);
+
             //var suerType1 = new UserType { IsDeleted = false, IsStatic = true };
             //var suerType2 = new UserType { IsDeleted = false, IsStatic = true };
             //var suerType3 = new UserType { IsDeleted = false, IsStatic = true };

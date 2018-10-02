@@ -11,8 +11,8 @@
             var user = authorizationService.getUser();
             if (user.PermissionId[0] == 1)
                 $state.go('users');
-            // if (user.PermissionId[0] == 2)
-            //     $state.go('usertype');
+            if (user.PermissionId[0] == 2)
+                $state.go('categoryType');
             if (user.PermissionId[0] == 3)
                 $state.go('Role');
             if (user.PermissionId[0] == 4)

@@ -54,7 +54,10 @@ namespace OperationSurvey.DAL
                 .RegisterType<IRepositoryAsync<Region>, Repository<Region>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<RegionTranslation>, Repository<RegionTranslation>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<City>, Repository<City>>(new PerResolveLifetimeManager())
-                .RegisterType<IRepositoryAsync<CityTranslation>, Repository<CityTranslation>>(new PerResolveLifetimeManager());
+                .RegisterType<IRepositoryAsync<CityTranslation>, Repository<CityTranslation>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<CategoryType>, Repository<CategoryType>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<CategoryTypeTranslation>, Repository<CategoryTypeTranslation>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<CategoryTypeCategory>, Repository<CategoryTypeCategory>>(new PerResolveLifetimeManager());
 
 
         }

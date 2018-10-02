@@ -95,12 +95,22 @@
         <label>{{'toLbl' | translate}}</label>
         <input type="text" id="todate" class="form-control" required />
     </div>
+    <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <label for="first-name">{{'categoryType' | translate}}</label>
+
+        <select required style="width:50% !important" class="form-control select-with-search pmd-select2-tags" 
+            ng-model="answersCtrl.selectedCategoryType" ng-options="a as a.titleDictionary[selectedLanguage] for a in answersCtrl.categoryTypes"></select>
+    </div>
 
     <div class="col-md-2 ">
         <button ng-click="answersCtrl.applyFilter()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'filterBtn' | translate}}</button>
     </div>
 </div>
+<div ng-show="answersCtrl.questionList.length<=0">
+        <span>{{'NoQuestionsAvailable' | translate}}</span>
+    </div>
 <div ng-repeat="(k,v) in answersCtrl.questionList| groupBy: 'categoryId'">
+    
     <div style="cursor: pointer;    background-color: #ccc;">
 
         <h1 style="padding: 7px" ng-init="t = false" ng-click="t=!t">

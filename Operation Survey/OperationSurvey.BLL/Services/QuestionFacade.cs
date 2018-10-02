@@ -215,7 +215,7 @@ namespace OperationSurvey.BLL.Services
         {
             return _questionService.GetAllQuestions(page, pageSize, tenantId);
         }
-        public PagedResultsDto GetAllQuestionsByUserId(int page, int pageSize, int userId, int tenantId)
+        public PagedResultsDto GetAllQuestionsByUserId(int page, int pageSize, int userId, int tenantId,long catgoryTypeId)
         {
             var user = _userService.Find(userId);
             PagedResultsDto results = new PagedResultsDto();
@@ -224,11 +224,12 @@ namespace OperationSurvey.BLL.Services
                 results = new PagedResultsDto();
                 results.TotalCount = _questionService.Query(x=>x.TenantId == tenantId && !x.IsDeleted).Select().Count();
                 results.Data = Mapper.Map<List<QuestionDto>>(_questionService
-                    .Query(x => x.TenantId == tenantId && !x.IsDeleted).Select().OrderBy(x => x.QuestionId).ToList());
+                    .Query(x => x.TenantId == tenantId && !x.IsDeleted 
+                    && (catgoryTypeId <= 0 || x.Category.CategoryTypeCategories.Select(c=>c.CategoryTypeId).Contains(catgoryTypeId))).Select().OrderBy(x => x.QuestionId).ToList());
             }
             else
             {
-                var questionList = _questionService.GetAllQuestions(tenantId);
+                var questionList = _questionService.GetAllQuestions(tenantId,catgoryTypeId);
                 var userRoles = user.UserRoles;
                 var categoryRoles = new List<CategoryRoleDto>();
                 ArrayList categoryIds = new ArrayList();

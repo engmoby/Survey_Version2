@@ -85,6 +85,8 @@ namespace OperationSurvey.API
             mapperConfiguration.CreateMap<CityModel, CityDto>();
             mapperConfiguration.CreateMap<CityDto, CityModel>();
 
+            mapperConfiguration.CreateMap<CategoryTypeModel, CategoryTypeDto>();
+            mapperConfiguration.CreateMap<CategoryTypeDto, CategoryTypeModel>();
             OperationSurveyBllConfig.RegisterMappings(mapperConfiguration); 
 
         }

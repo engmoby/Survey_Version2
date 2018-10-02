@@ -8,7 +8,7 @@ namespace OperationSurvey.BLL.Services.Interfaces
         QuestionDto CreateQuestion(QuestionDto userDto, int userId, int tenantId); 
         QuestionDto EditQuestion(QuestionDto userDto, int userId, int tenantId);
         PagedResultsDto GetAllQuestions(int page, int pageSize, int tenantId);
-        PagedResultsDto GetAllQuestionsByUserId(int page, int pageSize, int userId, int tenantId);
+        PagedResultsDto GetAllQuestionsByUserId(int page, int pageSize, int userId, int tenantId, long catgoryTypeId);
 
         QuestionDashBoard GetQuestionDashBoard(long questionId);
     }

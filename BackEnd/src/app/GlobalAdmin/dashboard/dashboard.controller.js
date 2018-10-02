@@ -5,13 +5,13 @@
         .module('home')
         .controller('dashboardController', ['blockUI', '$scope', '$state',
             '$translate', 'dashboardResource', 'QuestionResource', 'TicketDashboardPrepService',
-            'AnswerQuestionPrepService', '$filter', dashboardController]);
+            'AnswerQuestionPrepService', '$filter','allcategoryTypePrepService','AnswerQuestionResource', dashboardController]);
 
     function dashboardController(blockUI, $scope, $state,
-        $translate, dashboardResource, QuestionResource, TicketDashboardPrepService, AnswerQuestionPrepService, $filter) {
+        $translate, dashboardResource, QuestionResource, TicketDashboardPrepService, AnswerQuestionPrepService, $filter,allcategoryTypePrepService,AnswerQuestionResource) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[9].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[10].children[0]).addClass("active")
         blockUI.start("Loading...");
 
         var vm = this;
@@ -74,7 +74,23 @@
             };
             loadTicketDashboard(TicketDashboardPrepService);
             vm.questionList = AnswerQuestionPrepService.results;
+            vm.categoryTypes = [];
+            vm.selectedCategoryType = { categoryTypeId: 0, titleDictionary: { "en": "All", "ar": "كل" } };
+            vm.categoryTypes.push(vm.selectedCategoryType);
+            vm.categoryTypes = vm.categoryTypes.concat(allcategoryTypePrepService.results)
 
+        }
+        vm.categoryTypeChange = function () {
+            blockUI.start("Loading...");
+            AnswerQuestionResource.getAllQuestions({ catgoryTypeId: vm.selectedCategoryType.categoryTypeId }).$promise.then(function (results) {
+                vm.questionList = results.results;
+                
+
+                blockUI.stop();
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
         }
         function loadTicketDashboard(tickets) {
             var assigned = [];
