@@ -157,6 +157,14 @@ namespace OperationSurvey.API.Controllers
             var results = _userFacade.GetAllUsersByType(TenantId, type);
             return PagedResponse("GetAllUsersByType", Page, PageSize, results.TotalCount, results.Data, results.IsParentTranslated);
         }
+
+        [Route("api/Users/GetAllUsersWhoAnswer", Name = "GetAllUsersWhoAnswer")]
+        [HttpGet]
+        public IHttpActionResult GetAllUsersWhoAnswer(string type = "")
+        {
+            var results = _userFacade.GetAllUsersWhoAnswer(TenantId);
+            return Ok(results);
+        }
     }
 
 }

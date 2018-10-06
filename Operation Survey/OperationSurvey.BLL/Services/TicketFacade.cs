@@ -217,13 +217,35 @@ namespace OperationSurvey.BLL.Services
             SaveChanges();
         }
 
-        public List<TicketDashboard> GetTicketDashboard(long tenantId,string xAxis)
+        public List<TicketDashboard> GetTicketDashboard(long tenantId,string xAxis,
+            long countryId, long regionId, long cityId , long areaId, long departmentId,
+            long categoryId, long branchId, string from, string to, long technasianId, long branchManagerId, string status)
         {
             List<TicketDashboard> ticketDashboards = new List<TicketDashboard>();
+            DateTime fromDateTime = !String.IsNullOrEmpty(from) ? DateTime.Parse(from) : DateTime.MinValue;
+            DateTime toDateTime = !String.IsNullOrEmpty(to) ? DateTime.Parse(to) : DateTime.MaxValue;
+            var statusFilter = Enums.TicketStatus.Assigned;
+            if (status == null) status = "";
+            if (status != "")
+                statusFilter = (Enums.TicketStatus)Enum.Parse(typeof(Enums.TicketStatus), status, true);
+            var query = _ticketService.Query(x => x.TenantId == tenantId
+                                                  && x.CreationTime >= fromDateTime
+                                                  && x.CreationTime <= toDateTime
+                                                  && (departmentId <= 0 || x.DepartmentId == departmentId)
+                                                  && (categoryId <= 0 || x.CategoryId == categoryId)
+                                                  && (countryId <= 0 || x.Area.City.Region.CountryId == countryId)
+                                                  && (regionId <= 0 || x.Area.City.RegionId == regionId)
+                                                  && (cityId <= 0 || x.Area.CityId == cityId)
+                                                  && (areaId <= 0 || x.AreaId == areaId)
+                                                  && (branchId <= 0 || x.BranchId == branchId)
+                                                  && (branchManagerId <= 0 || x.CreatorUserId == branchManagerId)
+                                                  && (status == "" || x.Status == statusFilter)
+                                                  && (technasianId <= 0 ||
+                                                      (x.AssignedUserId.HasValue && x.AssignedUserId.Value ==
+                                                       technasianId))).Select();
             if (xAxis.ToLower() == "branch")
             {
-                 ticketDashboards = _ticketService.Queryable()
-                    .GroupBy(x => x.BranchId, (k, t) => new { key = k, tickets = t.ToList()}).Select(x=>x).ToList()
+                 ticketDashboards = query.GroupBy(x => x.BranchId, (k, t) => new { key = k, tickets = t.ToList()}).Select(x=>x).ToList()
                     .Select(x => new TicketDashboard
                     {
                         XaxisName = x.tickets.FirstOrDefault().Branch.BranchTranslations
@@ -238,8 +260,7 @@ namespace OperationSurvey.BLL.Services
             }
             else if (xAxis.ToLower() == "area")
             {
-                ticketDashboards = _ticketService.Queryable()
-                    .GroupBy(x => x.AreaId, (k, t) => new { key = k, tickets = t.ToList() }).Select(x => x).ToList()
+                ticketDashboards = query.GroupBy(x => x.AreaId, (k, t) => new { key = k, tickets = t.ToList() }).Select(x => x).ToList()
                     .Select(x => new TicketDashboard
                     {
                         XaxisName = x.tickets.FirstOrDefault().Area.AreaTranslations
@@ -254,8 +275,7 @@ namespace OperationSurvey.BLL.Services
             }
             else if (xAxis.ToLower() == "city")
             {
-                ticketDashboards = _ticketService.Queryable()
-                    .GroupBy(x => x.Area.CityId, (k, t) => new { key = k, tickets = t.ToList() }).Select(x => x).ToList()
+                ticketDashboards = query.GroupBy(x => x.Area.CityId, (k, t) => new { key = k, tickets = t.ToList() }).Select(x => x).ToList()
                     .Select(x => new TicketDashboard
                     {
                         XaxisName = x.tickets.FirstOrDefault().Area.City.CityTranslations
@@ -270,8 +290,7 @@ namespace OperationSurvey.BLL.Services
             }
             else if (xAxis.ToLower() == "region")
             {
-                ticketDashboards = _ticketService.Queryable()
-                    .GroupBy(x => x.Area.City.RegionId, (k, t) => new { key = k, tickets = t.ToList() }).Select(x => x).ToList()
+                ticketDashboards = query.GroupBy(x => x.Area.City.RegionId, (k, t) => new { key = k, tickets = t.ToList() }).Select(x => x).ToList()
                     .Select(x => new TicketDashboard
                     {
                         XaxisName = x.tickets.FirstOrDefault().Area.City.Region.RegionTranslations
@@ -286,8 +305,7 @@ namespace OperationSurvey.BLL.Services
             }
             else if (xAxis.ToLower() == "country")
             {
-                ticketDashboards = _ticketService.Queryable()
-                    .GroupBy(x => x.Area.City.Region.CountryId, (k, t) => new { key = k, tickets = t.ToList() }).Select(x => x).ToList()
+                ticketDashboards = query.GroupBy(x => x.Area.City.Region.CountryId, (k, t) => new { key = k, tickets = t.ToList() }).Select(x => x).ToList()
                     .Select(x => new TicketDashboard
                     {
                         XaxisName = x.tickets.FirstOrDefault().Area.City.Region.Country.CountryTranslations
@@ -302,8 +320,7 @@ namespace OperationSurvey.BLL.Services
             }
             else if (xAxis.ToLower() == "department")
             {
-                ticketDashboards = _ticketService.Queryable()
-                    .GroupBy(x => x.DepartmentId, (k, t) => new { key = k, tickets = t.ToList() }).Select(x => x).ToList()
+                ticketDashboards = query.GroupBy(x => x.DepartmentId, (k, t) => new { key = k, tickets = t.ToList() }).Select(x => x).ToList()
                     .Select(x => new TicketDashboard
                     {
                         XaxisName = x.tickets.FirstOrDefault().Department.DepartmentTranslations
@@ -318,8 +335,7 @@ namespace OperationSurvey.BLL.Services
             }
             else if (xAxis.ToLower() == "category")
             {
-                ticketDashboards = _ticketService.Queryable()
-                    .GroupBy(x => x.CategoryId, (k, t) => new { key = k, tickets = t.ToList() }).Select(x => x).ToList()
+                ticketDashboards = query.GroupBy(x => x.CategoryId, (k, t) => new { key = k, tickets = t.ToList() }).Select(x => x).ToList()
                     .Select(x => new TicketDashboard
                     {
                         XaxisName = x.tickets.FirstOrDefault().Category.CategoryTranslations

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using OperationSurvey.BLL.DTOs;
 
 namespace OperationSurvey.BLL.Services.Interfaces
@@ -16,5 +17,6 @@ namespace OperationSurvey.BLL.Services.Interfaces
         void UpdateAdminPackage(AdminDto adminDto);
         UserConsumed GetMaxAndConsumedUsers(long tenantId);
         PagedResultsDto GetAllUsersByType(int TenantId,string type);
+        List<UserNameDto> GetAllUsersWhoAnswer(long tenantId);
     }
 }

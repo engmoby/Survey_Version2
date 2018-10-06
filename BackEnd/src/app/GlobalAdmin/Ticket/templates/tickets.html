@@ -98,7 +98,7 @@
 
             <select required class="form-control select-with-search pmd-select2-tags" ng-model="ticketsCtrl.selectedCategory" ng-options="a as a.titleDictionary[selectedLanguage] for a in ticketsCtrl.categories"></select>
         </div>
-        <div  ng-if="ticketsCtrl.user.userTypeId != '3'" class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <div ng-if="ticketsCtrl.user.userTypeId != '3'" class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'branchManager' | translate}}</label>
 
             <select required class="form-control select-with-search pmd-select2-tags" ng-model="ticketsCtrl.selectedBranchManager" ng-options="a as a.userName for a in ticketsCtrl.BranchManagers"></select>

@@ -169,9 +169,12 @@ namespace OperationSurvey.API.Controllers
 
         [Route("api/Tickets/dashboard", Name = "GetTicketDashboard")]
         [HttpGet]
-        public IHttpActionResult GetTicketDashboard(string xaxis="branch")
+        public IHttpActionResult GetTicketDashboard(string xaxis="branch",
+            long countryId = 0, long regionId = 0, long cityId = 0, long areaId = 0, long departmentId = 0,
+            long categoryId = 0, long branchId = 0, string from = "", string to = "", long technasianId = 0, long branchManagerId = 0, string status = "")
         {
-            return Ok(_ticketFacade.GetTicketDashboard(TenantId, xaxis));
+            return Ok(_ticketFacade.GetTicketDashboard(TenantId, xaxis, countryId, regionId,cityId, areaId, departmentId,
+            categoryId, branchId, from, to, technasianId, branchManagerId, status));
         }
     }
 }

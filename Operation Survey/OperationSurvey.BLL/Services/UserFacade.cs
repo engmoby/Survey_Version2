@@ -467,5 +467,12 @@ namespace OperationSurvey.BLL.Services
             }
             return results;
         }
+
+        public List<UserNameDto> GetAllUsersWhoAnswer(long tenantId)
+        {
+            return Mapper.Map<List<UserNameDto>>(_userRoleService
+                .Query(x => x.Role.RolePermissions.Where(p => p.TenantId == tenantId).Select(p => p.PermissionId)
+                                .Contains(7) && x.User.TenantId == tenantId).Select(u => u.User).Distinct().ToList());
+        }
     }
 }

@@ -65,6 +65,9 @@
             vm.cities = [vm.selectedCity];
             vm.areaList = [vm.selectedArea];
             vm.regions.push(vm.selectedRegion);
+            vm.branchList = [];
+            vm.selectedBranch = { branchId: 0, titleDictionary: { "en": "All Branches", "ar": "كل الفروع" } };
+            vm.branchList.push(vm.selectedBranch);
             RegionResource.getAllRegions({ countryId: vm.selectedCountry.countryId, pageSize: 0 }).$promise.then(function (results) {
 
                 vm.regions = vm.regions.concat(results.results);
@@ -87,6 +90,9 @@
                 vm.selectedArea = { areaId: 0, titleDictionary: { "en": "All Areas", "ar": "كل المناطق" } };
                 vm.cities.push(vm.selectedCity);
                 vm.areaList = [vm.selectedArea];
+                vm.branchList = [];
+                vm.selectedBranch = { branchId: 0, titleDictionary: { "en": "All Branches", "ar": "كل الفروع" } };
+                vm.branchList.push(vm.selectedBranch);
                 CityResource.getAllCities({ regionId: vm.selectedRegion.regionId, pageSize: 0 }).$promise.then(function (results) {
 
                     vm.cities = vm.cities.concat(results.results);
@@ -106,6 +112,10 @@
                 vm.areaList = [];
                 vm.selectedArea = { areaId: 0, titleDictionary: { "en": "All Areas", "ar": "كل المناطق" } };
                 vm.areaList.push(vm.selectedArea);
+                vm.branchList = [];
+                vm.selectedBranch = { branchId: 0, titleDictionary: { "en": "All Branches", "ar": "كل الفروع" } };
+                vm.branchList.push(vm.selectedBranch);
+
                 AreaResource.getAllAreas({ cityId: vm.selectedCity.cityId, pageSize: 0 }).$promise.then(function (results) {
                     vm.areaList = vm.areaList.concat(results.results);
                 },
@@ -119,19 +129,22 @@
             vm.branchList = [];
             vm.selectedBranch = { branchId: 0, titleDictionary: { "en": "All Branches", "ar": "كل الفروع" } };
             vm.branchList.push(vm.selectedBranch);
+            if(vm.selectedArea.areaId > 0)
             vm.branchList = vm.branchList.concat(vm.selectedArea.branches);
         }
 
-        vm.branchChange = function () {
-            for (var i = vm.branchList.length - 1; i >= 0; i--) {
-                if (vm.branchList[i].branchId == 0) {
-                    vm.branchList.splice(i, 1);
-                }
-            }
-        }
+        // vm.branchChange = function () {
+        //     for (var i = vm.branchList.length - 1; i >= 0; i--) {
+        //         if (vm.branchList[i].branchId == 0) {
+        //             vm.branchList.splice(i, 1);
+        //         }
+        //     }
+        // }
         vm.viewAnswer = function (ques) {
             ques.isloading = true;
-            AnswerResource.getAnswer({ questionId: ques.questionId, page: ques.page, areaId: vm.areaId, branchId: vm.branchId, from: from, to: to }).$promise.then(function (results) {
+            AnswerResource.getAnswer({ questionId: ques.questionId, page: ques.page, 
+                countryId: vm.countryId, regionId: vm.regionId, cityId: vm.cityId,
+                areaId: vm.areaId, branchId: vm.branchId, from: from, to: to }).$promise.then(function (results) {
                 ques.isloading = false;
                 ques.answers = results;
                 ques.answers.results.forEach(function (element) {

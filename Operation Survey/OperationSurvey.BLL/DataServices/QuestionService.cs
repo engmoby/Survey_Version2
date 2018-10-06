@@ -28,9 +28,11 @@ namespace OperationSurvey.BLL.DataServices
             //results.Data = Mapper.Map<List<Question>, List<QuestionDto>>(products);
             return results;
         }
-        public List<QuestionDto> GetAllQuestions(int tenantId,long catgoryTypeId)
+        public List<QuestionDto> GetAllQuestions(int tenantId, long departmentId, long categoryId ,long catgoryTypeId)
         {
             var query = Queryable().Where(x => !x.IsDeleted && (x.TenantId == tenantId || x.TenantId == null)
+                                               && (departmentId <= 0 || x.Category.DepartmentId == departmentId)
+                                               && (categoryId <= 0 || x.CategoryId == categoryId)
             && (catgoryTypeId <= 0 || x.Category.CategoryTypeCategories.Select(c => c.CategoryTypeId).Contains(catgoryTypeId))).OrderBy(x => x.QuestionId);
             var returnList = Mapper.Map<List<Question>, List<QuestionDto>>(query.OrderBy(x => x.QuestionId).ToList());
             return returnList;

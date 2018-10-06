@@ -169,7 +169,11 @@
         "moreFilter":"Show More Fiter",
         "lessFilter":"Show Less Fiter",
         "categoryType":"Category Type",
-        "NoQuestionsAvailable":"There is no questions available"
+        "NoQuestionsAvailable":"There is no questions available",
+        "NewcategoryTypeLbl":"New category type",
+        "allUsers":"All users",
+        "AnswererdBy":"answered By",
+        "NocategoryTypesAvailable":"There is no category types available"
         
       }
 
@@ -344,7 +348,11 @@
         "moreFilter":"المزيد",
         "lessFilter":"الاقل",
         "categoryType":"نوع الفئة",
-        "NoQuestionsAvailable":"لا يوجد اسئلة متاحة"
+        "NoQuestionsAvailable":"لا يوجد اسئلة متاحة",
+        "NewcategoryTypeLbl":"نوع فئة جديد",
+        "allUsers":"كل المستخدميين",
+        "AnswererdBy":"أجاب بواسطة",
+        "NocategoryTypesAvailable":"لايوجد نوع فئة متاحة"
       }
 
       $translateProvider.translations('en', en_translations);

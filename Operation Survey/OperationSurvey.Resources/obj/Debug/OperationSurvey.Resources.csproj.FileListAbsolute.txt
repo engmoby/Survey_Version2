@@ -90,6 +90,7 @@ C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Surve
 C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\ar-EG\OperationSurvey.Resources.resources.dll
 C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.Resources\obj\Debug\OperationSurvey.Resources.csprojResolveAssemblyReference.cache
 C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.Resources\obj\Debug\OperationSurvey.Resources.Resource.resources
 C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.Resources\obj\Debug\OperationSurvey.Resources.Resource.ar-EG.resources
 C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.Resources\obj\Debug\OperationSurvey.Resources.csproj.GenerateResource.Cache

@@ -545,7 +545,12 @@
                     resolve: {
                         TicketDashboardPrepService: TicketDashboardPrepService,
                         AnswerQuestionPrepService: AnswerQuestionPrepService,
-                        allcategoryTypePrepService:allcategoryTypePrepService
+                        allcategoryTypePrepService:allcategoryTypePrepService,
+                        CountriesPrepService:CountriesPrepService,
+                        BranchManagerPrepService:BranchManagerPrepService,
+                        TechnasianPrepService:TechnasianPrepService,
+                        DepartmentPrepService:DepartmentPrepService,
+                        UsersAnswersQuestionPrepService:UsersAnswersQuestionPrepService
                     },
                     data: {
                         permissions: {
@@ -739,5 +744,11 @@
     function TechnasianPrepService(UserResource) {
         return UserResource.getUserByTypeName({type:'technician'}).$promise;
     }
+
+    UsersAnswersQuestionPrepService.$inject = ["UserResource"]
+    function UsersAnswersQuestionPrepService(UserResource){
+        return UserResource.GetAllUsersWhoAnswer().$promise;
+    }
+
 
 }());

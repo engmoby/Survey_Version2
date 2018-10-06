@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -215,7 +216,7 @@ namespace OperationSurvey.BLL.Services
         {
             return _questionService.GetAllQuestions(page, pageSize, tenantId);
         }
-        public PagedResultsDto GetAllQuestionsByUserId(int page, int pageSize, int userId, int tenantId,long catgoryTypeId)
+        public PagedResultsDto GetAllQuestionsByUserId(int page, int pageSize, int userId, int tenantId, long departmentId , long categoryIdFilter,long catgoryTypeId)
         {
             var user = _userService.Find(userId);
             PagedResultsDto results = new PagedResultsDto();
@@ -224,12 +225,14 @@ namespace OperationSurvey.BLL.Services
                 results = new PagedResultsDto();
                 results.TotalCount = _questionService.Query(x=>x.TenantId == tenantId && !x.IsDeleted).Select().Count();
                 results.Data = Mapper.Map<List<QuestionDto>>(_questionService
-                    .Query(x => x.TenantId == tenantId && !x.IsDeleted 
+                    .Query(x => x.TenantId == tenantId && !x.IsDeleted
+                                && (departmentId <= 0 || x.Category.DepartmentId == departmentId)
+                                && (categoryIdFilter <= 0 || x.CategoryId == categoryIdFilter)
                     && (catgoryTypeId <= 0 || x.Category.CategoryTypeCategories.Select(c=>c.CategoryTypeId).Contains(catgoryTypeId))).Select().OrderBy(x => x.QuestionId).ToList());
             }
             else
             {
-                var questionList = _questionService.GetAllQuestions(tenantId,catgoryTypeId);
+                var questionList = _questionService.GetAllQuestions(tenantId,departmentId,categoryIdFilter,catgoryTypeId);
                 var userRoles = user.UserRoles;
                 var categoryRoles = new List<CategoryRoleDto>();
                 ArrayList categoryIds = new ArrayList();
@@ -267,24 +270,35 @@ namespace OperationSurvey.BLL.Services
             return results;
         }
 
-        public QuestionDashBoard GetQuestionDashBoard(long questionId)
+        public QuestionDashBoard GetQuestionDashBoard(long questionId, long countryId, long regionId, long cityId, long areaId, long branchId, string from , string to,long AnsweredBy)
         {
             var question =_questionService.Find(questionId);
             QuestionDashBoard questionDashBoard = new QuestionDashBoard();
+            DateTime fromDateTime = !String.IsNullOrEmpty(from) ? DateTime.Parse(from) : DateTime.MinValue;
+            DateTime toDateTime = !String.IsNullOrEmpty(to) ? DateTime.Parse(to) : DateTime.MaxValue;
 
             questionDashBoard.QuestionId = questionId;
+            var answers = question.Answers.Where(x => x.CreationTime >= fromDateTime
+                                                      && x.CreationTime <= toDateTime
+                                                      && (countryId <= 0 ||
+                                                          x.Branch.Area.City.Region.CountryId == countryId)
+                                                      && (regionId <= 0 || x.Branch.Area.City.RegionId == regionId)
+                                                      && (cityId <= 0 || x.Branch.Area.CityId == cityId)
+                                                      && (areaId <= 0 || x.Branch.AreaId == areaId)
+                                                      && (branchId <= 0 || x.BranchId == branchId)
+                                                      && (AnsweredBy <=0 || x.CreatorUserId == AnsweredBy)).ToList();
             if (question.QuestionTypeId == Enums.QuestionType.LikeDislike)
             {
-                questionDashBoard.LikeCount = question.Answers.Count(x => x.AnswerDetails.Any(a => a.Value == 1));
-                questionDashBoard.DisLikeCount = question.Answers.Count(x => x.AnswerDetails.Any(a => a.Value == 0));
+                questionDashBoard.LikeCount = answers.Count(x => x.AnswerDetails.Any(a => a.Value == 1));
+                questionDashBoard.DisLikeCount = answers.Count(x => x.AnswerDetails.Any(a => a.Value == 0));
             }
             else if (question.QuestionTypeId == Enums.QuestionType.Rate)
             {
-                questionDashBoard.OneStartCount = question.Answers.Count(x => x.AnswerDetails.Any(a => a.Value == 1));
-                questionDashBoard.TwoStartCount = question.Answers.Count(x => x.AnswerDetails.Any(a => a.Value == 2));
-                questionDashBoard.ThreeStartCount = question.Answers.Count(x => x.AnswerDetails.Any(a => a.Value == 3));
-                questionDashBoard.FourStartCount = question.Answers.Count(x => x.AnswerDetails.Any(a => a.Value == 4));
-                questionDashBoard.FiveStartCount = question.Answers.Count(x => x.AnswerDetails.Any(a => a.Value == 5));
+                questionDashBoard.OneStartCount = answers.Count(x => x.AnswerDetails.Any(a => a.Value == 1));
+                questionDashBoard.TwoStartCount = answers.Count(x => x.AnswerDetails.Any(a => a.Value == 2));
+                questionDashBoard.ThreeStartCount = answers.Count(x => x.AnswerDetails.Any(a => a.Value == 3));
+                questionDashBoard.FourStartCount = answers.Count(x => x.AnswerDetails.Any(a => a.Value == 4));
+                questionDashBoard.FiveStartCount = answers.Count(x => x.AnswerDetails.Any(a => a.Value == 5));
                 questionDashBoard.Average =
                     (questionDashBoard.OneStartCount + (questionDashBoard.TwoStartCount * 2) +
                      (questionDashBoard.ThreeStartCount * 3) +
@@ -295,7 +309,15 @@ namespace OperationSurvey.BLL.Services
             }
             else if (question.QuestionTypeId == Enums.QuestionType.Checkbox)
             {
-                questionDashBoard.OptionsCount = _answerDetailsService.Query(x => x.Answer.QuestionId == questionId)
+                questionDashBoard.OptionsCount = _answerDetailsService.Query(x => x.Answer.QuestionId == questionId &&
+                                                                                  x.Answer.CreationTime >= fromDateTime
+                                                                                  && x.Answer.CreationTime <= toDateTime
+                                                                                  && (countryId <= 0 || x.Answer.Branch.Area.City.Region.CountryId == countryId)
+                                                                                  && (regionId <= 0 || x.Answer.Branch.Area.City.RegionId == regionId)
+                                                                                  && (cityId <= 0 || x.Answer.Branch.Area.CityId == cityId)
+                                                                                  && (areaId <= 0 || x.Answer.Branch.AreaId == areaId)
+                                                                                  && (branchId <= 0 || x.Answer.BranchId == branchId)
+                                                                                  && (AnsweredBy <= 0 || x.Answer.CreatorUserId == AnsweredBy))
                     .Select()
                     .GroupBy(x => x.QuestionDetailsId, (k, v) => new {key = k, answers = v.ToList()}).ToDictionary(k=>k.key.Value,v=>v.answers.Count);
             }

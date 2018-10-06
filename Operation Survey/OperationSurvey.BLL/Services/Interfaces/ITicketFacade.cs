@@ -20,6 +20,7 @@ namespace OperationSurvey.BLL.Services.Interfaces
         void CloseTicket(long userId, long ticketId);
         void RejectTicket(long userId, long ticketId,string comment);
         List<UserDto> GetTechnacianForTicket(long ticketId);
-        List<TicketDashboard> GetTicketDashboard(long tenantId,string xAxis);
+        List<TicketDashboard> GetTicketDashboard(long tenantId,string xAxis,long countryId, long regionId, long cityId, long areaId, long departmentId,
+        long categoryId, long branchId, string from, string to, long technasianId, long branchManagerId, string status);
     }
 }

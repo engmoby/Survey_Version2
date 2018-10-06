@@ -23,9 +23,9 @@ namespace OperationSurvey.API.Controllers
 
         [Route("api/Questions/GetAllQuestionsByUserId", Name = "GetAllQuestionsByUserId")]
         [HttpGet]
-        public IHttpActionResult GetAllQuestionsByUserId(int page = Page, int pagesize = PageSize, long catgoryTypeId=0)
+        public IHttpActionResult GetAllQuestionsByUserId(int page = Page, int pagesize = PageSize, long departmentId = 0,long categoryId = 0 , long catgoryTypeId=0)
         {
-            PagedResultsDto questionObj = _questionFacade.GetAllQuestionsByUserId(page, pagesize,UserId, TenantId,catgoryTypeId);
+            PagedResultsDto questionObj = _questionFacade.GetAllQuestionsByUserId(page, pagesize,UserId, TenantId,departmentId,categoryId,catgoryTypeId);
             var data = Mapper.Map<List<QuestionModel>>(questionObj.Data);
             return PagedResponse("GetAllQuestionsByUserId", page, pagesize, questionObj.TotalCount, data, questionObj.IsParentTranslated);
         }
@@ -83,9 +83,9 @@ namespace OperationSurvey.API.Controllers
 
         [Route("api/Questions/{questionId:long}/dashboard", Name = "GetQuestionDashBoard")]
         [HttpGet]
-        public IHttpActionResult GetQuestionDashBoard(long questionId)
+        public IHttpActionResult GetQuestionDashBoard(long questionId, long countryId = 0, long regionId = 0, long cityId = 0, long areaId = 0, long branchId = 0, string from = "", string to = "", long AnsweredBy=0)
         {
-            return Ok(_questionFacade.GetQuestionDashBoard(questionId));
+            return Ok(_questionFacade.GetQuestionDashBoard(questionId, countryId, regionId, cityId, areaId, branchId, from, to,AnsweredBy));
         }
     }
 

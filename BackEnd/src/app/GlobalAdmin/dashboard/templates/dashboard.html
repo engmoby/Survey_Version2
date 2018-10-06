@@ -16,13 +16,151 @@
         text-decoration: none;
     }
 </style>
+<script type="text/javascript">
+    $(function () {
+        $('#fromdate').datetimepicker(
+            {
+                format: 'DD/MM/YYYY',
+                // minDate: new Date()
+            }
+        );
+        $('#todate').datetimepicker(
+            {
+                format: 'DD/MM/YYYY',
+                // minDate: new Date(),
+                useCurrent: false
+            }
+        );
+        $("#fromdate").on("dp.change", function (e) {
+            $('#todate').data("DateTimePicker").minDate(e.date);
+        });
+        // Start date picke on chagne event [select maxmimum date for start date datepicker]
+        $("#todate").on("dp.change", function (e) {
+            $('#fromdate').data("DateTimePicker").maxDate(e.date);
+        });
+
+        
+
+        
+        $('#fromdateSurvey').datetimepicker(
+            {
+                format: 'DD/MM/YYYY',
+                // minDate: new Date()
+            }
+        );
+        $('#todateSurvey').datetimepicker(
+            {
+                format: 'DD/MM/YYYY',
+                // minDate: new Date(),
+                useCurrent: false
+            }
+        );
+        $("#fromdateSurvey").on("dp.change", function (e) {
+            $('#todateSurvey').data("DateTimePicker").minDate(e.date);
+        });
+        // Start date picke on chagne event [select maxmimum date for start date datepicker]
+        $("#todateSurvey").on("dp.change", function (e) {
+            $('#fromdateSurvey').data("DateTimePicker").maxDate(e.date);
+        });
+    });
+
+</script>
 <div style="cursor: pointer;    background-color: #ccc;">
     <h1 style="padding: 4px" ng-init="showTicket = false" ng-click="showTicket=!showTicket">
         {{'Tickets' | translate}}
     </h1>
 </div>
-<div ng-show="showTicket">
-    <div class="form-group pmd-textfield pmd-textfield-floating-label">
+<div ng-show="showTicket" ng-init="showMoreFilter = false">
+    <div class="row">
+
+        <div style="direction: ltr;" class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label>{{'fromLbl' | translate}}</label>
+            <input type="text" id="fromdate" class="form-control" required />
+        </div>
+
+        <div style="direction: ltr;" class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label>{{'toLbl' | translate}}</label>
+            <input type="text" id="todate" class="form-control" required />
+        </div>
+        <!-- <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" <label
+            for="first-name">{{'StatusLbl' | translate}}</label>
+            <select class="form-control select-with-search pmd-select2-tags" ng-model="dashboardCtrl.selectedStatus">
+                <option value="">{{'AllLbl' | translate}}</option>
+                <option value="Pending">{{'Pending'|translate}}</option>
+                <option value="Assigned">{{'Assigned'|translate}}</option>
+                <option value="InProgress">{{'InProgress'|translate}}</option>
+                <option value="Closed">{{'Closed'|translate}}</option>
+                <option value="Rejected">{{'Rejected'|translate}}</option>
+            </select>
+        </div> -->
+        <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                <label for="first-name">{{'branchManager' | translate}}</label>
+    
+                <select required class="form-control select-with-search pmd-select2-tags" ng-model="dashboardCtrl.selectedBranchManager"
+                    ng-options="a as a.userName for a in dashboardCtrl.BranchManagers"></select>
+            </div>
+    
+            <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                <label for="first-name">{{'Tech' | translate}}</label>
+    
+                <select required class="form-control select-with-search pmd-select2-tags" ng-model="dashboardCtrl.selectedTechnician" ng-options="a as a.userName for a in dashboardCtrl.Technicians"></select>
+            </div>
+    </div>
+    <div class="row" ng-show="showMoreFilter">
+        <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" <label
+            for="first-name">{{'Country' | translate}}</label>
+            <select class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.countryChange()" ng-model="dashboardCtrl.selectedCountry"
+                ng-options="group as group.titleDictionary[selectedLanguage] for group in dashboardCtrl.counties">
+            </select>
+        </div>
+        <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" <label
+            for="first-name">{{'Region' | translate}}</label>
+            <select class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.regionChange()" ng-model="dashboardCtrl.selectedRegion"
+                ng-options="group as group.titleDictionary[selectedLanguage] for group in dashboardCtrl.regions">
+            </select>
+        </div>
+        <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" <label
+            for="first-name">{{'City' | translate}}</label>
+            <select class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.cityChange()" ng-model="dashboardCtrl.selectedCity"
+                ng-options="group as group.titleDictionary[selectedLanguage] for group in dashboardCtrl.cities">
+            </select>
+        </div>
+        <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'Area' | translate}}</label>
+
+            <select required class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.areaChange()" ng-model="dashboardCtrl.selectedArea"
+                ng-options="a as a.titleDictionary[selectedLanguage] for a in dashboardCtrl.areaList"></select>
+        </div>
+
+        <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'Branch' | translate}}</label>
+
+            <select required class="form-control select-with-search pmd-select2-tags" ng-model="dashboardCtrl.selectedBranch" ng-options="a as a.titleDictionary[selectedLanguage] for a in dashboardCtrl.branchList"></select>
+        </div>
+
+        <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'Department' | translate}}</label>
+
+            <select required class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.departmentChange()" ng-model="dashboardCtrl.selectedDepartment"
+                ng-options="a as a.titleDictionary[selectedLanguage] for a in dashboardCtrl.departments"></select>
+        </div>
+
+        <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'CategoryLbl' | translate}}</label>
+
+            <select required class="form-control select-with-search pmd-select2-tags" ng-model="dashboardCtrl.selectedCategory" ng-options="a as a.titleDictionary[selectedLanguage] for a in dashboardCtrl.categories"></select>
+        </div>
+        
+    </div>
+    <div class="row" style="padding-bottom: 5px;">
+        <div class="col-md-2 ">
+            <button ng-click="dashboardCtrl.applyFilter()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'filterBtn' | translate}}</button>
+        </div>
+        <span ng-show="!showMoreFilter" ng-click="showMoreFilter = !showMoreFilter" style="cursor: pointer">{{'moreFilter'|translate}}</span>
+        <span ng-show="showMoreFilter" ng-click="showMoreFilter = !showMoreFilter" style="cursor: pointer">{{'lessFilter'|translate}}</span>
+    </div>
+    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <label for="first-name">{{'ViewBy' | translate}}</label>
         <select style="width:15% !important" class="select-tags form-control pmd-select2-tags" ng-change="dashboardCtrl.ticketFilterChange()"
             ng-model="dashboardCtrl.selectedTicketFilter" ng-options="f.value as f.name for f  in dashboardCtrl.ticketsFilter">
         </select>
@@ -30,18 +168,105 @@
     <nvd3 style="direction: ltr" options="dashboardCtrl.options" data="dashboardCtrl.data"></nvd3>
 </div>
 
+
+
 <div style="cursor: pointer;    background-color: #ccc;">
     <h1 style="padding: 4px" ng-init="showSurvey = false" ng-click="showSurvey=!showSurvey">
         {{'Survey' | translate}}
     </h1>
 </div>
-<div ng-show="showSurvey">
 
-    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-        <label for="first-name">{{'categoryType' | translate}}</label>
+<div ng-show="showSurvey" ng-init="showMoreFilterSurvey = false">
 
-        <select required style="width:50% !important" class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.categoryTypeChange()"
-            ng-model="dashboardCtrl.selectedCategoryType" ng-options="a as a.titleDictionary[selectedLanguage] for a in dashboardCtrl.categoryTypes"></select>
+    <div class="row">
+
+        <div style="direction: ltr;" class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label>{{'fromLbl' | translate}}</label>
+            <input type="text" id="fromdateSurvey" class="form-control" required />
+        </div>
+
+
+        <div style="direction: ltr;" class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label>{{'toLbl' | translate}}</label>
+            <input type="text" id="todateSurvey" class="form-control" required />
+        </div>
+        <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                <label for="first-name">{{'AnswererdBy' | translate}}</label>
+    
+                <select required class="form-control select-with-search pmd-select2-tags" ng-model="dashboardCtrl.selectedAnswersUser"
+                 ng-options="a as a.userName for a in dashboardCtrl.AnswersUsers"></select>
+            </div>
+        <!-- <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" <label
+            for="first-name">{{'StatusLbl' | translate}}</label>
+            <select class="form-control select-with-search pmd-select2-tags" ng-model="dashboardCtrl.selectedStatus">
+                <option value="">{{'AllLbl' | translate}}</option>
+                <option value="Pending">{{'Pending'|translate}}</option>
+                <option value="Assigned">{{'Assigned'|translate}}</option>
+                <option value="InProgress">{{'InProgress'|translate}}</option>
+                <option value="Closed">{{'Closed'|translate}}</option>
+                <option value="Rejected">{{'Rejected'|translate}}</option>
+            </select>
+        </div> -->
+
+    </div>
+    <div class="row" ng-show="showMoreFilterSurvey">
+        <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" <label
+            for="first-name">{{'Country' | translate}}</label>
+            <select class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.countrySurveyChange()" ng-model="dashboardCtrl.selectedCountrySurvey"
+                ng-options="group as group.titleDictionary[selectedLanguage] for group in dashboardCtrl.countiesSurvey">
+            </select>
+        </div>
+        <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" <label
+            for="first-name">{{'Region' | translate}}</label>
+            <select class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.regionSurveyChange()" ng-model="dashboardCtrl.selectedRegionSurvey"
+                ng-options="group as group.titleDictionary[selectedLanguage] for group in dashboardCtrl.regionsSurvey">
+            </select>
+        </div>
+        <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" <label
+            for="first-name">{{'City' | translate}}</label>
+            <select class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.citySurveyChange()" ng-model="dashboardCtrl.selectedCitySurvey"
+                ng-options="group as group.titleDictionary[selectedLanguage] for group in dashboardCtrl.citiesSurvey">
+            </select>
+        </div>
+        <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'Area' | translate}}</label>
+
+            <select required class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.areaSurveyChange()" ng-model="dashboardCtrl.selectedAreaSurvey"
+                ng-options="a as a.titleDictionary[selectedLanguage] for a in dashboardCtrl.areaListSurvey"></select>
+        </div>
+
+        <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'Branch' | translate}}</label>
+
+            <select required class="form-control select-with-search pmd-select2-tags" ng-model="dashboardCtrl.selectedBranchSurvey" ng-options="a as a.titleDictionary[selectedLanguage] for a in dashboardCtrl.branchListSurvey"></select>
+        </div>
+
+        <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'Department' | translate}}</label>
+
+            <select required class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.departmentSurveyChange()" ng-model="dashboardCtrl.selectedDepartmentSurvey"
+                ng-options="a as a.titleDictionary[selectedLanguage] for a in dashboardCtrl.departmentsSurvey"></select>
+        </div>
+
+        <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'CategoryLbl' | translate}}</label>
+
+            <select required class="form-control select-with-search pmd-select2-tags" ng-model="dashboardCtrl.selectedCategorySurvey" ng-options="a as a.titleDictionary[selectedLanguage] for a in dashboardCtrl.categoriesSurvey"></select>
+        </div>
+
+        <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'categoryType' | translate}}</label>
+
+            <select required style="width:50% !important" class="form-control select-with-search pmd-select2-tags" ng-change="dashboardCtrl.categoryTypeChange()"
+                ng-model="dashboardCtrl.selectedCategoryType" ng-options="a as a.titleDictionary[selectedLanguage] for a in dashboardCtrl.categoryTypes"></select>
+        </div>
+    </div>
+    <div class="row" style="padding-bottom: 5px;">
+        <div class="col-md-2 ">
+            <button ng-click="dashboardCtrl.applySurveyFilter()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'filterBtn' | translate}}</button>
+        </div>
+        <span ng-show="!showMoreFilterSurvey" ng-click="showMoreFilterSurvey = !showMoreFilterSurvey" style="cursor: pointer">{{'moreFilter'|translate}}</span>
+        <span ng-show="showMoreFilterSurvey" ng-click="showMoreFilterSurvey = !showMoreFilterSurvey" style="cursor: pointer">{{'lessFilter'|translate}}</span>
     </div>
 
     <div ng-show="dashboardCtrl.questionList.length<=0">

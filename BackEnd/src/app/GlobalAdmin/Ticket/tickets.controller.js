@@ -54,7 +54,7 @@
             vm.BranchManagers = [];
             vm.BranchManagers.push(vm.selectedBranchManager);
             vm.BranchManagers = vm.BranchManagers.concat(BranchManagerPrepService.results)
-            vm.selectedTechnician = { userId: 0, userName: $translate.instant('allBranchesM') };
+            vm.selectedTechnician = { userId: 0, userName: $translate.instant('allTechnasian') };
             vm.Technicians = [];
             vm.Technicians.push(vm.selectedTechnician);
             vm.Technicians = vm.Technicians.concat(TechnasianPrepService.results)
