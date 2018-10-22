@@ -4,10 +4,10 @@
     angular
         .module('home')
         .controller('TicketDetailsController', ['blockUI', '$scope', '$state',
-            'TicketPrepService', '$filter', 'authorizationService','$translate','TicketResource', TicketDetailsController]);
+            'TicketPrepService', '$filter', 'authorizationService','$translate','TicketResource','TicketLogsPrepService', TicketDetailsController]);
 
     function TicketDetailsController(blockUI, $scope, $state,
-        TicketPrepService, $filter, authorizationService , $translate,TicketResource) {
+        TicketPrepService, $filter, authorizationService , $translate,TicketResource,TicketLogsPrepService) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[8].children[0]).addClass("active")
@@ -29,15 +29,23 @@
             vm.ticket.lastModificationTime = vm.ticket.lastModificationTime + "Z";
             vm.ticket.lastModificationTime = $filter('date')(new Date(vm.ticket.lastModificationTime), "dd/MM/yyyy hh:mm a");
 
+            if(vm.ticket.technicianModificationTime!=null){
             vm.ticket.technicianModificationTime = vm.ticket.technicianModificationTime + "Z";
             vm.ticket.technicianModificationTime = $filter('date')(new Date(vm.ticket.technicianModificationTime), "dd/MM/yyyy hh:mm a");
+            }
+            
+            vm.ticketLogs = TicketLogsPrepService;
+            vm.ticketLogs.forEach(function(element) {
+                element.dateTime = element.dateTime + "Z";
+                element.dateTime = $filter('date')(new Date(element.dateTime), "dd/MM/yyyy hh:mm a");
+            }, this);
         }
         init();
         vm.assignTicket = function (ticketId, assignedUserId,comment) {
             var newObj = new TicketResource();
             newObj.assignComment = comment;
             newObj.$assigned({ ticketId: ticketId, assignedUserId: assignedUserId }).then(function (results) {
-                refreshTickets();
+                $state.go('Tickets');
             },
                 function (data, status) {
                     blockUI.stop();

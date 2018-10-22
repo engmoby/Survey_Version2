@@ -7,13 +7,13 @@
             '$translate', 'dashboardResource', 'QuestionResource', 'TicketDashboardPrepService',
             'AnswerQuestionPrepService', '$filter', 'allcategoryTypePrepService', 'AnswerQuestionResource', 'CountriesPrepService',
             'BranchManagerPrepService', 'TechnasianPrepService', 'DepartmentPrepService',
-            'RegionResource', 'CityResource', 'AreaResource','UsersAnswersQuestionPrepService', dashboardController]);
+            'RegionResource', 'CityResource', 'AreaResource', 'UsersAnswersQuestionPrepService', dashboardController]);
 
     function dashboardController(blockUI, $scope, $state,
         $translate, dashboardResource, QuestionResource, TicketDashboardPrepService,
         AnswerQuestionPrepService, $filter, allcategoryTypePrepService, AnswerQuestionResource, CountriesPrepService,
         BranchManagerPrepService, TechnasianPrepService, DepartmentPrepService,
-        RegionResource, CityResource, AreaResource,UsersAnswersQuestionPrepService) {
+        RegionResource, CityResource, AreaResource, UsersAnswersQuestionPrepService) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[10].children[0]).addClass("active")
@@ -288,6 +288,8 @@
             var InProgress = [];
             var Pending = [];
             var Rejected = [];
+            var Reassigned = [];
+            var complete = [];
             tickets.forEach(function (element) {
                 assigned.push({
                     x: element.xaxisName[$scope.selectedLanguage],
@@ -308,6 +310,14 @@
                 closed.push({
                     x: element.xaxisName[$scope.selectedLanguage],
                     y: element.closedCount
+                })
+                Reassigned.push({
+                    x: element.xaxisName[$scope.selectedLanguage],
+                    y: element.reassignedCount
+                })
+                complete.push({
+                    x: element.xaxisName[$scope.selectedLanguage],
+                    y: element.completedCount
                 })
             }, this);
             vm.data = [
@@ -330,6 +340,14 @@
                 {
                     "key": $translate.instant('ClosedStatus'),
                     "values": closed
+                },
+                {
+                    "key": $translate.instant('Reassigned'),
+                    "values": Reassigned
+                },
+                {
+                    "key": $translate.instant('completed'),
+                    "values": complete
                 }
             ];
         }
@@ -481,7 +499,7 @@
                 questionId: question.questionId,
                 countryId: vm.countryIdSurvey, regionId: vm.regionIdSurvey, cityId: vm.cityIdSurvey,
                 areaId: vm.areaIdSurvey, branchId: vm.branchIdSurvey, from: vm.fromSurvey, to: vm.toSurvey,
-                AnsweredBy:vm.AnsweredBy
+                AnsweredBy: vm.AnsweredBy
             }).$promise
                 .then(function (results) {
                     question.dashboard = results;
@@ -605,6 +623,42 @@
                 });
         }
         blockUI.stop();
+
+        vm.exportPDF = function(){
+         //   canvg(document.getElementById('cc'),document.getElementById('surveyDiv').innerHTML)
+            
+            html2canvas(document.getElementById('surveyDiv')).then(function(canvas) {
+                var data = canvas.toDataURL();
+                var docDefinition = {
+                    content: [{
+                        image: data,
+                        height:canvas.height,
+                        width:500   
+                    }],
+                    // pageBreakBefore: function(currentNode, followingNodesOnPage, nodesOnNextPage, previousNodesOnPage) {
+                    //     return currentNode.startPosition.top >= 650;
+                    //     }
+                };
+                pdfMake.createPdf(docDefinition).download("test.pdf");
+            });
+//             html2canvas(document.getElementById('surveyDiv'), {
+//                 renderer:function(canvas){
+// var k = canvas;
+//                 },
+//                 onrendered: function (canvas) {
+//                     var data = canvas.toDataURL();
+//                     var docDefinition = {
+//                         content: [{
+//                             image: data,
+//                             width: 500,
+//                         }]
+//                     };
+//                     pdfMake.createPdf(docDefinition).download("test.pdf");
+//                 }
+//             });
+        }
+
+
     }
 
 }());

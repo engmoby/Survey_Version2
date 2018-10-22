@@ -83,6 +83,7 @@ namespace OperationSurvey.DAL.Migrations
             //var permisison8 = new Permission { IsDeleted = false, IsStatic = true };
             //var permisison9 = new Permission { IsDeleted = false, IsStatic = true };
             //var permisison10 = new Permission { IsDeleted = false, IsStatic = true };
+            //var permisison11 = new Permission { IsDeleted = false, IsStatic = true };
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison1);
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison2);
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison3);
@@ -93,6 +94,7 @@ namespace OperationSurvey.DAL.Migrations
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison8);
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison9);
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison10);
+            //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison11);
 
             //var permissionTreanslation1 =
             //    new PermissionTranslation { Language = "en", Title = "Users Permissions", Permission = permisison1 };
@@ -169,6 +171,15 @@ namespace OperationSurvey.DAL.Migrations
             //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation19);
             //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation20);
 
+
+            //var permissionTreanslation21 =
+            //    new PermissionTranslation { Language = "en", Title = "Configuration", Permission = permisison11 };
+            //var permissionTreanslation22 =
+            //    new PermissionTranslation { Language = "ar", Title = "ترتيب", Permission = permisison11 };
+            //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation21);
+            //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation22);
+
+
             //Role adminRole = new Role { IsDeleted = false, IsStatic = true };
             //context.Roles.AddOrUpdate(adminRole);
             //context.RoleTranslations.AddOrUpdate(
@@ -198,6 +209,8 @@ namespace OperationSurvey.DAL.Migrations
             //    new RolePermission { ActionId = 1, Role = adminRole, Permission = permisison9 });
             //context.RolePermissions.AddOrUpdate(
             //    new RolePermission { ActionId = 1, Role = adminRole, Permission = permisison10 });
+            //context.RolePermissions.AddOrUpdate(
+            //    new RolePermission { ActionId = 1, RoleId = 1, Permission = permisison11 });
 
         }
     }

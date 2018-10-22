@@ -13,6 +13,7 @@ namespace OperationSurvey.DAL.Entities.Model
     {
         public long TicketId { get; set; }
         public Enums.TicketStatus Status { get; set; }
+        
         public string Title{ get; set; }
         public string Description { get; set; }
 
@@ -54,5 +55,8 @@ namespace OperationSurvey.DAL.Entities.Model
         public string RejectionComment { get; set; }
 
         public string AssignComment { get; set; }
+        public Enums.TicketPriority Priority { get; set; }
+
+        public virtual ICollection<TicketLog> Logs { get; set; }
     }
 }

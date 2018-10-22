@@ -73,10 +73,13 @@ namespace OperationSurvey.API
             mapperConfiguration.CreateMap<UserConsumed, UserConsumedModel>();
 
             mapperConfiguration.CreateMap<TicketModel, TicketDto>()
-                .ForMember(dto => dto.Status, m => m.MapFrom(src => Enum.Parse(typeof(Enums.TicketStatus), src.Status)));
+                .ForMember(dto => dto.Status, m => m.MapFrom(src => Enum.Parse(typeof(Enums.TicketStatus), src.Status)))
+                .ForMember(dto => dto.Priority, m => m.MapFrom(src => Enum.Parse(typeof(Enums.TicketPriority), src.Priority)));
             mapperConfiguration.CreateMap<TicketDto, TicketModel>()
+                .ForMember(dto => dto.Status, m => m.MapFrom(src => src.Status.ToString()))
+                .ForMember(dto => dto.Priority, m => m.MapFrom(src => src.Priority.ToString()));
+            mapperConfiguration.CreateMap<TicketLogDto, TicketLogModel>()
                 .ForMember(dto => dto.Status, m => m.MapFrom(src => src.Status.ToString()));
-
 
             mapperConfiguration.CreateMap<CountryModel, CountryDto>();
             mapperConfiguration.CreateMap<CountryDto, CountryModel>();
@@ -87,6 +90,12 @@ namespace OperationSurvey.API
 
             mapperConfiguration.CreateMap<CategoryTypeModel, CategoryTypeDto>();
             mapperConfiguration.CreateMap<CategoryTypeDto, CategoryTypeModel>();
+
+            mapperConfiguration.CreateMap<TicketSchedulerModel, TicketSchedulerDto>()
+                .ForMember(dto => dto.Status, m => m.MapFrom(src => Enum.Parse(typeof(Enums.TicketStatus), src.Status)));
+            mapperConfiguration.CreateMap<TicketSchedulerDto, TicketSchedulerModel>()
+                .ForMember(dto => dto.Status, m => m.MapFrom(src => src.Status.ToString()));
+
             OperationSurveyBllConfig.RegisterMappings(mapperConfiguration); 
 
         }

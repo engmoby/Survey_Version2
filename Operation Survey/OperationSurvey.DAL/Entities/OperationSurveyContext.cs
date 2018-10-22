@@ -54,6 +54,8 @@ namespace OperationSurvey.DAL.Entities
         public DbSet<CategoryType> CategoryTypes { get; set; }
         public DbSet<CategoryTypeTranslation> CategoryTypeTranslations { get; set; }
         public DbSet<CategoryTypeCategory> CategoryTypeCategories { get; set; }
+        public DbSet<TicketLog> TicketLogs { get; set; }
+        public DbSet<TicketScheduler> TicketSchedulers { get; set; }
 
         public OperationSurveyContext() : base("name=OperationSurveyDB")
         {
@@ -72,6 +74,12 @@ namespace OperationSurvey.DAL.Entities
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Ticket>()
                 .HasRequired(c => c.Branch)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<TicketLog>()
+                .HasRequired(c => c.User)
                 .WithMany()
                 .WillCascadeOnDelete(false);
         }

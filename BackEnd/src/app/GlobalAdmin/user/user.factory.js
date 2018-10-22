@@ -13,7 +13,8 @@
             getUserDepartments: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/Departments', useToken: true },
             getUserArea: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/Area', useToken: true },
             getUserByTypeName: { method: 'GET', url: appCONSTANTS.API_URL + 'Users', useToken: true },
-            GetAllUsersWhoAnswer: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/GetAllUsersWhoAnswer',isArray:true , useToken: true }
+            GetAllUsersWhoAnswer: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/GetAllUsersWhoAnswer',isArray:true , useToken: true },
+            GetAllEmails: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/Emails',isArray:true , useToken: true }
         })
     }
 

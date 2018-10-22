@@ -28,7 +28,17 @@
             Assigned,
             InProgress,
             Closed,
-            Rejected
+            Rejected,
+            Reassigned,
+            Completed
+        }
+
+        public enum TicketPriority
+        {
+            Critical,
+            High,
+            Medium,
+            Low
         }
     }
 }

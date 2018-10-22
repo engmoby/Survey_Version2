@@ -29,6 +29,7 @@
             vm.selectedDepartmentId = 0;
             vm.departmentList.push({ departmentId: 0, titleDictionary: { "en": "Select Department", "ar": "اختار أدارة" } });
             vm.departmentList = vm.departmentList.concat(DepartmentPrepService.results);
+            vm.selectedPriority = "Critical";
         }
         init();
         vm.departmentChange = function () {
@@ -76,6 +77,7 @@
             newTicket.categoryId = vm.selectedCategoryId;
             newTicket.areaId = vm.selectedAreaId;
             newTicket.branchId = vm.selectedBranchId;
+            newTicket.priority = vm.selectedPriority;
 
 
             var model = new FormData();

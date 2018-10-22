@@ -22,14 +22,15 @@ namespace OperationSurvey.BLL.Services
         private readonly IUserService _userService;
         private readonly IUserCategoryService _userCategoryService;
         private readonly IUserBranchService _userBranchService;
-
-        public TicketFacade(IUnitOfWorkAsync unitOfWork, ITicketService ticketService, IManageStorage manageStorage, IUserService userService, IUserCategoryService userCategoryService, IUserBranchService userBranchService):base(unitOfWork)
+        private readonly ITicketLogService _ticketLogService;
+        public TicketFacade(IUnitOfWorkAsync unitOfWork, ITicketService ticketService, IManageStorage manageStorage, IUserService userService, IUserCategoryService userCategoryService, IUserBranchService userBranchService, ITicketLogService ticketLogService):base(unitOfWork)
         {
             _ticketService = ticketService;
             _manageStorage = manageStorage;
             _userService = userService;
             _userCategoryService = userCategoryService;
             _userBranchService = userBranchService;
+            _ticketLogService = ticketLogService;
         }
 
         public void CreateTicket(TicketDto ticketDto,int tenantId,long userId, List<MemoryStream> files, string path)
@@ -190,6 +191,19 @@ namespace OperationSurvey.BLL.Services
             ticket.Status = Enums.TicketStatus.Assigned;
             _ticketService.Update(ticket);
             SaveChanges();
+            AddTicketLog(ticketId, Enums.TicketStatus.Assigned, userId);
+        }
+        public void ReAssignedTicket(long userId, long ticketId, long assignedUserId, string assignComment)
+        {
+            var ticket = _ticketService.Find(ticketId);
+            ticket.LastModificationTime = DateTime.Now;
+            ticket.LastModifierUserId = userId;
+            ticket.AssignedUserId = assignedUserId;
+            ticket.AssignComment = assignComment;
+            ticket.Status = Enums.TicketStatus.Reassigned;
+            _ticketService.Update(ticket);
+            SaveChanges();
+            AddTicketLog(ticketId, Enums.TicketStatus.Reassigned, userId);
         }
         public void ApproveTicket(long userId, long ticketId)
         {
@@ -198,14 +212,27 @@ namespace OperationSurvey.BLL.Services
             ticket.Status = Enums.TicketStatus.InProgress;
             _ticketService.Update(ticket);
             SaveChanges();
+            AddTicketLog(ticketId, Enums.TicketStatus.InProgress, userId);
         }
         public void CloseTicket(long userId, long ticketId)
         {
             var ticket = _ticketService.Find(ticketId);
-            ticket.TechnicianModificationTime = DateTime.Now;
+            ticket.LastModificationTime = DateTime.Now;
+            ticket.LastModifierUserId = userId;
             ticket.Status = Enums.TicketStatus.Closed;
             _ticketService.Update(ticket);
             SaveChanges();
+            AddTicketLog(ticketId, Enums.TicketStatus.Closed, userId);
+        }
+        public void CompleteTicket(long userId, long ticketId)
+        {
+            var ticket = _ticketService.Find(ticketId);
+            ticket.LastModificationTime = DateTime.Now;
+            ticket.LastModifierUserId = userId;
+            ticket.Status = Enums.TicketStatus.Completed;
+            _ticketService.Update(ticket);
+            SaveChanges();
+            AddTicketLog(ticketId, Enums.TicketStatus.Completed, userId);
         }
         public void RejectTicket(long userId, long ticketId,string comment)
         {
@@ -215,8 +242,24 @@ namespace OperationSurvey.BLL.Services
             ticket.RejectionComment = comment;
             _ticketService.Update(ticket);
             SaveChanges();
+            AddTicketLog(ticketId, Enums.TicketStatus.Rejected, userId);
         }
 
+        private void AddTicketLog(long ticketId, Enums.TicketStatus status,long userId)
+        {
+            TicketLog log = new TicketLog();
+            log.DateTime = DateTime.Now;
+            log.TicketId = ticketId;
+            log.Status = status;
+            log.UserId = userId;
+            _ticketLogService.Insert(log);
+            SaveChanges();
+        }
+
+        public List<TicketLogDto> GetTicketLogs(long ticketId)
+        {
+            return Mapper.Map<List<TicketLogDto>>(_ticketLogService.Query(x => x.TicketId == ticketId).Select().ToList());
+        }
         public List<TicketDashboard> GetTicketDashboard(long tenantId,string xAxis,
             long countryId, long regionId, long cityId , long areaId, long departmentId,
             long categoryId, long branchId, string from, string to, long technasianId, long branchManagerId, string status)
@@ -256,6 +299,8 @@ namespace OperationSurvey.BLL.Services
                         InProgressCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.InProgress),
                         ClosedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Closed),
                         RejectedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Rejected),
+                        ReassignedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Reassigned),
+                        CompletedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Completed),
                     }).ToList();
             }
             else if (xAxis.ToLower() == "area")
@@ -271,6 +316,8 @@ namespace OperationSurvey.BLL.Services
                         InProgressCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.InProgress),
                         ClosedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Closed),
                         RejectedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Rejected),
+                        ReassignedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Reassigned),
+                        CompletedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Completed),
                     }).ToList();
             }
             else if (xAxis.ToLower() == "city")
@@ -286,6 +333,8 @@ namespace OperationSurvey.BLL.Services
                         InProgressCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.InProgress),
                         ClosedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Closed),
                         RejectedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Rejected),
+                        ReassignedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Reassigned),
+                        CompletedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Completed),
                     }).ToList();
             }
             else if (xAxis.ToLower() == "region")
@@ -301,6 +350,8 @@ namespace OperationSurvey.BLL.Services
                         InProgressCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.InProgress),
                         ClosedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Closed),
                         RejectedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Rejected),
+                        ReassignedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Reassigned),
+                        CompletedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Completed),
                     }).ToList();
             }
             else if (xAxis.ToLower() == "country")
@@ -316,6 +367,8 @@ namespace OperationSurvey.BLL.Services
                         InProgressCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.InProgress),
                         ClosedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Closed),
                         RejectedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Rejected),
+                        ReassignedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Reassigned),
+                        CompletedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Completed),
                     }).ToList();
             }
             else if (xAxis.ToLower() == "department")
@@ -331,6 +384,8 @@ namespace OperationSurvey.BLL.Services
                         InProgressCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.InProgress),
                         ClosedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Closed),
                         RejectedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Rejected),
+                        ReassignedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Reassigned),
+                        CompletedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Completed),
                     }).ToList();
             }
             else if (xAxis.ToLower() == "category")
@@ -346,6 +401,8 @@ namespace OperationSurvey.BLL.Services
                         InProgressCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.InProgress),
                         ClosedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Closed),
                         RejectedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Rejected),
+                        ReassignedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Reassigned),
+                        CompletedCount = x.tickets.Count(t => t.Status == Enums.TicketStatus.Completed),
                     }).ToList();
             }
 

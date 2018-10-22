@@ -14,5 +14,7 @@ namespace OperationSurvey.BLL.DTOs
         public long InProgressCount { get; set; }
         public long ClosedCount { get; set; }
         public long RejectedCount { get; set; }
+        public long ReassignedCount { get; set; }
+        public long CompletedCount { get; set; }
     }
 }

@@ -48,6 +48,10 @@
       <HintPath>..\packages\AutoMapper.5.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FileDb, Version=6.1.0.0, Culture=neutral, PublicKeyToken=ba3f58a0e60cd01d, processorArchitecture=MSIL">
       <HintPath>..\packages\XAML.MapControl.2.13.0\lib\net45\FileDb.dll</HintPath>
       <Private>True</Private>
@@ -271,6 +275,7 @@
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\RegionsController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
+    <Compile Include="Controllers\TicketSchedulerController.cs" />
     <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Controllers\AnswerController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
@@ -284,7 +289,9 @@
     <Compile Include="Models\CityModel.cs" />
     <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\RegionModel.cs" />
+    <Compile Include="Models\TicketLogModel.cs" />
     <Compile Include="Models\TicketModel.cs" />
+    <Compile Include="Models\TicketSchedulerModel.cs" />
     <Compile Include="Models\UserConsumedModel.cs" />
     <Compile Include="Controllers\UserTypeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -321,6 +328,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />

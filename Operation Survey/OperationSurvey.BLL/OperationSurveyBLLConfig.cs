@@ -139,7 +139,10 @@ namespace OperationSurvey.BLL
             mapperConfiguration.CreateMap<CategoryType, CategoryTypeDto>()
                 .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.CategoryTypeTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
 
-
+            mapperConfiguration.CreateMap<TicketLog, TicketLogDto>()
+                .ForMember(dto => dto.User,m => m.MapFrom(src => src.User.FirstName + " " + src.User.LastName));
+            mapperConfiguration.CreateMap<TicketScheduler, TicketSchedulerDto>();
+            mapperConfiguration.CreateMap<TicketSchedulerDto, TicketScheduler>();
             Mapper.Initialize(mapperConfiguration);
         }
 
@@ -188,7 +191,9 @@ namespace OperationSurvey.BLL
                 .RegisterType<ICityTranslationService, CityTranslationService>(new PerResolveLifetimeManager())
                 .RegisterType<ICategoryTypeTranslationService, CategoryTypeTranslationService>(new PerResolveLifetimeManager())
                 .RegisterType<ICategoryTypeService, CategoryTypeService>(new PerResolveLifetimeManager())
-                .RegisterType<ICategoryTypeCategoryService, CategoryTypeCategoryService>(new PerResolveLifetimeManager());
+                .RegisterType<ICategoryTypeCategoryService, CategoryTypeCategoryService>(new PerResolveLifetimeManager())
+                .RegisterType<ITicketLogService, TicketLogService>(new PerResolveLifetimeManager())
+                .RegisterType<ITicketSchedulerService, TicketSchedulerService>(new PerResolveLifetimeManager());
         }
 
     }

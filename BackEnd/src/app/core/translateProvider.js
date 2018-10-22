@@ -173,7 +173,19 @@
         "NewcategoryTypeLbl":"New category type",
         "allUsers":"All users",
         "AnswererdBy":"answered By",
-        "NocategoryTypesAvailable":"There is no category types available"
+        "NocategoryTypesAvailable":"There is no category types available",
+        "Priority":"Priority",
+        "Critical":"Critical",
+        "High":"High",
+        "Medium":"Medium",
+        "Low":"Low",
+        "Reassigned":"Reassigned",
+        "Completed":"Completed",
+        "ReassignedBtn":"Reassigned to",
+        "CompleteBtn":"Complete",
+        "history":"History",
+        "modifyBy":"Modify by",
+        "modifyTime":"Modification date"
         
       }
 
@@ -352,7 +364,19 @@
         "NewcategoryTypeLbl":"نوع فئة جديد",
         "allUsers":"كل المستخدميين",
         "AnswererdBy":"أجاب بواسطة",
-        "NocategoryTypesAvailable":"لايوجد نوع فئة متاحة"
+        "NocategoryTypesAvailable":"لايوجد نوع فئة متاحة",
+        "Priority":"أفضلية",
+        "Critical":"حرج",
+        "High":"هام",
+        "Medium":"متوسط",
+        "Low":"منخفض",
+        "Reassigned":"إعادة تعيين",
+        "Completed":"منتهى",
+        "ReassignedBtn":"إعادة تعيين ل",
+        "CompleteBtn":"اكتمال",
+        "history":"سجل",
+        "modifyBy":"تعديل بواسطة",
+        "modifyTime":"تاريخ التعديل"
       }
 
       $translateProvider.translations('en', en_translations);

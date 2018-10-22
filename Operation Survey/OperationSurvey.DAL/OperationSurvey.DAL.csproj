@@ -91,6 +91,8 @@
     <Compile Include="Entities\Model\RegionTranslation.cs" />
     <Compile Include="Entities\Model\RolePermission.cs" />
     <Compile Include="Entities\Model\Ticket.cs" />
+    <Compile Include="Entities\Model\TicketLog.cs" />
+    <Compile Include="Entities\Model\TicketScheduler.cs" />
     <Compile Include="Entities\Model\UserBranch.cs" />
     <Compile Include="Entities\Model\UserCategory.cs" />
     <Compile Include="Entities\Model\UserRole.cs" />

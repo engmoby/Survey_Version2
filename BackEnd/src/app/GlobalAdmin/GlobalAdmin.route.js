@@ -95,6 +95,9 @@
                     templateUrl: './app/GlobalAdmin/categoryType/templates/new.html',
                     controller: 'createDialogController',
                     'controllerAs': 'newcategoryTypeCtrl',
+                    resolve:{
+                        allEmailsPrepService: allEmailsPrepService
+                    },
                     data: {
                         permissions: {
                             only: ['2'],
@@ -109,7 +112,8 @@
                     controller: 'editDialogController',
                     'controllerAs': 'editcategoryTypeCtrl',
                     resolve: {
-                        categoryTypeByIdPrepService: categoryTypeByIdPrepService
+                        categoryTypeByIdPrepService: categoryTypeByIdPrepService,
+                        allEmailsPrepService: allEmailsPrepService
                     },
                     data: {
                         permissions: {
@@ -527,7 +531,8 @@
                     controller: 'TicketDetailsController',
                     'controllerAs': 'ticketDetailsCtrl',
                     resolve: {
-                        TicketPrepService: TicketPrepService
+                        TicketPrepService: TicketPrepService,
+                        TicketLogsPrepService: TicketLogsPrepService                        
 
                     },
                     data: {
@@ -544,7 +549,7 @@
                     'controllerAs': 'dashboardCtrl',
                     resolve: {
                         TicketDashboardPrepService: TicketDashboardPrepService,
-                        AnswerQuestionPrepService: AnswerQuestionPrepService,
+                        AnswerQuestionPrepService: AnswerQuestionDashBoardPrepService,
                         allcategoryTypePrepService:allcategoryTypePrepService,
                         CountriesPrepService:CountriesPrepService,
                         BranchManagerPrepService:BranchManagerPrepService,
@@ -592,7 +597,10 @@
     function categoryTypeByIdPrepService(categoryTypeResource, $stateParams) {
         return categoryTypeResource.getcategoryType({ categoryTypeId: $stateParams.categoryTypeId }).$promise;
     }
-
+    allEmailsPrepService.$inject = ['UserResource']
+    function allEmailsPrepService(UserResource) {
+        return UserResource.GetAllEmails().$promise;
+    }
     /*Role */
     RolePrepService.$inject = ['RoleResource']
     function RolePrepService(RoleResource) {
@@ -671,6 +679,10 @@
         return AnswerQuestionResource.getAllQuestions().$promise;
     }
 
+    AnswerQuestionDashBoardPrepService.$inject = ['AnswerQuestionResource']
+    function AnswerQuestionDashBoardPrepService(AnswerQuestionResource) {
+        return AnswerQuestionResource.getAllQuestions({pageName:'dashboard'}).$promise;
+    }
 
 
 
@@ -693,6 +705,11 @@
     TicketPrepService.$inject = ['TicketResource', '$stateParams']
     function TicketPrepService(TicketResource, $stateParams) {
         return TicketResource.getTicket({ ticketId: $stateParams.ticketId }).$promise;
+    }
+
+    TicketLogsPrepService.$inject = ['TicketResource', '$stateParams']
+    function TicketLogsPrepService(TicketResource, $stateParams) {
+        return TicketResource.getTicketLogs({ ticketId: $stateParams.ticketId }).$promise;
     }
 
     UserAreaPrepService.$inject = ['UserResource']

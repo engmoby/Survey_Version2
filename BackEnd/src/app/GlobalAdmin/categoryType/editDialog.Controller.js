@@ -4,12 +4,15 @@
     angular
         .module('home')
         .controller('editDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate', 'categoryTypeResource', 'ToastService',
-            'categoryTypeByIdPrepService', editDialogController])
+            'categoryTypeByIdPrepService','allEmailsPrepService', editDialogController])
 
-    function editDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, categoryTypeResource, ToastService, categoryTypeByIdPrepService) {
+    function editDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, categoryTypeResource, ToastService,
+         categoryTypeByIdPrepService,allEmailsPrepService) {
 		var vm = this; 
 		vm.language = appCONSTANTS.supportedLanguage;
         vm.categoryType = categoryTypeByIdPrepService;
+        vm.users = allEmailsPrepService;
+        vm.categoryType.emails = vm.categoryType.emails!=null?vm.categoryType.emails.split(';'):vm.categoryType.emails
         console.log(vm.product);
         vm.Close = function () {
             $state.go('categoryType');
@@ -20,7 +23,12 @@
             updateObj.categoryTypeId = vm.categoryType.categoryTypeId;
             updateObj.titleDictionary = vm.categoryType.titleDictionary;
 		    updateObj.IsDeleted = false;
-		    updateObj.IsStatic = false;
+            updateObj.IsStatic = false;
+            
+            updateObj.type =  vm.categoryType.type; 
+            updateObj.time =  vm.categoryType.time; 
+            updateObj.emails =  vm.categoryType.emails.toString().replace(new RegExp(',', 'g'), ';');
+            updateObj.body =  vm.categoryType.body;
 		    updateObj.$update().then(
                 function (data, status) {
                     blockUI.stop();                    

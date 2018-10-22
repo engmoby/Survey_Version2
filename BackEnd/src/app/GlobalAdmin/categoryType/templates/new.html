@@ -3,15 +3,15 @@
         <h2 class="pmd-card-title-text">{{'NewcategoryTypeLbl' | translate}}</h2>
     </div>
     <div class="modal-body">
-        <form class="form-horizontal" name="newTypeForm"> 
-            <div> 
+        <form class="form-horizontal" name="newTypeForm">
+            <div>
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in newcategoryTypeCtrl.language">
                         <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">
                             {{lang.value | translate}}
                         </a>
-                    </li> 
+                    </li>
                 </ul>
                 <div class="pmd-card">
                     <div class="pmd-card-body">
@@ -20,9 +20,10 @@
                             <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in newcategoryTypeCtrl.language" id="{{lang.value}}-form">
                                 <div class="form-group pmd-textfield pmd-textfield-floating-label">
                                     <label for="first-name"> {{ lang.value+'Name' | translate}} </label>
-                                    <input required type="text" class="mat-input form-control" name="titleDictionary{{lang.value+'Name'}}" ng-model="newcategoryTypeCtrl.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="40">
-                                    <div ng-messages="newTypeForm.titleDictionary{{lang.value+'Name'}}.$error" >
-										
+                                    <input required type="text" class="mat-input form-control" name="titleDictionary{{lang.value+'Name'}}" ng-model="newcategoryTypeCtrl.titleDictionary[lang.key]"
+                                        ng-minlength="3" ng-maxlength="40">
+                                    <div ng-messages="newTypeForm.titleDictionary{{lang.value+'Name'}}.$error">
+
                                         <div ng-show="newTypeForm.titleDictionary{{lang.value+'Name'}}.$error.required && !newTypeForm.titleDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr' | translate}}</div>
                                         <div ng-show="(newTypeForm.titleDictionary{{lang.value+'Name'}}.$error.minlength || newTypeForm.titleDictionary{{lang.value+'Name'}}.$error.maxlength) && !newTypeForm.titleDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError' | translate}}</div>
                                     </div>
@@ -31,7 +32,43 @@
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
+            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                <label for="first-name">{{'typeOptinal' | translate}}</label>
+                <select class="form-control select-with-search pmd-select2-tags" ng-model="newcategoryTypeCtrl.type">
+                    <option value="daily">{{'daily' | translate}}</option>
+                    <option value="weekly">{{'weekly'|translate}}</option>
+                    <option value="monthly">{{'monthly'|translate}}</option>
+                    <option value="yearly">{{'yearly'|translate}}</option>
+                </select>
+            </div>
+            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                <label for="first-name"> {{ 'timeOptinal' | translate}} </label>
+                <input type="number" class="mat-input form-control" min="1" name="time" ng-model="newcategoryTypeCtrl.time">
+                <div ng-messages="newTypeForm.time.$error">
+                    <div ng-show="newTypeForm.time.$error.required && !newTypeForm.time.$pristine">{{'requiredErr' | translate}}</div>
+                </div>
+            </div>
+
+            <!-- </div> -->
+            <div ng-show="newcategoryTypeCtrl.type !=null && newcategoryTypeCtrl.time!=null" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                <label for="first-name">{{'Users' | translate}}</label>
+                <select ng-required="newcategoryTypeCtrl.type !=null && newcategoryTypeCtrl.time!=null" style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="newcategoryTypeCtrl.emails"
+                    ng-options="user as user for user in newcategoryTypeCtrl.users" name="email" ng-patterns='/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i'></select>
+                <div ng-messages="newTypeForm.email.$error">
+                    <div ng-if="!newTypeForm.email.$error.required && newTypeForm.email.$error.pattern">{{'invalidEmail' | translate}}</div>
+
+                </div>
+
+            </div>
+
+            <div class="form-group pmd-textfield pmd-textfield-floating-label" ng-show="newcategoryTypeCtrl.type !=null && newcategoryTypeCtrl.time!=null">
+                <!-- <label for="first-name"> {{ 'time' | translate}} </label> -->
+                <textarea ng-model="newcategoryTypeCtrl.body" ng-required="newcategoryTypeCtrl.type !=null && newcategoryTypeCtrl.time!=null" name="body"></textarea>
+                <div ng-messages="newTypeForm.body.$error">
+                    <div ng-show="newTypeForm.body.$error.required && !newTypeForm.body.$pristine">{{'requiredErr' | translate}}</div>
+                </div>
+            </div>
         </form>
     </div>
     <div class="pmd-modal-action text-right">
@@ -39,3 +76,13 @@
         <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="$state.go('categoryType');">{{'DiscardBtn' | translate}}</button>
     </div>
 </div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select-add-tags").select2({
+            tags: true,
+            theme: "bootstrap"
+        });
+    });
+</script>
