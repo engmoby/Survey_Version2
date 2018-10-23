@@ -125,7 +125,7 @@ namespace OperationSurvey.BLL.Services
         {
             var user = _userService.Find(userId);
             return user.AreaId.HasValue
-                ? _areaService.GetAllAreas(user.Area.City.Region.CountryId, 1, 0, user.TenantId)
+                ? _areaService.GetAllAreas(user.Area.CityId.Value, 1, 0, user.TenantId)
                 : new PagedResultsDto();
 
         }

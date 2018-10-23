@@ -95,7 +95,7 @@ namespace OperationSurvey.BLL.Services
             return cityDto;
 
         }
-
+           
         public PagedResultsDto GetAllCities(long regionId, int page, int pageSize, int tenantId)
         {
             return _cityService.GetAllCities(regionId, page, pageSize, tenantId);
@@ -103,7 +103,7 @@ namespace OperationSurvey.BLL.Services
         public PagedResultsDto GetAllCitiesForUser(long userId)
         {
             var user = _userService.Find(userId);
-            return user.AreaId.HasValue ? _cityService.GetAllCities(user.Area.City.Region.CountryId, 1, 0, user.TenantId) : new PagedResultsDto();
+            return user.AreaId.HasValue ? _cityService.GetAllCities(user.Area.City.RegionId, 1, 0, user.TenantId) : new PagedResultsDto();
         }
     }
 }
