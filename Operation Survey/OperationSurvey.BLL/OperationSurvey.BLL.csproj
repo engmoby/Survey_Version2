@@ -119,6 +119,8 @@
     <Compile Include="DataServices\Interfaces\IAnswerDetailsService.cs" />
     <Compile Include="DataServices\Interfaces\IRegionService.cs" />
     <Compile Include="DataServices\Interfaces\IRegionTranslationService.cs" />
+    <Compile Include="DataServices\Interfaces\ITicketLogService.cs" />
+    <Compile Include="DataServices\Interfaces\ITicketSchedulerService.cs" />
     <Compile Include="DataServices\Interfaces\ITicketService.cs" />
     <Compile Include="DataServices\Interfaces\IUserBranchService.cs" />
     <Compile Include="DataServices\Interfaces\IUserCategoryService.cs" />
@@ -157,6 +159,8 @@
     <Compile Include="DataServices\AnswerDetailsService.cs" />
     <Compile Include="DataServices\RegionService.cs" />
     <Compile Include="DataServices\RegionTranslationService.cs" />
+    <Compile Include="DataServices\TicketLogService.cs" />
+    <Compile Include="DataServices\TicketSchedulerService.cs" />
     <Compile Include="DataServices\TicketService.cs" />
     <Compile Include="DataServices\UserBranchService.cs" />
     <Compile Include="DataServices\UserCategoryService.cs" />
@@ -193,6 +197,8 @@
     <Compile Include="DTOs\RegionDto.cs" />
     <Compile Include="DTOs\TicketDashboard.cs" />
     <Compile Include="DTOs\TicketDto.cs" />
+    <Compile Include="DTOs\TicketLogDto.cs" />
+    <Compile Include="DTOs\TicketSchedulerDto.cs" />
     <Compile Include="DTOs\UserConsumed.cs" />
     <Compile Include="DTOs\UserNameDto.cs" />
     <Compile Include="DTOs\UserRoleDto.cs" />
@@ -210,6 +216,7 @@
     <Compile Include="Services\Interfaces\ICategoryTypeFacade.cs" />
     <Compile Include="Services\Interfaces\ICityFacade.cs" />
     <Compile Include="Services\Interfaces\ICountryFacade.cs" />
+    <Compile Include="Services\Interfaces\ITicketSchedulerFacade.cs" />
     <Compile Include="Services\Interfaces\IQuestionFacade.cs" />
     <Compile Include="Services\Interfaces\IRegionFacade.cs" />
     <Compile Include="Services\Interfaces\ITicketFacade.cs" />
@@ -239,6 +246,7 @@
     <Compile Include="Services\AreaFacade.cs" />
     <Compile Include="Services\BranchFacade.cs" />
     <Compile Include="Services\TicketFacade.cs" />
+    <Compile Include="Services\TicketSchedulerFacade.cs" />
     <Compile Include="Services\UserTypeFacade.cs" />
     <Compile Include="Services\UserFacade.cs" />
     <Compile Include="OperationSurveyBLLConfig.cs" />

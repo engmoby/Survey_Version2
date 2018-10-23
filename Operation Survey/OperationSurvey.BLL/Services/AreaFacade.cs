@@ -45,7 +45,7 @@ namespace OperationSurvey.BLL.Services
             {
                 return EditArea(areaDto, userId, tenantId);
             }
-            ValidateArea(areaDto, tenantId);
+            ValidateArea(areaDto, tenantId, areaDto.CityId);
             var areaObj = Mapper.Map<Area>(areaDto);
             foreach (var areaName in areaDto.TitleDictionary)
             {
@@ -71,7 +71,7 @@ namespace OperationSurvey.BLL.Services
             var areaObj = _areaService.Query(x => x.AreaId == areaDto.AreaId && x.TenantId == tenantId).Select()
                 .FirstOrDefault();
             if (areaObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
-            ValidateArea(areaDto, tenantId);
+            ValidateArea(areaDto, tenantId,areaDto.CityId);
             foreach (var areaName in areaDto.TitleDictionary)
             {
                 var areaTranslation = areaObj.AreaTranslations.FirstOrDefault(
@@ -109,14 +109,14 @@ namespace OperationSurvey.BLL.Services
             return Mapper.Map<AreaDto>(_userService.Find(userId).Area);
         }
 
-        private void ValidateArea(AreaDto areaDto, long tenantId)
+        private void ValidateArea(AreaDto areaDto, long tenantId, long cityId)
         {
             foreach (var name in areaDto.TitleDictionary)
             {
                 if (name.Value.Length > 300)
                     throw new ValidationException(ErrorCodes.MenuNameExceedLength);
 
-                if (_typeTranslationService.CheckNameExist(name.Value, name.Key, areaDto.AreaId, tenantId))
+                if (_typeTranslationService.CheckNameExist(name.Value, name.Key, areaDto.AreaId, tenantId,cityId))
                     throw new ValidationException(ErrorCodes.NameIsExist);
             }
         }

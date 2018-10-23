@@ -30,14 +30,14 @@ namespace OperationSurvey.BLL.Services
         {
             return Mapper.Map<CityDto>(_cityService.Query(x => x.CityId == cityId).Select().FirstOrDefault());
         }
-        private void ValidateCity(CityDto cityDto, long tenantId)
+        private void ValidateCity(CityDto cityDto, long tenantId, long regionId)
         {
             foreach (var name in cityDto.TitleDictionary)
             {
                 if (name.Value.Length > 300)
                     throw new ValidationException(ErrorCodes.MenuNameExceedLength);
 
-                if (_cityTranslationService.CheckNameExist(name.Value, name.Key, cityDto.CityId, tenantId))
+                if (_cityTranslationService.CheckNameExist(name.Value, name.Key, cityDto.CityId, tenantId,regionId))
                     throw new ValidationException(ErrorCodes.NameIsExist);
             }
         }
@@ -47,7 +47,7 @@ namespace OperationSurvey.BLL.Services
             {
                 return EditCity(cityDto, userId, tenantId);
             }
-            ValidateCity(cityDto, tenantId);
+            ValidateCity(cityDto, tenantId,cityDto.RegionId);
             var city = Mapper.Map<City>(cityDto);
             foreach (var name in cityDto.TitleDictionary)
             {
@@ -70,7 +70,7 @@ namespace OperationSurvey.BLL.Services
         {
             var city = _cityService.Query(x => x.CityId == cityDto.CityId).Select().FirstOrDefault();
             if (city == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
-            ValidateCity(cityDto, tenantId);
+            ValidateCity(cityDto, tenantId, cityDto.RegionId);
             foreach (var name in cityDto.TitleDictionary)
             {
                 var cityTranslation = city.CityTranslations.FirstOrDefault(x => x.Language.ToLower() == name.Key.ToLower()

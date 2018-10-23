@@ -50,6 +50,8 @@
                 <option value="InProgress">{{'InProgress'|translate}}</option>
                 <option value="Closed">{{'Closed'|translate}}</option>
                 <option value="Rejected">{{'Rejected'|translate}}</option>
+                <option value="Reassigned">{{'Reassigned'|translate}}</option>
+                <option value="Completed">{{'Completed'|translate}}</option>
             </select>
         </div>
 
@@ -128,6 +130,7 @@
                     <th>{{'Name' | translate}}</th>
                     <th>{{'descLbl' | translate}}</th>
                     <th>{{'CategoryLbl' | translate}}</th>
+                    <th>{{'Priority' | translate}}</th>
                     <th>{{'status' | translate}}</th>
                     <th></th>
                 </tr>
@@ -137,27 +140,39 @@
                     <td data-title="Name" style="width:15%">{{ticket.title}}</td>
                     <td style="width:20%">{{ticket.description | limitTo :50}}</td>
                     <td>{{ticket.categoryTitleDictionary[selectedLanguage]}}</td>
+
+                    <td>{{ticket.priority| translate}}</td>
                     <td>{{ticket.status | translate}}
                         <span ng-if="ticket.status === 'Assigned' || ticket.status === 'Closed' || ticket.status === 'Rejected' || ticket.status === 'InProgress'">{{ticket.assignedUser}}</span>
                     </td>
+
                     <td>
                         <button ng-click="$state.go('TicketDetails',{ticketId: ticket.ticketId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
                             type="button">{{'DetailsBtn' | translate}}</button>
                         <button ng-click="ticket.showAssign= true;ticket.assignedUserId ='0';" ng-if="ticket.status === 'Pending' && !ticket.showAssign && ticketsCtrl.user.userTypeId == '2'"
                             class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AssignedBtn' | translate}}</button>
-                        <button ng-click="ticketsCtrl.approveTicket(ticket.ticketId)" class="btn pmd-ripple-effect btn-primary pmd-z-depth" ng-if="ticketsCtrl.user.userTypeId == '4' && ticket.status == 'Assigned' && !ticket.showReject"
+                        <button ng-click="ticket.showReAssign= true;ticket.assignedUserId ='0';" ng-if="ticket.status === 'Rejected' && !ticket.showReAssign && ticketsCtrl.user.userTypeId == '2'"
+                            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'ReassignedBtn' | translate}}</button>
+                        <button ng-click="ticketsCtrl.approveTicket(ticket.ticketId)" class="btn pmd-ripple-effect btn-primary pmd-z-depth" ng-if="ticketsCtrl.user.userTypeId == '4' &&(ticket.status == 'Assigned' || ticket.status == 'Reassigned') && !ticket.showReject"
                             type="button">{{'ApproveBtn' | translate}}</button>
-                        <button ng-click="ticketsCtrl.closeTicket(ticket.ticketId)" class="btn pmd-ripple-effect btn-primary pmd-z-depth" ng-if="ticketsCtrl.user.userTypeId == '4' && ticket.status == 'InProgress'"
+                        <button ng-click="ticketsCtrl.closeTicket(ticket.ticketId)" class="btn pmd-ripple-effect btn-primary pmd-z-depth" ng-if="(ticketsCtrl.user.userTypeId == '4' && ticket.status == 'InProgress' )||(ticket.status == 'Rejected' && ticketsCtrl.user.userTypeId == '2')"
                             type="button">{{'CloseBtn' | translate}}</button>
-                        <button ng-click="ticket.showReject = true;" class="btn pmd-ripple-effect btn-primary pmd-z-depth" ng-if="ticketsCtrl.user.userTypeId == '4' && ticket.status == 'Assigned' && !ticket.showReject "
+                        <button ng-click="ticket.showReject = true;" class="btn pmd-ripple-effect btn-primary pmd-z-depth" ng-if="ticketsCtrl.user.userTypeId == '4' &&(ticket.status == 'Assigned' || ticket.status == 'Reassigned') && !ticket.showReject "
                             type="button">{{'RejectBtn' | translate}}</button>
+                        <button ng-click="ticketsCtrl.completeTicket(ticket.ticketId)" class="btn pmd-ripple-effect btn-primary pmd-z-depth" ng-if="ticketsCtrl.user.userTypeId == '3' && ticket.status == 'Closed'"
+                            type="button">{{'CompleteBtn' | translate}}</button>
 
-                        <button ng-click="ticket.showAssign= true;ticketsCtrl.assignTicket(ticket.ticketId,ticket.assignedUserId,ticket.comment)"
+                        <button ng-click="ticket.showAssign= true;ticketsCtrl.assignTicket(ticket.ticketId,ticket.assignedUserId,ticket.assignComment)"
                             ng-disabled="ticket.assignedUserId <=0" ng-show="ticket.showAssign" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
                             type="button">{{'saveChangesBtn' | translate}}</button>
-                        <button ng-click="ticket.showAssign= false;" ng-show="ticket.showAssign" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+                        <button ng-click="ticket.showReAssign= true;ticketsCtrl.reassignTicket(ticket.ticketId,ticket.assignedUserId,ticket.assignComment)"
+                            ng-disabled="ticket.assignedUserId <=0" ng-show="ticket.showReAssign" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+                            type="button">{{'saveChangesBtn' | translate}}</button>
+                        <button ng-click=" ticket.showReAssign=false" ng-show="ticket.showReAssign" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
                             type="button">{{'DiscardBtn' | translate}}</button>
-                        <div ng-show="ticket.showAssign">
+                        <button ng-click="ticket.showAssign= false " ng-show="ticket.showAssign" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+                            type="button">{{'DiscardBtn' | translate}}</button>
+                        <div ng-show="ticket.showAssign || ticket.showReAssign">
                             <div class="form-group pmd-textfield pmd-textfield-floating-label">
                                 <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="createTicketCtrl.departmentChange()"
                                     ng-model="ticket.assignedUserId" ng-options="key as value for (key, value)  in ticket.technacianUsers">
@@ -165,13 +180,18 @@
                             </div>
                         </div>
 
-                        <button ng-click="ticket.showReject= true;ticketsCtrl.rejectTicket(ticket.ticketId,ticket.comment)" ng-disabled="ticket.comment==null || ticket.comment.trim().length<3"
+                        <button ng-click="ticket.showReject= true;ticketsCtrl.rejectTicket(ticket.ticketId,ticket.Comment)" ng-disabled="ticket.assignComment==null || ticket.assignComment.trim().length<3"
                             ng-show="ticket.showReject" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'saveChangesBtn' | translate}}</button>
                         <button ng-click="ticket.showReject= false;" ng-show="ticket.showReject" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
                             type="button">{{'DiscardBtn' | translate}}</button>
-                        <div ng-show="ticket.showReject || ticket.showAssign">
+                        <div ng-show="ticket.showAssign || ticket.showReAssign">
                             <div class="form-group pmd-textfield pmd-textfield-floating-label">
-                                <input required type="text" placeholder="{{'commentLbl'|translate}}" class="mat-input form-control" name="title" ng-model="ticket.comment">
+                                <input required type="text" placeholder="{{'commentLbl'|translate}}" class="mat-input form-control" name="title" ng-model="ticket.assignComment">
+                            </div>
+                        </div>
+                        <div ng-show="ticket.showReject ">
+                            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                <input required type="text" placeholder="{{'commentLbl'|translate}}" class="mat-input form-control" name="title" ng-model="ticket.Comment">
                             </div>
                         </div>
                     </td>

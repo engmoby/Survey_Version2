@@ -27,5 +27,10 @@ namespace OperationSurvey.DAL.Entities.Model
         public virtual ICollection<CategoryTypeCategory> CategoryTypeCategories { get; set; }
         public int? TenantId { get; set; }
 
+
+        public int Time { get; set; }
+        public string Type{ get; set; }
+        public string Emails { get; set; }
+        public string Body { get; set; }
     }
 }

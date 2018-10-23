@@ -134,6 +134,13 @@ namespace OperationSurvey.API.Controllers
             _ticketFacade.AssignedTicket(UserId,ticketId, assignedUserId, ticketModel.AssignComment);
             return Ok();
         }
+        [Route("api/Tickets/{ticketId:long}/ReAssigned/{assignedUserId:long}", Name = "ReAssignedTicket")]
+        [HttpPost]
+        public IHttpActionResult ReAssignedTicket(long ticketId, long assignedUserId, [FromBody] TicketModel ticketModel)
+        {
+            _ticketFacade.ReAssignedTicket(UserId, ticketId, assignedUserId, ticketModel.AssignComment);
+            return Ok();
+        }
 
         [Route("api/Tickets/{ticketId:long}/Approve", Name = "ApproveTicket")]
         [HttpGet]
@@ -151,12 +158,28 @@ namespace OperationSurvey.API.Controllers
             return Ok();
         }
 
+
+        [Route("api/Tickets/{ticketId:long}/Complete", Name = "CompleteTicket")]
+        [HttpGet]
+        public IHttpActionResult CompleteTicket(long ticketId)
+        {
+            _ticketFacade.CompleteTicket(UserId, ticketId);
+            return Ok();
+        }
         [Route("api/Tickets/{ticketId:long}/Reject", Name = "RejectTicket")]
         [HttpPost]
         public IHttpActionResult RejectTicket(long ticketId, [FromBody] TicketModel ticketModel)
         {
             _ticketFacade.RejectTicket(UserId, ticketId, ticketModel.RejectionComment);
             return Ok();
+        }
+
+        [Route("api/Tickets/{ticketId:long}/Logs", Name = "GetTicketLogs")]
+        [HttpGet]
+        public IHttpActionResult GetTicketLogs(long ticketId)
+        {
+            var results = Mapper.Map<List<TicketLogModel>>(_ticketFacade.GetTicketLogs(ticketId));
+            return Ok(results);
         }
 
         //[Route("api/Tickets/{ticketId:long}/Technacian", Name = "AssignedTicket")]

@@ -22,5 +22,9 @@ namespace OperationSurvey.BLL.Services.Interfaces
         List<UserDto> GetTechnacianForTicket(long ticketId);
         List<TicketDashboard> GetTicketDashboard(long tenantId,string xAxis,long countryId, long regionId, long cityId, long areaId, long departmentId,
         long categoryId, long branchId, string from, string to, long technasianId, long branchManagerId, string status);
+
+        void ReAssignedTicket(long userId, long ticketId, long assignedUserId, string assignComment);
+        void CompleteTicket(long userId, long ticketId);
+        List<TicketLogDto> GetTicketLogs(long ticketId);
     }
 }

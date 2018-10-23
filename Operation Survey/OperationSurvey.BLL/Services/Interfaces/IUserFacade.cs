@@ -18,5 +18,6 @@ namespace OperationSurvey.BLL.Services.Interfaces
         UserConsumed GetMaxAndConsumedUsers(long tenantId);
         PagedResultsDto GetAllUsersByType(int TenantId,string type);
         List<UserNameDto> GetAllUsersWhoAnswer(long tenantId);
+        List<string> GetAllEmails(long tenantId);
     }
 }

@@ -30,6 +30,17 @@
                     ng-model="createTicketCtrl.selectedCategoryId" ng-options="a.categoryId as a.titleDictionary[selectedLanguage] for a in createTicketCtrl.categoryList"></select>
             </div>
 
+            
+            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                <label for="first-name">{{'Priority' | translate}}</label>
+                <select class="form-control select-with-search pmd-select2-tags" ng-model="createTicketCtrl.selectedPriority">
+                    <option value="Critical">{{'Critical' | translate}}</option>
+                    <option value="High">{{'High' | translate}}</option>
+                    <option value="Medium">{{'Medium' | translate}}</option>
+                    <option value="Low">{{'Low' | translate}}</option>
+                </select>
+                
+            </div>
             <div class="form-group pmd-textfield pmd-textfield-floating-label">
                 <label for="first-name"> {{ 'titleLbl' | translate}} </label>
                 <input required type="text" class="mat-input form-control" name="title" ng-model="createTicketCtrl.title" ng-minlength="3" ng-maxlength="255">

@@ -20,5 +20,9 @@ namespace OperationSurvey.BLL.DTOs
         public DateTime? DeletionTime { get; set; }
         public long? DeleterUserId { get; set; }
         public int? TenantId { get; set; }
+        public int Time { get; set; }
+        public string Type { get; set; }
+        public string Emails { get; set; }
+        public string Body { get; set; }
     }
 }

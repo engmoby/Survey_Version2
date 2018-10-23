@@ -10,6 +10,6 @@ namespace OperationSurvey.BLL.DataServices.Interfaces
 {
     public interface ICityTranslationService:IService<CityTranslation>
     {
-        bool CheckNameExist(string objName, string language, long recordId, long tenantId);
+        bool CheckNameExist(string objName, string language, long recordId, long tenantId, long regionId);
     }
 }

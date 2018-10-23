@@ -10,6 +10,6 @@ namespace OperationSurvey.BLL.DataServices.Interfaces
         PagedResultsDto GetAllBranchsTranslation(string language);
         PagedResultsDto GetBranchTranslationByBranchId(string language, long branchId);
         BranchDto BranchTranslationByBranchId(string language, long branchId);
-        bool CheckNameExist(string objName, string language, long recordId, long tenantId);
+        bool CheckNameExist(string objName, string language, long recordId, long tenantId, long areaId);
     }
 }

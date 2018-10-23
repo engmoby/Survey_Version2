@@ -474,5 +474,10 @@ namespace OperationSurvey.BLL.Services
                 .Query(x => x.Role.RolePermissions.Where(p => p.TenantId == tenantId).Select(p => p.PermissionId)
                                 .Contains(7) && x.User.TenantId == tenantId).Select(u => u.User).Distinct().ToList());
         }
+
+        public List<string> GetAllEmails(long tenantId)
+        {
+            return _userService.Query(x => x.TenantId == tenantId && x.IsActive && !x.IsDeleted).Select(x => x.Email).ToList();
+        }
     }
 }

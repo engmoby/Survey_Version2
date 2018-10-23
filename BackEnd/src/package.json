@@ -22,12 +22,15 @@
     "angular-ui-event": "^1.0.0",
     "angular-ui-router": "1.0.0",
     "angular-utils-ui-breadcrumbs": "^0.2.2-1",
+    "canvg": "^1.5.3",
     "gulp-install": "^1.1.0",
+    "html2canvas": "^1.0.0-alpha.12",
     "lodash": "4.6.1",
     "modalmddatepicker": "^1.0.13",
     "ngprogress-lite": "^1.0.8",
     "ngstorage": "^0.3.10",
-    "optipng-bin": "^3.1.2"
+    "optipng-bin": "^3.1.2",
+    "pdfmake": "^0.1.38"
   },
   "devDependencies": {
     "add-stream": "^1.0.0",

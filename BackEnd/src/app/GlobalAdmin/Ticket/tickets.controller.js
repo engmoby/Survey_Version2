@@ -270,6 +270,18 @@
                     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
                 });
         }
+        vm.reassignTicket = function (ticketId, assignedUserId, comment) {
+            var newObj = new TicketResource();
+            newObj.assignComment = comment;
+            newObj.$reassigned({ ticketId: ticketId, assignedUserId: assignedUserId }).then(function (results) {
+                refreshTickets();
+            },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
         vm.approveTicket = function (ticketId) {
             TicketResource.approve({ ticketId: ticketId }).$promise.then(function (results) {
                 refreshTickets();
@@ -294,6 +306,16 @@
             var newObj = new TicketResource();
             newObj.RejectionComment = comment;
             newObj.$reject({ ticketId: ticketId }).then(function (results) {
+                refreshTickets();
+            },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+        vm.completeTicket = function (ticketId) {
+            TicketResource.complete({ ticketId: ticketId }).$promise.then(function (results) {
                 refreshTickets();
             },
                 function (data, status) {

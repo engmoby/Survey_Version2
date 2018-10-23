@@ -1,0 +1,41 @@
+<!-- <div style="cursor: pointer;    background-color: #ccc;">
+    <h1 style="padding: 4px" ng-init="showTicket = false" ng-click="showTicket=!showTicket">
+        {{'Tickets' | translate}}
+    </h1>
+</div> ng-show="showTicket" -->
+<div>
+    <div style="margin-bottom:10px">
+        <button ng-click="$state.go('newTicketConfig');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddNew' | translate}}</button>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="configCtrl.tickets.length > 0">
+        <div class="table-responsive"></div>
+        <table class="table pmd-table table-hover">
+            <thead>
+                <tr>
+                    <th>{{'status' | translate}}</th>
+                    <th>{{'Users' | translate}}</th>
+                    <th>{{'Time' | translate}}</th>
+                    <th>{{'IsAcive' | translate}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="ticket in configCtrl.tickets">
+                    <td data-title="Name">{{ticket.status |translate}}</td>
+                    <td data-title="Name">{{ticket.emails}}</td>
+                    <td data-title="Name">{{ticket.time}}</td>
+                    <td data-title="Name">
+                        <a href="javaScript:void(0)" ng-click="configCtrl.changeActive(ticket)">
+                            {{ticket.isActive}}
+                        </a>
+                    </td>
+
+                    <td width="30%">
+                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editTicketConfig',{Id: ticket.id});">mode_edit</i>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

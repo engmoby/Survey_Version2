@@ -88,6 +88,7 @@ namespace OperationSurvey.Common.CustomException
         UserTypeNotFound,
         NameIsExist,
         PackageExpired,
-        PackageNotActivated
+        PackageNotActivated,
+        StatusAlreadyExist
     }
 }

@@ -264,6 +264,7 @@
     <div class="row" style="padding-bottom: 5px;">
         <div class="col-md-2 ">
             <button ng-click="dashboardCtrl.applySurveyFilter()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'filterBtn' | translate}}</button>
+            <!-- <button ng-click="dashboardCtrl.exportPDF()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'exportPDFBtn' | translate}}</button> -->
         </div>
         <span ng-show="!showMoreFilterSurvey" ng-click="showMoreFilterSurvey = !showMoreFilterSurvey" style="cursor: pointer">{{'moreFilter'|translate}}</span>
         <span ng-show="showMoreFilterSurvey" ng-click="showMoreFilterSurvey = !showMoreFilterSurvey" style="cursor: pointer">{{'lessFilter'|translate}}</span>
@@ -272,7 +273,8 @@
     <div ng-show="dashboardCtrl.questionList.length<=0">
         <span>{{'NoQuestionsAvailable' | translate}}</span>
     </div>
-    <ul>
+
+    <ul id="surveyDiv">
 
         <li ng-repeat="(k,v) in dashboardCtrl.questionList| groupBy: 'categoryId'">
             <div style="cursor: pointer;    background-color: #ccc;">
@@ -350,4 +352,5 @@
             </ul>
         </li>
     </ul>
+<canvas id="cc"></canvas>
 </div>

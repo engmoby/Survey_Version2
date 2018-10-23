@@ -46,5 +46,7 @@ namespace OperationSurvey.API.Models
         public List<string> ImagesURL { get; set; }
 
         public Dictionary<long, string> TechnacianUsers { get; set; }
+        public string Priority { get; set; }
+
     }
 }

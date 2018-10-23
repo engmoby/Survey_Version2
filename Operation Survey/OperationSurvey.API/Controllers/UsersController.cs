@@ -165,6 +165,14 @@ namespace OperationSurvey.API.Controllers
             var results = _userFacade.GetAllUsersWhoAnswer(TenantId);
             return Ok(results);
         }
+
+        [Route("api/Users/Emails", Name = "GetAllEmails")]
+        [HttpGet]
+        public IHttpActionResult GetAllEmails()
+        {
+            var results = _userFacade.GetAllEmails(TenantId);
+            return Ok(results);
+        }
     }
 
 }

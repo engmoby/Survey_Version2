@@ -88,6 +88,10 @@ namespace OperationSurvey.BLL.Services
             userTypeObj.LastModificationTime = Strings.CurrentDateTime;
             userTypeObj.LastModifierUserId = userId;
             userTypeObj.IsDeleted = categoryTypeDto.IsDeleted;
+            userTypeObj.Time = categoryTypeDto.Time;
+            userTypeObj.Type = categoryTypeDto.Type;
+            userTypeObj.Emails = categoryTypeDto.Emails;
+            userTypeObj.Body = categoryTypeDto.Body;
             _categoryTypeService.Update(userTypeObj);
             SaveChanges();
             return categoryTypeDto;

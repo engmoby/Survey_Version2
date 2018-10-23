@@ -216,11 +216,11 @@ namespace OperationSurvey.BLL.Services
         {
             return _questionService.GetAllQuestions(page, pageSize, tenantId);
         }
-        public PagedResultsDto GetAllQuestionsByUserId(int page, int pageSize, int userId, int tenantId, long departmentId , long categoryIdFilter,long catgoryTypeId)
+        public PagedResultsDto GetAllQuestionsByUserId(int page, int pageSize, int userId, int tenantId, long departmentId , long categoryIdFilter,long catgoryTypeId,string pageName)
         {
             var user = _userService.Find(userId);
             PagedResultsDto results = new PagedResultsDto();
-            if (user.IsStatic)
+            if (user.IsStatic || pageName == "dashboard")
             {
                 results = new PagedResultsDto();
                 results.TotalCount = _questionService.Query(x=>x.TenantId == tenantId && !x.IsDeleted).Select().Count();

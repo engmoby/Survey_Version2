@@ -47,6 +47,7 @@ namespace OperationSurvey.BLL.DTOs
         public string AssignComment { get; set; }
 
         public Dictionary<long, string> TechnacianUsers { get; set; }
+        public Enums.TicketPriority Priority { get; set; }
 
     }
 }

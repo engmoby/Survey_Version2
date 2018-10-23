@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -119,6 +120,7 @@ namespace OperationSurvey.API.Providers
         {
             var identity = new ClaimsIdentity(Strings.JWT);
             identity.AddClaim(new Claim(Strings.userName, user.FirstName));
+            identity.AddClaim(new Claim(ClaimTypes.Name, user.TenantId+"-"+user.FirstName+" " +user.LastName));
             identity.AddClaim(new Claim(Strings.userID, user.UserId.ToString()));
            identity.AddClaim(new Claim(Strings.TenantId, user.TenantId.ToString()));
             //identity.AddClaim(new Claim(Strings.PermissionId, string.Join(";", user.PermissionId)));
@@ -127,6 +129,9 @@ namespace OperationSurvey.API.Providers
             var props = new AuthenticationProperties(AuthProps(user));
 
             var ticket = new AuthenticationTicket(identity, props);
+            
+
+
             return ticket;
         }
         private Dictionary<string, string> AuthProps(UserDto user)

@@ -64,11 +64,13 @@
                 <span ng-if="ticketDetailsCtrl.ticket.status === 'Assigned' 
                 || ticketDetailsCtrl.ticket.status === 'Closed' 
                 || ticketDetailsCtrl.ticket.status === 'Rejected' 
-                || ticketDetailsCtrl.ticket.status === 'InProgress'">{{ticketDetailsCtrl.ticket.assignedUser}} {{ticketDetailsCtrl.ticket.technicianModificationTime}}</span>
+                || ticketDetailsCtrl.ticket.status === 'InProgress'">{{ticketDetailsCtrl.ticket.assignedUser}} 
+                    <span ng-show="ticketDetailsCtrl.ticket.technicianModificationTime != null">{{ticketDetailsCtrl.ticket.technicianModificationTime}}</span>
+                </span>
             </td>
         </tr>
         <tr ng-if="ticketDetailsCtrl.ticket.status === 'Rejected'">
-            <td>{{'commentLbl' | translate}}</td>
+            <td>{{'Tech'|translate}} {{'commentLbl' | translate}}</td>
             <td>{{ticketDetailsCtrl.ticket.rejectionComment}}</td>
         </tr>
 
@@ -81,15 +83,15 @@
             <td>{{ticketDetailsCtrl.ticket.creationTime}}</td>
         </tr>
         <tr >
-            <td>{{'commentLbl' | translate}}</td>
+            <td>{{'deptManager'|translate}} {{'commentLbl' | translate}}</td>
             <td>{{ticketDetailsCtrl.ticket.assignComment}}</td>
         </tr>
         <tr ng-if="ticketDetailsCtrl.ticket.status !== 'Pending'">
-            <td>{{'AssignedBy' | translate}}</td>
+            <td>{{'modifyBy' | translate}}</td>
             <td>{{ticketDetailsCtrl.ticket.modifierUser}}</td>
         </tr>
         <tr ng-if="ticketDetailsCtrl.ticket.status !== 'Pending'">
-            <td>{{'AssignedTime' | translate}}</td>
+            <td>{{'modifyTime' | translate}}</td>
             <td>{{ticketDetailsCtrl.ticket.lastModificationTime}}</td>
         </tr>
         <tr ng-if="ticketDetailsCtrl.ticket.imagesURL.length >0">
@@ -111,3 +113,23 @@
         </tr>
     </tbody>
 </table>
+
+<div ng-show="ticketDetailsCtrl.ticketLogs.length>0">
+    <h2>{{'history'|translate}}</h2>
+    <table class="table pmd-table table-hover">
+        <thead>
+            <tr>
+                <th>{{'status' | translate}}</th>
+                <th>{{'user' | translate}}</th>
+                <th>{{'CreatTime' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="log in ticketDetailsCtrl.ticketLogs">
+                <td>{{log.status | translate}}</td>
+                <td>{{log.user}}</td>
+                <td>{{log.dateTime}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

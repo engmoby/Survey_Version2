@@ -4,12 +4,13 @@
     angular
         .module('home')
         .controller('createDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
-            'categoryTypeResource', 'ToastService', '$rootScope', createDialogController])
+            'categoryTypeResource', 'ToastService', 'allEmailsPrepService', createDialogController])
 
     function createDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, categoryTypeResource,
-        ToastService, $rootScope) {
+        ToastService, allEmailsPrepService) {
 		var vm = this;
-		vm.language = appCONSTANTS.supportedLanguage;
+        vm.language = appCONSTANTS.supportedLanguage;
+        vm.users = allEmailsPrepService;
 		vm.close = function(){
 			$state.go('categoryType');
 		} 
@@ -20,6 +21,11 @@
             newObj.titleDictionary = vm.titleDictionary; 
             newObj.IsDeleted = false; 
             newObj.IsStatic =false;
+            newObj.type =  vm.type; 
+            newObj.time =  vm.time; 
+            newObj.emails =  vm.emails.toString().replace(new RegExp(',', 'g'), ';');
+            newObj.body =  vm.body;
+
             newObj.$create().then(
                 function (data, status) {
                     blockUI.stop();

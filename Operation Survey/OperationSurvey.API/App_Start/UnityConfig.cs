@@ -68,6 +68,7 @@ namespace OperationSurvey.API
                 .RegisterType<IRegionFacade, RegionFacade>(new PerResolveLifetimeManager())
                 .RegisterType<ICityFacade, CityFacade>(new PerResolveLifetimeManager())
                 .RegisterType<ICategoryTypeFacade, CategoryTypeFacade>(new PerResolveLifetimeManager())
+                .RegisterType<ITicketSchedulerFacade, TicketSchedulerFacade>(new PerResolveLifetimeManager())
                 ;
             // .RegisterType<IProductFacade, ProductFacade>(new PerResolveLifetimeManager());
 

@@ -16,11 +16,11 @@ namespace OperationSurvey.BLL.DataServices
         {
 
         }
-        public bool CheckNameExist(string objName, string language, long recordId, long tenantId)
+        public bool CheckNameExist(string objName, string language, long recordId, long tenantId, long countryId)
         {
             return Queryable()
                 .Any(x => x.Language.ToLower() == language.ToLower() && x.Title.ToLower() == objName.ToLower() &&
-                          x.RegionId != recordId && x.Region.Country.TenantId == tenantId && !x.Region.IsDeleted);
+                          x.RegionId != recordId && x.Region.Country.TenantId == tenantId && !x.Region.IsDeleted && x.Region.CountryId == countryId);
         }
     }
 }

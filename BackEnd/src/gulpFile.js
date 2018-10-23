@@ -81,6 +81,9 @@ var runSequence = require('run-sequence').use(gulp);
      './assets/js/angular-filter.js', 
       './node_modules/adm-trv/dist/ADM-treeView.js',   
       './node_modules/angular-breadcrumb/dist/angular-breadcrumb.min.js',   
+      './node_modules/html2canvas/dist/html2canvas.min.js',   
+      './node_modules/pdfmake/build/pdfmake.min.js',
+      // './node_modules/pdfmake/build/vfs_fonts.js',   
        
   ],
 //  sass: {
