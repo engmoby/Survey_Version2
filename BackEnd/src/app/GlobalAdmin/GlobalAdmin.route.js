@@ -614,7 +614,7 @@
 
     PermissionPrepService.$inject = ['PermissionResource']
     function PermissionPrepService(PermissionResource) {
-        return PermissionResource.getAllPermissions().$promise;
+        return PermissionResource.getAllPermissions({pageSize:11}).$promise;
     }
     /*Area */
     AreaPrepService.$inject = ['AreaResource', '$stateParams']

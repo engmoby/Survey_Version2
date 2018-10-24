@@ -64,7 +64,7 @@
 
             <div class="form-group pmd-textfield pmd-textfield-floating-label" ng-show="newcategoryTypeCtrl.type !=null && newcategoryTypeCtrl.time!=null">
                 <!-- <label for="first-name"> {{ 'time' | translate}} </label> -->
-                <textarea ng-model="newcategoryTypeCtrl.body" ng-required="newcategoryTypeCtrl.type !=null && newcategoryTypeCtrl.time!=null" name="body"></textarea>
+                <textarea ng-model="newcategoryTypeCtrl.body" ng-required="newcategoryTypeCtrl.type !=null && newcategoryTypeCtrl.time!=null" name="body" cols="100" rows="3" placeholder="Body"></textarea>
                 <div ng-messages="newTypeForm.body.$error">
                     <div ng-show="newTypeForm.body.$error.required && !newTypeForm.body.$pristine">{{'requiredErr' | translate}}</div>
                 </div>

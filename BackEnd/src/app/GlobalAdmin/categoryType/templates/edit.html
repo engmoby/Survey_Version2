@@ -59,7 +59,7 @@
 
                 <div ng-show="editcategoryTypeCtrl.categoryType.type!=null && editcategoryTypeCtrl.categoryType.time!=null" class="form-group pmd-textfield pmd-textfield-floating-label">
                     <!-- <label for="first-name"> {{ 'time' | translate}} </label> -->
-                    <textarea ng-model="editcategoryTypeCtrl.categoryType.body" ng-required="editcategoryTypeCtrl.categoryType.type!=null && editcategoryTypeCtrl.categoryType.time!=null" name="body"></textarea>
+                    <textarea ng-model="editcategoryTypeCtrl.categoryType.body" ng-required="editcategoryTypeCtrl.categoryType.type!=null && editcategoryTypeCtrl.categoryType.time!=null" name="body" cols="100" rows="3" placeholder="Body"></textarea>
                     <div ng-messages="editTypeForm.body.$error">
                         <div ng-show="editTypeForm.body.$error.required && !editTypeForm.body.$pristine">{{'requiredErr' | translate}}</div>
                     </div>

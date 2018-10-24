@@ -15,5 +15,6 @@ namespace OperationSurvey.BLL.Services.Interfaces
         void EnableTicketScheduler(long ticketSchedulerId);
         void DisableTicketScheduler(long ticketSchedulerId);
         TicketSchedulerDto GetTicketScheduler(long ticketSchedulerId);
+        void HandleTicketUnchanged();
     }
 }

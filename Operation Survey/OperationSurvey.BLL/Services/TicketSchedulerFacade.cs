@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using AutoMapper;
+using Elmah;
 using OperationSurvey.BLL.DataServices.Interfaces;
 using OperationSurvey.BLL.DTOs;
 using OperationSurvey.BLL.Services.Interfaces;
@@ -90,7 +91,15 @@ namespace OperationSurvey.BLL.Services
                         .Select(x => x.DateTime).FirstOrDefault();
                     if ((DateTime.Now - lastDateTime).TotalMinutes > scheduler.time)
                     {
-                        SendHtmlFormattedEmail(scheduler.Emails, "", scheduler.Body);
+                        try
+                        {
+                            SendHtmlFormattedEmail(scheduler.Emails, "Tickets", scheduler.Body);
+                        }
+                        catch (Exception e)
+                        {
+                            ErrorSignal.FromCurrentContext().Raise(e);
+                        }
+                        
                     }
                 }
             }

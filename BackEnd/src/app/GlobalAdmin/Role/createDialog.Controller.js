@@ -43,7 +43,7 @@
         function BindPermissison() {
             blockUI.start("Loading..."); 
             
-            var k = PermissionResource.getAllPermissions().$promise.then(function (results) {
+            var k = PermissionResource.getAllPermissions({pageSize:11}).$promise.then(function (results) {
                     vm.getPageData = results;
                     $scope.permissionList = vm.getPageData.results;
                 blockUI.stop();

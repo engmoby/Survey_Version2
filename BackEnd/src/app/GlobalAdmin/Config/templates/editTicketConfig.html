@@ -40,7 +40,7 @@
     
                             <div class="form-group pmd-textfield pmd-textfield-floating-label">
                                 <!-- <label for="first-name"> {{ 'time' | translate}} </label> -->
-                                <textarea ng-model="ticketConfigCtrl.ticketScheduler.body" required name="body"></textarea>
+                                <textarea ng-model="ticketConfigCtrl.ticketScheduler.body" required name="body" cols="100" rows="3" placeholder="Body"></textarea>
                                 <div ng-messages="newTypeForm.body.$error">
                                     <div ng-show="newTypeForm.body.$error.required && !newTypeForm.body.$pristine">{{'requiredErr' | translate}}</div>
                                 </div>
