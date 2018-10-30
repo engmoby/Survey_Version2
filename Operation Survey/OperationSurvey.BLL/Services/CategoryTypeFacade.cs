@@ -171,7 +171,11 @@ namespace OperationSurvey.BLL.Services
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("in-v3.mailjet.com");
             mail.From = new MailAddress(FromMail);
-            mail.To.Add(recepientEmail);
+            //mail.To.Add(recepientEmail);
+            foreach (var address in recepientEmail.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                mail.To.Add(address);
+            }
             mail.Subject = subject;
             mail.IsBodyHtml = true;
             mail.Body = body;

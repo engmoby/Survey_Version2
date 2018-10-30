@@ -23,7 +23,7 @@
                         <!-- <div class="tab-content"> -->
                         <!-- <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in newRoleCtrl.language" id="{{lang.value}}-form"> -->
                         <div class="form-group pmd-textfield pmd-textfield-floating-label">
-                            <label for="first-name"> {{ 'time' | translate}} </label>
+                            <label for="first-name"> {{ 'Time' | translate}} </label>
                             <input required type="number" class="mat-input form-control" min="1" name="time" ng-model="ticketConfigCtrl.time">
                             <div ng-messages="newTypeForm.time.$error">
                                 <div ng-show="newTypeForm.time.$error.required && !newTypeForm.time.$pristine">{{'requiredErr' | translate}}</div>
@@ -33,15 +33,11 @@
 
                         <!-- </div> -->
                         <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                            <label for="first-name">{{'Users' | translate}}</label>
-                            <select required style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="ticketConfigCtrl.emails"
-                                ng-options="user as user for user in ticketConfigCtrl.users" name="email"
-                                ng-patterns='/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i'></select>
-                                <div ng-messages="newTypeForm.email.$error" >
-                                        <div ng-if="!newTypeForm.email.$error.required && newTypeForm.email.$error.pattern">{{'invalidEmail' | translate}}</div>
-                                        
-                                    </div>
-                                
+                            <label for="first-name">{{'users' | translate}}</label>
+                            <select  class="form-control select-add-tags pmd-select2-tags" multiple ng-model="ticketConfigCtrl.emails" required>
+                                <option ng-repeat="user in ticketConfigCtrl.users">{{user}}</option>
+                            </select>
+                                                                
                         </div>
 
                         <div class="form-group pmd-textfield pmd-textfield-floating-label">
@@ -59,7 +55,7 @@
     </div>
 
     <div class="pmd-modal-action text-right">
-        <button ng-disabled="newTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="ticketConfigCtrl.AddNew()">{{'saveChangesBtn' | translate}}</button>
+        <button ng-disabled="newTypeForm.$invalid || !ticketConfigCtrl.validateEmail()" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="ticketConfigCtrl.AddNew()">{{'saveChangesBtn' | translate}}</button>
         <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="$state.go('Config');">{{'DiscardBtn' | translate}}</button>
     </div>
 </div>

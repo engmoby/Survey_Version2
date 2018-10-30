@@ -185,7 +185,12 @@
         "CompleteBtn":"Complete",
         "history":"History",
         "modifyBy":"Modify by",
-        "modifyTime":"Modification date"
+        "modifyTime":"Modification date",
+        "ConfigLbl":"Configuration Tickets",
+        "Time":"Time minutes",
+        "IsActive":"Is Active",
+        "typeOptinal":"Type (optional)",
+        "timeOptinal":"Time minutes (optional)"
         
       }
 
@@ -376,7 +381,12 @@
         "CompleteBtn":"اكتمال",
         "history":"سجل",
         "modifyBy":"تعديل بواسطة",
-        "modifyTime":"تاريخ التعديل"
+        "modifyTime":"تاريخ التعديل",
+        "ConfigLbl":"تكوين التذاكر",
+        "Time":"توقيت دقائق",
+        "IsActive":"نشط",
+        "typeOptinal":" (نوع (اختياري",
+        "timeOptinal":" (توقيت دقائق (اختياري",
       }
 
       $translateProvider.translations('en', en_translations);

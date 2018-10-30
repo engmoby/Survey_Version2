@@ -38,6 +38,17 @@
                 }
             );
         }
+        vm.validateEmail = function () {
+            var RegExp = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+            var valid = true;
+            vm.emails.forEach(function (element) {
+                valid = RegExp.test(element);
+                if (!valid)
+                    return valid;
+
+            }, this);
+            return valid
+        }
   
 	}	
 }());

@@ -84,7 +84,7 @@ namespace OperationSurvey.BLL.Services
             foreach (var ticket in tickets)
             {
                 var scheduler = _ticketSchedulerService
-                    .Query(x => x.Status == ticket.Status && x.TenantId == ticket.TenantId).Select().FirstOrDefault();
+                    .Query(x => x.Status == ticket.Status && x.TenantId == ticket.TenantId && x.IsActive).Select().FirstOrDefault();
                 if(scheduler != null)
                 {
                     var lastDateTime = ticket.Logs.OrderByDescending(x => x.DateTime).Where(x => x.Status == ticket.Status)
@@ -111,7 +111,12 @@ namespace OperationSurvey.BLL.Services
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("in-v3.mailjet.com");
             mail.From = new MailAddress(FromMail);
-            mail.To.Add(recepientEmail);
+            //mail.To.Add(recepientEmail);
+            foreach (var address in recepientEmail.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                mail.To.Add(address);
+            }
+
             mail.Subject = subject;
             mail.IsBodyHtml = true;
             mail.Body = body;

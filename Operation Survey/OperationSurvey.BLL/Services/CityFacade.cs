@@ -103,7 +103,7 @@ namespace OperationSurvey.BLL.Services
         public PagedResultsDto GetAllCitiesForUser(long userId)
         {
             var user = _userService.Find(userId);
-            return user.AreaId.HasValue ? _cityService.GetAllCities(user.Area.City.Region.CountryId, 1, 0, user.TenantId) : new PagedResultsDto();
+            return user.AreaId.HasValue ? _cityService.GetAllCities(user.Area.City.RegionId, 1, 0, user.TenantId) : new PagedResultsDto();
         }
     }
 }

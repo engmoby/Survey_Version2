@@ -62,9 +62,9 @@
 	angular
 		.module('core')
 		.constant('appCONSTANTS', {
-			//    'API_URL': 'http://localhost:32569/api/', 
+			   'API_URL': 'http://localhost:32569/api/', 
 				// 'API_URL': 'https://surveyv2.azurewebsites.net/api/',
-				'API_URL': 'https://surveyv2-testing.azurewebsites.net/api/',
+				// 'API_URL': 'https://surveyv2-testing.azurewebsites.net/api/',
 		 'defaultLanguage':'en',
 		 'supportedLanguage':{
 			 'en':{'key':'en','value':'english'},
@@ -444,7 +444,12 @@ angular.module('core')
         "CompleteBtn":"Complete",
         "history":"History",
         "modifyBy":"Modify by",
-        "modifyTime":"Modification date"
+        "modifyTime":"Modification date",
+        "ConfigLbl":"Configuration Tickets",
+        "Time":"Time minutes",
+        "IsActive":"Is Active",
+        "typeOptinal":"Type (optional)",
+        "timeOptinal":"Time minutes (optional)"
         
       }
 
@@ -635,7 +640,12 @@ angular.module('core')
         "CompleteBtn":"اكتمال",
         "history":"سجل",
         "modifyBy":"تعديل بواسطة",
-        "modifyTime":"تاريخ التعديل"
+        "modifyTime":"تاريخ التعديل",
+        "ConfigLbl":"تكوين التذاكر",
+        "Time":"توقيت دقائق",
+        "IsActive":"نشط",
+        "typeOptinal":" (نوع (اختياري",
+        "timeOptinal":" (توقيت دقائق (اختياري",
       }
 
       $translateProvider.translations('en', en_translations);
