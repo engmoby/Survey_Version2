@@ -59,7 +59,21 @@ namespace OperationSurvey.DAL
                 .RegisterType<IRepositoryAsync<CategoryTypeTranslation>, Repository<CategoryTypeTranslation>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<CategoryTypeCategory>, Repository<CategoryTypeCategory>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<TicketLog>, Repository<TicketLog>>(new PerResolveLifetimeManager())
-                .RegisterType<IRepositoryAsync<TicketScheduler>, Repository<TicketScheduler>>(new PerResolveLifetimeManager());
+                .RegisterType<IRepositoryAsync<TicketScheduler>, Repository<TicketScheduler>>(new PerResolveLifetimeManager())
+
+                .RegisterType<IRepositoryAsync<Project>, Repository<Project>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<ProjectTranslation>, Repository<ProjectTranslation>>(new PerResolveLifetimeManager())
+
+                .RegisterType<IRepositoryAsync<Asset>, Repository<Asset>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<AssetTranslation>, Repository<AssetTranslation>>(new PerResolveLifetimeManager())
+
+
+                .RegisterType<IRepositoryAsync<Vendor>, Repository<Vendor>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<VendorTranslation>, Repository<VendorTranslation>>(new PerResolveLifetimeManager())
+
+                .RegisterType<IRepositoryAsync<Service>, Repository<Service>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<ServiceTranslation>, Repository<ServiceTranslation>>(new PerResolveLifetimeManager())
+                ;
 
 
         }

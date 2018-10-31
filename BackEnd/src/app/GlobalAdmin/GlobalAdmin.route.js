@@ -95,7 +95,7 @@
                     templateUrl: './app/GlobalAdmin/categoryType/templates/new.html',
                     controller: 'createDialogController',
                     'controllerAs': 'newcategoryTypeCtrl',
-                    resolve:{
+                    resolve: {
                         allEmailsPrepService: allEmailsPrepService
                     },
                     data: {
@@ -365,7 +365,7 @@
                     resolve: {
                         DepartmentByIdPrepService: DepartmentByIdPrepService,
                         RolePrepService: RolePrepService,
-                        allcategoryTypePrepService:allcategoryTypePrepService
+                        allcategoryTypePrepService: allcategoryTypePrepService
                     },
                     data: {
                         permissions: {
@@ -383,7 +383,7 @@
                     resolve: {
                         CategoryByIdPrepService: CategoryByIdPrepService,
                         RolePrepService: RolePrepService,
-                        allcategoryTypePrepService:allcategoryTypePrepService
+                        allcategoryTypePrepService: allcategoryTypePrepService
                     },
                     data: {
                         permissions: {
@@ -396,7 +396,7 @@
 
 
                 .state('AnswerQuestion', {
-                    url: '/AnswerQuestion',
+                    url: '/AnswerQuestion/:projectId',
                     templateUrl: './app/GlobalAdmin/AnswerQuestion/templates/AnswerQuestion.html',
                     controller: 'AnswerQuestionDialogController',
                     'controllerAs': 'AnswerQuestionCtrl',
@@ -405,7 +405,7 @@
                          BranchPrepService:BranchPrepService,*/
                         AnswerQuestionPrepService: AnswerQuestionPrepService,
                         CountriesPrepService: CountriesPrepService,
-                        allcategoryTypePrepService:allcategoryTypePrepService
+                        allcategoryTypePrepService: allcategoryTypePrepService
                     },
                     data: {
                         permissions: {
@@ -468,7 +468,7 @@
                 })
 
                 .state('Answers', {
-                    url: '/Answers',
+                    url: '/Answers/:projectId',
                     templateUrl: './app/GlobalAdmin/Answers/templates/answers.html',
                     controller: 'AnswersController',
                     'controllerAs': 'answersCtrl',
@@ -476,11 +476,11 @@
                         /*AreaPrepService: AllAreaPrepService,*/
                         CountriesPrepService: CountriesPrepService,
                         AnswerQuestionPrepService: AnswerQuestionPrepService,
-                        allcategoryTypePrepService:allcategoryTypePrepService             
+                        allcategoryTypePrepService: allcategoryTypePrepService
                     },
                     data: {
                         permissions: {
-                            only: ['8'],
+                            only: ['8','12'],
                             redirectTo: 'root'
                         }
                     }
@@ -532,7 +532,7 @@
                     'controllerAs': 'ticketDetailsCtrl',
                     resolve: {
                         TicketPrepService: TicketPrepService,
-                        TicketLogsPrepService: TicketLogsPrepService                        
+                        TicketLogsPrepService: TicketLogsPrepService
 
                     },
                     data: {
@@ -550,12 +550,12 @@
                     resolve: {
                         TicketDashboardPrepService: TicketDashboardPrepService,
                         AnswerQuestionPrepService: AnswerQuestionDashBoardPrepService,
-                        allcategoryTypePrepService:allcategoryTypePrepService,
-                        CountriesPrepService:CountriesPrepService,
-                        BranchManagerPrepService:BranchManagerPrepService,
-                        TechnasianPrepService:TechnasianPrepService,
-                        DepartmentPrepService:DepartmentPrepService,
-                        UsersAnswersQuestionPrepService:UsersAnswersQuestionPrepService
+                        allcategoryTypePrepService: allcategoryTypePrepService,
+                        CountriesPrepService: CountriesPrepService,
+                        BranchManagerPrepService: BranchManagerPrepService,
+                        TechnasianPrepService: TechnasianPrepService,
+                        DepartmentPrepService: DepartmentPrepService,
+                        UsersAnswersQuestionPrepService: UsersAnswersQuestionPrepService
                     },
                     data: {
                         permissions: {
@@ -563,6 +563,205 @@
                             redirectTo: 'root'
                         }
                     }
+                })
+                .state('Project', {
+                    url: '/Project',
+                    templateUrl: './app/GlobalAdmin/project/templates/project.html',
+                    controller: 'ProjectController',
+                    'controllerAs': 'ProjectCtrl',
+                    resolve: {
+                        ProjectPrepService: ProjectPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['12'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('newProject', {
+                    url: '/newProject',
+                    templateUrl: './app/GlobalAdmin/project/templates/new.html',
+                    controller: 'createProjectDialogController',
+                    'controllerAs': 'newProjectCtrl',
+                    resolve: {
+                        CountriesPrepService: CountriesPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['12'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('editProject', {
+                    url: '/editProject/:projectId',
+                    templateUrl: './app/GlobalAdmin/project/templates/edit.html',
+                    controller: 'editProjectDialogController',
+                    'controllerAs': 'editProjectCtrl',
+                    resolve: {
+                        ProjectByIdPrepService: ProjectByIdPrepService,
+                        CountriesPrepService: CountriesPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['12'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('Vendor', {
+                    url: '/Vendor',
+                    templateUrl: './app/GlobalAdmin/vendor/templates/vendor.html',
+                    controller: 'VendorController',
+                    'controllerAs': 'VendorCtrl',
+                    resolve: {
+                        VendorPrepService: VendorPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['13'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('newVendor', {
+                    url: '/newVendor',
+                    templateUrl: './app/GlobalAdmin/vendor/templates/new.html',
+                    controller: 'createDialogController',
+                    'controllerAs': 'newVendorCtrl',
+                    data: {
+                        permissions: {
+                            only: ['13'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('editVendor', {
+                    url: '/editVendor/:vendorId',
+                    templateUrl: './app/GlobalAdmin/vendor/templates/edit.html',
+                    controller: 'editDialogController',
+                    'controllerAs': 'editVendorCtrl',
+                    resolve: {
+                        VendorByIdPrepService: VendorByIdPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['13'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+                .state('Asset', {
+                    url: '/Asset/:projectId',
+                    templateUrl: './app/GlobalAdmin/asset/templates/asset.html',
+                    controller: 'AssetController',
+                    'controllerAs': 'AssetCtrl',
+                    resolve: {
+                        AssetPrepService: AssetPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['12'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('newAsset', {
+                    url: '/newAsset/:projectId',
+                    templateUrl: './app/GlobalAdmin/asset/templates/new.html',
+                    controller: 'createDialogAssetController',
+                    'controllerAs': 'newAssetCtrl',
+                    resolve: {
+                        AssetPrepService: AssetPrepService,
+                        VendorPrepService: VendorPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['12'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('editAsset', {
+                    url: '/editAsset/:projectId/:assetId',
+                    templateUrl: './app/GlobalAdmin/asset/templates/edit.html',
+                    controller: 'editDialogAssetController',
+                    'controllerAs': 'editAssetCtrl',
+                    resolve: {
+                        AssetByIdPrepService: AssetByIdPrepService,
+                        VendorPrepService: VendorPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['12'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+
+                .state('Service', {
+                    url: '/Service/:projectId',
+                    templateUrl: './app/GlobalAdmin/service/templates/service.html',
+                    controller: 'ServiceController',
+                    'controllerAs': 'ServiceCtrl',
+                    resolve: {
+                        ServicePrepService: ServicePrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['12'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('newService', {
+                    url: '/newService/:projectId',
+                    templateUrl: './app/GlobalAdmin/service/templates/new.html',
+                    controller: 'createDialogServiceController',
+                    'controllerAs': 'newServiceCtrl',
+                    resolve: {
+                        ServicePrepService: ServicePrepService,
+                        AssetPrepService: AssetPrepService,
+                        VendorPrepService: VendorPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['12'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('editService', {
+                    url: '/editService/:projectId/:serviceId',
+                    templateUrl: './app/GlobalAdmin/service/templates/edit.html',
+                    controller: 'editDialogServiceController',
+                    'controllerAs': 'editServiceCtrl',
+                    resolve: {
+                        ServiceByIdPrepService: ServiceByIdPrepService,
+                        AssetPrepService: AssetPrepService,
+                        VendorPrepService: VendorPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['12'],
+                            redirectTo: 'root'
+                        }
+                    }
+
                 })
 
         });
@@ -590,7 +789,7 @@
 
     allcategoryTypePrepService.$inject = ['categoryTypeResource']
     function allcategoryTypePrepService(categoryTypeResource) {
-        return categoryTypeResource.getAllcategoryTypes({pageSize:0}).$promise;
+        return categoryTypeResource.getAllcategoryTypes({ pageSize: 0 }).$promise;
     }
 
     categoryTypeByIdPrepService.$inject = ['categoryTypeResource', '$stateParams']
@@ -614,7 +813,7 @@
 
     PermissionPrepService.$inject = ['PermissionResource']
     function PermissionPrepService(PermissionResource) {
-        return PermissionResource.getAllPermissions().$promise;
+        return PermissionResource.getAllPermissions({ pageSize: 20 }).$promise;
     }
     /*Area */
     AreaPrepService.$inject = ['AreaResource', '$stateParams']
@@ -681,7 +880,7 @@
 
     AnswerQuestionDashBoardPrepService.$inject = ['AnswerQuestionResource']
     function AnswerQuestionDashBoardPrepService(AnswerQuestionResource) {
-        return AnswerQuestionResource.getAllQuestions({pageName:'dashboard'}).$promise;
+        return AnswerQuestionResource.getAllQuestions({ pageName: 'dashboard' }).$promise;
     }
 
 
@@ -738,34 +937,98 @@
     }
     CountriesPrepService.$inject = ['CountryResource']
     function CountriesPrepService(CountryResource) {
-        return CountryResource.getAllCountries({pageSize: 0 }).$promise;
+        return CountryResource.getAllCountries({ pageSize: 0 }).$promise;
     }
 
     RegionsForUserPrepService.$inject = ['RegionResource', '$stateParams']
-    function RegionsForUserPrepService(RegionResource,$stateParams) {
+    function RegionsForUserPrepService(RegionResource, $stateParams) {
         return RegionResource.getAllRegionsForUser({ userId: $stateParams.userId }).$promise;
     }
     CitiesForUserPrepService.$inject = ['CityResource', '$stateParams']
-    function CitiesForUserPrepService(CityResource,$stateParams) {
+    function CitiesForUserPrepService(CityResource, $stateParams) {
         return CityResource.getAllCitiesForUser({ userId: $stateParams.userId }).$promise;
     }
     AreasForUserPrepService.$inject = ['AreaResource', '$stateParams']
-    function AreasForUserPrepService(AreaResource,$stateParams) {
+    function AreasForUserPrepService(AreaResource, $stateParams) {
         return AreaResource.getAllAreasForUser({ userId: $stateParams.userId }).$promise;
     }
     BranchManagerPrepService.$inject = ['UserResource']
     function BranchManagerPrepService(UserResource) {
-        return UserResource.getUserByTypeName({type:'branchmanager'}).$promise;
+        return UserResource.getUserByTypeName({ type: 'branchmanager' }).$promise;
     }
     TechnasianPrepService.$inject = ['UserResource']
     function TechnasianPrepService(UserResource) {
-        return UserResource.getUserByTypeName({type:'technician'}).$promise;
+        return UserResource.getUserByTypeName({ type: 'technician' }).$promise;
     }
 
     UsersAnswersQuestionPrepService.$inject = ["UserResource"]
-    function UsersAnswersQuestionPrepService(UserResource){
+    function UsersAnswersQuestionPrepService(UserResource) {
         return UserResource.GetAllUsersWhoAnswer().$promise;
     }
 
 
+    /*Project*/
+    ProjectPrepService.$inject = ['ProjectResource']
+    function ProjectPrepService(ProjectResource) {
+        return ProjectResource.getAllProjects().$promise;
+    }
+
+    allProjectPrepService.$inject = ['ProjectResource']
+    function allProjectPrepService(ProjectResource) {
+        return ProjectResource.getAllProjects({ pageSize: 0 }).$promise;
+    }
+
+    ProjectByIdPrepService.$inject = ['ProjectResource', '$stateParams']
+    function ProjectByIdPrepService(ProjectResource, $stateParams) {
+        return ProjectResource.getProject({ projectId: $stateParams.projectId }).$promise;
+    }
+
+    /*Vendor*/
+    VendorPrepService.$inject = ['VendorResource']
+    function VendorPrepService(VendorResource) {
+        return VendorResource.getAllVendors().$promise;
+    }
+
+    allVendorPrepService.$inject = ['VendorResource']
+    function allVendorPrepService(VendorResource) {
+        return VendorResource.getAllVendors({ pageSize: 0 }).$promise;
+    }
+
+    VendorByIdPrepService.$inject = ['VendorResource', '$stateParams']
+    function VendorByIdPrepService(VendorResource, $stateParams) {
+        return VendorResource.getVendor({ vendorId: $stateParams.vendorId }).$promise;
+    }
+
+
+    /*Asset*/
+    AssetPrepService.$inject = ['AssetResource', '$stateParams']
+    function AssetPrepService(AssetResource, $stateParams) {
+        return AssetResource.getAllAssets({ projectId: $stateParams.projectId }).$promise;
+    }
+
+    allAssetPrepService.$inject = ['AssetResource']
+    function allAssetPrepService(AssetResource) {
+        return AssetResource.getAllAssets({ pageSize: 0 }).$promise;
+    }
+
+    AssetByIdPrepService.$inject = ['AssetResource', '$stateParams']
+    function AssetByIdPrepService(AssetResource, $stateParams) {
+        return AssetResource.getAsset({ assetId: $stateParams.assetId }).$promise;
+    }
+    
+    /*Service*/
+    ServicePrepService.$inject = ['ServiceResource', '$stateParams']
+    function ServicePrepService(ServiceResource, $stateParams) {
+        return ServiceResource.getAllServices({ projectId: $stateParams.projectId }).$promise;
+    }
+
+    allServicePrepService.$inject = ['ServiceResource']
+    function allServicePrepService(ServiceResource) {
+        return ServiceResource.getAllServices({ pageSize: 0 }).$promise;
+    }
+
+    ServiceByIdPrepService.$inject = ['ServiceResource', '$stateParams']
+    function ServiceByIdPrepService(ServiceResource, $stateParams) {
+        return ServiceResource.getService({ serviceId: $stateParams.serviceId }).$promise;
+    }
 }());

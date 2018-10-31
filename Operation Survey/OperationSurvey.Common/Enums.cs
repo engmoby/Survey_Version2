@@ -40,5 +40,16 @@
             Medium,
             Low
         }
+
+        public enum AssetStatus
+        {
+            Recevied,
+            NotRecevied
+        }
+        public enum PaymentMethod
+        {
+            Debit,
+            Credit
+        }
     }
 }

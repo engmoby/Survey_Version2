@@ -49,80 +49,83 @@
         color: red;
     }
 </style>
-<div class="row">
-        <div  class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"
+<div class="row" ng-show="projectId==0">
+    <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"
         <label for="first-name">{{'Country' | translate}}</label>
-        <select  class="form-control select-with-search pmd-select2-tags"
-            ng-change="answersCtrl.countryChange()" ng-model="answersCtrl.selectedCountry"
-             ng-options="group as group.titleDictionary[selectedLanguage] for group in answersCtrl.counties">
+        <select class="form-control select-with-search pmd-select2-tags" ng-change="answersCtrl.countryChange()"
+            ng-model="answersCtrl.selectedCountry" ng-options="group as group.titleDictionary[selectedLanguage] for group in answersCtrl.counties">
         </select>
     </div>
-    <div  class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"
+    <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"
         <label for="first-name">{{'Region' | translate}}</label>
-        <select  class="form-control select-with-search pmd-select2-tags"
-        ng-change="answersCtrl.regionChange()" ng-model="answersCtrl.selectedRegion"
-            ng-options="group as group.titleDictionary[selectedLanguage] for group in answersCtrl.regions">
+        <select class="form-control select-with-search pmd-select2-tags" ng-change="answersCtrl.regionChange()"
+            ng-model="answersCtrl.selectedRegion" ng-options="group as group.titleDictionary[selectedLanguage] for group in answersCtrl.regions">
         </select>
     </div>
     <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"
         <label for="first-name">{{'City' | translate}}</label>
-        <select class="form-control select-with-search pmd-select2-tags" 
-        ng-change="answersCtrl.cityChange()" ng-model="answersCtrl.selectedCity"
+        <select class="form-control select-with-search pmd-select2-tags" ng-change="answersCtrl.cityChange()" ng-model="answersCtrl.selectedCity"
             ng-options="group as group.titleDictionary[selectedLanguage] for group in answersCtrl.cities">
         </select>
     </div>
     <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'Area' | translate}}</label>
 
-        <select required class="form-control select-with-search pmd-select2-tags" ng-change="answersCtrl.areaChange()" ng-model="answersCtrl.selectedArea"
-            ng-options="a as a.titleDictionary[selectedLanguage] for a in answersCtrl.areaList"></select>
+        <select required class="form-control select-with-search pmd-select2-tags" ng-change="answersCtrl.areaChange()"
+            ng-model="answersCtrl.selectedArea" ng-options="a as a.titleDictionary[selectedLanguage] for a in answersCtrl.areaList"></select>
     </div>
 
     <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'Branch' | translate}}</label>
 
-        <select required class="form-control select-with-search pmd-select2-tags" ng-change="answersCtrl.branchChange()" ng-model="answersCtrl.selectedBranch"
-            ng-options="a as a.titleDictionary[selectedLanguage] for a in answersCtrl.branchList"></select>
+        <select required class="form-control select-with-search pmd-select2-tags" ng-change="answersCtrl.branchChange()"
+            ng-model="answersCtrl.selectedBranch" ng-options="a as a.titleDictionary[selectedLanguage] for a in answersCtrl.branchList"></select>
     </div>
 
 
-    <div  style="direction: ltr;"  class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+    <div style="direction: ltr;" class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label>{{'fromLbl' | translate}}</label>
         <input type="text" id="fromdate" class="form-control" required />
     </div>
 
-    <div style="direction: ltr;"  class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+    <div style="direction: ltr;" class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label>{{'toLbl' | translate}}</label>
         <input type="text" id="todate" class="form-control" required />
     </div>
     <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'categoryType' | translate}}</label>
 
-        <select required style="width:50% !important" class="form-control select-with-search pmd-select2-tags" 
-            ng-model="answersCtrl.selectedCategoryType" ng-options="a as a.titleDictionary[selectedLanguage] for a in answersCtrl.categoryTypes"></select>
+        <select required style="width:50% !important" class="form-control select-with-search pmd-select2-tags" ng-model="answersCtrl.selectedCategoryType"
+            ng-options="a as a.titleDictionary[selectedLanguage] for a in answersCtrl.categoryTypes"></select>
     </div>
 
     <div class="col-md-2 ">
-        <button ng-click="answersCtrl.applyFilter()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'filterBtn' | translate}}</button>
+        <button ng-click="answersCtrl.applyFilter()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'filterBtn'
+            | translate}}</button>
     </div>
 </div>
 <div ng-show="answersCtrl.questionList.length<=0">
-        <span>{{'NoQuestionsAvailable' | translate}}</span>
-    </div>
+    <span>{{'NoQuestionsAvailable' | translate}}</span>
+</div>
 <div ng-repeat="(k,v) in answersCtrl.questionList| groupBy: 'categoryId'">
-    
+
     <div style="cursor: pointer;    background-color: #ccc;">
 
         <h1 style="padding: 7px" ng-init="t = false" ng-click="t=!t">
             {{v[0].category.titleDictionary[selectedLanguage]}}
         </h1>
     </div>
-    <ul ng-show="t">
+    <!-- <ul ng-show="t"> -->
+    <ul ng-show="t || projectId !=0">
         <li ng-repeat="ques in v">
             <!-- <button class="accordion">{{ques.titleDictionary[selectedLanguage]}}</button> -->
             <div style="cursor: pointer;    background-color: #ccc;">
 
-                <h3 style="padding: 4px" ng-click="ques.showAnswer=!ques.showAnswer;ques.showAnswer?answersCtrl.viewAnswer(ques):ques.showAnswer=ques.showAnswer">
+                <h3 ng-if="projectId==0" style="padding: 4px" ng-click="ques.showAnswer=!ques.showAnswer;ques.showAnswer?answersCtrl.viewAnswer(ques):ques.showAnswer=ques.showAnswer">
+                    {{ques.titleDictionary[selectedLanguage]}}
+                </h3>
+
+                <h3 ng-if="projectId!=0" style="padding: 4px" ng-init="ques.showAnswer=!ques.showAnswer;ques.showAnswer?answersCtrl.viewAnswerByProjectId(ques):ques.showAnswer=ques.showAnswer">
                     {{ques.titleDictionary[selectedLanguage]}}
                 </h3>
             </div>
@@ -153,11 +156,14 @@
                                         </div>
                                         <div ng-if="ques.questionTypeId == 1">
                                             <!--Rate-->
-                                            <jk-rating-stars rating="answerDetail.value" max-rating="5" name="{{answerDetail.answerDetailsId}}" read-only="true" class="my-custom-stars "></jk-rating-stars>
+                                            <jk-rating-stars rating="answerDetail.value" max-rating="5" name="{{answerDetail.answerDetailsId}}"
+                                                read-only="true" class="my-custom-stars "></jk-rating-stars>
                                         </div>
                                         <div ng-if="ques.questionTypeId == 2">
-                                            <i required name="likeDis" ng-if="answerDetail.value == 1" class="fa fa-thumbs-up like" style="font-size:38px;"></i>
-                                            <i required name="like" ng-if="answerDetail.value == 0" class="fa fa-thumbs-down dislike" style="font-size:38px;"></i>
+                                            <i required name="likeDis" ng-if="answerDetail.value == 1" class="fa fa-thumbs-up like"
+                                                style="font-size:38px;"></i>
+                                            <i required name="like" ng-if="answerDetail.value == 0" class="fa fa-thumbs-down dislike"
+                                                style="font-size:38px;"></i>
                                         </div>
                                     </span>
                                 </td>
@@ -171,8 +177,11 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="ques.answers.totalCount" paging-action="answersCtrl.changePage(page,ques)" flex="nogrow"
-                        show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
+
+
+                    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="ques.answers.totalCount"
+                        paging-action="answersCtrl.changePage(page,ques)" flex="nogrow" show-prev-next="true"
+                        show-first-last="true" hide-if-empty="true" disabled-class="hide">
                     </div>
                 </div>
                 <div ng-if="ques.answers.results.length <= 0" ng-show="!ques.isloading">
@@ -183,4 +192,15 @@
         </li>
 
     </ul>
+</div>
+
+<div ng-show="projectId!=0" class="pmd-modal-action text-right">
+
+    <button ng-disabled="editProjectForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="$state.go('editProject',{projectId:projectId});">{{'PreviousBtn'|translate}}</button>
+    <!-- ng-disabled="AnswerQuestionCtrl.answersValid() || newclientForm.$invalid " -->
+
+    <button ng-show="projectId != 0" ng-click="$state.go('Asset',{projectId:projectId});" type="button" class="btn btn-primary btn-with-icon">
+        <i class="ion-android-checkmark-circle"></i>{{'NextBtn'|translate}}
+    </button>
+
 </div>

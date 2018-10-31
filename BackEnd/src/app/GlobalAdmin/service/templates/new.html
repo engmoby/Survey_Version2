@@ -1,0 +1,108 @@
+<div class="modal-content">
+    <div class="modal-header bordered">
+        <h2 class="pmd-card-title-text">{{'service' | translate}}</h2>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="newTypeForm">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in newServiceCtrl.language">
+                    <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"
+                        data-toggle="tab">
+                        {{lang.value | translate}}
+                    </a>
+                </li>
+            </ul>
+            <div class="pmd-card">
+                <div class="pmd-card-body">
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in newServiceCtrl.language"
+                            id="{{lang.value}}-form">
+                            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                <label for="first-name"> {{ lang.value+'Name' | translate}} </label>
+                                <input required type="text" class="mat-input form-control" name="titleDictionary{{lang.value+'Name'}}"
+                                    ng-model="newServiceCtrl.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="150">
+                                <div ng-messages="newTypeForm.titleDictionary{{lang.value+'Name'}}.$error">
+
+                                    <div ng-show="newTypeForm.titleDictionary{{lang.value+'Name'}}.$error.required && !newTypeForm.titleDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr'
+                                        | translate}}</div>
+                                    <div ng-show="(newTypeForm.titleDictionary{{lang.value+'Name'}}.$error.minlength || newTypeForm.titleDictionary{{lang.value+'Name'}}.$error.maxlength) && !newTypeForm.titleDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError'
+                                        | translate}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                    <div class="col-md-6 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"
+                        <label for="first-name">{{'Vendor' | translate}}</label>
+                        <select class="form-control select-with-search pmd-select2-tags" ng-model="newServiceCtrl.selectedVendor"
+                            ng-options="group as group.titleDictionary[selectedLanguage]
+                     for group in newServiceCtrl.Vendors">
+                        </select>
+                    </div>
+                </div> 
+                <div class="col-md-6 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                    <div class="col-md-6 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"
+                        <label for="first-name">{{'asset' | translate}}</label>
+                        <select class="form-control select-with-search pmd-select2-tags" ng-model="newServiceCtrl.selectedAsset"
+                            ng-options="group as group.titleDictionary[selectedLanguage]
+                         for group in newServiceCtrl.Assets">
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                    <label for="first-name">{{'price' | translate}}</label>
+                    <input required type="text" class="mat-input form-control" name="price" numbers-only ng-model="newServiceCtrl.price"
+                        ng-minlength="3" ng-maxlength="10">
+                    <div ng-messages="newTypeForm.price.$error">
+                        <div ng-if="newTypeForm.price.$error.required && !newTypeForm.price.$pristine">{{'priceReqError'
+                            |
+                            translate}}</div>
+                        <div ng-if="(newTypeForm.price.$error.minlength || newTypeForm.price.$error.maxlength)">{{'priceLengthError'
+                            | translate}}</div>
+                    </div>
+                </div>
+                <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                    <label for="first-name">{{'percentage' | translate}}</label>
+                    <input required type="text" class="mat-input form-control" name="percentage" numbers-only ng-model="newServiceCtrl.percentage"
+                        ng-minlength="1" ng-maxlength="3">
+                    <div ng-messages="newTypeForm.percentage.$error">
+                        <div ng-if="newTypeForm.percentage.$error.required && !newTypeForm.percentage.$pristine">{{'percentageReqError'
+                            |
+                            translate}}</div>
+                        <div ng-if="(newTypeForm.percentage.$error.minlength || newTypeForm.percentage.$error.maxlength)">{{'percentageLengthError'
+                            | translate}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                <label for="first-name">{{'note' | translate}}</label>
+                <textarea type="text" class="mat-input form-control" name="notes" ng-model="newServiceCtrl.notes"> </textarea>
+            </div>
+        </form>
+    </div> 
+    <div class="pmd-modal-action text-right">
+        <button ng-disabled="newTypeForm.$invalid && newServiceCtrl.selectedVendor != null" class="btn pmd-ripple-effect btn-primary"
+            type="button" ng-click="newServiceCtrl.AddNewService()">{{'saveChangesBtn' | translate}}</button>
+        <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="$state.go('Service',{projectId:projectId});">{{'DiscardBtn'
+            | translate}}</button>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select-add-tags").select2({
+            tags: true,
+            theme: "bootstrap"
+        });
+    });
+</script>

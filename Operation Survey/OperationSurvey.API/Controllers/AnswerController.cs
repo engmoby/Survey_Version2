@@ -54,7 +54,15 @@ namespace OperationSurvey.API.Controllers
             return Ok(reurnAnswer);
         }
 
-        
+        [Route("api/Answers/CheckAnswersByProjectId", Name = "CheckAnswersByProjectId")]
+        [HttpGet]
+        public IHttpActionResult CheckAnswersByProjectId(long projectId)
+        {
+            var val = new AnswerModel();
+            var reurnAnswer = _answerFacade.CheckAnswer(projectId, TenantId);
+            val = Mapper.Map<AnswerModel>(reurnAnswer); 
+            return Ok(val);
+        }
 
     }
 

@@ -72,9 +72,18 @@ namespace OperationSurvey.DAL.Migrations
             ////    TenantId = 1
             ////});
 
+            //var cateorytype = new CategoryType { IsDeleted = false, IsStatic = true };
+            //var categoryTypeTreanslation1 =
+            //    new CategoryTypeTranslation { Language = "en", Title = "Project Management", CategoryType = cateorytype };
+            //var categoryTypeTreanslation2 =
+            //    new CategoryTypeTranslation { Language = "ar", Title = "اداره  مشروعات", CategoryType = cateorytype };
 
-            //var permisison1 = new Permission { IsDeleted = false, IsStatic = true };
-            //var permisison2 = new Permission { IsDeleted = false, IsStatic = true };
+            //context.CategoryTypeTranslations.AddOrUpdate(h => h.CategoryTypeTranslationId, categoryTypeTreanslation1);
+            //context.CategoryTypeTranslations.AddOrUpdate(h => h.CategoryTypeTranslationId, categoryTypeTreanslation2);
+
+
+            var permisison1 = new Permission { IsDeleted = false, IsStatic = true };
+             var permisison2 = new Permission { IsDeleted = false, IsStatic = true };
             //var permisison3 = new Permission { IsDeleted = false, IsStatic = true };
             //var permisison4 = new Permission { IsDeleted = false, IsStatic = true };
             //var permisison5 = new Permission { IsDeleted = false, IsStatic = true };
@@ -96,18 +105,19 @@ namespace OperationSurvey.DAL.Migrations
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison10);
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison11);
 
-            //var permissionTreanslation1 =
-            //    new PermissionTranslation { Language = "en", Title = "Users Permissions", Permission = permisison1 };
-            //var permissionTreanslation2 =
-            //    new PermissionTranslation { Language = "ar", Title = "الموظفين مواضفات", Permission = permisison1 };
+            var permissionTreanslation1 =
+                new PermissionTranslation { Language = "en", Title = "Vendor Permissions", Permission = permisison1 };
+            var permissionTreanslation2 =
+                new PermissionTranslation { Language = "ar", Title = " أذونات بائعين", Permission = permisison1 };
+
             //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation1);
             //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation2);
 
 
             //var permissionTreanslation3 =
-            //    new PermissionTranslation { Language = "en", Title = "User Type Permissions", Permission = permisison2 };
+            //    new PermissionTranslation { Language = "en", Title = "Project Management Permissions", Permission = permisison2 };
             //var permissionTreanslation4 =
-            //    new PermissionTranslation { Language = "ar", Title = "أذونات نوع المستخدم", Permission = permisison2 };
+            //    new PermissionTranslation { Language = "ar", Title = "أذونات ادارة مشروع", Permission = permisison2 };
             //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation3);
             //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation4);
 

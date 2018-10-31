@@ -273,6 +273,10 @@
     <Compile Include="Controllers\CategoriesTypesController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
+    <Compile Include="Controllers\AssetController.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
+    <Compile Include="Controllers\VendorController.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\RegionsController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Controllers\TicketSchedulerController.cs" />
@@ -288,6 +292,10 @@
     <Compile Include="Models\CategoryTypeModel.cs" />
     <Compile Include="Models\CityModel.cs" />
     <Compile Include="Models\CountryModel.cs" />
+    <Compile Include="Models\AssetModel.cs" />
+    <Compile Include="Models\ServiceModel.cs" />
+    <Compile Include="Models\VendorModel.cs" />
+    <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Models\RegionModel.cs" />
     <Compile Include="Models\TicketLogModel.cs" />
     <Compile Include="Models\TicketModel.cs" />

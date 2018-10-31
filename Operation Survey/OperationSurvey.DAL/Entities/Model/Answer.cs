@@ -16,6 +16,10 @@ namespace OperationSurvey.DAL.Entities.Model
         public DateTime CreationTime { get; set; }
         public long? CreatorUserId { get; set; }
 
+        [ForeignKey("Project")]
+        public long? ProjectId { get; set; }
+        public virtual Project Project { get; set; }
+
         [ForeignKey("Branch")]
         public long BranchId { get; set; }
         public virtual Branch Branch { get; set; }
@@ -31,6 +35,7 @@ namespace OperationSurvey.DAL.Entities.Model
         [ForeignKey("Question")]
         public long QuestionId { get; set; }
         public virtual Question Question { get; set; }
+
         public string Note { get; set; }
 
     }

@@ -20,6 +20,7 @@ namespace OperationSurvey.API.Models
         public string UserName { get; set; }
         public long QuestionId { get; set; }
 
+        public long ProjectId { get; set; }
         public ICollection<AnswerDetailsModel> AnswerDetails { get; set; }
         //public List<string> AnswerDetails { get; set; }
         public int TenantId { get; set; }

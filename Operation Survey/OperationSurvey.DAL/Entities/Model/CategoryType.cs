@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +18,9 @@ namespace OperationSurvey.DAL.Entities.Model
         }
         public long CategoryTypeId { get; set; }
         public bool IsDeleted { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [DefaultValue("0")]
+        public bool IsStatic { get; set; }
         public DateTime? LastModificationTime { get; set; }
         public long? LastModifierUserId { get; set; }
         public DateTime? CreationTime { get; set; }

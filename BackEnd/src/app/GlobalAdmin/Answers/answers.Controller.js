@@ -3,14 +3,15 @@
 
     angular
         .module('home')
-        .controller('AnswersController', ['blockUI', '$scope', '$translate', 'AnswerResource', '$state', 'AnswerQuestionPrepService', 'QuestionResource',
-            'ToastService', '$filter', 'CountriesPrepService', 'RegionResource', 'CityResource', 'AreaResource', 'allcategoryTypePrepService','AnswerQuestionResource', AnswersController]);
+        .controller('AnswersController', ['blockUI', '$stateParams', '$scope', '$translate', 'AnswerResource', '$state', 'AnswerQuestionPrepService', 'QuestionResource',
+            'ToastService', '$filter', 'CountriesPrepService', 'RegionResource', 'CityResource', 'AreaResource', 'allcategoryTypePrepService', 'AnswerQuestionResource', AnswersController]);
 
-    function AnswersController(blockUI, $scope, $translate, AnswerResource, $state, AnswerQuestionPrepService, QuestionResource, ToastService, $filter,
-        CountriesPrepService, RegionResource, CityResource, AreaResource, allcategoryTypePrepService,AnswerQuestionResource) {
-
+    function AnswersController(blockUI, $stateParams, $scope, $translate, AnswerResource, $state, AnswerQuestionPrepService, QuestionResource, ToastService, $filter,
+        CountriesPrepService, RegionResource, CityResource, AreaResource, allcategoryTypePrepService, AnswerQuestionResource) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[8].children[0]).addClass("active")
+        debugger;
+        $scope.projectId = $stateParams.projectId;
 
         var vm = this;
         /*vm.selectedArea = { areaId: 0, titleDictionary: { "en": "All Areas", "ar": "جميع المناطق" } };
@@ -129,8 +130,8 @@
             vm.branchList = [];
             vm.selectedBranch = { branchId: 0, titleDictionary: { "en": "All Branches", "ar": "كل الفروع" } };
             vm.branchList.push(vm.selectedBranch);
-            if(vm.selectedArea.areaId > 0)
-            vm.branchList = vm.branchList.concat(vm.selectedArea.branches);
+            if (vm.selectedArea.areaId > 0)
+                vm.branchList = vm.branchList.concat(vm.selectedArea.branches);
         }
 
         // vm.branchChange = function () {
@@ -142,9 +143,29 @@
         // }
         vm.viewAnswer = function (ques) {
             ques.isloading = true;
-            AnswerResource.getAnswer({ questionId: ques.questionId, page: ques.page, 
+            AnswerResource.getAnswer({
+                questionId: ques.questionId, page: ques.page,
                 countryId: vm.countryId, regionId: vm.regionId, cityId: vm.cityId,
-                areaId: vm.areaId, branchId: vm.branchId, from: from, to: to }).$promise.then(function (results) {
+                areaId: vm.areaId, branchId: vm.branchId, from: from, to: to
+            }).$promise.then(function (results) {
+                ques.isloading = false;
+                ques.answers = results;
+                ques.answers.results.forEach(function (element) {
+                    element.date = element.date + "Z";
+                    element.date = $filter('date')(new Date(element.date), "dd/MM/yyyy hh:mm a");
+                }, this);
+                // $scope.$apply()
+            },
+                function (data, status) {
+                    ques.isloading = false;
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+        vm.viewAnswerByProjectId = function (ques) {
+            ques.isloading = true;
+            AnswerResource.getAnswerByProjectId({
+                questionId: ques.questionId, projectId: $scope.projectId, page: ques.page
+            }).$promise.then(function (results) {
                 ques.isloading = false;
                 ques.answers = results;
                 ques.answers.results.forEach(function (element) {
@@ -162,9 +183,31 @@
         var to = ""
         vm.areaId = 0
         vm.branchId = 0
+        if ($scope.projectId != 0) {
+
+            debugger;
+            GetQuestionByProject();
+
+        }
+        function GetQuestionByProject() {
+            blockUI.start("Loading...");
+            vm.selectedCategoryType.categoryTypeId = 5;
+            AnswerQuestionResource.getAllQuestions({ catgoryTypeId: vm.selectedCategoryType.categoryTypeId }).$promise.then(function (results) {
+                vm.questionList = results.results;
+                vm.questionList.forEach(function (element) {
+                    element.page = 1;
+                    element.answers = [];
+                    element.showAnswer = false
+                }, this);
+                blockUI.stop();
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
         vm.applyFilter = function () {
             blockUI.start("Loading...");
-            
+
             AnswerQuestionResource.getAllQuestions({ catgoryTypeId: vm.selectedCategoryType.categoryTypeId }).$promise.then(function (results) {
                 vm.questionList = results.results;
                 vm.questionList.forEach(function (element) {

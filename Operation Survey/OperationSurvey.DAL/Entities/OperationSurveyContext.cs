@@ -57,6 +57,20 @@ namespace OperationSurvey.DAL.Entities
         public DbSet<TicketLog> TicketLogs { get; set; }
         public DbSet<TicketScheduler> TicketSchedulers { get; set; }
 
+
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<ProjectTranslation> ProjectTranslations { get; set; }
+
+        public DbSet<Asset> Assets { get; set; }
+        public DbSet<AssetTranslation> AssetTranslations { get; set; }
+
+        public DbSet<Vendor> Vendors { get; set; }
+        public DbSet<VendorTranslation> VendorTranslations { get; set; }
+
+        public DbSet<Service> Services { get; set; }
+        public DbSet<ServiceTranslation> ServiceTranslations { get; set; }
+
+
         public OperationSurveyContext() : base("name=OperationSurveyDB")
         {
             Database.SetInitializer<OperationSurveyContext>(null);

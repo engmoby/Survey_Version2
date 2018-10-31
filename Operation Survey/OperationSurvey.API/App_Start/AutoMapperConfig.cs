@@ -42,13 +42,13 @@ namespace OperationSurvey.API
             mapperConfiguration.CreateMap<CategoryModel, CategoryDto>();
             mapperConfiguration.CreateMap<CategoryDto, CategoryModel>();
 
-            
+
             mapperConfiguration.CreateMap<CategoryRoleModel, CategoryRoleDto>();
             mapperConfiguration.CreateMap<CategoryRoleDto, CategoryRoleModel>();
 
             mapperConfiguration.CreateMap<PermissionModel, PermissionDto>();
             mapperConfiguration.CreateMap<PermissionDto, PermissionModel>();
-             
+
 
             mapperConfiguration.CreateMap<PermissionModel, RolePermissionDto>();
             mapperConfiguration.CreateMap<RolePermissionDto, PermissionModel>();
@@ -67,7 +67,7 @@ namespace OperationSurvey.API
 
             mapperConfiguration.CreateMap<AnswerModel, AnswerDto>();
             mapperConfiguration.CreateMap<AnswerDto, AnswerModel>()
-                .ForMember(dto => dto.UserName, m => m.MapFrom(src => src.User.FirstName+" "+src.User.LastName));
+                .ForMember(dto => dto.UserName, m => m.MapFrom(src => src.User.FirstName + " " + src.User.LastName));
 
             mapperConfiguration.CreateMap<AdminModel, AdminDto>();
             mapperConfiguration.CreateMap<UserConsumed, UserConsumedModel>();
@@ -96,7 +96,21 @@ namespace OperationSurvey.API
             mapperConfiguration.CreateMap<TicketSchedulerDto, TicketSchedulerModel>()
                 .ForMember(dto => dto.Status, m => m.MapFrom(src => src.Status.ToString()));
 
-            OperationSurveyBllConfig.RegisterMappings(mapperConfiguration); 
+            mapperConfiguration.CreateMap<ProjectModel, ProjectDto>();
+            mapperConfiguration.CreateMap<ProjectDto, ProjectModel>();
+
+            mapperConfiguration.CreateMap<AssetModel, AssetDto>() ;
+            mapperConfiguration.CreateMap<AssetDto, AssetModel>() 
+                .ForMember(dto => dto.DisplayPaymentMethod, m => m.MapFrom(src => src.PaymentMethod.ToString()))
+                .ForMember(dto => dto.DisplayAssetStatus, m => m.MapFrom(src => src.AssetStatus.ToString()));
+
+            mapperConfiguration.CreateMap<VendorModel, VendorDto>();
+            mapperConfiguration.CreateMap<VendorDto, VendorModel>();
+
+            mapperConfiguration.CreateMap<ServiceModel, ServiceDto>();
+            mapperConfiguration.CreateMap<ServiceDto, ServiceModel>();
+
+            OperationSurveyBllConfig.RegisterMappings(mapperConfiguration);
 
         }
     }

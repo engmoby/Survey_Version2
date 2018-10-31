@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Entities\Model\AnswerDetails.cs" />
     <Compile Include="Entities\Model\Answer.cs" />
+    <Compile Include="Entities\Model\ServiceTranslation.cs" />
     <Compile Include="Entities\Model\CategoryType.cs" />
     <Compile Include="Entities\Model\CategoryTypeCategory.cs" />
     <Compile Include="Entities\Model\CategoryTypeTranslation.cs" />
@@ -83,13 +84,20 @@
     <Compile Include="Entities\Model\Country.cs" />
     <Compile Include="Entities\Model\CountryTranslation.cs" />
     <Compile Include="Entities\Model\Package.cs" />
+    <Compile Include="Entities\Model\Asset.cs" />
+    <Compile Include="Entities\Model\AssetTranslation.cs" />
+    <Compile Include="Entities\Model\Service.cs" />
+    <Compile Include="Entities\Model\Vendor.cs" />
+    <Compile Include="Entities\Model\VendorTranslation.cs" />
     <Compile Include="Entities\Model\QuestionDetails.cs" />
     <Compile Include="Entities\Model\QuestionDetailsTranslation.cs" />
     <Compile Include="Entities\Model\Question.cs" />
     <Compile Include="Entities\Model\QuestionTranslation.cs" />
     <Compile Include="Entities\Model\Region.cs" />
     <Compile Include="Entities\Model\RegionTranslation.cs" />
+    <Compile Include="Entities\Model\Project.cs" />
     <Compile Include="Entities\Model\RolePermission.cs" />
+    <Compile Include="Entities\Model\ProjectTranslation.cs" />
     <Compile Include="Entities\Model\Ticket.cs" />
     <Compile Include="Entities\Model\TicketLog.cs" />
     <Compile Include="Entities\Model\TicketScheduler.cs" />

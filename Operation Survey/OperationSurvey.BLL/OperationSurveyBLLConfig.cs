@@ -20,15 +20,15 @@ namespace OperationSurvey.BLL
         {
             mapperConfiguration.CreateMap<User, UserDto>()
                 .ForMember(dto => dto.Password, m => m.MapFrom(src => PasswordHelper.Decrypt(src.Password)))
-                .ForMember(dto => dto.CateoriesId, m => m.MapFrom(src => src.UserCategories.Select(x=>x.CategoryId).ToList()))
-                .ForMember(dto => dto.BranchesId, m => m.MapFrom(src => src.UserBranches.Select(x=>x.BranchId).ToList()));
+                .ForMember(dto => dto.CateoriesId, m => m.MapFrom(src => src.UserCategories.Select(x => x.CategoryId).ToList()))
+                .ForMember(dto => dto.BranchesId, m => m.MapFrom(src => src.UserBranches.Select(x => x.BranchId).ToList()));
             mapperConfiguration.CreateMap<UserDto, User>()
-                .ForMember(dto => dto.UserCategories, m => m.MapFrom(src => src.CateoriesId.Select(x => new UserCategory {CategoryId = x}).ToList()))
+                .ForMember(dto => dto.UserCategories, m => m.MapFrom(src => src.CateoriesId.Select(x => new UserCategory { CategoryId = x }).ToList()))
                 .ForMember(dto => dto.UserBranches, m => m.MapFrom(src => src.BranchesId.Select(x => new UserBranch { BranchId = x }).ToList()));
 
 
             mapperConfiguration.CreateMap<UserRoleDto, UserRole>();
-            mapperConfiguration.CreateMap<UserRole, UserRoleDto>() ;
+            mapperConfiguration.CreateMap<UserRole, UserRoleDto>();
 
 
             mapperConfiguration.CreateMap<Background, BackgroundDto>();
@@ -72,7 +72,7 @@ namespace OperationSurvey.BLL
 
             mapperConfiguration.CreateMap<Category, CategoryDto>()
                 .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.CategoryTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
-                .ForMember(dto => dto.CategoryTypes, m => m.MapFrom(src => src.CategoryTypeCategories.Select(x=>x.CategoryType).ToList()));
+                .ForMember(dto => dto.CategoryTypes, m => m.MapFrom(src => src.CategoryTypeCategories.Select(x => x.CategoryType).ToList()));
 
 
             mapperConfiguration.CreateMap<CategoryRoleDto, CategoryRole>();
@@ -85,8 +85,11 @@ namespace OperationSurvey.BLL
 
 
             mapperConfiguration.CreateMap<QuestionDetailsDto, QuestionDetails>()
-                .ForMember(dto => dto.QuestionDetailsTranslations, m => m.MapFrom(src => src.TitleDictionary.Select(x=>new QuestionDetailsTranslation {
-                    Language = x.Key, Title = x.Value}).ToList()));
+                .ForMember(dto => dto.QuestionDetailsTranslations, m => m.MapFrom(src => src.TitleDictionary.Select(x => new QuestionDetailsTranslation
+                {
+                    Language = x.Key,
+                    Title = x.Value
+                }).ToList()));
 
             mapperConfiguration.CreateMap<QuestionDetails, QuestionDetailsDto>()
                 .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.QuestionDetailsTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
@@ -97,20 +100,20 @@ namespace OperationSurvey.BLL
             mapperConfiguration.CreateMap<AnswerDetailsDto, AnswerDetails>()
                 .ForMember(dto => dto.QuestionDetails, m => m.Ignore());
             mapperConfiguration.CreateMap<Answer, AnswerDto>();
-                //.ForMember(dto=>dto.AnswerDetails,m=>m.MapFrom(src=>src.AnswerDetailses.Select(x=>x.Value).ToList()));
+            //.ForMember(dto=>dto.AnswerDetails,m=>m.MapFrom(src=>src.AnswerDetailses.Select(x=>x.Value).ToList()));
             mapperConfiguration.CreateMap<AnswerDto, Answer>();
             //.ForMember(dto => dto.AnswerDetailses, m => m.MapFrom(src => src.AnswerDetails.Select(x => new AnswerDetails {Value = x}).ToList()));
 
 
             mapperConfiguration.CreateMap<Ticket, TicketDto>()
-                .ForMember(dto => dto.CreatorUser, m => m.MapFrom(src => src.CreatorUser.FirstName+" "+src.CreatorUser.LastName))
-                .ForMember(dto => dto.AssignedUser, m => m.MapFrom(src => src.AssignedUser != null? src.AssignedUser.FirstName + " " + src.AssignedUser.LastName:""))
-                .ForMember(dto => dto.ModifierUser, m => m.MapFrom(src => src.ModifierUser != null? src.ModifierUser.FirstName + " " + src.ModifierUser.LastName:""))
+                .ForMember(dto => dto.CreatorUser, m => m.MapFrom(src => src.CreatorUser.FirstName + " " + src.CreatorUser.LastName))
+                .ForMember(dto => dto.AssignedUser, m => m.MapFrom(src => src.AssignedUser != null ? src.AssignedUser.FirstName + " " + src.AssignedUser.LastName : ""))
+                .ForMember(dto => dto.ModifierUser, m => m.MapFrom(src => src.ModifierUser != null ? src.ModifierUser.FirstName + " " + src.ModifierUser.LastName : ""))
                 .ForMember(dto => dto.DepartmentTitleDictionary, m => m.MapFrom(src => src.Department.DepartmentTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
                 .ForMember(dto => dto.CategoryTitleDictionary, m => m.MapFrom(src => src.Category.CategoryTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
                 .ForMember(dto => dto.AreaTitleDictionary, m => m.MapFrom(src => src.Area.AreaTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
                 .ForMember(dto => dto.BranchTitleDictionary, m => m.MapFrom(src => src.Branch.BranchTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
-                .ForMember(dto => dto.TechnacianUsers, m => m.MapFrom(src => src.Category.UserCategories.Where(x=>src.Branch.UserBranches.Select(b=>b.UserId).Contains(x.UserId)).ToDictionary(translation => translation.UserId , translation => translation.User.FirstName + " " + translation.User.LastName.ToLower())));
+                .ForMember(dto => dto.TechnacianUsers, m => m.MapFrom(src => src.Category.UserCategories.Where(x => src.Branch.UserBranches.Select(b => b.UserId).Contains(x.UserId)).ToDictionary(translation => translation.UserId, translation => translation.User.FirstName + " " + translation.User.LastName.ToLower())));
             mapperConfiguration.CreateMap<TicketDto, Ticket>()
                 .ForMember(dto => dto.CreatorUser, m => m.Ignore())
                 .ForMember(dto => dto.AssignedUser, m => m.Ignore())
@@ -133,16 +136,34 @@ namespace OperationSurvey.BLL
                 .ForMember(dto => dto.RegionNameDictionary, m => m.MapFrom(src => src.Region.RegionTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
 
             mapperConfiguration.CreateMap<User, UserNameDto>()
-                .ForMember(dto => dto.UserName, m => m.MapFrom(src => src.FirstName+" "+src.LastName));
+                .ForMember(dto => dto.UserName, m => m.MapFrom(src => src.FirstName + " " + src.LastName));
 
             mapperConfiguration.CreateMap<CategoryTypeDto, CategoryType>();
             mapperConfiguration.CreateMap<CategoryType, CategoryTypeDto>()
                 .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.CategoryTypeTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
 
             mapperConfiguration.CreateMap<TicketLog, TicketLogDto>()
-                .ForMember(dto => dto.User,m => m.MapFrom(src => src.User.FirstName + " " + src.User.LastName));
+                .ForMember(dto => dto.User, m => m.MapFrom(src => src.User.FirstName + " " + src.User.LastName));
             mapperConfiguration.CreateMap<TicketScheduler, TicketSchedulerDto>();
             mapperConfiguration.CreateMap<TicketSchedulerDto, TicketScheduler>();
+
+            mapperConfiguration.CreateMap<ProjectDto, Project>();
+            mapperConfiguration.CreateMap<Project, ProjectDto>()
+                .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.ProjectTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
+
+            mapperConfiguration.CreateMap<AssetDto, Asset>();
+            mapperConfiguration.CreateMap<Asset, AssetDto>()
+                .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.AssetTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
+
+            mapperConfiguration.CreateMap<VendorDto, Vendor>();
+            mapperConfiguration.CreateMap<Vendor, VendorDto>()
+                .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.VendorTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
+
+            mapperConfiguration.CreateMap<ServiceDto, DAL.Entities.Model.Service>();
+            mapperConfiguration.CreateMap<DAL.Entities.Model.Service, ServiceDto>()
+                .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.ServiceTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
+
+
             Mapper.Initialize(mapperConfiguration);
         }
 
@@ -193,7 +214,20 @@ namespace OperationSurvey.BLL
                 .RegisterType<ICategoryTypeService, CategoryTypeService>(new PerResolveLifetimeManager())
                 .RegisterType<ICategoryTypeCategoryService, CategoryTypeCategoryService>(new PerResolveLifetimeManager())
                 .RegisterType<ITicketLogService, TicketLogService>(new PerResolveLifetimeManager())
-                .RegisterType<ITicketSchedulerService, TicketSchedulerService>(new PerResolveLifetimeManager());
+                .RegisterType<ITicketSchedulerService, TicketSchedulerService>(new PerResolveLifetimeManager())
+
+                .RegisterType<IProjectService, ProjectService>(new PerResolveLifetimeManager())
+                .RegisterType<IProjectTranslationService, ProjectTranslationService>(new PerResolveLifetimeManager())
+
+                .RegisterType<IAssetService, AssetService>(new PerResolveLifetimeManager())
+                .RegisterType<IAssetTranslationService, AssetTranslationService>(new PerResolveLifetimeManager())
+
+                .RegisterType<IVendorService, VendorService>(new PerResolveLifetimeManager())
+                .RegisterType<IVendorTranslationService, VendorTranslationService>(new PerResolveLifetimeManager())
+
+                .RegisterType<IServiceService, ServiceService>(new PerResolveLifetimeManager())
+                .RegisterType<IServiceTranslationService, ServiceTranslationService>(new PerResolveLifetimeManager())
+                ;
         }
 
     }

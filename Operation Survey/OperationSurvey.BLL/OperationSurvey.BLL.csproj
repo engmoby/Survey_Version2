@@ -96,6 +96,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataServices\AnswerService.cs" />
+    <Compile Include="DataServices\Interfaces\IServiceTranslationService.cs" />
+    <Compile Include="DataServices\ServiceTranslationService.cs" />
     <Compile Include="DataServices\CategoryTypeCategoryService.cs" />
     <Compile Include="DataServices\CategoryTypeService.cs" />
     <Compile Include="DataServices\CategoryTypeTranslationService.cs" />
@@ -103,6 +105,20 @@
     <Compile Include="DataServices\CityTranslationService.cs" />
     <Compile Include="DataServices\CountryService.cs" />
     <Compile Include="DataServices\CountryTranslationService.cs" />
+    <Compile Include="DataServices\AssetService.cs" />
+    <Compile Include="DataServices\AssetTranslationService.cs" />
+    <Compile Include="DataServices\Interfaces\IServiceService.cs" />
+    <Compile Include="DataServices\ServiceService.cs" />
+    <Compile Include="DataServices\Interfaces\IVendorService.cs" />
+    <Compile Include="DataServices\Interfaces\IVendorTranslationService.cs" />
+    <Compile Include="DataServices\VendorService.cs" />
+    <Compile Include="DataServices\VendorTranslationService.cs" />
+    <Compile Include="DataServices\Interfaces\IAssetService.cs" />
+    <Compile Include="DataServices\Interfaces\IAssetTranslationService.cs" />
+    <Compile Include="DataServices\Interfaces\IProjectService.cs" />
+    <Compile Include="DataServices\Interfaces\IProjectTranslationService.cs" />
+    <Compile Include="DataServices\ProjectService.cs" />
+    <Compile Include="DataServices\ProjectTranslationService.cs" />
     <Compile Include="DataServices\Interfaces\IAnswerService.cs" />
     <Compile Include="DataServices\Interfaces\ICategoryTypeCategoryService.cs" />
     <Compile Include="DataServices\Interfaces\ICategoryTypeTranslationService.cs" />
@@ -183,6 +199,10 @@
     <Compile Include="DTOs\CategoryTypeDto.cs" />
     <Compile Include="DTOs\CityDto.cs" />
     <Compile Include="DTOs\CountryDto.cs" />
+    <Compile Include="DTOs\AssetDto.cs" />
+    <Compile Include="DTOs\ServiceDto.cs" />
+    <Compile Include="DTOs\VendorDto.cs" />
+    <Compile Include="DTOs\ProjectDto.cs" />
     <Compile Include="DTOs\QuestionDashBoard.cs" />
     <Compile Include="DTOs\QuestionDetailsDto.cs" />
     <Compile Include="DTOs\QuestionDto.cs" />
@@ -212,6 +232,14 @@
     <Compile Include="Services\CityFacade.cs" />
     <Compile Include="Services\CategoryTypeFacade.cs" />
     <Compile Include="Services\CountryFacade.cs" />
+    <Compile Include="Services\AssetFacade.cs" />
+    <Compile Include="Services\Interfaces\IServiceFacade.cs" />
+    <Compile Include="Services\ServiceFacade.cs" />
+    <Compile Include="Services\Interfaces\IVendorFacade.cs" />
+    <Compile Include="Services\VendorFacade.cs" />
+    <Compile Include="Services\Interfaces\IAssetFacade.cs" />
+    <Compile Include="Services\Interfaces\IProjectFacade.cs" />
+    <Compile Include="Services\ProjectFacade.cs" />
     <Compile Include="Services\Interfaces\IAnswerFacade.cs" />
     <Compile Include="Services\Interfaces\ICategoryTypeFacade.cs" />
     <Compile Include="Services\Interfaces\ICityFacade.cs" />

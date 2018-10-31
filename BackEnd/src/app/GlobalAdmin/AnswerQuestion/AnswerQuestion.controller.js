@@ -3,13 +3,14 @@
 
     angular
         .module('home')
-        .controller('AnswerQuestionDialogController', ['blockUI', '$scope', '$translate', 'AnswerResource', '$state', 'AnswerQuestionPrepService', 'QuestionResource',
+        .controller('AnswerQuestionDialogController', ['blockUI', '$stateParams', '$scope', '$translate', 'AnswerResource', '$state', 'AnswerQuestionPrepService', 'QuestionResource',
             'ToastService', 'CountriesPrepService', 'RegionResource', 'CityResource', 'AreaResource', '$filter', 'allcategoryTypePrepService'
             , 'AnswerQuestionResource', AnswerQuestionDialogController]);
 
-    function AnswerQuestionDialogController(blockUI, $scope, $translate, AnswerResource, $state, AnswerQuestionPrepService, QuestionResource,
+    function AnswerQuestionDialogController(blockUI, $stateParams, $scope, $translate, AnswerResource, $state, AnswerQuestionPrepService, QuestionResource,
         ToastService, CountriesPrepService, RegionResource, CityResource, AreaResource, $filter, allcategoryTypePrepService,
         AnswerQuestionResource) {
+        $scope.projectId = $stateParams.projectId;
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[7].children[0]).addClass("active")
@@ -17,7 +18,7 @@
 
         var vm = this;
 
-        console.log($scope.questionList);
+     //   console.log($scope.questionList);
         /*// Toggle selection for a given fruit by name*/
         function init() {
             $scope.likeText = "";
@@ -56,7 +57,53 @@
             $scope.branchList.push($scope.selectedBranch);
         }
         init();
-        vm.answers = []
+        if ($scope.projectId != 0) {
+
+            debugger;
+            CheckAnswersByProject();
+            vm.categoryTypes.push(vm.selectedCategoryType);
+            vm.categoryTypes = vm.categoryTypes.concat(allcategoryTypePrepService.results)
+            vm.selectedCategoryType.categoryTypeId = 5;
+            AnswerQuestionResource.getAllQuestions({ catgoryTypeId: vm.selectedCategoryType.categoryTypeId }).$promise.then(function (results) {
+
+                $scope.questionList = results.results;
+                $scope.IsLike = 0;
+                $scope.isLikeSub = 0;
+                $scope.selection = [];
+                $scope.selectedRate = 0;
+                vm.answers = []
+                $scope.questionList.forEach(function (element) {
+                    vm.answers.push({
+                        branchId: 0,
+                        date: new Date(),
+                        questionId: element.questionId,
+                        answerDetails: [],
+                        note: ""
+
+                    })
+                }, this);
+
+                blockUI.stop();
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        } vm.answers = []
+        function CheckAnswersByProject() {
+            blockUI.start("Loading...");
+            AnswerQuestionResource.CheckAnswersByProjectId({ projectId: $scope.projectId }).$promise.then(function (results) {
+                if (results.userId != 0) {
+                    if (results.userId != undefined) {
+                        $state.go('Answers', { projectId: $scope.projectId });
+                    }
+                }
+                blockUI.stop();
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
         $scope.questionList.forEach(function (element) {
             vm.answers.push({
                 branchId: 0,
@@ -238,6 +285,7 @@
                 element.branchId = $scope.selectedBranch.branchId;
                 var fromDate = $('#startdate').val().split('/')
                 element.date = (new Date(fromDate[1] + "/" + fromDate[0] + "/" + fromDate[2])).toISOString().replace('Z', '');
+                element.projectId = $scope.projectId;
                 /*element.date = new Date($('#startdate').data('date'));*/
             }, this);
             /*   // submitAnswer.Date = new Date($('#startdate').data('date'));
@@ -245,22 +293,28 @@
            //    submitAnswer.questionModel = list;*/
             AnswerResource.create(vm.answers, function (data, status) {
                 blockUI.stop();
-                ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-                init();
-                vm.answers = []
-                $scope.questionList.forEach(function (element) {
-                    vm.answers.push({
-                        branchId: 0,
-                        date: new Date(),
-                        questionId: element.questionId,
-                        answerDetails: [],
-                        note: ""
-                    })
-                    element.l = null;
-                    element.questionDetailses.forEach(function (QuestionDetail) {
-                        QuestionDetail.values = null;
+                debugger;
+                if ($scope.projectId !== 0) {
+                    $state.go('asset', { projectId: $scope.projectId });
+                } else {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    init();
+                    vm.answers = []
+                    $scope.questionList.forEach(function (element) {
+                        vm.answers.push({
+                            branchId: 0,
+                            date: new Date(),
+                            questionId: element.questionId,
+                            answerDetails: [],
+                            note: ""
+                        })
+                        element.l = null;
+                        element.questionDetailses.forEach(function (QuestionDetail) {
+                            QuestionDetail.values = null;
+                        }, this);
                     }, this);
-                }, this);
+
+                }
             },
                 function (data, status) {
                     blockUI.stop();

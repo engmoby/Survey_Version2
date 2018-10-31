@@ -1,0 +1,165 @@
+﻿<error errorId="3d9b0c5f-a49b-4a8c-b585-1c0a2cc97f1b" application="/LM/W3SVC/5/ROOT" host="DESKTOP-9341RKA" type="System.Threading.Tasks.TaskCanceledException" message="A task was canceled." source="mscorlib" detail="System.Threading.Tasks.TaskCanceledException: A task was canceled.&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   at System.Web.Http.Controllers.ApiControllerActionInvoker.&lt;InvokeActionAsyncCore&gt;d__0.MoveNext()&#xD;&#xA;--- End of stack trace from previous location where exception was thrown ---&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   at System.Web.Http.Controllers.ActionFilterResult.&lt;ExecuteAsync&gt;d__2.MoveNext()&#xD;&#xA;--- End of stack trace from previous location where exception was thrown ---&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   at System.Web.Http.Controllers.ExceptionFilterResult.&lt;ExecuteAsync&gt;d__0.MoveNext()" user="1-aaa aaa" time="2018-10-25T07:46:28.9969718Z">
+  <serverVariables>
+    <item name="ALL_HTTP">
+      <value string="HTTP_CONNECTION:keep-alive&#xD;&#xA;HTTP_ACCEPT:application/json, text/plain, */*&#xD;&#xA;HTTP_ACCEPT_ENCODING:gzip, deflate, br&#xD;&#xA;HTTP_ACCEPT_LANGUAGE:en&#xD;&#xA;HTTP_AUTHORIZATION:bearer Mi1pN1S9tL0LQz1wTCr2jiu66hB4eysVrdG207Ok3EdQo3WlR4XVhk3YePY6uHzSpm5Zc5yegUwosO9aCzCifgOkED1VHYSry1ZHXTk3LJ1e-KOO7JF5nJUlc4Aipe3k4MAqOYSfndj8XpPL1iC__8eQwcQ16bS5SAVfrJCfzKghAz3qCOMaPpymc349_mJqFIIuDjXMfwODsOZaaBegfZ1OvVkw3H-0mMOp3-FQ23nNr19Z1pyPPZiVvmUb-4kVpFJUU5DMNe9HMXGlaDkydj4Nt3Mh3q9VL1-ZUvlZX9hxFx0KXp94FT2efXW4qWDH&#xD;&#xA;HTTP_HOST:localhost:32569&#xD;&#xA;HTTP_REFERER:http://localhost:9091/&#xD;&#xA;HTTP_USER_AGENT:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36&#xD;&#xA;HTTP_ORIGIN:http://localhost:9091&#xD;&#xA;" />
+    </item>
+    <item name="ALL_RAW">
+      <value string="Connection: keep-alive&#xD;&#xA;Accept: application/json, text/plain, */*&#xD;&#xA;Accept-Encoding: gzip, deflate, br&#xD;&#xA;Accept-Language: en&#xD;&#xA;Authorization: bearer Mi1pN1S9tL0LQz1wTCr2jiu66hB4eysVrdG207Ok3EdQo3WlR4XVhk3YePY6uHzSpm5Zc5yegUwosO9aCzCifgOkED1VHYSry1ZHXTk3LJ1e-KOO7JF5nJUlc4Aipe3k4MAqOYSfndj8XpPL1iC__8eQwcQ16bS5SAVfrJCfzKghAz3qCOMaPpymc349_mJqFIIuDjXMfwODsOZaaBegfZ1OvVkw3H-0mMOp3-FQ23nNr19Z1pyPPZiVvmUb-4kVpFJUU5DMNe9HMXGlaDkydj4Nt3Mh3q9VL1-ZUvlZX9hxFx0KXp94FT2efXW4qWDH&#xD;&#xA;Host: localhost:32569&#xD;&#xA;Referer: http://localhost:9091/&#xD;&#xA;User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36&#xD;&#xA;Origin: http://localhost:9091&#xD;&#xA;" />
+    </item>
+    <item name="APPL_MD_PATH">
+      <value string="/LM/W3SVC/5/ROOT" />
+    </item>
+    <item name="APPL_PHYSICAL_PATH">
+      <value string="E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\" />
+    </item>
+    <item name="AUTH_TYPE">
+      <value string="JWT" />
+    </item>
+    <item name="AUTH_USER">
+      <value string="1-aaa aaa" />
+    </item>
+    <item name="AUTH_PASSWORD">
+      <value string="*****" />
+    </item>
+    <item name="LOGON_USER">
+      <value string="1-aaa aaa" />
+    </item>
+    <item name="REMOTE_USER">
+      <value string="1-aaa aaa" />
+    </item>
+    <item name="CERT_COOKIE">
+      <value string="" />
+    </item>
+    <item name="CERT_FLAGS">
+      <value string="" />
+    </item>
+    <item name="CERT_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SERIALNUMBER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CERT_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CONTENT_LENGTH">
+      <value string="0" />
+    </item>
+    <item name="CONTENT_TYPE">
+      <value string="" />
+    </item>
+    <item name="GATEWAY_INTERFACE">
+      <value string="CGI/1.1" />
+    </item>
+    <item name="HTTPS">
+      <value string="off" />
+    </item>
+    <item name="HTTPS_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="INSTANCE_ID">
+      <value string="5" />
+    </item>
+    <item name="INSTANCE_META_PATH">
+      <value string="/LM/W3SVC/5" />
+    </item>
+    <item name="LOCAL_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="PATH_INFO">
+      <value string="/api/Countries/GetAllCountries" />
+    </item>
+    <item name="PATH_TRANSLATED">
+      <value string="E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\api\Countries\GetAllCountries" />
+    </item>
+    <item name="QUERY_STRING">
+      <value string="pageSize=0" />
+    </item>
+    <item name="REMOTE_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_HOST">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_PORT">
+      <value string="14890" />
+    </item>
+    <item name="REQUEST_METHOD">
+      <value string="GET" />
+    </item>
+    <item name="SCRIPT_NAME">
+      <value string="/api/Countries/GetAllCountries" />
+    </item>
+    <item name="SERVER_NAME">
+      <value string="localhost" />
+    </item>
+    <item name="SERVER_PORT">
+      <value string="32569" />
+    </item>
+    <item name="SERVER_PORT_SECURE">
+      <value string="0" />
+    </item>
+    <item name="SERVER_PROTOCOL">
+      <value string="HTTP/1.1" />
+    </item>
+    <item name="SERVER_SOFTWARE">
+      <value string="Microsoft-IIS/10.0" />
+    </item>
+    <item name="URL">
+      <value string="/api/Countries/GetAllCountries" />
+    </item>
+    <item name="HTTP_CONNECTION">
+      <value string="keep-alive" />
+    </item>
+    <item name="HTTP_ACCEPT">
+      <value string="application/json, text/plain, */*" />
+    </item>
+    <item name="HTTP_ACCEPT_ENCODING">
+      <value string="gzip, deflate, br" />
+    </item>
+    <item name="HTTP_ACCEPT_LANGUAGE">
+      <value string="en" />
+    </item>
+    <item name="HTTP_AUTHORIZATION">
+      <value string="bearer Mi1pN1S9tL0LQz1wTCr2jiu66hB4eysVrdG207Ok3EdQo3WlR4XVhk3YePY6uHzSpm5Zc5yegUwosO9aCzCifgOkED1VHYSry1ZHXTk3LJ1e-KOO7JF5nJUlc4Aipe3k4MAqOYSfndj8XpPL1iC__8eQwcQ16bS5SAVfrJCfzKghAz3qCOMaPpymc349_mJqFIIuDjXMfwODsOZaaBegfZ1OvVkw3H-0mMOp3-FQ23nNr19Z1pyPPZiVvmUb-4kVpFJUU5DMNe9HMXGlaDkydj4Nt3Mh3q9VL1-ZUvlZX9hxFx0KXp94FT2efXW4qWDH" />
+    </item>
+    <item name="HTTP_HOST">
+      <value string="localhost:32569" />
+    </item>
+    <item name="HTTP_REFERER">
+      <value string="http://localhost:9091/" />
+    </item>
+    <item name="HTTP_USER_AGENT">
+      <value string="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36" />
+    </item>
+    <item name="HTTP_ORIGIN">
+      <value string="http://localhost:9091" />
+    </item>
+  </serverVariables>
+  <queryString>
+    <item name="pageSize">
+      <value string="0" />
+    </item>
+  </queryString>
+</error>

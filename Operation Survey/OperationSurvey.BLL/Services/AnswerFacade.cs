@@ -33,7 +33,10 @@ namespace OperationSurvey.BLL.Services
         {
             return Mapper.Map<AnswerDto>(_answerService.Query(x => x.AnswerId == answerId && x.TenantId == tenantId).Select().FirstOrDefault());
         }
-
+        public AnswerDto CheckAnswer(long projectId, int tenantId)
+        {
+            return Mapper.Map<AnswerDto>(_answerService.Query(x => x.ProjectId == projectId && x.TenantId == tenantId).Select().FirstOrDefault());
+        }
         public void CreateAnswer(List<AnswerDto> answerDto, int userId, int tenantId)
         //public AnswerDto CreateAnswer(List<QuestionDto> questionanswerDto, int userId, int tenantId)
         {
@@ -94,6 +97,15 @@ namespace OperationSurvey.BLL.Services
                                                   && (cityId <= 0 || x.Branch.Area.CityId == cityId)
                                                   && (areaId <= 0 || x.Branch.AreaId == areaId)
                                                   && (branchId <= 0 || x.BranchId == branchId)).Select();
+            PagedResultsDto result = new PagedResultsDto();
+            result.TotalCount = query.Count();
+            result.Data = Mapper.Map<List<AnswerDto>>(query.Skip((page - 1) * pageSize).Take(pageSize).ToList());
+            return result;
+        }
+
+        public PagedResultsDto GetAnswerByProjectId(int page, int pageSize, long projectId, long questionId)
+        { 
+            var query = _answerService.Query(x => x.QuestionId == questionId && x.ProjectId == projectId).Select();
             PagedResultsDto result = new PagedResultsDto();
             result.TotalCount = query.Count();
             result.Data = Mapper.Map<List<AnswerDto>>(query.Skip((page - 1) * pageSize).Take(pageSize).ToList());
