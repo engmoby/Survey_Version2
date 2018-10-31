@@ -54,5 +54,13 @@ namespace OperationSurvey.API.Controllers
             var reurnUserType = _categoryTypeFacade.GetCategoryType(categoryTypeId, TenantId);
             return Ok(reurnUserType);
         }
+
+        [Route("api/CategoriesTypes/Scheduler", Name = "HandleUnaswerdQuestion")]
+        [HttpGet]
+        public IHttpActionResult HandleUnaswerdQuestion()
+        {
+            _categoryTypeFacade.HandleUnaswerdQuestion();
+            return Ok();
+        }
     }
 }

@@ -21,8 +21,10 @@ namespace OperationSurvey.BLL.DataServices
             var query = Queryable().Where(x => !x.IsDeleted && (x.TenantId== tenantId || x.TenantId == null)).OrderBy(x => x.RoleId);
             PagedResultsDto results = new PagedResultsDto();
             results.TotalCount = query.Select(x => x).Count();
-            var ddd = query.OrderBy(x => x.RoleId).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-            results.Data = Mapper.Map<List<Role>, List<RoleDto>>(query.OrderBy(x => x.RoleId).Skip((page - 1) * pageSize).Take(pageSize).ToList());
+            var data = pageSize > 0
+                ? query.OrderBy(x => x.RoleId).Skip((page - 1) * pageSize).Take(pageSize).ToList()
+                : query.OrderBy(x => x.RoleId).ToList();
+            results.Data = Mapper.Map<List<Role>, List<RoleDto>>(data);
                
             return results;
         }

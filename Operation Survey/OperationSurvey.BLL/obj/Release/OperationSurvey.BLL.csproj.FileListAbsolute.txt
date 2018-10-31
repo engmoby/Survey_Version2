@@ -82,3 +82,4 @@ C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Surve
 C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.BLL\obj\Release\OperationSurvey.BLL.csprojResolveAssemblyReference.cache
 C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.BLL\obj\Release\OperationSurvey.BLL.dll
 C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.BLL\obj\Release\OperationSurvey.BLL.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.BLL\bin\Release\Elmah.dll

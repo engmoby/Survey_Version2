@@ -13,5 +13,6 @@ namespace OperationSurvey.BLL.Services.Interfaces
         CategoryTypeDto CreateCategoryType(CategoryTypeDto categoryTypeDto, int userId, int tenantId);
         CategoryTypeDto EditCategoryType(CategoryTypeDto categoryTypeDto, int userId, int tenantId);
         PagedResultsDto GetAllCategoryTypes(int page, int pageSize, int tenantId);
+        void HandleUnaswerdQuestion();
     }
 }

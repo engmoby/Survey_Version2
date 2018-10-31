@@ -769,160 +769,6 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Category/templates/edit.html',
-    '<div class="modal-content">\n' +
-    '    <div class="modal-header bordered">\n' +
-    '        <h2 class="pmd-card-title-text">{{\'CategoryLbl\' | translate}}</h2>\n' +
-    '    </div>\n' +
-    '    <div class="modal-body">\n' +
-    '        <form class="form-horizontal" name="editTypeForm">\n' +
-    '            <div>\n' +
-    '                <!-- Nav tabs -->\n' +
-    '                <ul class="nav nav-tabs" role="tablist">\n' +
-    '                    <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editCategoryCtrl.language">\n' +
-    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
-    '                            {{lang.value | translate}}\n' +
-    '                        </a>\n' +
-    '                    </li>\n' +
-    '                </ul>\n' +
-    '                <div class="pmd-card">\n' +
-    '                    <div class="pmd-card-body">\n' +
-    '                        <!-- Tab panes -->\n' +
-    '                        <div class="tab-content">\n' +
-    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editCategoryCtrl.language" id="{{lang.value}}-form">\n' +
-    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                                    <label for="first-name"> {{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                    <input required type="text" class="mat-input form-control" name="titleDictionary{{lang.value+\'Name\'}}" ng-model="editCategoryCtrl.Category.titleDictionary[lang.key]"\n' +
-    '                                        ng-minlength="3" ng-maxlength="255">\n' +
-    '                                    <div ng-messages="editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error">\n' +
-    '\n' +
-    '                                        <div ng-show="editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.required && !editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
-    '                                        <div ng-show="(editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.minlength || editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError255\' | translate}}</div>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '\n' +
-    '\n' +
-    '                            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                <label> {{ \'Role\' | translate}} </label>\n' +
-    '                                <select required style="width:100% !important" class="form-control select-with-search pmd-select2-tags" multiple ng-model="editCategoryCtrl.selectedCategoryRoles"\n' +
-    '                                    ng-options="role as role.titleDictionary[selectedLanguage] for role in roleList"></select>\n' +
-    '\n' +
-    '                            </div>\n' +
-    '                            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                <label> {{ \'categoryType\' | translate}} </label>\n' +
-    '                                <select style="width:100% !important" class="form-control select-with-search pmd-select2-tags" multiple ng-model="editCategoryCtrl.selectedCategoryTypeId"\n' +
-    '                                    ng-options="role as role.titleDictionary[selectedLanguage] for role in editCategoryCtrl.categoryTypes"></select>\n' +
-    '\n' +
-    '                            </div>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '\n' +
-    '        </form>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-modal-action text-right">\n' +
-    '        <button ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editCategoryCtrl.UpdateCategory()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '        <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editCategoryCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '\n' +
-    '<script type="text/javascript">\n' +
-    '    $(document).ready(function () {\n' +
-    '        $(".select-add-tags").select2({\n' +
-    '            tags: true,\n' +
-    '            theme: "bootstrap",\n' +
-    '            insertTag: function (data, tag) {\n' +
-    '                // Insert the tag at the end of the results\n' +
-    '                data.push(tag);\n' +
-    '                // console.log(data);\n' +
-    '            }\n' +
-    '        });\n' +
-    '        $(".select-with-search").select2({\n' +
-    '            theme: "bootstrap"\n' +
-    '        });\n' +
-    '    });\n' +
-    '</script>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Category/templates/new.html',
-    '<div class="modal-content">\n' +
-    '    <div class="modal-header bordered">\n' +
-    '        <h2 class="pmd-card-title-text">{{\'CategoryLbl\' | translate}}</h2>\n' +
-    '    </div>\n' +
-    '    <div class="modal-body">\n' +
-    '        <form class="form-horizontal" name="newCategoryForm">\n' +
-    '            <div>\n' +
-    '                <!-- Nav tabs -->\n' +
-    '                <ul class="nav nav-tabs" role="tablist">\n' +
-    '                    <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newCategoryCtrl.language">\n' +
-    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
-    '                            {{lang.value | translate}}\n' +
-    '                        </a>\n' +
-    '                    </li>\n' +
-    '                </ul>\n' +
-    '                <div class="pmd-card">\n' +
-    '                    <div class="pmd-card-body">\n' +
-    '                        <!-- Tab panes -->\n' +
-    '                        <div class="tab-content">\n' +
-    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newCategoryCtrl.language" id="{{lang.value}}-form">\n' +
-    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                                    <label for="first-name"> {{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                    <input required Category="text" class="mat-input form-control" name="titleDictionary{{lang.value+\'Name\'}}" ng-model="newCategoryCtrl.titleDictionary[lang.key]"\n' +
-    '                                        ng-minlength="3" ng-maxlength="255">\n' +
-    '                                    <div ng-messages="newCategoryForm.titleDictionary{{lang.value+\'Name\'}}.$error">\n' +
-    '\n' +
-    '                                        <div ng-show="newCategoryForm.titleDictionary{{lang.value+\'Name\'}}.$error.required && !newCategoryForm.titleDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
-    '                                        <div ng-show="(newCategoryForm.titleDictionary{{lang.value+\'Name\'}}.$error.minlength || newCategoryForm.titleDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !newCategoryForm.titleDictionary{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError255\' | translate}}</div>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '                            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                <label> {{ \'Role\' | translate}} </label>\n' +
-    '                                <select required style="width:100% !important" class="form-control select-with-search pmd-select2-tags" multiple ng-model="newCategoryCtrl.selectedCategoryRoles"\n' +
-    '                                    ng-options="role as role.titleDictionary[selectedLanguage] for role in roleList"></select>\n' +
-    '\n' +
-    '                            </div>\n' +
-    '\n' +
-    '                            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                <label> {{ \'categoryType\' | translate}} </label>\n' +
-    '                                <select style="width:100% !important" class="form-control select-with-search pmd-select2-tags" multiple ng-model="newCategoryCtrl.selectedCategoryTypeId"\n' +
-    '                                    ng-options="role as role.titleDictionary[selectedLanguage] for role in newCategoryCtrl.categoryTypes"></select>\n' +
-    '\n' +
-    '                            </div>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '        </form>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-modal-action text-right">\n' +
-    '        <button ng-disabled="newCategoryForm.$invalid" class="btn pmd-ripple-effect btn-primary" Category="button" ng-click="newCategoryCtrl.AddNewCategory()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '        <button class="btn pmd-ripple-effect btn-default" Category="button" ng-click="newCategoryCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '\n' +
-    '<script type="text/javascript">\n' +
-    '    $(document).ready(function () {\n' +
-    '        $(".select-add-tags").select2({\n' +
-    '            tags: true,\n' +
-    '            theme: "bootstrap",\n' +
-    '            insertTag: function (data, tag) {\n' +
-    '                data.push(tag);\n' +
-    '            }\n' +
-    '        });\n' +
-    '        $(".select-with-search").select2({\n' +
-    '            theme: "bootstrap"\n' +
-    '        });\n' +
-    '    });\n' +
-    '</script>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/City/templates/Cities.html',
     '\n' +
     '<div>\n' +
@@ -1089,9 +935,9 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '            <thead>\n' +
     '                <tr>\n' +
     '                    <th>{{\'status\' | translate}}</th>\n' +
-    '                    <th>{{\'Users\' | translate}}</th>\n' +
+    '                    <th>{{\'users\' | translate}}</th>\n' +
     '                    <th>{{\'Time\' | translate}}</th>\n' +
-    '                    <th>{{\'IsAcive\' | translate}}</th>\n' +
+    '                    <th>{{\'IsActive\' | translate}}</th>\n' +
     '                    <th></th>\n' +
     '                </tr>\n' +
     '            </thead>\n' +
@@ -1144,7 +990,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                            <!-- <div class="tab-content"> -->\n' +
     '                            <!-- <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newRoleCtrl.language" id="{{lang.value}}-form"> -->\n' +
     '                            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                <label for="first-name"> {{ \'time\' | translate}} </label>\n' +
+    '                                <label for="first-name"> {{ \'Time\' | translate}} </label>\n' +
     '                                <input required type="number" min="1" class="mat-input form-control" name="time" ng-model="ticketConfigCtrl.ticketScheduler.time">\n' +
     '                                <div ng-messages="newTypeForm.time.$error">\n' +
     '                                    <div ng-show="newTypeForm.time.$error.required && !newTypeForm.time.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
@@ -1154,14 +1000,15 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '    \n' +
     '                            <!-- </div> -->\n' +
     '                            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                <label for="first-name">{{\'Users\' | translate}}</label>\n' +
-    '                                <select required class="form-control select-add-tags pmd-select2-tags" multiple ng-model="ticketConfigCtrl.ticketScheduler.emails"\n' +
-    '                                    ng-options="user as user for user in ticketConfigCtrl.users"></select>\n' +
+    '                                <label for="first-name">{{\'users\' | translate}}</label>\n' +
+    '                                <select required class="form-control select-add-tags pmd-select2-tags" multiple ng-model="ticketConfigCtrl.ticketScheduler.emails">\n' +
+    '                                    <option ng-repeat="user in ticketConfigCtrl.users">{{user}}</option>\n' +
+    '                                </select>\n' +
     '                            </div>\n' +
     '    \n' +
     '                            <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
     '                                <!-- <label for="first-name"> {{ \'time\' | translate}} </label> -->\n' +
-    '                                <textarea ng-model="ticketConfigCtrl.ticketScheduler.body" required name="body"></textarea>\n' +
+    '                                <textarea ng-model="ticketConfigCtrl.ticketScheduler.body" required name="body" cols="100" rows="3" placeholder="Body"></textarea>\n' +
     '                                <div ng-messages="newTypeForm.body.$error">\n' +
     '                                    <div ng-show="newTypeForm.body.$error.required && !newTypeForm.body.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
     '                                </div>\n' +
@@ -1174,7 +1021,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        </div>\n' +
     '    \n' +
     '        <div class="pmd-modal-action text-right">\n' +
-    '            <button ng-disabled="newTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="ticketConfigCtrl.update()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '            <button ng-disabled="newTypeForm.$invalid || !ticketConfigCtrl.validateEmail()" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="ticketConfigCtrl.update()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '            <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="$state.go(\'Config\');">{{\'DiscardBtn\' | translate}}</button>\n' +
     '        </div>\n' +
     '    </div>\n' +
@@ -1216,7 +1063,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                        <!-- <div class="tab-content"> -->\n' +
     '                        <!-- <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newRoleCtrl.language" id="{{lang.value}}-form"> -->\n' +
     '                        <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                            <label for="first-name"> {{ \'time\' | translate}} </label>\n' +
+    '                            <label for="first-name"> {{ \'Time\' | translate}} </label>\n' +
     '                            <input required type="number" class="mat-input form-control" min="1" name="time" ng-model="ticketConfigCtrl.time">\n' +
     '                            <div ng-messages="newTypeForm.time.$error">\n' +
     '                                <div ng-show="newTypeForm.time.$error.required && !newTypeForm.time.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
@@ -1226,20 +1073,16 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '                        <!-- </div> -->\n' +
     '                        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                            <label for="first-name">{{\'Users\' | translate}}</label>\n' +
-    '                            <select required style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="ticketConfigCtrl.emails"\n' +
-    '                                ng-options="user as user for user in ticketConfigCtrl.users" name="email"\n' +
-    '                                ng-patterns=\'/^(([^<>()\\[\\]\\.,;:\\s@\\"]+(\\.[^<>()\\[\\]\\.,;:\\s@\\"]+)*)|(\\".+\\"))@(([^<>()[\\]\\.,;:\\s@\\"]+\\.)+[^<>()[\\]\\.,;:\\s@\\"]{2,})$/i\'></select>\n' +
-    '                                <div ng-messages="newTypeForm.email.$error" >\n' +
-    '                                        <div ng-if="!newTypeForm.email.$error.required && newTypeForm.email.$error.pattern">{{\'invalidEmail\' | translate}}</div>\n' +
-    '                                        \n' +
-    '                                    </div>\n' +
-    '                                \n' +
+    '                            <label for="first-name">{{\'users\' | translate}}</label>\n' +
+    '                            <select  class="form-control select-add-tags pmd-select2-tags" multiple ng-model="ticketConfigCtrl.emails" required>\n' +
+    '                                <option ng-repeat="user in ticketConfigCtrl.users">{{user}}</option>\n' +
+    '                            </select>\n' +
+    '                                                                \n' +
     '                        </div>\n' +
     '\n' +
     '                        <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
     '                            <!-- <label for="first-name"> {{ \'time\' | translate}} </label> -->\n' +
-    '                            <textarea ng-model="ticketConfigCtrl.body" required name="body"></textarea>\n' +
+    '                            <textarea ng-model="ticketConfigCtrl.body" required name="body" cols="100" rows="3" placeholder="Body"></textarea>\n' +
     '                            <div ng-messages="newTypeForm.body.$error">\n' +
     '                                <div ng-show="newTypeForm.body.$error.required && !newTypeForm.body.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
     '                            </div>\n' +
@@ -1252,7 +1095,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '\n' +
     '    <div class="pmd-modal-action text-right">\n' +
-    '        <button ng-disabled="newTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="ticketConfigCtrl.AddNew()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button ng-disabled="newTypeForm.$invalid || !ticketConfigCtrl.validateEmail()" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="ticketConfigCtrl.AddNew()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '        <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="$state.go(\'Config\');">{{\'DiscardBtn\' | translate}}</button>\n' +
     '    </div>\n' +
     '</div>\n' +
@@ -1586,6 +1429,160 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '</div>\n' +
     '');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Category/templates/edit.html',
+    '<div class="modal-content">\n' +
+    '    <div class="modal-header bordered">\n' +
+    '        <h2 class="pmd-card-title-text">{{\'CategoryLbl\' | translate}}</h2>\n' +
+    '    </div>\n' +
+    '    <div class="modal-body">\n' +
+    '        <form class="form-horizontal" name="editTypeForm">\n' +
+    '            <div>\n' +
+    '                <!-- Nav tabs -->\n' +
+    '                <ul class="nav nav-tabs" role="tablist">\n' +
+    '                    <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editCategoryCtrl.language">\n' +
+    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
+    '                            {{lang.value | translate}}\n' +
+    '                        </a>\n' +
+    '                    </li>\n' +
+    '                </ul>\n' +
+    '                <div class="pmd-card">\n' +
+    '                    <div class="pmd-card-body">\n' +
+    '                        <!-- Tab panes -->\n' +
+    '                        <div class="tab-content">\n' +
+    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editCategoryCtrl.language" id="{{lang.value}}-form">\n' +
+    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                                    <label for="first-name"> {{ lang.value+\'Name\' | translate}} </label>\n' +
+    '                                    <input required type="text" class="mat-input form-control" name="titleDictionary{{lang.value+\'Name\'}}" ng-model="editCategoryCtrl.Category.titleDictionary[lang.key]"\n' +
+    '                                        ng-minlength="3" ng-maxlength="255">\n' +
+    '                                    <div ng-messages="editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error">\n' +
+    '\n' +
+    '                                        <div ng-show="editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.required && !editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '                                        <div ng-show="(editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.minlength || editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError255\' | translate}}</div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '                            </div>\n' +
+    '\n' +
+    '\n' +
+    '                            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                <label> {{ \'Role\' | translate}} </label>\n' +
+    '                                <select required style="width:100% !important" class="form-control select-with-search pmd-select2-tags" multiple ng-model="editCategoryCtrl.selectedCategoryRoles"\n' +
+    '                                    ng-options="role as role.titleDictionary[selectedLanguage] for role in roleList"></select>\n' +
+    '\n' +
+    '                            </div>\n' +
+    '                            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                <label> {{ \'categoryType\' | translate}} </label>\n' +
+    '                                <select style="width:100% !important" class="form-control select-with-search pmd-select2-tags" multiple ng-model="editCategoryCtrl.selectedCategoryTypeId"\n' +
+    '                                    ng-options="role as role.titleDictionary[selectedLanguage] for role in editCategoryCtrl.categoryTypes"></select>\n' +
+    '\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editCategoryCtrl.UpdateCategory()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editCategoryCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-add-tags").select2({\n' +
+    '            tags: true,\n' +
+    '            theme: "bootstrap",\n' +
+    '            insertTag: function (data, tag) {\n' +
+    '                // Insert the tag at the end of the results\n' +
+    '                data.push(tag);\n' +
+    '                // console.log(data);\n' +
+    '            }\n' +
+    '        });\n' +
+    '        $(".select-with-search").select2({\n' +
+    '            theme: "bootstrap"\n' +
+    '        });\n' +
+    '    });\n' +
+    '</script>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Category/templates/new.html',
+    '<div class="modal-content">\n' +
+    '    <div class="modal-header bordered">\n' +
+    '        <h2 class="pmd-card-title-text">{{\'CategoryLbl\' | translate}}</h2>\n' +
+    '    </div>\n' +
+    '    <div class="modal-body">\n' +
+    '        <form class="form-horizontal" name="newCategoryForm">\n' +
+    '            <div>\n' +
+    '                <!-- Nav tabs -->\n' +
+    '                <ul class="nav nav-tabs" role="tablist">\n' +
+    '                    <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newCategoryCtrl.language">\n' +
+    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
+    '                            {{lang.value | translate}}\n' +
+    '                        </a>\n' +
+    '                    </li>\n' +
+    '                </ul>\n' +
+    '                <div class="pmd-card">\n' +
+    '                    <div class="pmd-card-body">\n' +
+    '                        <!-- Tab panes -->\n' +
+    '                        <div class="tab-content">\n' +
+    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newCategoryCtrl.language" id="{{lang.value}}-form">\n' +
+    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                                    <label for="first-name"> {{ lang.value+\'Name\' | translate}} </label>\n' +
+    '                                    <input required Category="text" class="mat-input form-control" name="titleDictionary{{lang.value+\'Name\'}}" ng-model="newCategoryCtrl.titleDictionary[lang.key]"\n' +
+    '                                        ng-minlength="3" ng-maxlength="255">\n' +
+    '                                    <div ng-messages="newCategoryForm.titleDictionary{{lang.value+\'Name\'}}.$error">\n' +
+    '\n' +
+    '                                        <div ng-show="newCategoryForm.titleDictionary{{lang.value+\'Name\'}}.$error.required && !newCategoryForm.titleDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '                                        <div ng-show="(newCategoryForm.titleDictionary{{lang.value+\'Name\'}}.$error.minlength || newCategoryForm.titleDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !newCategoryForm.titleDictionary{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError255\' | translate}}</div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '                            </div>\n' +
+    '                            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                <label> {{ \'Role\' | translate}} </label>\n' +
+    '                                <select required style="width:100% !important" class="form-control select-with-search pmd-select2-tags" multiple ng-model="newCategoryCtrl.selectedCategoryRoles"\n' +
+    '                                    ng-options="role as role.titleDictionary[selectedLanguage] for role in roleList"></select>\n' +
+    '\n' +
+    '                            </div>\n' +
+    '\n' +
+    '                            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                <label> {{ \'categoryType\' | translate}} </label>\n' +
+    '                                <select style="width:100% !important" class="form-control select-with-search pmd-select2-tags" multiple ng-model="newCategoryCtrl.selectedCategoryTypeId"\n' +
+    '                                    ng-options="role as role.titleDictionary[selectedLanguage] for role in newCategoryCtrl.categoryTypes"></select>\n' +
+    '\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button ng-disabled="newCategoryForm.$invalid" class="btn pmd-ripple-effect btn-primary" Category="button" ng-click="newCategoryCtrl.AddNewCategory()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button class="btn pmd-ripple-effect btn-default" Category="button" ng-click="newCategoryCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-add-tags").select2({\n' +
+    '            tags: true,\n' +
+    '            theme: "bootstrap",\n' +
+    '            insertTag: function (data, tag) {\n' +
+    '                data.push(tag);\n' +
+    '            }\n' +
+    '        });\n' +
+    '        $(".select-with-search").select2({\n' +
+    '            theme: "bootstrap"\n' +
+    '        });\n' +
+    '    });\n' +
+    '</script>');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
@@ -3012,14 +3009,15 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '                <!-- </div> -->\n' +
     '                <div ng-show="editcategoryTypeCtrl.categoryType.type !=null && editcategoryTypeCtrl.categoryType.time!=null" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                    <label for="first-name">{{\'Users\' | translate}}</label>\n' +
-    '                    <select ng-required="editcategoryTypeCtrl.categoryType.type!=null && editcategoryTypeCtrl.categoryType.time!=null" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="editcategoryTypeCtrl.categoryType.emails"\n' +
-    '                        ng-options="user as user for user in editcategoryTypeCtrl.users"></select>\n' +
+    '                    <label for="first-name">{{\'users\' | translate}}</label>\n' +
+    '                    <select ng-required="editcategoryTypeCtrl.categoryType.type!=null && editcategoryTypeCtrl.categoryType.time!=null" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="editcategoryTypeCtrl.categoryType.emails">\n' +
+    '                            <option ng-repeat="user in editcategoryTypeCtrl.users">{{user}}</option>\n' +
+    '                    </select>\n' +
     '                </div>\n' +
     '\n' +
     '                <div ng-show="editcategoryTypeCtrl.categoryType.type!=null && editcategoryTypeCtrl.categoryType.time!=null" class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
     '                    <!-- <label for="first-name"> {{ \'time\' | translate}} </label> -->\n' +
-    '                    <textarea ng-model="editcategoryTypeCtrl.categoryType.body" ng-required="editcategoryTypeCtrl.categoryType.type!=null && editcategoryTypeCtrl.categoryType.time!=null" name="body"></textarea>\n' +
+    '                    <textarea ng-model="editcategoryTypeCtrl.categoryType.body" ng-required="editcategoryTypeCtrl.categoryType.type!=null && editcategoryTypeCtrl.categoryType.time!=null" name="body" cols="100" rows="3" placeholder="Body"></textarea>\n' +
     '                    <div ng-messages="editTypeForm.body.$error">\n' +
     '                        <div ng-show="editTypeForm.body.$error.required && !editTypeForm.body.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
     '                    </div>\n' +
@@ -3029,7 +3027,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        </form>\n' +
     '    </div>\n' +
     '    <div class="pmd-modal-action text-right">\n' +
-    '        <button ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editcategoryTypeCtrl.UpdateType()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button ng-disabled="editTypeForm.$invalid || !editcategoryTypeCtrl.validateEmail()" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editcategoryTypeCtrl.UpdateType()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '        <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editcategoryTypeCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '    </div>\n' +
     '</div>\n' +
@@ -3099,19 +3097,16 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '            <!-- </div> -->\n' +
     '            <div ng-show="newcategoryTypeCtrl.type !=null && newcategoryTypeCtrl.time!=null" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                <label for="first-name">{{\'Users\' | translate}}</label>\n' +
-    '                <select ng-required="newcategoryTypeCtrl.type !=null && newcategoryTypeCtrl.time!=null" style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="newcategoryTypeCtrl.emails"\n' +
-    '                    ng-options="user as user for user in newcategoryTypeCtrl.users" name="email" ng-patterns=\'/^(([^<>()\\[\\]\\.,;:\\s@\\"]+(\\.[^<>()\\[\\]\\.,;:\\s@\\"]+)*)|(\\".+\\"))@(([^<>()[\\]\\.,;:\\s@\\"]+\\.)+[^<>()[\\]\\.,;:\\s@\\"]{2,})$/i\'></select>\n' +
-    '                <div ng-messages="newTypeForm.email.$error">\n' +
-    '                    <div ng-if="!newTypeForm.email.$error.required && newTypeForm.email.$error.pattern">{{\'invalidEmail\' | translate}}</div>\n' +
-    '\n' +
-    '                </div>\n' +
+    '                <label for="first-name">{{\'users\' | translate}}</label>\n' +
+    '                <select ng-required="newcategoryTypeCtrl.type !=null && newcategoryTypeCtrl.time!=null" style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="newcategoryTypeCtrl.emails">\n' +
+    '                        <option ng-repeat="user in newcategoryTypeCtrl.users">{{user}}</option>\n' +
+    '                </select>\n' +
     '\n' +
     '            </div>\n' +
     '\n' +
     '            <div class="form-group pmd-textfield pmd-textfield-floating-label" ng-show="newcategoryTypeCtrl.type !=null && newcategoryTypeCtrl.time!=null">\n' +
     '                <!-- <label for="first-name"> {{ \'time\' | translate}} </label> -->\n' +
-    '                <textarea ng-model="newcategoryTypeCtrl.body" ng-required="newcategoryTypeCtrl.type !=null && newcategoryTypeCtrl.time!=null" name="body"></textarea>\n' +
+    '                <textarea ng-model="newcategoryTypeCtrl.body" ng-required="newcategoryTypeCtrl.type !=null && newcategoryTypeCtrl.time!=null" name="body" cols="100" rows="3" placeholder="Body"></textarea>\n' +
     '                <div ng-messages="newTypeForm.body.$error">\n' +
     '                    <div ng-show="newTypeForm.body.$error.required && !newTypeForm.body.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
     '                </div>\n' +
@@ -3119,7 +3114,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        </form>\n' +
     '    </div>\n' +
     '    <div class="pmd-modal-action text-right">\n' +
-    '        <button ng-disabled="newTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newcategoryTypeCtrl.AddNewType()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button ng-disabled="newTypeForm.$invalid || !newcategoryTypeCtrl.validateEmail()" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newcategoryTypeCtrl.AddNewType()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '        <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="$state.go(\'categoryType\');">{{\'DiscardBtn\' | translate}}</button>\n' +
     '    </div>\n' +
     '</div>\n' +

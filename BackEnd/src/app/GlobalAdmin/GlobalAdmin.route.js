@@ -34,7 +34,7 @@
 
                     resolve: {
                         userPrepService: userPrepService,
-                        RolePrepService: RolePrepService,
+                        RolePrepService: AllRolePrepService,
                         userConsumedPrepService: userConsumedPrepService,
                         CountriesPrepService: CountriesPrepService,
                         DepartmentPrepService: AllDepartmentPrepService
@@ -57,7 +57,7 @@
                     'controllerAs': 'editUserCtrl',
                     resolve: {
                         EditUserPrepService: EditUserPrepService,
-                        RolePrepService: RolePrepService,
+                        RolePrepService: AllRolePrepService,
                         /*AreaPrepService: AllAreaPrepService,*/
                         DepartmentPrepService: AllDepartmentPrepService,
                         CountriesPrepService: CountriesPrepService,
@@ -364,8 +364,8 @@
                     'controllerAs': 'newCategoryCtrl',
                     resolve: {
                         DepartmentByIdPrepService: DepartmentByIdPrepService,
-                        RolePrepService: RolePrepService,
-                        allcategoryTypePrepService: allcategoryTypePrepService
+                        RolePrepService: AllRolePrepService,
+                        allcategoryTypePrepService:allcategoryTypePrepService
                     },
                     data: {
                         permissions: {
@@ -382,8 +382,8 @@
                     'controllerAs': 'editCategoryCtrl',
                     resolve: {
                         CategoryByIdPrepService: CategoryByIdPrepService,
-                        RolePrepService: RolePrepService,
-                        allcategoryTypePrepService: allcategoryTypePrepService
+                        RolePrepService: AllRolePrepService,
+                        allcategoryTypePrepService:allcategoryTypePrepService
                     },
                     data: {
                         permissions: {
@@ -805,7 +805,10 @@
     function RolePrepService(RoleResource) {
         return RoleResource.getAllRoles().$promise;
     }
-
+    AllRolePrepService.$inject = ['RoleResource']
+    function AllRolePrepService(RoleResource) {
+        return RoleResource.getAllRoles({pageSize:0}).$promise;
+    }
     RoleByIdPrepService.$inject = ['RoleResource', '$stateParams']
     function RoleByIdPrepService(RoleResource, $stateParams) {
         return RoleResource.getRole({ roleId: $stateParams.roleId }).$promise;

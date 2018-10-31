@@ -64,5 +64,12 @@ namespace OperationSurvey.API.Controllers
             _ticketSchedulerFacade.DisableTicketScheduler(Id);
             return Ok();
         }
+        [Route("api/TicketScheduler/Scheduler", Name = "HandleTicketUnchanged")]
+        [HttpGet]
+        public IHttpActionResult HandleTicketUnchanged()
+        {
+            _ticketSchedulerFacade.HandleTicketUnchanged();
+            return Ok();
+        }
     }
 }

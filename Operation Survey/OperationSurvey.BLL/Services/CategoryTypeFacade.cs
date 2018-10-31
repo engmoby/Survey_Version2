@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Elmah;
 using OperationSurvey.BLL.DataServices.Interfaces;
 using OperationSurvey.BLL.DTOs;
 using OperationSurvey.BLL.Services.Interfaces;
@@ -18,10 +20,12 @@ namespace OperationSurvey.BLL.Services
     {
         private ICategoryTypeService _categoryTypeService;
         private ICategoryTypeTranslationService _categoryTypeTranslationService;
-        public CategoryTypeFacade(IUnitOfWorkAsync unitOfWork, ICategoryTypeService categoryTypeService, ICategoryTypeTranslationService categoryTypeTranslationService):base(unitOfWork)
+        private IQuestionService _questionService;
+        public CategoryTypeFacade(IUnitOfWorkAsync unitOfWork, ICategoryTypeService categoryTypeService, ICategoryTypeTranslationService categoryTypeTranslationService, IQuestionService questionService):base(unitOfWork)
         {
             _categoryTypeService = categoryTypeService;
             _categoryTypeTranslationService = categoryTypeTranslationService;
+            _questionService = questionService;
         }
         public CategoryTypeDto GetCategoryType (long categoryTypeId, int tenantId)
         {
@@ -112,6 +116,74 @@ namespace OperationSurvey.BLL.Services
                 if (_categoryTypeTranslationService.CheckNameExist(name.Value, name.Key, categoryTypeDto.CategoryTypeId, tenantId))
                     throw new ValidationException(ErrorCodes.NameIsExist);
             }
+        }
+
+        public void HandleUnaswerdQuestion()
+        {
+            var categoryTypes = _categoryTypeService.Query(x=>x.Emails != null && x.Time >0 && x.Body != null && x.Type != null).Select().ToList();
+
+            foreach (var categoryType in categoryTypes)
+            {
+                foreach (var category in categoryType.CategoryTypeCategories)
+                {
+                    var questions = _questionService.Query(x => x.TenantId == categoryType.TenantId &&
+                                                x.CategoryId == category.CategoryId).Select().ToList();
+                    foreach (var question in questions)
+                    {
+                        var lastDateTime = question.Answers.OrderByDescending(x => x.CreationTime)
+                            .Select(x => x.CreationTime).FirstOrDefault();
+                        if (categoryType.Type.ToLower() == "daily")
+                        {
+                            lastDateTime = lastDateTime.AddDays(1);
+                        }
+                        else if (categoryType.Type.ToLower() == "weekly")
+                        {
+                            lastDateTime = lastDateTime.AddDays(7);
+                        }
+                        else if (categoryType.Type.ToLower() == "monthly")
+                        {
+                            lastDateTime = lastDateTime.AddMonths(1);
+                        }
+                        else if (categoryType.Type.ToLower() == "yearly")
+                        {
+                            lastDateTime = lastDateTime.AddYears(1);
+                        }
+                        if ((DateTime.Now - lastDateTime).TotalMinutes > categoryType.Time)
+                        {
+                            try
+                            {
+                                SendHtmlFormattedEmail(categoryType.Emails, "Survey", categoryType.Body);
+                            }
+                            catch (Exception e)
+                            {
+                                ErrorSignal.FromCurrentContext().Raise(e);
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
+        private void SendHtmlFormattedEmail(string recepientEmail, string subject, string body)
+        {
+            string FromMail = "gmggroupsoftware@gmail.com";
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("in-v3.mailjet.com");
+            mail.From = new MailAddress(FromMail);
+            //mail.To.Add(recepientEmail);
+            foreach (var address in recepientEmail.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                mail.To.Add(address);
+            }
+            mail.Subject = subject;
+            mail.IsBodyHtml = true;
+            mail.Body = body;
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("9d7c1de804eabdf8fedf498bffadd546", "93187ce363c3beb198214badc25cdc3c");
+            SmtpServer.EnableSsl = false;
+            SmtpServer.Send(mail);
+
         }
     }
 }
