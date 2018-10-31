@@ -95,7 +95,7 @@ namespace OperationSurvey.BLL.Services
             return cityDto;
 
         }
-
+           
         public PagedResultsDto GetAllCities(long regionId, int page, int pageSize, int tenantId)
         {
             return _cityService.GetAllCities(regionId, page, pageSize, tenantId);
