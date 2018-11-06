@@ -1,0 +1,166 @@
+﻿<error errorId="7611b656-acef-439f-bba8-526421a4b167" application="/LM/W3SVC/5/ROOT" host="LAPTOP-Q6C15EET" type="OperationSurvey.Common.CustomException.ValidationException" message="Exception of type 'OperationSurvey.Common.CustomException.ValidationException' was thrown." source="OperationSurvey.BLL" detail="OperationSurvey.Common.CustomException.ValidationException: Exception of type 'OperationSurvey.Common.CustomException.ValidationException' was thrown.&#xD;&#xA;   at OperationSurvey.BLL.Services.TicketSchedulerFacade.CreateTicketScheduler(Int64 tenantId, TicketSchedulerDto ticketSchedulerDto) in C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.BLL\Services\TicketSchedulerFacade.cs:line 41&#xD;&#xA;   at OperationSurvey.API.Controllers.TicketSchedulerController.CreateTicketScheduler(TicketSchedulerModel ticketSchedulerModel) in C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\Controllers\TicketSchedulerController.cs:line 42&#xD;&#xA;   at lambda_method(Closure , Object , Object[] )&#xD;&#xA;   at System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.&lt;&gt;c__DisplayClass10.&lt;GetExecutor&gt;b__9(Object instance, Object[] methodParameters)&#xD;&#xA;   at System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.Execute(Object instance, Object[] arguments)&#xD;&#xA;   at System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ExecuteAsync(HttpControllerContext controllerContext, IDictionary`2 arguments, CancellationToken cancellationToken)&#xD;&#xA;--- End of stack trace from previous location where exception was thrown ---&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   at System.Web.Http.Controllers.ApiControllerActionInvoker.&lt;InvokeActionAsyncCore&gt;d__0.MoveNext()&#xD;&#xA;--- End of stack trace from previous location where exception was thrown ---&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   at System.Web.Http.Controllers.ActionFilterResult.&lt;ExecuteAsync&gt;d__2.MoveNext()&#xD;&#xA;--- End of stack trace from previous location where exception was thrown ---&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   at System.Web.Http.Controllers.ExceptionFilterResult.&lt;ExecuteAsync&gt;d__0.MoveNext()" user="1-sherif " time="2018-10-22T12:17:14.4786430Z">
+  <serverVariables>
+    <item name="ALL_HTTP">
+      <value string="HTTP_CONNECTION:keep-alive&#xD;&#xA;HTTP_CONTENT_LENGTH:66&#xD;&#xA;HTTP_CONTENT_TYPE:application/json;charset=UTF-8&#xD;&#xA;HTTP_ACCEPT:application/json, text/plain, */*&#xD;&#xA;HTTP_ACCEPT_ENCODING:gzip, deflate, br&#xD;&#xA;HTTP_ACCEPT_LANGUAGE:en&#xD;&#xA;HTTP_AUTHORIZATION:bearer EEa7_IN0gbHxvKv9_bYA-ZH8vccpHsk0DvGEWVV0hFoD8p8NaDY3Usp5Xc4rZi8YDjKPPodaGLje_C7aPsEDAdq-PU1MCp1HETl_rxmqcTYrKHOy7uftn2Ok2XLU-_vtrmZvm6W-lShLDnhZOTZqwKEmunbX2wXaUldDHJxISCtskWaccoZJKDP13y-tgzc-ux1b0cJBby4-zfE2UceLIc58jKOs1GVPLUIkeQBe_FrLt5ApPsj4QHkBzQygc-hoMBiPdyDJTqKLXNrdN-jwHMJAS1gj6QcyXGGb6sxaLw3k3BYUKf9nTOaZTsHk1Ix9rmpOuZ6R8qtzSVFYBio8Ew&#xD;&#xA;HTTP_HOST:localhost:32569&#xD;&#xA;HTTP_REFERER:http://localhost:9091/&#xD;&#xA;HTTP_USER_AGENT:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.67 Safari/537.36&#xD;&#xA;HTTP_ORIGIN:http://localhost:9091&#xD;&#xA;" />
+    </item>
+    <item name="ALL_RAW">
+      <value string="Connection: keep-alive&#xD;&#xA;Content-Length: 66&#xD;&#xA;Content-Type: application/json;charset=UTF-8&#xD;&#xA;Accept: application/json, text/plain, */*&#xD;&#xA;Accept-Encoding: gzip, deflate, br&#xD;&#xA;Accept-Language: en&#xD;&#xA;Authorization: bearer EEa7_IN0gbHxvKv9_bYA-ZH8vccpHsk0DvGEWVV0hFoD8p8NaDY3Usp5Xc4rZi8YDjKPPodaGLje_C7aPsEDAdq-PU1MCp1HETl_rxmqcTYrKHOy7uftn2Ok2XLU-_vtrmZvm6W-lShLDnhZOTZqwKEmunbX2wXaUldDHJxISCtskWaccoZJKDP13y-tgzc-ux1b0cJBby4-zfE2UceLIc58jKOs1GVPLUIkeQBe_FrLt5ApPsj4QHkBzQygc-hoMBiPdyDJTqKLXNrdN-jwHMJAS1gj6QcyXGGb6sxaLw3k3BYUKf9nTOaZTsHk1Ix9rmpOuZ6R8qtzSVFYBio8Ew&#xD;&#xA;Host: localhost:32569&#xD;&#xA;Referer: http://localhost:9091/&#xD;&#xA;User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.67 Safari/537.36&#xD;&#xA;Origin: http://localhost:9091&#xD;&#xA;" />
+    </item>
+    <item name="APPL_MD_PATH">
+      <value string="/LM/W3SVC/5/ROOT" />
+    </item>
+    <item name="APPL_PHYSICAL_PATH">
+      <value string="C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\" />
+    </item>
+    <item name="AUTH_TYPE">
+      <value string="JWT" />
+    </item>
+    <item name="AUTH_USER">
+      <value string="1-sherif " />
+    </item>
+    <item name="AUTH_PASSWORD">
+      <value string="*****" />
+    </item>
+    <item name="LOGON_USER">
+      <value string="1-sherif " />
+    </item>
+    <item name="REMOTE_USER">
+      <value string="1-sherif " />
+    </item>
+    <item name="CERT_COOKIE">
+      <value string="" />
+    </item>
+    <item name="CERT_FLAGS">
+      <value string="" />
+    </item>
+    <item name="CERT_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SERIALNUMBER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CERT_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CONTENT_LENGTH">
+      <value string="66" />
+    </item>
+    <item name="CONTENT_TYPE">
+      <value string="application/json;charset=UTF-8" />
+    </item>
+    <item name="GATEWAY_INTERFACE">
+      <value string="CGI/1.1" />
+    </item>
+    <item name="HTTPS">
+      <value string="off" />
+    </item>
+    <item name="HTTPS_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="INSTANCE_ID">
+      <value string="5" />
+    </item>
+    <item name="INSTANCE_META_PATH">
+      <value string="/LM/W3SVC/5" />
+    </item>
+    <item name="LOCAL_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="PATH_INFO">
+      <value string="/api/TicketScheduler" />
+    </item>
+    <item name="PATH_TRANSLATED">
+      <value string="C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\api\TicketScheduler" />
+    </item>
+    <item name="QUERY_STRING">
+      <value string="" />
+    </item>
+    <item name="REMOTE_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_HOST">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_PORT">
+      <value string="32192" />
+    </item>
+    <item name="REQUEST_METHOD">
+      <value string="POST" />
+    </item>
+    <item name="SCRIPT_NAME">
+      <value string="/api/TicketScheduler" />
+    </item>
+    <item name="SERVER_NAME">
+      <value string="localhost" />
+    </item>
+    <item name="SERVER_PORT">
+      <value string="32569" />
+    </item>
+    <item name="SERVER_PORT_SECURE">
+      <value string="0" />
+    </item>
+    <item name="SERVER_PROTOCOL">
+      <value string="HTTP/1.1" />
+    </item>
+    <item name="SERVER_SOFTWARE">
+      <value string="Microsoft-IIS/10.0" />
+    </item>
+    <item name="URL">
+      <value string="/api/TicketScheduler" />
+    </item>
+    <item name="HTTP_CONNECTION">
+      <value string="keep-alive" />
+    </item>
+    <item name="HTTP_CONTENT_LENGTH">
+      <value string="66" />
+    </item>
+    <item name="HTTP_CONTENT_TYPE">
+      <value string="application/json;charset=UTF-8" />
+    </item>
+    <item name="HTTP_ACCEPT">
+      <value string="application/json, text/plain, */*" />
+    </item>
+    <item name="HTTP_ACCEPT_ENCODING">
+      <value string="gzip, deflate, br" />
+    </item>
+    <item name="HTTP_ACCEPT_LANGUAGE">
+      <value string="en" />
+    </item>
+    <item name="HTTP_AUTHORIZATION">
+      <value string="bearer EEa7_IN0gbHxvKv9_bYA-ZH8vccpHsk0DvGEWVV0hFoD8p8NaDY3Usp5Xc4rZi8YDjKPPodaGLje_C7aPsEDAdq-PU1MCp1HETl_rxmqcTYrKHOy7uftn2Ok2XLU-_vtrmZvm6W-lShLDnhZOTZqwKEmunbX2wXaUldDHJxISCtskWaccoZJKDP13y-tgzc-ux1b0cJBby4-zfE2UceLIc58jKOs1GVPLUIkeQBe_FrLt5ApPsj4QHkBzQygc-hoMBiPdyDJTqKLXNrdN-jwHMJAS1gj6QcyXGGb6sxaLw3k3BYUKf9nTOaZTsHk1Ix9rmpOuZ6R8qtzSVFYBio8Ew" />
+    </item>
+    <item name="HTTP_HOST">
+      <value string="localhost:32569" />
+    </item>
+    <item name="HTTP_REFERER">
+      <value string="http://localhost:9091/" />
+    </item>
+    <item name="HTTP_USER_AGENT">
+      <value string="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.67 Safari/537.36" />
+    </item>
+    <item name="HTTP_ORIGIN">
+      <value string="http://localhost:9091" />
+    </item>
+  </serverVariables>
+</error>

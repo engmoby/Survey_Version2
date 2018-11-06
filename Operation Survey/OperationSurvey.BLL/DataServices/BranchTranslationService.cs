@@ -86,6 +86,11 @@ namespace OperationSurvey.BLL.DataServices
             return results;
         }
 
-
+        public bool CheckNameExist(string objName, string language, long recordId, long tenantId, long areaId)
+        {
+            return Queryable()
+                .Any(x => x.Language.ToLower() == language.ToLower() && x.Title.ToLower() == objName.ToLower() &&
+                          x.BranchId != recordId && x.Branch.TenantId == tenantId && !x.Branch.IsDeleted && x.Branch.AreaId == areaId);
+        }
     }
 }

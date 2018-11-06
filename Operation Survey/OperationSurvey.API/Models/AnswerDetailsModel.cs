@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+using OperationSurvey.Common;
+
+namespace OperationSurvey.API.Models
+{
+    public class AnswerDetailsModel
+    {
+        public long AnswerDetailsId { get; set; }
+        //public DateTime Date { get; set; }
+        //public DateTime CreationTime { get; set; }
+        //public long? CreatorUserId { get; set; }
+        //public Enums.QuestionType QuestionTypeId { get; set; }
+        //public string[] Values { get; set; }
+        public int Value { get; set; }
+        public long? QuestionDetailsId { get; set; }
+        public Dictionary<string, string> TitleDictionary { get; set; }
+        //public string Note { get; set; }
+
+        //public long AnswerId { get; set; }
+        // public AnswerModel Answer { get; set; }
+
+        //public long QuestionId { get; set; }
+        //  public QuestionModel Question { get; set; }
+        //public int TenantId { get; set; }
+    }
+}

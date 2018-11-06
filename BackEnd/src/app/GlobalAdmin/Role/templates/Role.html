@@ -24,6 +24,7 @@
                          
                          <td>
                              <p  ng-show="role.isStatic">{{'Static' | translate}}</p> 
+                             <p  ng-show="!role.isStatic">{{'Dynamic' | translate}}</p> 
                         </td> 
                         <td width="30%" ng-show="!role.isStatic">
                             <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editrole',{roleId: role.roleId});">mode_edit</i> 
@@ -32,7 +33,7 @@
                 </tbody>
             </table>
         </div>
-        <div style="text-align:center;" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
+        <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
         flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
            </div>
     </div> 

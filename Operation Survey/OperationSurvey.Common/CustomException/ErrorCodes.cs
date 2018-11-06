@@ -86,6 +86,9 @@ namespace OperationSurvey.Common.CustomException
         PhoneExist,
         ProductNotFound,
         UserTypeNotFound,
-        RecordIsExist
+        NameIsExist,
+        PackageExpired,
+        PackageNotActivated,
+        StatusAlreadyExist
     }
 }

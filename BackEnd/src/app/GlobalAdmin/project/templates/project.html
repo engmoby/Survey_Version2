@@ -1,0 +1,44 @@
+<div>
+    <div style="margin-bottom:10px">
+        <button ng-click="$state.go('newProject');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddBtn'
+            | translate}}</button>
+
+    </div>
+
+    <div ng-if="ProjectList.results.length == 0">
+        <span>{{'NoProjectsAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="ProjectList.results.length > 0">
+        <div class="table-responsive"></div>
+        <table class="table pmd-table table-hover">
+            <thead>
+                <tr>
+                    <th>{{'Name' | translate}}</th>
+                    <th>{{'dateLbl' | translate}}</th>
+                    <th>{{'totalAsset' | translate}}</th>
+                    <th>{{'totalService' | translate}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="Project in ProjectList.results">
+                    <td data-title="Name">{{Project.titleDictionary[selectedLanguage]}}</td>
+                    <td data-title="Name">
+                        {{Project.creationTime | date:'mediumDate'}}<br>
+                        {{Project.creationTime | date:'shortTime'}}
+                    </td>
+
+                    <td data-title="Name">{{ getTotal(Project) }}</td>
+                    <td data-title="Name">{{ getServiceTotal(Project) }}</td>
+                    <td width="30%" ng-show="!Project.isStatic">
+                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editProject',{projectId: Project.projectId});">mode_edit</i>
+                        <!-- <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="ProjectCtrl.openDeleteProjectDialog(Project.ProjectNameDictionary[selectedLanguage],Project.ProjectId)">delete</i> -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="text-align:center;" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
+        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
+    </div>
+</div>

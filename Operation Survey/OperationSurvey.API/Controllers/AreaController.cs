@@ -18,11 +18,11 @@ namespace OperationSurvey.API.Controllers
             _areaFacade = areaFacade; 
         }
 
-        [Route("api/Areas/GetAllAreas", Name = "GetAllAreas")]
+        [Route("api/Cities/{cityId:long}/Areas/GetAllAreas", Name = "GetAllAreas")]
         [HttpGet]
-        public IHttpActionResult GetAllAreas(int page = Page, int pagesize = PageSize)
+        public IHttpActionResult GetAllAreas(long cityId, int page = Page, int pagesize = PageSize)
         {
-            PagedResultsDto areaObj = _areaFacade.GetAllAreas(page, pagesize, TenantId);
+            PagedResultsDto areaObj = _areaFacade.GetAllAreas(cityId,page, pagesize, TenantId);
             var data = Mapper.Map<List<AreaModel>>(areaObj.Data);
             return PagedResponse("GetAllAreas", page, pagesize, areaObj.TotalCount, data, areaObj.IsParentTranslated);
         }
@@ -55,6 +55,9 @@ namespace OperationSurvey.API.Controllers
             var reurnArea = _areaFacade.GetArea(areaId, TenantId);
             return Ok(reurnArea);
         }
+
+        
+        
     }
 
 }

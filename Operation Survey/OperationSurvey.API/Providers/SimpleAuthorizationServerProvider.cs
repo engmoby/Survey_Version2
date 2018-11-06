@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -119,13 +120,18 @@ namespace OperationSurvey.API.Providers
         {
             var identity = new ClaimsIdentity(Strings.JWT);
             identity.AddClaim(new Claim(Strings.userName, user.FirstName));
+            identity.AddClaim(new Claim(ClaimTypes.Name, user.TenantId+"-"+user.FirstName+" " +user.LastName));
             identity.AddClaim(new Claim(Strings.userID, user.UserId.ToString()));
            identity.AddClaim(new Claim(Strings.TenantId, user.TenantId.ToString()));
+            //identity.AddClaim(new Claim(Strings.PermissionId, string.Join(";", user.PermissionId)));
             // identity.AddClaim(new Claim(ClaimTypes.Role, user.Role.ToString()));
 
             var props = new AuthenticationProperties(AuthProps(user));
 
             var ticket = new AuthenticationTicket(identity, props);
+            
+
+
             return ticket;
         }
         private Dictionary<string, string> AuthProps(UserDto user)
@@ -136,10 +142,16 @@ namespace OperationSurvey.API.Providers
                     "UserId", user.UserId.ToString()
                 },
                 {
-                    "Username", user.FirstName +""+user.LastName
+                    "Username", user.FirstName +" "+user.LastName
                 },
                 {
                     "TenantId", user.TenantId.ToString()
+                },
+                {
+                    "PermissionId", string.Join(";", user.PermissionId)
+                },
+                {
+                    "TypeId", user.UserTypeId.ToString()
                 },
                 //{
                 //    "Role", user.Role.ToString()

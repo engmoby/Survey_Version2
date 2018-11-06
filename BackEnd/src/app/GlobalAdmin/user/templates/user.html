@@ -1,6 +1,8 @@
 <div>
     <div style="margin-bottom:10px">
-        <button ng-click="$state.go('addUser');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddUserBtn' | translate}}</button>
+        <button ng-click="$state.go('addUser');" ng-disabled="userCtrl.userConsumed.consumedUsers >= userCtrl.userConsumed.maxNumUsers" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddUserBtn' | translate}}</button>
+        <span>{{userCtrl.userConsumed.consumedUsers}}</span>/
+        <span>{{userCtrl.userConsumed.maxNumUsers}}</span>
     </div>
     <div ng-if="userCtrl.userList.results.length == 0">
         <span>{{'NouserAvailable' | translate}}</span>
@@ -20,12 +22,12 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="user in userList">
-                        <td ng-class="{'red-text': user.isActive == false }" data-title="Name" width="20%">{{user.firstName}} {{user.lastName}}</td>
-                        <td ng-class="{'red-text': user.isActive == false }" data-title="Name" width="20%">{{user.email}}  </td>
+                        <td data-title="Name" width="20%">{{user.firstName}} {{user.lastName}}</td>
+                        <td  data-title="Name" width="20%">{{user.email}}  </td>
 
-                        <td ng-class="{'red-text': user.isActive == false }" data-title="Description">{{user.phone}}</td> 
+                        <td  data-title="Description">{{user.phone}}</td> 
                        
-                        <td ng-class="{'red-text': user.isActive == false }" width="15%">  
+                        <td  width="15%">  
                             <i class="cursorPointer" ng-click="$state.go('editUser', {userId: user.userId});">{{'Edit' | translate}} </i>
 
                         </td>
@@ -35,7 +37,7 @@
         </div>
 
     </div>
-    <div style="text-align:center;" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
          flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
     </div>
 </div>

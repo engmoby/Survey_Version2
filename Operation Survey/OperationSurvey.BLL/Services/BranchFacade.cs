@@ -39,19 +39,21 @@ namespace OperationSurvey.BLL.Services
             {
                 return EditBranch(branchDto, userId, tenantId);
             }
-
+            ValidateBranch(branchDto, tenantId, branchDto.AreaId);
             var branchObj = Mapper.Map<Branch>(branchDto);
             foreach (var branchName in branchDto.TitleDictionary)
             {
                 branchObj.BranchTranslations.Add(new BranchTranslation
                 {
                     Title = branchName.Value,
-                    Language = branchName.Key
+                    Language = branchName.Key,
+                    TenantId = tenantId
                 });
             }
 
             branchObj.CreationTime = Strings.CurrentDateTime;
             branchObj.CreatorUserId = userId;
+            branchObj.TenantId = tenantId;
             _typeTranslationService.InsertRange(branchObj.BranchTranslations);
             _branchService.Insert(branchObj);
             SaveChanges();
@@ -63,7 +65,7 @@ namespace OperationSurvey.BLL.Services
             var branchObj = _branchService.Query(x => x.BranchId == branchDto.BranchId && x.TenantId == tenantId)
                 .Select().FirstOrDefault();
             if (branchObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
-
+            ValidateBranch(branchDto, tenantId,branchDto.AreaId);
             foreach (var branchName in branchDto.TitleDictionary)
             {
                 var branchTranslation = branchObj.BranchTranslations.FirstOrDefault(x => x.Language.ToLower() == branchName.Key.ToLower() && x.BranchId == branchDto.BranchId);
@@ -93,5 +95,16 @@ namespace OperationSurvey.BLL.Services
             return _branchService.GetAllBranchs(page, pageSize, tenantId);
         }
 
+        private void ValidateBranch(BranchDto branchDto, long tenantId, long areaId)
+        {
+            foreach (var name in branchDto.TitleDictionary)
+            {
+                if (name.Value.Length > 300)
+                    throw new ValidationException(ErrorCodes.MenuNameExceedLength);
+
+                if (_typeTranslationService.CheckNameExist(name.Value, name.Key, branchDto.BranchId, tenantId,areaId))
+                    throw new ValidationException(ErrorCodes.NameIsExist);
+            }
+        }
     }
 }

@@ -1,0 +1,43 @@
+
+<div >
+    <div style="margin-bottom:10px">
+        <button  ng-click="$state.go('newcategoryType');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddBtn' | translate}}</button>
+        
+    </div>
+    
+    <div ng-if="categoryTypeList.results.length == 0">
+            <span>{{'NocategoryTypesAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="categoryTypeList.results.length > 0">
+        <div class="table-responsive"></div>
+            <table class="table pmd-table table-hover">
+                <thead>
+                    <tr>
+                        <th >{{'Name' | translate}}</th> 
+                        <!-- <th >{{'status' | translate}}</th> -->
+                        <th ></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="categoryType in categoryTypeList.results">
+                        <td data-title="Name" >{{categoryType.titleDictionary[selectedLanguage]}}</td>
+                         
+                        
+                        <!-- <td>
+                            <p ng-show="categoryType.isStatic">{{'Static' | translate}}</p> 
+                            <p  ng-show="!categoryType.isStatic">{{'Dynamic' | translate}}</p>                             
+                        </td>  -->
+                        <td width="30%" ng-show="!categoryType.isStatic">
+                            <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editcategoryType',{categoryTypeId: categoryType.categoryTypeId});">mode_edit</i> 
+                            <!-- <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="categoryTypeCtrl.openDeletecategoryTypeDialog(categoryType.categoryTypeNameDictionary[selectedLanguage],categoryType.categoryTypeId)">delete</i> -->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="text-align:center;" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
+        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
+           </div>
+    </div> 
+
+ 

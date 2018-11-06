@@ -120,10 +120,16 @@
   <data name="MailExist" xml:space="preserve">
     <value>البريد الالكتروني موجود بالفعل</value>
   </data>
+  <data name="PackageExpired" xml:space="preserve">
+    <value>.انتهت صلاحية حسابك، يرجى الاتصال بالمشرف</value>
+  </data>
   <data name="PhoneExist" xml:space="preserve">
     <value>رقم الهاتف موجود بالفعل</value>
   </data>
   <data name="RecordIsExist" xml:space="preserve">
     <value>موجود بالفعل</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>.حسابك لم يفعل، يرجى الاتصال بالمشرف</value>
   </data>
 </root>

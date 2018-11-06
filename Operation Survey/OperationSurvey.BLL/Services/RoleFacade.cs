@@ -54,6 +54,10 @@ namespace OperationSurvey.BLL.Services
             {
                 return EditRole(roleDto, userId, tenantId);
             }
+                if (roleDto.TitleDictionary.Any(name => _typeTranslationService.CheckNameExist(name.Key, name.Value, roleDto.RoleId, tenantId)))
+                {
+                    throw new ValidationException(ErrorCodes.NameIsExist);
+                }
 
             var roleObj = Mapper.Map<Role>(roleDto);
             foreach (var roleName in roleDto.TitleDictionary)
@@ -61,7 +65,8 @@ namespace OperationSurvey.BLL.Services
                 roleObj.RoleTranslations.Add(new RoleTranslation
                 {
                     Title = roleName.Value,
-                    Language = roleName.Key
+                    Language = roleName.Key,
+                    TenantId = tenantId
                 });
             }
             foreach (var roleper in roleDto.Permissions)
@@ -70,7 +75,8 @@ namespace OperationSurvey.BLL.Services
                 roleObj.RolePermissions.Add(new RolePermission
                 { 
                     PermissionId = roleper.PermissionId,
-                    ActionId = 1
+                    ActionId = 1,
+                    TenantId = tenantId
                 });
             }
 
@@ -88,7 +94,10 @@ namespace OperationSurvey.BLL.Services
         public RoleDto EditRole(RoleDto roleDto, int userId, int tenantId)
         {
             //var roleObj = _roleService.Find(roleDto.RoleId);
-
+            if (roleDto.TitleDictionary.Any(name => _typeTranslationService.CheckNameExist(name.Key,name.Value, roleDto.RoleId, tenantId)))
+            {
+                throw new ValidationException(ErrorCodes.NameIsExist);
+            }
             var roleObj = _roleService.Query(x => x.RoleId == roleDto.RoleId && x.TenantId == tenantId)
                 .Select().FirstOrDefault();
 
@@ -110,6 +119,7 @@ namespace OperationSurvey.BLL.Services
             }
             var deletePermissions = new RolePermission[roleObj.RolePermissions.Count];
             roleObj.RolePermissions.CopyTo(deletePermissions, 0);
+
             foreach (var roleObjRolePermission in deletePermissions)
             { 
                 _rolePermissionService.Delete(roleObjRolePermission);
@@ -120,7 +130,8 @@ namespace OperationSurvey.BLL.Services
                 roleObj.RolePermissions.Add(new RolePermission
                 { 
                     PermissionId = roleper.PermissionId,
-                    ActionId = 1
+                    ActionId = 1,
+                    TenantId = tenantId
                 });
             }
             roleObj.LastModificationTime = Strings.CurrentDateTime;

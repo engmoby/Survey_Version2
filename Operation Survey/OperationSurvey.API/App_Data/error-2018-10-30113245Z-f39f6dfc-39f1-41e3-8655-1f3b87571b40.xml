@@ -1,0 +1,296 @@
+﻿<error errorId="f39f6dfc-39f1-41e3-8655-1f3b87571b40" application="/LM/W3SVC/5/ROOT" host="DESKTOP-9341RKA" type="System.NullReferenceException" message="Object reference not set to an instance of an object." source="OperationSurvey.BLL" detail="System.NullReferenceException: Object reference not set to an instance of an object.&#xD;&#xA;   at OperationSurvey.BLL.Services.QuestionFacade.GetAllQuestionsByUserId(Int32 page, Int32 pageSize, Int32 userId, Int32 tenantId, Int64 departmentId, Int64 categoryIdFilter, Int64 catgoryTypeId, String pageName) in E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.BLL\Services\QuestionFacade.cs:line 223&#xD;&#xA;   at OperationSurvey.API.Controllers.QuestionController.GetAllQuestionsByUserId(Int32 page, Int32 pagesize, Int64 departmentId, Int64 categoryId, Int64 catgoryTypeId, String pageName) in E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\Controllers\QuestionController.cs:line 28&#xD;&#xA;   at lambda_method(Closure , Object , Object[] )&#xD;&#xA;   at System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.&lt;&gt;c__DisplayClass10.&lt;GetExecutor&gt;b__9(Object instance, Object[] methodParameters)&#xD;&#xA;   at System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.Execute(Object instance, Object[] arguments)&#xD;&#xA;   at System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ExecuteAsync(HttpControllerContext controllerContext, IDictionary`2 arguments, CancellationToken cancellationToken)&#xD;&#xA;--- End of stack trace from previous location where exception was thrown ---&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   at System.Web.Http.Controllers.ApiControllerActionInvoker.&lt;InvokeActionAsyncCore&gt;d__0.MoveNext()&#xD;&#xA;--- End of stack trace from previous location where exception was thrown ---&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   at System.Web.Http.Controllers.ActionFilterResult.&lt;ExecuteAsync&gt;d__2.MoveNext()&#xD;&#xA;--- End of stack trace from previous location where exception was thrown ---&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   at System.Web.Http.Controllers.ExceptionFilterResult.&lt;ExecuteAsync&gt;d__0.MoveNext()" time="2018-10-30T11:32:45.5553073Z">
+  <serverVariables>
+    <item name="ALL_HTTP">
+      <value string="HTTP_CONNECTION:keep-alive&#xD;&#xA;HTTP_ACCEPT:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8&#xD;&#xA;HTTP_ACCEPT_ENCODING:gzip, deflate, br&#xD;&#xA;HTTP_ACCEPT_LANGUAGE:en-US,en;q=0.9,ar;q=0.8&#xD;&#xA;HTTP_COOKIE:ASP.NET_SessionId=ja0t0yriqkefkahnhh2zarkm; gsScrollPos-534=; gsScrollPos-737=0; Language=fr; gsScrollPos-301890702=; gsScrollPos-301890824=; gsScrollPos-301890846=0; gsScrollPos-301892883=0; gsScrollPos-301893041=0; gsScrollPos-301894348=0; gsScrollPos-301894379=0; gsScrollPos-301894529=0; gsScrollPos-301894549=0; gsScrollPos-301894592=0; gsScrollPos-301894565=0; gsScrollPos-301894562=0; gsScrollPos-301894841=0; culture=en; gsScrollPos-301898133=; gsScrollPos-301898145=; gsScrollPos-301898411=0; gsScrollPos-301898548=0; gsScrollPos-301898564=0; gsScrollPos-301900060=0; gsScrollPos-301900100=0; gsScrollPos-301900224=0; gsScrollPos-301901816=0; gsScrollPos-301902182=0; gsScrollPos-301907379=0; gsScrollPos-301907475=0; gsScrollPos-301907369=; gsScrollPos-301907490=0; gsScrollPos-301907548=0; gsScrollPos-301908653=0; gsScrollPos-301908851=0; gsScrollPos-301910854=; gsScrollPos-301911999=0; gsScrollPos-301911989=0; gsScrollPos-301912215=0; gsScrollPos-301911994=0; gsScrollPos-301913367=0; gsScrollPos-301913439=0; __RequestVerificationToken=bT3SEfPTOFX883cUQHx1rEqGU5XkAjxBNitQ67K0Kqy1LyCtN9A6H4Q4J6-CjJMH8_u2tCWUwtRvP5BLuNCSFU6YrknUrK0TEDsZ1BQlmVU1; gsScrollPos-301923620=0&#xD;&#xA;HTTP_HOST:localhost:32569&#xD;&#xA;HTTP_USER_AGENT:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36&#xD;&#xA;HTTP_UPGRADE_INSECURE_REQUESTS:1&#xD;&#xA;" />
+    </item>
+    <item name="ALL_RAW">
+      <value string="Connection: keep-alive&#xD;&#xA;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8&#xD;&#xA;Accept-Encoding: gzip, deflate, br&#xD;&#xA;Accept-Language: en-US,en;q=0.9,ar;q=0.8&#xD;&#xA;Cookie: ASP.NET_SessionId=ja0t0yriqkefkahnhh2zarkm; gsScrollPos-534=; gsScrollPos-737=0; Language=fr; gsScrollPos-301890702=; gsScrollPos-301890824=; gsScrollPos-301890846=0; gsScrollPos-301892883=0; gsScrollPos-301893041=0; gsScrollPos-301894348=0; gsScrollPos-301894379=0; gsScrollPos-301894529=0; gsScrollPos-301894549=0; gsScrollPos-301894592=0; gsScrollPos-301894565=0; gsScrollPos-301894562=0; gsScrollPos-301894841=0; culture=en; gsScrollPos-301898133=; gsScrollPos-301898145=; gsScrollPos-301898411=0; gsScrollPos-301898548=0; gsScrollPos-301898564=0; gsScrollPos-301900060=0; gsScrollPos-301900100=0; gsScrollPos-301900224=0; gsScrollPos-301901816=0; gsScrollPos-301902182=0; gsScrollPos-301907379=0; gsScrollPos-301907475=0; gsScrollPos-301907369=; gsScrollPos-301907490=0; gsScrollPos-301907548=0; gsScrollPos-301908653=0; gsScrollPos-301908851=0; gsScrollPos-301910854=; gsScrollPos-301911999=0; gsScrollPos-301911989=0; gsScrollPos-301912215=0; gsScrollPos-301911994=0; gsScrollPos-301913367=0; gsScrollPos-301913439=0; __RequestVerificationToken=bT3SEfPTOFX883cUQHx1rEqGU5XkAjxBNitQ67K0Kqy1LyCtN9A6H4Q4J6-CjJMH8_u2tCWUwtRvP5BLuNCSFU6YrknUrK0TEDsZ1BQlmVU1; gsScrollPos-301923620=0&#xD;&#xA;Host: localhost:32569&#xD;&#xA;User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36&#xD;&#xA;Upgrade-Insecure-Requests: 1&#xD;&#xA;" />
+    </item>
+    <item name="APPL_MD_PATH">
+      <value string="/LM/W3SVC/5/ROOT" />
+    </item>
+    <item name="APPL_PHYSICAL_PATH">
+      <value string="E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\" />
+    </item>
+    <item name="AUTH_TYPE">
+      <value string="" />
+    </item>
+    <item name="AUTH_USER">
+      <value string="" />
+    </item>
+    <item name="AUTH_PASSWORD">
+      <value string="*****" />
+    </item>
+    <item name="LOGON_USER">
+      <value string="" />
+    </item>
+    <item name="REMOTE_USER">
+      <value string="" />
+    </item>
+    <item name="CERT_COOKIE">
+      <value string="" />
+    </item>
+    <item name="CERT_FLAGS">
+      <value string="" />
+    </item>
+    <item name="CERT_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SERIALNUMBER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CERT_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CONTENT_LENGTH">
+      <value string="0" />
+    </item>
+    <item name="CONTENT_TYPE">
+      <value string="" />
+    </item>
+    <item name="GATEWAY_INTERFACE">
+      <value string="CGI/1.1" />
+    </item>
+    <item name="HTTPS">
+      <value string="off" />
+    </item>
+    <item name="HTTPS_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="INSTANCE_ID">
+      <value string="5" />
+    </item>
+    <item name="INSTANCE_META_PATH">
+      <value string="/LM/W3SVC/5" />
+    </item>
+    <item name="LOCAL_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="PATH_INFO">
+      <value string="/api/Questions/GetAllQuestionsByUserId" />
+    </item>
+    <item name="PATH_TRANSLATED">
+      <value string="E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\api\Questions\GetAllQuestionsByUserId" />
+    </item>
+    <item name="QUERY_STRING">
+      <value string="catgoryTypeId=5" />
+    </item>
+    <item name="REMOTE_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_HOST">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_PORT">
+      <value string="47041" />
+    </item>
+    <item name="REQUEST_METHOD">
+      <value string="GET" />
+    </item>
+    <item name="SCRIPT_NAME">
+      <value string="/api/Questions/GetAllQuestionsByUserId" />
+    </item>
+    <item name="SERVER_NAME">
+      <value string="localhost" />
+    </item>
+    <item name="SERVER_PORT">
+      <value string="32569" />
+    </item>
+    <item name="SERVER_PORT_SECURE">
+      <value string="0" />
+    </item>
+    <item name="SERVER_PROTOCOL">
+      <value string="HTTP/1.1" />
+    </item>
+    <item name="SERVER_SOFTWARE">
+      <value string="Microsoft-IIS/10.0" />
+    </item>
+    <item name="URL">
+      <value string="/api/Questions/GetAllQuestionsByUserId" />
+    </item>
+    <item name="HTTP_CONNECTION">
+      <value string="keep-alive" />
+    </item>
+    <item name="HTTP_ACCEPT">
+      <value string="text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8" />
+    </item>
+    <item name="HTTP_ACCEPT_ENCODING">
+      <value string="gzip, deflate, br" />
+    </item>
+    <item name="HTTP_ACCEPT_LANGUAGE">
+      <value string="en-US,en;q=0.9,ar;q=0.8" />
+    </item>
+    <item name="HTTP_COOKIE">
+      <value string="ASP.NET_SessionId=ja0t0yriqkefkahnhh2zarkm; gsScrollPos-534=; gsScrollPos-737=0; Language=fr; gsScrollPos-301890702=; gsScrollPos-301890824=; gsScrollPos-301890846=0; gsScrollPos-301892883=0; gsScrollPos-301893041=0; gsScrollPos-301894348=0; gsScrollPos-301894379=0; gsScrollPos-301894529=0; gsScrollPos-301894549=0; gsScrollPos-301894592=0; gsScrollPos-301894565=0; gsScrollPos-301894562=0; gsScrollPos-301894841=0; culture=en; gsScrollPos-301898133=; gsScrollPos-301898145=; gsScrollPos-301898411=0; gsScrollPos-301898548=0; gsScrollPos-301898564=0; gsScrollPos-301900060=0; gsScrollPos-301900100=0; gsScrollPos-301900224=0; gsScrollPos-301901816=0; gsScrollPos-301902182=0; gsScrollPos-301907379=0; gsScrollPos-301907475=0; gsScrollPos-301907369=; gsScrollPos-301907490=0; gsScrollPos-301907548=0; gsScrollPos-301908653=0; gsScrollPos-301908851=0; gsScrollPos-301910854=; gsScrollPos-301911999=0; gsScrollPos-301911989=0; gsScrollPos-301912215=0; gsScrollPos-301911994=0; gsScrollPos-301913367=0; gsScrollPos-301913439=0; __RequestVerificationToken=bT3SEfPTOFX883cUQHx1rEqGU5XkAjxBNitQ67K0Kqy1LyCtN9A6H4Q4J6-CjJMH8_u2tCWUwtRvP5BLuNCSFU6YrknUrK0TEDsZ1BQlmVU1; gsScrollPos-301923620=0" />
+    </item>
+    <item name="HTTP_HOST">
+      <value string="localhost:32569" />
+    </item>
+    <item name="HTTP_USER_AGENT">
+      <value string="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36" />
+    </item>
+    <item name="HTTP_UPGRADE_INSECURE_REQUESTS">
+      <value string="1" />
+    </item>
+  </serverVariables>
+  <queryString>
+    <item name="catgoryTypeId">
+      <value string="5" />
+    </item>
+  </queryString>
+  <cookies>
+    <item name="ASP.NET_SessionId">
+      <value string="ja0t0yriqkefkahnhh2zarkm" />
+    </item>
+    <item name="gsScrollPos-534">
+      <value string="" />
+    </item>
+    <item name="gsScrollPos-737">
+      <value string="0" />
+    </item>
+    <item name="Language">
+      <value string="fr" />
+    </item>
+    <item name="gsScrollPos-301890702">
+      <value string="" />
+    </item>
+    <item name="gsScrollPos-301890824">
+      <value string="" />
+    </item>
+    <item name="gsScrollPos-301890846">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301892883">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301893041">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301894348">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301894379">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301894529">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301894549">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301894592">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301894565">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301894562">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301894841">
+      <value string="0" />
+    </item>
+    <item name="culture">
+      <value string="en" />
+    </item>
+    <item name="gsScrollPos-301898133">
+      <value string="" />
+    </item>
+    <item name="gsScrollPos-301898145">
+      <value string="" />
+    </item>
+    <item name="gsScrollPos-301898411">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301898548">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301898564">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301900060">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301900100">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301900224">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301901816">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301902182">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301907379">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301907475">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301907369">
+      <value string="" />
+    </item>
+    <item name="gsScrollPos-301907490">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301907548">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301908653">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301908851">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301910854">
+      <value string="" />
+    </item>
+    <item name="gsScrollPos-301911999">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301911989">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301912215">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301911994">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301913367">
+      <value string="0" />
+    </item>
+    <item name="gsScrollPos-301913439">
+      <value string="0" />
+    </item>
+    <item name="__RequestVerificationToken">
+      <value string="bT3SEfPTOFX883cUQHx1rEqGU5XkAjxBNitQ67K0Kqy1LyCtN9A6H4Q4J6-CjJMH8_u2tCWUwtRvP5BLuNCSFU6YrknUrK0TEDsZ1BQlmVU1" />
+    </item>
+    <item name="gsScrollPos-301923620">
+      <value string="0" />
+    </item>
+  </cookies>
+</error>

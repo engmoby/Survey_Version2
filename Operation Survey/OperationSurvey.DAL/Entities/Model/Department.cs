@@ -11,7 +11,8 @@ namespace OperationSurvey.DAL.Entities.Model
         {
             DepartmentTranslations = new List<DepartmentTranslation>();
             Categories = new List<Category>();
-
+            Users = new List<User>();
+            Tickets = new List<Ticket>();
         }
 
         public long DepartmentId { get; set; }
@@ -26,6 +27,8 @@ namespace OperationSurvey.DAL.Entities.Model
          
         public virtual ICollection<DepartmentTranslation> DepartmentTranslations { get; set; }
         public virtual ICollection<Category> Categories { get; set; }
+        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Ticket> Tickets { get; set; }
         public int TenantId { get; set; }
     }
 }

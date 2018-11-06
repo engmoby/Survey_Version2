@@ -18,8 +18,38 @@
         public enum QuestionType
         {
             Checkbox,
-            TrueFalse,
+            Rate,
             LikeDislike
+        }
+
+        public enum TicketStatus
+        {
+            Pending,
+            Assigned,
+            InProgress,
+            Closed,
+            Rejected,
+            Reassigned,
+            Completed
+        }
+
+        public enum TicketPriority
+        {
+            Critical,
+            High,
+            Medium,
+            Low
+        }
+
+        public enum AssetStatus
+        {
+            Recevied,
+            NotRecevied
+        }
+        public enum PaymentMethod
+        {
+            Debit,
+            Credit
         }
     }
 }

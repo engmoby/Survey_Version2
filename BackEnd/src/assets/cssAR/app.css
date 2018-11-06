@@ -36,3 +36,6 @@
 	.pmd-table.table>tbody>tr>td, .pmd-table.table>tbody>tr>th, .pmd-table.table>tfoot>tr>td, .pmd-table.table>tfoot>tr>th, .pmd-table.table>thead>tr>td, .pmd-table.table>thead>tr>th{
 		text-align: right !important;
 	}
+	/* .panel{
+		background-color: #fbf8f800;
+	} */

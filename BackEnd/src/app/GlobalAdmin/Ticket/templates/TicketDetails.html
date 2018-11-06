@@ -1,0 +1,135 @@
+
+<div>
+    <button ng-click="ticketDetailsCtrl.ticket.showAssign= true;ticketDetailsCtrl.ticket.assignedUserId ='0';" ng-if="ticketDetailsCtrl.ticket.status === 'Pending' && !ticketDetailsCtrl.ticket.showAssign && ticketDetailsCtrl.user.userTypeId == '2'"
+        class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AssignedBtn' | translate}}</button>
+    <button ng-click="ticketDetailsCtrl.approveTicket(ticketDetailsCtrl.ticket.ticketId)" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+        ng-if="ticketDetailsCtrl.user.userTypeId == '4' && ticketDetailsCtrl.ticket.status == 'Assigned' && !ticketDetailsCtrl.ticket.showReject" type="button">{{'ApproveBtn' | translate}}</button>
+    <button ng-click="ticketDetailsCtrl.closeTicket(ticketDetailsCtrl.ticket.ticketId)" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+        ng-if="ticketDetailsCtrl.user.userTypeId == '4' && ticketDetailsCtrl.ticket.status == 'InProgress'" type="button">{{'CloseBtn' | translate}}</button>
+    <button ng-click="ticketDetailsCtrl.ticket.showReject = true;" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+        ng-if="ticketDetailsCtrl.user.userTypeId == '4' && ticketDetailsCtrl.ticket.status == 'Assigned' && !ticketDetailsCtrl.ticket.showReject " type="button">{{'RejectBtn' | translate}}</button>
+
+    <button ng-click="ticketDetailsCtrl.ticket.showAssign= true;ticketDetailsCtrl.assignTicket(ticketDetailsCtrl.ticket.ticketId,ticketDetailsCtrl.ticket.assignedUserId,ticket.comment)" ng-disabled="ticketDetailsCtrl.ticket.assignedUserId <=0"
+        ng-show="ticketDetailsCtrl.ticket.showAssign" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'saveChangesBtn' | translate}}</button>
+    <button ng-click="ticketDetailsCtrl.ticket.showAssign= false;" ng-show="ticketDetailsCtrl.ticket.showAssign" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+        type="button">{{'DiscardBtn' | translate}}</button>
+    <div ng-show="ticketDetailsCtrl.ticket.showAssign">
+        <div class="form-group pmd-textfield pmd-textfield-floating-label">
+            <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="createTicketCtrl.departmentChange()"
+                ng-model="ticketDetailsCtrl.ticket.assignedUserId" ng-options="key as value for (key, value)  in ticketDetailsCtrl.ticket.technacianUsers">
+            </select>
+        </div>
+    </div>
+
+    <button ng-click="ticketDetailsCtrl.ticket.showReject= true;ticketDetailsCtrl.rejectTicket(ticketDetailsCtrl.ticket.ticketId,ticketDetailsCtrl.ticket.comment)" ng-disabled="ticketDetailsCtrl.ticket.comment==null || ticketDetailsCtrl.ticket.comment.trim().length<3"
+        ng-show="ticketDetailsCtrl.ticket.showReject" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'saveChangesBtn' | translate}}</button>
+    <button ng-click="ticketDetailsCtrl.ticket.showReject= false;" ng-show="ticketDetailsCtrl.ticket.showReject" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+        type="button">{{'DiscardBtn' | translate}}</button>
+    <div ng-show="ticketDetailsCtrl.ticket.showReject || ticketDetailsCtrl.ticket.showAssign">
+        <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                <input required type="text" placeholder="{{'commentLbl'|translate}}" class="mat-input form-control" name="title" ng-model="ticketDetailsCtrl.ticket.comment">
+        </div>
+    </div>
+</div>
+<table class="table pmd-table table-hover">
+
+    <tbody>
+        <tr>
+            <td data-title="Name">{{'Name' | translate}}</td>
+            <td data-title="Name">{{ticketDetailsCtrl.ticket.title}}</td>
+        </tr>
+        <tr>
+            <td>{{'descLbl' | translate}}</td>
+            <td>{{ticketDetailsCtrl.ticket.description}}</td>
+        </tr>
+        <tr>
+            <td>{{'Department' | translate}}</td>
+            <td>{{ticketDetailsCtrl.ticket.departmentTitleDictionary[selectedLanguage]}}</td>
+        </tr>
+        <tr>
+            <td>{{'CategoryLbl' | translate}}</td>
+            <td>{{ticketDetailsCtrl.ticket.categoryTitleDictionary[selectedLanguage]}}</td>
+        </tr>
+        <tr>
+            <td>{{'Area' | translate}}</td>
+            <td>{{ticketDetailsCtrl.ticket.areaTitleDictionary[selectedLanguage]}}</td>
+        </tr>
+        <tr>
+            <td>{{'Branch' | translate}}</td>
+            <td>{{ticketDetailsCtrl.ticket.branchTitleDictionary[selectedLanguage]}}</td>
+        </tr>
+        <tr>
+            <td>{{'status' | translate}}</td>
+            <td>{{ticketDetailsCtrl.ticket.status | translate}}
+                <span ng-if="ticketDetailsCtrl.ticket.status === 'Assigned' 
+                || ticketDetailsCtrl.ticket.status === 'Closed' 
+                || ticketDetailsCtrl.ticket.status === 'Rejected' 
+                || ticketDetailsCtrl.ticket.status === 'InProgress'">{{ticketDetailsCtrl.ticket.assignedUser}} 
+                    <span ng-show="ticketDetailsCtrl.ticket.technicianModificationTime != null">{{ticketDetailsCtrl.ticket.technicianModificationTime}}</span>
+                </span>
+            </td>
+        </tr>
+        <tr ng-if="ticketDetailsCtrl.ticket.status === 'Rejected'">
+            <td>{{'Tech'|translate}} {{'commentLbl' | translate}}</td>
+            <td>{{ticketDetailsCtrl.ticket.rejectionComment}}</td>
+        </tr>
+
+        <tr>
+            <td>{{'Creator' | translate}}</td>
+            <td>{{ticketDetailsCtrl.ticket.creatorUser}}</td>
+        </tr>
+        <tr>
+            <td>{{'CreatTime' | translate}}</td>
+            <td>{{ticketDetailsCtrl.ticket.creationTime}}</td>
+        </tr>
+        <tr >
+            <td>{{'deptManager'|translate}} {{'commentLbl' | translate}}</td>
+            <td>{{ticketDetailsCtrl.ticket.assignComment}}</td>
+        </tr>
+        <tr ng-if="ticketDetailsCtrl.ticket.status !== 'Pending'">
+            <td>{{'modifyBy' | translate}}</td>
+            <td>{{ticketDetailsCtrl.ticket.modifierUser}}</td>
+        </tr>
+        <tr ng-if="ticketDetailsCtrl.ticket.status !== 'Pending'">
+            <td>{{'modifyTime' | translate}}</td>
+            <td>{{ticketDetailsCtrl.ticket.lastModificationTime}}</td>
+        </tr>
+        <tr ng-if="ticketDetailsCtrl.ticket.imagesURL.length >0">
+            <td>{{'imageLbl' | translate}}</td>
+            <td>
+                <div style="width:530px">
+                    <ui-carousel slides="ticketDetailsCtrl.ticket.imagesURL" dots="true">
+                        <carousel-item>
+                            <div style="text-align: center !important;">
+                            <img ng-src="{{item}}" height="100%" width="100%" />
+
+                            </div>
+                            <!-- <h3>{{ item + 1 }}</h3> -->
+
+                        </carousel-item>
+                    </ui-carousel>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div ng-show="ticketDetailsCtrl.ticketLogs.length>0">
+    <h2>{{'history'|translate}}</h2>
+    <table class="table pmd-table table-hover">
+        <thead>
+            <tr>
+                <th>{{'status' | translate}}</th>
+                <th>{{'user' | translate}}</th>
+                <th>{{'CreatTime' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="log in ticketDetailsCtrl.ticketLogs">
+                <td>{{log.status | translate}}</td>
+                <td>{{log.user}}</td>
+                <td>{{log.dateTime}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

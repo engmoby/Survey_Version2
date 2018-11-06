@@ -1,0 +1,97 @@
+<div class="modal-content">
+    <div class="modal-header bordered">
+        <h2 class="pmd-card-title-text">{{'Project' | translate}}</h2>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="editProjectForm">
+            <div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in editProjectCtrl.language">
+                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"
+                            data-toggle="tab">
+                            {{lang.value | translate}}
+                        </a>
+                    </li>
+                </ul>
+                <div class="pmd-card">
+                    <div class="pmd-card-body">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in editProjectCtrl.language"
+                                id="{{lang.value}}-form">
+                                <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
+                                    <label for="first-name"> {{ lang.value+'Name' | translate}} </label>
+                                    <input required type="text" class="mat-input form-control" name="titleDictionary{{lang.value+'Name'}}"
+                                        ng-model="editProjectCtrl.Project.titleDictionary[lang.key]" ng-minlength="3"
+                                        ng-maxlength="40">
+                                    <div ng-messages="editProjectForm.titleDictionary{{lang.value+'Name'}}.$error">
+
+                                        <div ng-show="editProjectForm.titleDictionary{{lang.value+'Name'}}.$error.required && !editProjectForm.titleDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr'
+                                            | translate}}</div>
+                                        <div ng-show="(editProjectForm.titleDictionary{{lang.value+'Name'}}.$error.minlength || editProjectForm.titleDictionary{{lang.value+'Name'}}.$error.maxlength) && !editProjectForm.titleDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError'
+                                            | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"
+                    <label for="first-name">{{'Country' | translate}}</label>
+                    <select class="form-control select-with-search pmd-select2-tags" ng-change="editProjectCtrl.countryChange()"
+                        ng-model="editProjectCtrl.selectedCountry" ng-options="group as group.titleDictionary[selectedLanguage] for group in editProjectCtrl.counties">
+                    </select>
+                </div>
+                <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"
+                    <label for="first-name">{{'Region' | translate}}</label>
+                    <select class="form-control select-with-search pmd-select2-tags" ng-change="editProjectCtrl.regionChange()"
+                        ng-model="editProjectCtrl.selectedRegion" ng-options="group as group.titleDictionary[selectedLanguage] for group in editProjectCtrl.regions">
+                    </select>
+                </div>
+                <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"
+                    <label for="first-name">{{'City' | translate}}</label>
+                    <select class="form-control select-with-search pmd-select2-tags" ng-change="editProjectCtrl.cityChange()"
+                        ng-model="editProjectCtrl.selectedCity" ng-options="group as group.titleDictionary[selectedLanguage] for group in editProjectCtrl.cities">
+                    </select>
+                </div>
+                <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                    <label for="first-name">{{'Area' | translate}}</label>
+
+                    <select required class="form-control select-with-search pmd-select2-tags" ng-change="editProjectCtrl.areaChange()"
+                        ng-model="editProjectCtrl.selectedArea" ng-options="a as a.titleDictionary[selectedLanguage] for a in editProjectCtrl.areaList"></select>
+                </div>
+
+                <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                    <label for="first-name">{{'Branch' | translate}}</label>
+
+                    <select required class="form-control select-with-search pmd-select2-tags" ng-model="editProjectCtrl.selectedBranch"
+                        ng-options="a as a.titleDictionary[selectedLanguage] for a in editProjectCtrl.branchList"></select>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+    <div class="pmd-modal-action text-right">
+        <button ng-disabled="editProjectForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editProjectCtrl.UpdateProject()">{{'saveChangesBtn'
+            | translate}}</button>
+
+        <button ng-disabled="editProjectForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editProjectCtrl.nextBtn()">{{'NextBtn'
+            | translate}}</button>
+
+        <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editProjectCtrl.Close()">{{'DiscardBtn'
+            | translate}}</button>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select-add-tags").select2({
+            tags: true,
+            theme: "bootstrap"
+        });
+    });
+</script>

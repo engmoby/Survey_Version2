@@ -1,0 +1,96 @@
+<div class="modal-content">
+    <div class="modal-header bordered">
+        <h2 class="pmd-card-title-text">{{'asset' | translate}}</h2>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="newTypeForm">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in newAssetCtrl.language">
+                    <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab"
+                        data-toggle="tab">
+                        {{lang.value | translate}}
+                    </a>
+                </li>
+            </ul>
+            <div class="pmd-card">
+                <div class="pmd-card-body">
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in newAssetCtrl.language"
+                            id="{{lang.value}}-form">
+                            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                <label for="first-name"> {{ lang.value+'Name' | translate}} </label>
+                                <input required type="text" class="mat-input form-control" name="titleDictionary{{lang.value+'Name'}}"
+                                    ng-model="newAssetCtrl.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="40">
+                                <div ng-messages="newTypeForm.titleDictionary{{lang.value+'Name'}}.$error">
+
+                                    <div ng-show="newTypeForm.titleDictionary{{lang.value+'Name'}}.$error.required && !newTypeForm.titleDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr'
+                                        | translate}}</div>
+                                    <div ng-show="(newTypeForm.titleDictionary{{lang.value+'Name'}}.$error.minlength || newTypeForm.titleDictionary{{lang.value+'Name'}}.$error.maxlength) && !newTypeForm.titleDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError'
+                                        | translate}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"
+                    <label for="first-name">{{'Vendor' | translate}}</label>
+                    <select class="form-control select-with-search pmd-select2-tags" ng-model="newAssetCtrl.selectedVendor"
+                        ng-options="group as group.titleDictionary[selectedLanguage]
+                     for group in newAssetCtrl.Vendors">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                <label for="first-name">{{'price' | translate}}</label>
+                <input required type="text" class="mat-input form-control" name="price" numbers-only ng-model="newAssetCtrl.price"
+                    ng-minlength="3" ng-maxlength="10">
+                <div ng-messages="newTypeForm.price.$error">
+                    <div ng-if="newTypeForm.price.$error.required && !newTypeForm.price.$pristine">{{'priceReqError' |
+                        translate}}</div>
+                    <div ng-if="(newTypeForm.price.$error.minlength || newTypeForm.price.$error.maxlength)">{{'priceLengthError'
+                        | translate}}</div>
+                </div>
+            </div>
+
+            <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
+                <label for="first-name">{{'AssetStatus' | translate}} : </label>
+                  <br />
+                <input type="radio" ng-model="assetStatus" value="Recevied">Recevied
+                <br>
+                <input type="radio" ng-model="assetStatus" value="NotRecevied">NotRecevied
+            </div>
+            <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
+                <label for="first-name">{{'PaymentMethod' | translate}} : </label>
+                  <br />
+                <input type="radio" ng-model="paymentMethod" value="Debit">Debit
+                <br>
+                <input type="radio" ng-model="paymentMethod" value="Credit">Credit
+            </div>
+            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                <label for="first-name">{{'note' | translate}}</label>
+                <textarea type="text" class="mat-input form-control" name="notes" ng-model="newAssetCtrl.notes"> </textarea>
+            </div>
+        </form>
+    </div> 
+    <div class="pmd-modal-action text-right">
+        <button ng-disabled="newTypeForm.$invalid && newAssetCtrl.selectedVendor != null" class="btn pmd-ripple-effect btn-primary"
+            type="button" ng-click="newAssetCtrl.AddNewAsset()">{{'saveChangesBtn' | translate}}</button>
+        <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="$state.go('Asset',{projectId:projectId});">{{'DiscardBtn'
+            | translate}}</button>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select-add-tags").select2({
+            tags: true,
+            theme: "bootstrap"
+        });
+    });
+</script>

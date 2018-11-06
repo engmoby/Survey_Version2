@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using OperationSurvey.BLL.DataServices.Interfaces;
 using OperationSurvey.BLL.DTOs;
@@ -34,9 +35,9 @@ namespace OperationSurvey.BLL.DataServices
         }
         public PagedResultsDto GetAllUsers(int page, int pageSize, int tenantId)
         {
-            var query = Queryable().Where(x => !x.IsActive && (x.TenantId == tenantId)).OrderBy(x => x.UserId);
+            var query = Queryable().Where(x => x.IsActive && (x.TenantId == tenantId) && !x.IsStatic).OrderBy(x => x.UserId);
             PagedResultsDto results = new PagedResultsDto();
-            results.TotalCount = _repository.Query(x => !x.IsDeleted).Select().Count(x => !x.IsDeleted);
+            results.TotalCount = query.Count(); //_repository.Query(x => !x.IsDeleted).Select().Count(x => !x.IsDeleted);
             var modelReturn = query.OrderBy(x => x.UserId).Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
             var userDto = new List<UserDto>();
@@ -57,6 +58,19 @@ namespace OperationSurvey.BLL.DataServices
             results.Data = userDto;
             return results;
         }
+        public User GetAdminByAccountId(Guid userAccountId)
+        {
+            return _repository.Query(x => x.UserAccountId == userAccountId).Select().FirstOrDefault();
+        }
 
+        public PagedResultsDto GetAllUsersByTypeId(int tenantId,long userTypeId)
+        {
+            var query = Queryable().Where(x => x.IsActive && (x.TenantId == tenantId) && !x.IsStatic && x.UserTypeId == userTypeId).OrderBy(x => x.UserId);
+            PagedResultsDto results = new PagedResultsDto();
+            results.TotalCount = query.Count(); //_repository.Query(x => !x.IsDeleted).Select().Count(x => !x.IsDeleted);
+            var modelReturn = query.OrderBy(x => x.UserId).ToList();
+            results.Data = Mapper.Map<List<User>, List<UserNameDto>>(modelReturn); 
+            return results;
+        }
     }
 }

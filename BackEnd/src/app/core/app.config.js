@@ -5,9 +5,11 @@
       .module('core')
       // registering 'lodash' as a constant to be able to inject it later
       .constant('_', window._)
-      .run(function($rootScope, $state, $stateParams) {
+      .run(function($rootScope, $state, $stateParams,blockUIConfig) {
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
+        blockUIConfig.autoBlock = false;
+        
       })
 /*      .config(function($mdThemingProvider, $mdIconProvider) {
         // angular material design configs

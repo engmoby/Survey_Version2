@@ -70,20 +70,38 @@ namespace OperationSurvey.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name Is Exist.
+        /// </summary>
+        public static string NameIsExist {
+            get {
+                return ResourceManager.GetString("NameIsExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your account is expired, please contact your admin..
+        /// </summary>
+        public static string PackageExpired {
+            get {
+                return ResourceManager.GetString("PackageExpired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your account is not active, please contact your admin..
+        /// </summary>
+        public static string PackageNotActivated {
+            get {
+                return ResourceManager.GetString("PackageNotActivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Phone Is Already Exist.
         /// </summary>
         public static string PhoneExist {
             get {
                 return ResourceManager.GetString("PhoneExist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Record Is Exist.
-        /// </summary>
-        public static string RecordIsExist {
-            get {
-                return ResourceManager.GetString("RecordIsExist", resourceCulture);
             }
         }
     }

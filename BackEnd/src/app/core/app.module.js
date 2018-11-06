@@ -15,6 +15,11 @@
     'ui.bootstrap',
     'pascalprecht.translate',
     'ADM-treeView',
-    'blockUI'
+    'blockUI',
+    'ui.carousel',
+    'nvd3',
+    'jkAngularRatingStars',
+    'angular.filter',
+    'ncy-angular-breadcrumb'
     ]);
 }());

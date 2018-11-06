@@ -117,3 +117,243 @@ E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.API\bin\ar
 E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.API\obj\Release\OperationSurvey.API.csprojResolveAssemblyReference.cache
 E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.API\obj\Release\OperationSurvey.API.dll
 E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.API\obj\Release\OperationSurvey.API.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\csc.exe
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\vbc.exe
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\VBCSCompiler.exe
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\OperationSurvey.API.dll.config
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\OperationSurvey.API.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\OperationSurvey.API.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Antlr3.Runtime.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\AutoMapper.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\EntityFramework.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\EntityFramework.SqlServer.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\FileDb.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\FileDbCache.WPF.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\ImageFileCache.WPF.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\MapControl.WPF.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Cors.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Practices.ServiceLocation.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Practices.Unity.Configuration.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Practices.Unity.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Practices.Unity.RegistrationByConvention.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Newtonsoft.Json.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\OperationSurvey.BLL.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\OperationSurvey.Common.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\OperationSurvey.DAL.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\OperationSurvey.Resources.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Owin.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Repository.Pattern.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Repository.Pattern.Ef6.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Service.Pattern.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Swashbuckle.Core.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Net.Http.Formatting.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Cors.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Helpers.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Http.Cors.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Http.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Http.Owin.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Http.WebHost.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Mvc.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Optimization.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Razor.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.WebPages.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.WebPages.Razor.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Unity.WebApi.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\WebActivatorEx.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\WebGrease.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\LinqKit.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Repository.Pattern.Ef6.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Repository.Pattern.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Service.Pattern.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\OperationSurvey.BLL.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\OperationSurvey.Common.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\OperationSurvey.DAL.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\OperationSurvey.Resources.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\AutoMapper.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\FileDb.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Cors.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Practices.ServiceLocation.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Practices.Unity.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Practices.Unity.Configuration.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Practices.Unity.RegistrationByConvention.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Newtonsoft.Json.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Http.Cors.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Net.Http.Formatting.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Helpers.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Http.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Http.WebHost.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Mvc.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Optimization.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Razor.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.WebPages.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.WebPages.Razor.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Antlr3.Runtime.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\EntityFramework.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\EntityFramework.SqlServer.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Http.Owin.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\LinqKit.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\LinqKit.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\ar-EG\OperationSurvey.Resources.resources.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\obj\Release\OperationSurvey.API.csprojResolveAssemblyReference.cache
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\obj\Release\OperationSurvey.API.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\obj\Release\OperationSurvey.API.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Elmah.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\csc.exe
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\System.Collections.Immutable.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\System.Reflection.Metadata.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\vbc.exe
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\VBCSCompiler.exe
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\roslyn\VBCSCompiler.exe.config
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\OperationSurvey.API.dll.config
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\OperationSurvey.API.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\OperationSurvey.API.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Antlr3.Runtime.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\AutoMapper.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Elmah.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\EntityFramework.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\EntityFramework.SqlServer.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\FileDb.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\FileDbCache.WPF.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\ImageFileCache.WPF.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\MapControl.WPF.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.AspNet.Identity.Core.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.AspNet.Identity.Owin.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Cors.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Host.SystemWeb.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.Cookies.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.Facebook.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.Google.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.OAuth.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.Twitter.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Practices.ServiceLocation.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Practices.Unity.Configuration.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Practices.Unity.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Practices.Unity.RegistrationByConvention.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Web.Infrastructure.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Newtonsoft.Json.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\OperationSurvey.BLL.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\OperationSurvey.Common.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\OperationSurvey.DAL.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\OperationSurvey.Resources.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Owin.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Repository.Pattern.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Repository.Pattern.Ef6.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Service.Pattern.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Swashbuckle.Core.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Net.Http.Formatting.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Cors.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Helpers.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Http.Cors.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Http.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Http.Owin.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Http.WebHost.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Mvc.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Optimization.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Razor.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.WebPages.Deployment.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.WebPages.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.WebPages.Razor.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Unity.WebApi.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\WebActivatorEx.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\WebGrease.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\LinqKit.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Repository.Pattern.Ef6.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Repository.Pattern.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Service.Pattern.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\OperationSurvey.BLL.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\OperationSurvey.Common.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\OperationSurvey.DAL.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\OperationSurvey.Resources.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\AutoMapper.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\FileDb.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Cors.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Practices.ServiceLocation.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Practices.ServiceLocation.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Practices.Unity.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Practices.Unity.Configuration.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Practices.Unity.RegistrationByConvention.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Newtonsoft.Json.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Http.Cors.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Net.Http.Formatting.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Helpers.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Http.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Http.WebHost.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Mvc.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Optimization.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Razor.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.WebPages.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.WebPages.Deployment.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.WebPages.Razor.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Antlr3.Runtime.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\EntityFramework.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\EntityFramework.SqlServer.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.AspNet.Identity.Core.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.AspNet.Identity.Owin.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Host.SystemWeb.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.Facebook.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.Cookies.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.OAuth.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.Google.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.Twitter.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\System.Web.Http.Owin.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\LinqKit.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\LinqKit.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\bin\ar-EG\OperationSurvey.Resources.resources.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\obj\Release\OperationSurvey.API.csprojResolveAssemblyReference.cache
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\obj\Release\OperationSurvey.API.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\obj\Release\OperationSurvey.API.pdb

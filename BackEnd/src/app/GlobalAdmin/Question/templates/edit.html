@@ -1,0 +1,108 @@
+<div class="modal-content">
+	<div class="modal-header bordered">
+		<h2 class="pmd-card-title-text">{{'Question' | translate}}</h2>
+	</div>
+	<div class="modal-body">
+		<form class="form-horizontal" name="editQuestionForm"> 
+            <div> 
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in editQuestionCtrl.language">
+                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">
+                            {{lang.value | translate}}
+                        </a>
+                    </li> 
+                </ul>
+                <div class="pmd-card">
+                    <div class="pmd-card-body">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in editQuestionCtrl.language" id="{{lang.value}}-form">
+                                <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
+                                    <label for="first-name"> {{ lang.value+'Name' | translate}} </label>
+                                    <input required type="text" class="mat-input form-control" name="titleDictionary{{lang.value+'Name'}}" ng-model="editQuestionCtrl.Question.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="255">
+                                    <div ng-messages="editQuestionForm.titleDictionary{{lang.value+'Name'}}.$error" >
+										
+                                        <div ng-show="editQuestionForm.titleDictionary{{lang.value+'Name'}}.$error.required && !editQuestionForm.titleDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr' | translate}}</div>
+                                        <div ng-show="(editQuestionForm.titleDictionary{{lang.value+'Name'}}.$error.minlength || editQuestionForm.titleDictionary{{lang.value+'Name'}}.$error.maxlength) && !editQuestionForm.titleDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError255' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label for="first-name">{{'Department' | translate}}</label>
+                        
+                                    <select ng-disabled="true" style="width:50% !important" class="form-control select-with-search pmd-select2-tags" ng-change="editQuestionCtrl.departmentChange()"
+                                            ng-model="editQuestionCtrl.selectedDepartment" ng-options="a as a.titleDictionary[selectedLanguage] 
+                                            for a in editQuestionCtrl.DepartmentList"></select>
+                                </div> 
+                                <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label for="first-name">{{'CategoryLbl' | translate}}</label>
+
+                                    <select ng-disabled="true" style="width:50% !important" class="form-control select-with-search pmd-select2-tags"   
+                                            ng-model="editQuestionCtrl.selectedCategory" ng-options="a as a.titleDictionary[selectedLanguage] 
+                                            for a in editQuestionCtrl.categoryList"></select>
+                            
+                             </div>
+                                <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label for="first-name">{{'QuestionType' | translate}}</label>
+                        
+                                    <select ng-disabled="true" style="width:50% !important" class="form-control select-with-search pmd-select2-tags"  
+                                            ng-model="editQuestionCtrl.selectedQuestionType" ng-options="a as a.text | translate for a in editQuestionCtrl.QuestionTypeList"></select>
+                                </div> 
+                            </div> 
+                            <div class="row" ng-show="editQuestionCtrl.selectedQuestionType.id==0">
+                                <ul>
+                                    <li ng-repeat="elemnt in questionelemnt">
+                                        <div>
+                                            <div id={{elemnt.id}} style="display:inline" >
+                                                <span  ng-model="elemnt.question" ng-hide="editorEnabled" ng-click="editorEnabled=true">
+                                                    {{elemnt.question}}
+                                                </span>
+                                                <div  ng-show="editorEnabled">
+                                                    <input  ng-model="elemnt.question" ng-show="editorEnabled" >
+                                                    <button href="#" ng-click="editorEnabled=false">Done editing</button>
+                                                </div>
+                                            </div>
+                                            <div style="display:inline">
+                                                <span>
+                                                    <input type="text" class="mat-input form-control" style="display: inline;width: 30%;" ng-model="elemnt.questionEn" placeholder="{{'questionEn' | translate}}" required/>
+                                                    <input type="text" class="mat-input form-control" style="display: inline;width: 30%;" ng-model="elemnt.questionAr" placeholder="{{'questionAr' | translate}}" required/>
+                                                </span>
+                                            </div> 
+                                            <span ng-hide="elemnt.length == 1">
+                                                <!-- <a  href ng-click="questionelemnt.splice($index, 1)">Remove</a> -->
+                                        <a href ng-click="newItem($event)">{{'AddBtn' | translate}}</a>
+                                    </span>
+                                        </div>
+                                        <hr/>
+                                    </li>
+                                    <!-- <li>
+                                        <a href ng-click="newItem($event)">New Item</a>
+                                    </li> -->
+                                </ul>
+                                <!-- <div>
+                                    <button ng-click="showitems($event)">Submit</button>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+		</form>
+	</div>
+	<div class="pmd-modal-action text-right">
+		<button ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editQuestionCtrl.UpdateQuestion()">{{'saveChangesBtn' | translate}}</button>
+		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editQuestionCtrl.Close()">{{'DiscardBtn' | translate}}</button>
+	</div>
+</div>
+
+	
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select-with-search").select2({
+			theme: "bootstrap"
+		});
+    });
+</script>

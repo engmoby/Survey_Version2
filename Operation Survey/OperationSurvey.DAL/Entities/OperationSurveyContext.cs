@@ -14,7 +14,7 @@ namespace OperationSurvey.DAL.Entities
         public DbSet<AnswerDetails> AnswerDetailses { get; set; }
 
         public DbSet<Role> Roles { get; set; }
-        public DbSet<RoleTranslation> RoleTranslations{ get; set; }
+        public DbSet<RoleTranslation> RoleTranslations { get; set; }
 
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<PermissionTranslation> PermissionTranslations { get; set; }
@@ -33,16 +33,69 @@ namespace OperationSurvey.DAL.Entities
 
         public DbSet<Branch> Branches { get; set; }
         public DbSet<BranchTranslation> BranchTranslations { get; set; }
-         
+
         public DbSet<Question> Questions { get; set; }
         public DbSet<QuestionTranslation> QuestionTranslations { get; set; }
 
         public DbSet<QuestionDetails> QuestionDetailses { get; set; }
         public DbSet<QuestionDetailsTranslation> QuestionDetailsTranslations { get; set; }
+        public DbSet<Package> Packages { get; set; }
+        public DbSet<UserBranch> UserBranches { get; set; }
+        public DbSet<UserCategory> UserCategories { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+
+
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<CountryTranslation> CountryTranslations { get; set; }
+        public DbSet<Region> Regions { get; set; }
+        public DbSet<RegionTranslation> RegionTranslations { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<CityTranslation> CityTranslations { get; set; }
+        public DbSet<CategoryType> CategoryTypes { get; set; }
+        public DbSet<CategoryTypeTranslation> CategoryTypeTranslations { get; set; }
+        public DbSet<CategoryTypeCategory> CategoryTypeCategories { get; set; }
+        public DbSet<TicketLog> TicketLogs { get; set; }
+        public DbSet<TicketScheduler> TicketSchedulers { get; set; }
+
+
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<ProjectTranslation> ProjectTranslations { get; set; }
+
+        public DbSet<Asset> Assets { get; set; }
+        public DbSet<AssetTranslation> AssetTranslations { get; set; }
+
+        public DbSet<Vendor> Vendors { get; set; }
+        public DbSet<VendorTranslation> VendorTranslations { get; set; }
+
+        public DbSet<Service> Services { get; set; }
+        public DbSet<ServiceTranslation> ServiceTranslations { get; set; }
+
 
         public OperationSurveyContext() : base("name=OperationSurveyDB")
         {
             Database.SetInitializer<OperationSurveyContext>(null);
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Ticket>()
+                .HasRequired(c => c.Department)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
+
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Ticket>()
+                .HasRequired(c => c.Branch)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<TicketLog>()
+                .HasRequired(c => c.User)
+                .WithMany()
+                .WillCascadeOnDelete(false);
         }
     }
 }

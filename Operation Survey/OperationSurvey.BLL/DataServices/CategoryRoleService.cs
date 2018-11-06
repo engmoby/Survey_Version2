@@ -20,17 +20,18 @@ namespace OperationSurvey.BLL.DataServices
         {
             var categoryRoles = _repository.Query(x => x.CategoryId == categoryId && x.TenantId== tenantId).Select().ToList();
 
-            var CategoryRoleDto = new List<CategoryRoleDto>();
+            List<CategoryRoleDto> categoryRoleDto;
+            categoryRoleDto = new List<CategoryRoleDto>();
             foreach (var category in categoryRoles)
             {
-                CategoryRoleDto.Add(new CategoryRoleDto
+                categoryRoleDto.Add(new CategoryRoleDto
                 {
                     RoleId = category.RoleId,
                     CategoryId = category.CategoryId,
                 });
             }
-           // var results = Mapper.Map<List<CategoryRole>, List<CategoryRoleDto>>(CategoryRoles);
-            var results = CategoryRoleDto;
+          //   var results = Mapper.Map<List<CategoryRole>, List<CategoryRoleDto>>(categoryRoles);
+           var results = categoryRoleDto;
             return results;
         }
 

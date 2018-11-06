@@ -1,0 +1,97 @@
+<div>
+    <div style="margin-bottom:10px">
+        <button ng-click="$state.go('newService',{projectId:projectId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+            type="button">{{'AddBtn' | translate}}</button>
+
+    </div>
+
+    <div ng-if="ServiceList.results.length == 0">
+        <span>{{'NoServicesAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="ServiceList.results.length > 0">
+        <div class="table-responsive"></div>
+        <table class="table pmd-table table-hover">
+            <thead>
+                <tr>
+                    <th>{{'Name' | translate}}</th>
+                    <th>{{'price' | translate}}</th>
+                    <th>{{'percentage' | translate}}</th>
+                    <th>{{'dateLbl' | translate}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="Service in ServiceList.results">
+                    <td data-title="Name">{{Service.titleDictionary[selectedLanguage]}}</td>
+                    <td data-title="Name">{{Service.price}}</td>
+                    <td data-title="Name">
+                        <button ng-click="toggleModal(Service)" class="btn btn-default">
+                            {{Service.percentage}} %
+                        </button>
+                    </td>
+                    <td data-title="Name">
+                        {{Service.creationTime | date:'mediumDate'}}<br>
+                        {{Service.creationTime | date:'shortTime'}}
+                    </td>
+
+                    <td width="30%" ng-show="!Service.isStatic">
+                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editService',{projectId: projectId,serviceId: Service.serviceId});">mode_edit</i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="text-align:center;" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
+        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
+    </div>
+</div>
+
+<div ng-show="projectId!=0" class="pmd-modal-action text-right">
+
+    <button ng-disabled="editProjectForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="$state.go('Asset',{projectId:projectId});">{{'PreviousBtn'|translate}}</button>
+
+    <!-- <button ng-click="$state.go('Service',{projectId:projectId});" type="button" class="btn btn-primary btn-with-icon">
+        <i class="ion-android-checkmark-circle"></i>{{'NextBtn'|translate}}
+    </button> -->
+
+</div>
+
+
+<div class="container-fluid">
+    <div class="row" id="card-masonry">
+        <!-- Today's Site Activity -->
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+            <modal visible="showModal">
+                <form class="form-horizontal" name="editServiceFrom">
+
+                    <div class="form-group pmd-textfield pmd-textfield-floating-label-compeleted">
+                        <label for="first-name">{{'percentageLbl' | translate}}</label>
+                        <div>
+                            <input required type="text" class="mat-input form-control" name="percentage" numbers-only
+                                ng-model="objInModel.percentage" ng-minlength="1" style="width: 50%;" ng-maxlength="3">
+                            <span style="margin-left: 305px;">%</span>
+                        </div>
+                    </div>
+                    <div ng-messages="editServiceFrom.percentage.$error">
+                        <div ng-if="editServiceFrom.percentage.$error.required && !editServiceFrom.percentage.$pristine">{{'percentageReqError'
+                            |
+                            translate}}</div>
+                        <div ng-if="(editServiceFrom.percentage.$error.minlength || editServiceFrom.percentage.$error.maxlength)">{{'percentageLengthError'
+                            | translate}}</div>
+                    </div>
+                    <div class="form-group pmd-textfield pmd-textfield-floating-label-compeleted">
+                        <label for="first-name">{{'Comment' | translate}}</label>
+                        <textarea required type="text" class="mat-input form-control" name="Comment" ng-model="objInModel.notes"></textarea>
+                    </div>
+
+                    <button ng-disabled="editServiceFrom.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"
+                        ng-click="ServiceCtrl.UpdateService()">{{'saveChangesBtn' | translate}}</button>
+ 
+                </form>
+            </modal>
+
+
+        </div>
+    </div>
+</div>

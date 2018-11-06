@@ -10,7 +10,9 @@ namespace OperationSurvey.DAL.Entities.Model
         public Branch()
         {
             BranchTranslations = new List<BranchTranslation>();
+            UserBranches = new List<UserBranch>();
             // Users = new List<User>();
+            Tickets = new List<Ticket>();
         }
 
         public long BranchId { get; set; }
@@ -28,7 +30,9 @@ namespace OperationSurvey.DAL.Entities.Model
         public virtual Area Area { get; set; }
 
         public virtual ICollection<BranchTranslation> BranchTranslations { get; set; }
+        public virtual ICollection<UserBranch> UserBranches { get; set; }
         //  public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Ticket> Tickets { get; set; }
         public int TenantId { get; set; }
     }
 }

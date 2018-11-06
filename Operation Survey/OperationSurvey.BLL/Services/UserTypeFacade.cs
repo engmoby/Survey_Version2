@@ -47,7 +47,7 @@ namespace OperationSurvey.BLL.Services
                 //if (check.Any())
                 //    throw new ValidationException(ErrorCodes.RecordIsExist);
                 if (string.IsNullOrEmpty(userTypeName.Value))
-                    throw new ValidationException(ErrorCodes.RecordIsExist);
+                    throw new ValidationException(ErrorCodes.NameIsExist);
 
                 userTypeObj.UserTypeTranslations.Add(new UserTypeTranslation
                 {
@@ -113,7 +113,7 @@ namespace OperationSurvey.BLL.Services
                     throw new ValidationException(ErrorCodes.MenuNameExceedLength);
 
                 if (_typeTranslationService.CheckNameExist(name.Value, name.Key, userTypeDto.UserTypeId,tenantId))
-                    throw new ValidationException(ErrorCodes.RecordIsExist);
+                    throw new ValidationException(ErrorCodes.NameIsExist);
             }
         }
     }

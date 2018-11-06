@@ -19,3 +19,17 @@ E:\Projects\Operation Survey\Project\Operation Survey\Frameworks\Service.Pattern
 E:\Projects\Operation Survey\Project\Operation Survey\Frameworks\Service.Pattern\obj\Release\Service.Pattern.csprojResolveAssemblyReference.cache
 E:\Projects\Operation Survey\Project\Operation Survey\Frameworks\Service.Pattern\obj\Release\Service.Pattern.dll
 E:\Projects\Operation Survey\Project\Operation Survey\Frameworks\Service.Pattern\obj\Release\Service.Pattern.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\bin\Release\Service.Pattern.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\bin\Release\Service.Pattern.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\bin\Release\Repository.Pattern.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\bin\Release\Repository.Pattern.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\obj\Release\Service.Pattern.csprojResolveAssemblyReference.cache
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\obj\Release\Service.Pattern.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\obj\Release\Service.Pattern.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\bin\Release\Service.Pattern.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\bin\Release\Service.Pattern.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\bin\Release\Repository.Pattern.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\bin\Release\Repository.Pattern.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\obj\Release\Service.Pattern.csprojResolveAssemblyReference.cache
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\obj\Release\Service.Pattern.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\obj\Release\Service.Pattern.pdb

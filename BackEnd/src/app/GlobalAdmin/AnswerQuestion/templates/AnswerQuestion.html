@@ -1,0 +1,231 @@
+<style>
+    .my-custom-stars .button .material-icons {
+        font-size: 30px;
+    }
+
+    .my-custom-stars .star-button.star-on .material-icons {
+        color: #003399;
+    }
+
+    .my-custom-stars .star-button.star-off .material-icons {
+        color: #99ccff;
+    }
+
+    .my-custom-stars .button .material-icons a:focus,
+    a:hover {
+        text-decoration: none;
+    }
+
+    .hideMinus a:first-child {
+        display: none;
+    }
+
+    .accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+    }
+
+
+    .active,
+    .accordion:hover {
+        background-color: #ccc;
+    }
+
+    .like {
+        color: green;
+    }
+
+    .dislike {
+        color: red;
+    }
+
+    /* .panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}  */
+</style>
+
+
+{{'AnswerQuestion' | translate}}
+<form class="form-horizontal" name="newclientForm">
+    <div class="row">
+        <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"
+            <label for="first-name">{{'Country' | translate}}</label>
+            <select required style="width:50% !important" class="form-control select-with-search pmd-select2-tags"
+                ng-change="AnswerQuestionCtrl.countryChange()" ng-model="AnswerQuestionCtrl.selectedCountry" ng-options="group as group.titleDictionary[selectedLanguage] for group in AnswerQuestionCtrl.counties">
+            </select>
+        </div>
+        <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"
+            <label for="first-name">{{'Region' | translate}}</label>
+            <select required style="width:50% !important" class="form-control select-with-search pmd-select2-tags"
+                ng-change="AnswerQuestionCtrl.regionChange()" ng-model="AnswerQuestionCtrl.selectedRegion" ng-options="group as group.titleDictionary[selectedLanguage] for group in AnswerQuestionCtrl.regions">
+            </select>
+        </div>
+        <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"
+            <label for="first-name">{{'City' | translate}}</label>
+            <select required style="width:50% !important" class="form-control select-with-search pmd-select2-tags"
+                ng-change="AnswerQuestionCtrl.cityChange()" ng-model="AnswerQuestionCtrl.selectedCity" ng-options="group as group.titleDictionary[selectedLanguage] for group in AnswerQuestionCtrl.cities">
+            </select>
+        </div>
+        <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'Area' | translate}}</label>
+
+            <select required style="width:50% !important" class="form-control select-with-search pmd-select2-tags"
+                ng-change="areaChange()" ng-model="selectedArea" ng-options="a as a.titleDictionary[selectedLanguage] for a in areaList"></select>
+        </div>
+
+        <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'Branch' | translate}}</label>
+
+            <select required style="width:50% !important" class="form-control select-with-search pmd-select2-tags"
+                ng-change="branchChange()" ng-model="selectedBranch" ng-options="a as a.titleDictionary[selectedLanguage] for a in branchList"></select>
+        </div>
+        <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" ng-show="projectId==0">
+            <label for="first-name">{{'categoryType' | translate}}</label> 
+            <select required style="width:50% !important" class="form-control select-with-search pmd-select2-tags"
+                ng-change="AnswerQuestionCtrl.categoryTypeChange()" ng-model="AnswerQuestionCtrl.selectedCategoryType"
+                ng-options="a as a.titleDictionary[selectedLanguage] for a in AnswerQuestionCtrl.categoryTypes"></select>
+        </div>
+
+        <div style="direction: ltr;" class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label>{{'startDateLbl' | translate}}</label>
+            <input style="width:50% !important" type="text" id="startdate" class="form-control" required />
+        </div>
+    </div>
+
+</form>
+<form name="FormAnswer" novalidate autocomplete="off">
+    <div ng-show="questionList.length<=0">
+        <span>{{'NoQuestionsAvailable' | translate}}</span>
+    </div>
+    <div ng-repeat="(k,v) in questionList| groupBy: 'categoryId'">
+        <!-- <div style="cursor: pointer;    background-color: #ccc;"> -->
+
+        <!-- <h1 style="padding: 7px" ng-init="t = false" ng-click="t=!t"> -->
+        <h1 style="padding: 7px">
+            {{v[0].category.titleDictionary[selectedLanguage]}}
+        </h1>
+        <!-- </div> -->
+        <!-- <div style="font-weight:bold; color:#1C2B36;cursor: pointer;" ng-init="t = false" ng-click="t=!t">
+            {{v[0].category.titleDictionary[selectedLanguage]}}
+        </div> -->
+        <!-- ng-show="t" -->
+        <ul>
+            <li ng-repeat="ques in v">
+                <!-- <button class="accordion">{{ques.titleDictionary[selectedLanguage]}}</button> -->
+                <!-- <div style="cursor: pointer;    background-color: #ccc;"> -->
+                <!-- <h3 style="padding: 4px" ng-init="showAnswerForm = false" ng-click="showAnswerForm=!showAnswerForm"> -->
+                <h3 style="padding: 4px">
+                    {{ques.titleDictionary[selectedLanguage]}}
+                </h3>
+                <!-- </div> -->
+                <!--submit answers-->
+                <!--  ng-show="showAnswerForm" -->
+                <div class="panel">
+                    <div ng-if="ques.questionTypeId == 0">
+                        <!--checkbox ng-model="ques.answer.value=selection" value="{{QuestionDetail.QuestionDetailsId}}"-->
+                        <label ng-repeat="QuestionDetail in ques.questionDetailses" style="    display: block;">
+                            <input type="checkbox" name="selectedDetails[]" ng-model="QuestionDetail.values" value="{{QuestionDetail.QuestionDetailsId}}"
+                                ng-checked="selection.indexOf(QuestionDetail) > -1" ng-click="toggleSelection(QuestionDetail,ques.questionId)">
+                            {{QuestionDetail.titleDictionary[selectedLanguage]}}
+                        </label>
+                    </div>
+
+                    <div ng-if="ques.questionTypeId == 1">
+                        <!--Rate-->
+                        <jk-rating-stars rating="(AnswerQuestionCtrl.answers|filter:{questionId:ques.questionId})[0].answerDetails[0].value"
+                            on-rating="onItemRating(rating,ques.questionId)" class="my-custom-stars hideMinus"></jk-rating-stars>
+                    </div>
+
+                    <div ng-if="ques.questionTypeId == 2" ng-init="ques.l = null">
+                        <!--Like / DisLike-->
+                        <!-- <i ng-init="ques.answer.value=1" ng-model="ques.answer.value" required name="likeDis" ng-click="ques.answer.ques.IsLike = LikeDisLikeSubmit(1)" class="fa fa-thumbs-up" style="font-size:24px"></i> -->
+                        <i required name="likeDis" ng-class="{'like':ques.l == true}" ng-click="ques.l=true;onItemRating(1,ques.questionId)"
+                            class="fa fa-thumbs-up" style="font-size:38px;cursor: pointer"></i>
+                        <i required name="like" ng-class="{'dislike':ques.l == false}" ng-click="ques.l=false;onItemRating(0,ques.questionId)"
+                            class="fa fa-thumbs-down" style="font-size:38px;cursor: pointer"></i>
+
+                        <div ng-if="ques.answer.value == 1">Like</div>
+                        <div ng-if="ques.answer.value == 0">Disike</div>
+
+                    </div>
+
+                    <textarea class="form-control" ng-model="(AnswerQuestionCtrl.answers|filter:{questionId:ques.questionId})[0].note"
+                        placeholder="{{'note'|translate}}" name="comment"></textarea>
+                </div>
+            </li>
+
+        </ul>
+
+
+
+    </div>
+
+    <button ng-show="projectId==0" ng-show="questionList.length>0" ng-disabled="AnswerQuestionCtrl.answersValid() || newclientForm.$invalid "
+        ng-click="AddAnswer(questionList)" type="button" class="btn btn-primary btn-with-icon">
+        <i class="ion-android-checkmark-circle"></i>{{'saveChangesBtn'|translate}}
+    </button>
+    <div ng-show="projectId!=0" class="pmd-modal-action text-right">
+
+        <button ng-disabled="editProjectForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="$state.go('editProject',{projectId:projectId});">{{'PreviousBtn'|translate}}</button>
+        <!-- ng-disabled="AnswerQuestionCtrl.answersValid() || newclientForm.$invalid " -->
+        <button ng-show="questionList.length>0" ng-click="AddAnswer(questionList)" type="button" class="btn btn-primary btn-with-icon">
+            <i class="ion-android-checkmark-circle"></i>{{'saveChangesBtn'|translate}}
+        </button>
+        <button ng-show="projectId != 0" ng-click="$state.go('Asset',{projectId:projectId});" type="button" class="btn btn-primary btn-with-icon">
+            <i class="ion-android-checkmark-circle"></i>{{'NextBtn'|translate}}
+        </button>
+
+    </div>
+
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select-with-search").select2({
+            theme: "bootstrap"
+        });
+    });
+</script>
+<script type="text/javascript">
+    // $(function () {
+    //     $('#startdate').datetimepicker();
+    // });
+    $(function () {
+        $('#startdate').datetimepicker(
+            {
+                //   viewMode: 'years',
+                format: 'DD/MM/YYYY',
+                minDate: new Date()
+            }
+        );
+    });
+
+</script>
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    }
+</script>

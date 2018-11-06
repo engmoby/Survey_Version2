@@ -2,178 +2,342 @@
 <html lang="en" ng-app="home" ng-cloak ng-controller="homeCtrl">
 
 <head>
-    <title>Subscription</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" /> 
+	<title>Operation Survey</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon.png">
+	<meta name="description" content="">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+	<link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=#{VERSION_REPlACE}#" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.css" />
 
-    <link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=#{VERSION_REPlACE}#" />
-<style>
-	.red-text {
-		background-color: #e85656 !important;
-}
-.error {
-    color: red;
-}
+	<style>
+		.red-text {
+			background-color: #e85656 !important;
+		}
 
-.loading-pane {
-  position: absolute;
-  background: url("http://oi62.tinypic.com/2pqsuc0.jpg");
-}
+		.error {
+			color: red;
+		}
 
-.loading-pane .spinner-image{
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: url("http://oi58.tinypic.com/2emfu9w.jpg") center center no-repeat;
-}
+		.loading-pane {
+			position: absolute;
+			background: url("http://oi62.tinypic.com/2pqsuc0.jpg");
+		}
 
-</style>
-    
+		.loading-pane .spinner-image {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background: url("http://oi58.tinypic.com/2emfu9w.jpg") center center no-repeat;
+		}
+
+		[ng\:cloak],
+		[ng-cloak],
+		[data-ng-cloak],
+		[x-ng-cloak],
+		.ng-cloak,
+		.x-ng-cloak {
+			display: none !important;
+		}
+	</style>
+
 </head>
 
-<body >
-   <nav class="navbar navbar-inverse navbar-fixed-top pmd-navbar pmd-z-depth" ng-if="isLoggedIn()"  >
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top pmd-navbar pmd-z-depth" ng-if="isLoggedIn()">
 
-	<div class="container-fluid">
-		<div class="pmd-navbar-right-icon pull-right navigation">
-			<!-- Notifications -->
-            <div class="dropdown notification icons pmd-dropdown">
-				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="width: 100%;padding-top:10px;">
-					<div class="form-group pmd-textfield pmd-textfield-floating-label">       
-						
-						<select class="select-simple form-control pmd-select2" 
-							ng-model="selectedLanguage" ng-change="changeLanguage(selectedLanguage)">
-								<option ng-selected="selectedLanguage == item.id" 
-								ng-repeat="item in languages" 
-								ng-value="item.id">{{item.label | translate}}</option>
-						</select>
+		<div class="container-fluid">
+			<div class="pmd-navbar-right-icon pull-right navigation">
+				<!-- Notifications -->
+				<div class="dropdown notification icons pmd-dropdown">
+					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="width: 100%;padding-top:10px;">
+						<div class="form-group pmd-textfield pmd-textfield-floating-label">
+
+							<select class="select-simple form-control pmd-select2" ng-model="selectedLanguage" ng-change="changeLanguage(selectedLanguage)">
+								<option ng-selected="selectedLanguage == item.id" ng-repeat="item in languages" ng-value="item.id">{{item.label
+									| translate}}</option>
+							</select>
+						</div>
 					</div>
 				</div>
-			</div> <!-- End notifications -->
+				<!-- End notifications -->
+			</div>
+
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<a href="javascript:void(0);" class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect pull-left margin-r8 pmd-sidebar-toggle">
+					<i class="material-icons">menu</i>
+				</a>
+				<a href="index.html" class="navbar-brand">
+					<img src="/assets/img/logo-os-white.png" style="    width: 150px;" />
+				</a>
+
+			</div>
 		</div>
-		
-		<!-- Brand and toggle get grouped for better mobile display -->
-		<div class="navbar-header">
-			<a href="javascript:void(0);" class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect pull-left margin-r8 pmd-sidebar-toggle"><i class="material-icons">menu</i></a>	
-		  <a href="index.html" class="navbar-brand">
-			  </a>
-			  
-		</div>
-	</div>
 
-</nav><!--End Nav bar -->
-<!-- Header Ends -->
+	</nav>
+	<!--End Nav bar -->
+	<!-- Header Ends -->
 
-<!-- Sidebar Starts -->
-<div class="pmd-sidebar-overlay"></div>
+	<!-- Sidebar Starts -->
+	<div class="pmd-sidebar-overlay"></div>
 
-<!-- Left sidebar -->
-<aside ng-if="isLoggedIn()"   ng-init="logoutFlag=false" class="pmd-sidebar sidebar-default pmd-sidebar-slide-push pmd-sidebar-left pmd-sidebar-open bg-fill-darkblue sidebar-with-icons" role="navigation">
-	<ul class="nav pmd-sidebar-nav">
-		
-		<!-- User info -->
-		<li class="dropdown pmd-dropdown pmd-user-info visible-xs visible-md visible-sm visible-lg">
-			<a ng-click="logoutFlag=!logoutFlag"  data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true" aria-expandedhref="javascript:void(0);">
-				<div class="media-left">
-					<img src="/assets/img/user-icon.png" alt="New User">
-					<!-- <span>{{logoutFlag}}</span> -->
-				</div>
-				<div class="media-body media-middle"  ng-cloak >{{user.name}}</div>
-				<div class="media-right media-middle"><i class="dic-more-vert dic"></i></div>
-			</a>
-			<ul class="dropdown-menu" style="opacity: 1;">
-				<li><a ng-click="logout()"  ng-cloak>{{'logoutBtn' | translate}}</a></li>
-			</ul>
-		</li><!-- End user info -->
-		
-		<li  > 
-			<a class="pmd-ripple-effect " ng-click="$state.go('usertype');" >	
-				<i class="media-left media-middle"><svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18" enable-background="new 287.725 407.535 19.83 18"
-					 xml:space="preserve">
-				<g>
-					<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
-						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z"/>
-				</g>
-				</svg></i>
-				<span class="media-body" ng-cloak>{{'UserType' | translate}}</span>
-			</a> 
-		</li> 
+	<!-- Left sidebar -->
+	<aside ng-if="isLoggedIn()" ng-cloak ng-init="logoutFlag=false" class="pmd-sidebar sidebar-default pmd-sidebar-slide-push pmd-sidebar-left pmd-sidebar-open bg-fill-darkblue sidebar-with-icons"
+	 role="navigation">
+		<ul class="nav pmd-sidebar-nav">
 
-		<li  > 
-			<a class="pmd-ripple-effect " ng-click="$state.go('Role');" >	
-				<i class="media-left media-middle"><svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18" enable-background="new 287.725 407.535 19.83 18"
-					 xml:space="preserve">
-				<g>
-					<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
-						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z"/>
-				</g>
-				</svg></i>
-				<span class="media-body" ng-cloak>{{'Role' | translate}}</span>
-			</a> 
-		</li> 
-		
-	<li  > 
-			<a class="pmd-ripple-effect " ng-click="$state.go('Area');" >	
-				<i class="media-left media-middle"><svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18" enable-background="new 287.725 407.535 19.83 18"
-					 xml:space="preserve">
-				<g>
-					<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
-						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z"/>
-				</g>
-				</svg></i>
-				<span class="media-body" ng-cloak>{{'Area' | translate}}</span>
-			</a> 
-		</li> 
-	    <li  > 
-	        <a class="pmd-ripple-effect " ng-click="$state.go('Department');" >	
-	            <i class="media-left media-middle"><svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18" enable-background="new 287.725 407.535 19.83 18"
-	                                                    xml:space="preserve">
-	                <g>
-	                    <path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
-						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z"/>
-	                </g>
-	            </svg></i>
-	            <span class="media-body" ng-cloak>{{'Department' | translate}}</span>
-	        </a> 
-	    </li> 
-        <li>
-            <a class="pmd-ripple-effect " ng-click="$state.go('users');">
-                <i class="media-left media-middle">
-                    <svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18" enable-background="new 287.725 407.535 19.83 18"
-                         xml:space="preserve">
-                    <g>
-                    <path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
+			<!-- User info -->
+			<li class="dropdown pmd-dropdown pmd-user-info visible-xs visible-md visible-sm visible-lg">
+				<a ng-click="logoutFlag=!logoutFlag" data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true"
+				 aria-expandedhref="javascript:void(0);">
+					<div class="media-left">
+						<img src="/assets/img/user-icon.png" alt="New User">
+						<!-- <span>{{logoutFlag}}</span> -->
+					</div>
+					<div class="media-body media-middle" ng-cloak>{{user.name}}
+						<div style="font-size: 12px">
+							<span ng-if="user.userTypeId == 1">{{'employee' | translate}}</span>
+							<span ng-if="user.userTypeId == 2">{{'deptManager' | translate}}</span>
+							<span ng-if="user.userTypeId == 3">{{'branchManager' | translate}}</span>
+							<span ng-if="user.userTypeId == 4">{{'Tech' | translate}}</span>
+						</div>
+					</div>
+					<div class="media-right media-middle">
+						<i class="dic-more-vert dic"></i>
+					</div>
+				</a>
+				<ul class="dropdown-menu" style="opacity: 1;">
+					<li>
+						<a ng-click="logout()" ng-cloak>{{'logoutBtn' | translate}}</a>
+					</li>
+				</ul>
+			</li>
+			<!-- End user info -->
+
+			<li ui-sref-active="active" ng-show="user.PermissionId.indexOf('12') !== -1">
+				<a class="pmd-ripple-effect" ng-click="$state.go('Vendor');">
+					<i class="media-left media-middle">
+						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
+						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+							<g>
+								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
 						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
-				</g>
-				</svg>
-                </i>
-                <span class="media-body" ng-cloak>{{'users' | translate}}</span>
-            </a>
-        </li> 
-	</ul>
-</aside><!-- End Left sidebar -->
-<!-- Sidebar Ends -->  
+							</g>
+						</svg>
+					</i>
+					<span class="media-body" ng-cloak>{{'Vendor' | translate}}</span>
+				</a>
+			</li>
+
+			<li ui-sref-active="active" ng-show="user.PermissionId.indexOf('13') !== -1">
+				<a class="pmd-ripple-effect" ng-click="$state.go('Project');">
+					<i class="media-left media-middle">
+						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
+						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+							<g>
+								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
+						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
+							</g>
+						</svg>
+					</i>
+					<span class="media-body" ng-cloak>{{'Project' | translate}}</span>
+				</a>
+			</li>
+
+			<li ui-sref-active="active" ng-show="user.PermissionId.indexOf('2') !== -1">
+				<a class="pmd-ripple-effect" ng-click="$state.go('categoryType');">
+					<i class="media-left media-middle">
+						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
+						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+							<g>
+								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
+						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
+							</g>
+						</svg>
+					</i>
+					<span class="media-body" ng-cloak>{{'categoryType' | translate}}</span>
+				</a>
+			</li>
+
+			<li ng-show="user.PermissionId.indexOf('3') !== -1">
+				<a class="pmd-ripple-effect " ng-click="$state.go('Role');">
+					<i class="media-left media-middle">
+						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
+						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+							<g>
+								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
+						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
+							</g>
+						</svg>
+					</i>
+					<span class="media-body" ng-cloak>{{'Role' | translate}}</span>
+				</a>
+			</li>
+
+			<li ng-show="user.PermissionId.indexOf('4') !== -1">
+				<a class="pmd-ripple-effect " ng-click="$state.go('Countries');">
+					<i class="media-left media-middle">
+						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
+						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+							<g>
+								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
+						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
+							</g>
+						</svg>
+					</i>
+					<span class="media-body" ng-cloak>{{'Branch' | translate}}</span>
+				</a>
+			</li>
+			<li ng-show="user.PermissionId.indexOf('5') !== -1">
+				<a class="pmd-ripple-effect " ng-click="$state.go('Department');">
+					<i class="media-left media-middle">
+						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
+						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+							<g>
+								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
+						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
+							</g>
+						</svg>
+					</i>
+					<span class="media-body" ng-cloak>{{'Department' | translate}}</span>
+				</a>
+			</li>
+			<li ng-show="user.PermissionId.indexOf('1') !== -1">
+				<a class="pmd-ripple-effect " ng-click="$state.go('users');">
+					<i class="media-left media-middle">
+						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
+						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+							<g>
+								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
+						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
+							</g>
+						</svg>
+					</i>
+					<span class="media-body" ng-cloak>{{'users' | translate}}</span>
+				</a>
+			</li>
+			<li ng-show="user.PermissionId.indexOf('6') !== -1">
+				<a class="pmd-ripple-effect " ng-click="$state.go('Question');">
+					<i class="media-left media-middle">
+						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
+						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+							<g>
+								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
+						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
+							</g>
+						</svg>
+					</i>
+					<span class="media-body" ng-cloak>{{'Question' | translate}}</span>
+				</a>
+			</li>
+			<li ng-show="user.PermissionId.indexOf('7') !== -1">
+				<!-- <a class="pmd-ripple-effect " ng-click="$state.go('Asset',{projectId:0});"> -->
+				<a class="pmd-ripple-effect " ng-click="$state.go('AnswerQuestion',{projectId:0})">
+					<i class="media-left media-middle">
+						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
+						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+							<g>
+								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
+						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
+							</g>
+						</svg>
+					</i>
+					<span class="media-body" ng-cloak>{{'AnswerQuestion' | translate}}</span>
+				</a>
+			</li>
+
+			<li ng-show="user.PermissionId.indexOf('8') !== -1">
+				<a class="pmd-ripple-effect " ng-click="$state.go('Answers',{projectId:0});">
+					<i class="media-left media-middle">
+						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
+						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+							<g>
+								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
+						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
+							</g>
+						</svg>
+					</i>
+					<span class="media-body" ng-cloak>{{'Answers' | translate}}</span>
+				</a>
+			</li>
+
+			<li ng-show="user.PermissionId.indexOf('9') !== -1">
+				<a class="pmd-ripple-effect " ng-click="$state.go('Tickets');">
+					<i class="media-left media-middle">
+						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
+						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+							<g>
+								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
+						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
+							</g>
+						</svg>
+					</i>
+					<span class="media-body" ng-cloak>{{'Tickets' | translate}}</span>
+				</a>
+			</li>
+			<li ng-show="user.PermissionId.indexOf('10') !== -1">
+				<a class="pmd-ripple-effect " ng-click="$state.go('Dashboard');">
+					<i class="media-left media-middle">
+						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
+						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+							<g>
+								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
+						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
+							</g>
+						</svg>
+					</i>
+					<span class="media-body" ng-cloak>{{'DashboardLbl' | translate}}</span>
+				</a>
+			</li>
+			<li ng-show="user.PermissionId.indexOf('11') !== -1">
+				<a class="pmd-ripple-effect " ng-click="$state.go('Config');">
+					<i class="media-left media-middle">
+						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
+						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+							<g>
+								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
+						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
+							</g>
+						</svg>
+					</i>
+					<span class="media-body" ng-cloak>{{'ConfigLbl' | translate}}</span>
+				</a>
+			</li>
+		</ul>
+	</aside>
+	<!-- End Left sidebar -->
+	<!-- Sidebar Ends -->
 
 	<div ui-view layout="column" class="pmd-content content-area dashboard" flex></div>
-	
-	<!-- scripts area -->
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
- 
 
-    <script src="libs.js?v=#{VERSION_REPlACE}#"></script>
-    <script src="core.js?v=#{VERSION_REPlACE}#"></script>
-    <script src="app.js?v=#{VERSION_REPlACE}#"></script>
-    <script src="templates.js?v=#{VERSION_REPlACE}#"></script>
- 
+	<!-- scripts area -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+
+
+	<script src="libs.js?v=#{VERSION_REPlACE}#"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.js"></script>
+	<script src="https://rawgit.com/krispo/angular-nvd3/v1.0.5/dist/angular-nvd3.js"></script>
+
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/canvg/1.4/rgbcolor.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/stackblur-canvas/1.4.1/stackblur.min.js"></script>
+	<script src="http://cdn.jsdelivr.net/npm/canvg/dist/browser/canvg.min.js"></script>
+
+	<script src="core.js?v=#{VERSION_REPlACE}#"></script>
+	<script src="app.js?v=#{VERSION_REPlACE}#"></script>
+	<script src="templates.js?v=#{VERSION_REPlACE}#"></script>
+
 	<script src="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.js"></script>
-    <link rel="stylesheet" href="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.css">
- 
+	<link rel="stylesheet" href="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.css">
+	<script src="https://cdn.rawgit.com/BioPhoton/angular1-star-rating/v1.2.4/dist/index.js"></script>
+
 </body>
 
 </html>

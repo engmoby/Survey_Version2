@@ -34,6 +34,7 @@ namespace OperationSurvey.DAL
                 .RegisterType<IRepositoryAsync<Department>, Repository<Department>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<DepartmentTranslation>, Repository<DepartmentTranslation>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<Category>, Repository<Category>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<CategoryRole>, Repository<CategoryRole>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<CategoryTranslation>, Repository<CategoryTranslation>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<Area>, Repository<Area>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<AreaTranslation>, Repository<AreaTranslation>>(new PerResolveLifetimeManager())
@@ -43,7 +44,36 @@ namespace OperationSurvey.DAL
                 .RegisterType<IRepositoryAsync<QuestionTranslation>, Repository<QuestionTranslation>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<QuestionDetails>, Repository<QuestionDetails>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<QuestionDetailsTranslation>, Repository<QuestionDetailsTranslation>>(new PerResolveLifetimeManager())
-                .RegisterType<IRepositoryAsync<User>, Repository<User>>(new PerResolveLifetimeManager());
+                .RegisterType<IRepositoryAsync<User>, Repository<User>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<Package>, Repository<Package>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<UserBranch>, Repository<UserBranch>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<UserCategory>, Repository<UserCategory>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<Ticket>, Repository<Ticket>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<Country>, Repository<Country>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<CountryTranslation>, Repository<CountryTranslation>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<Region>, Repository<Region>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<RegionTranslation>, Repository<RegionTranslation>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<City>, Repository<City>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<CityTranslation>, Repository<CityTranslation>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<CategoryType>, Repository<CategoryType>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<CategoryTypeTranslation>, Repository<CategoryTypeTranslation>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<CategoryTypeCategory>, Repository<CategoryTypeCategory>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<TicketLog>, Repository<TicketLog>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<TicketScheduler>, Repository<TicketScheduler>>(new PerResolveLifetimeManager())
+
+                .RegisterType<IRepositoryAsync<Project>, Repository<Project>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<ProjectTranslation>, Repository<ProjectTranslation>>(new PerResolveLifetimeManager())
+
+                .RegisterType<IRepositoryAsync<Asset>, Repository<Asset>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<AssetTranslation>, Repository<AssetTranslation>>(new PerResolveLifetimeManager())
+
+
+                .RegisterType<IRepositoryAsync<Vendor>, Repository<Vendor>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<VendorTranslation>, Repository<VendorTranslation>>(new PerResolveLifetimeManager())
+
+                .RegisterType<IRepositoryAsync<Service>, Repository<Service>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<ServiceTranslation>, Repository<ServiceTranslation>>(new PerResolveLifetimeManager())
+                ;
 
 
         }

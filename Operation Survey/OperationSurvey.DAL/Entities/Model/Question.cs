@@ -12,11 +12,11 @@ namespace OperationSurvey.DAL.Entities.Model
         {
             QuestionTranslations = new List<QuestionTranslation>();
             QuestionDetailses = new List<QuestionDetails>();
-            AnswersdDetailses = new List<AnswerDetails>();
+            Answers = new List<Answer>();
         }
 
         public long QuestionId { get; set; }
-       // public Enums.QuestionType QuestionTypeId { get; set; }
+        public Enums.QuestionType QuestionTypeId { get; set; }
         public bool IsStatic { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? LastModificationTime { get; set; }
@@ -30,12 +30,9 @@ namespace OperationSurvey.DAL.Entities.Model
         public long CategoryId { get; set; }
         public virtual Category Category { get; set; }
 
-        public ICollection<QuestionTranslation> QuestionTranslations { get; set; }
+        public virtual ICollection<QuestionTranslation> QuestionTranslations { get; set; }
         public virtual ICollection<QuestionDetails> QuestionDetailses { get; set; }
-        public virtual ICollection<AnswerDetails> AnswersdDetailses { get; set; }
-        [ForeignKey("QuestionType")]
-        public long QuestionTypeId { get; set; }
-        public virtual QuestionType QuestionType { get; set; }
+        public virtual ICollection<Answer> Answers { get; set; }
         public int TenantId { get; set; }
     }
 }

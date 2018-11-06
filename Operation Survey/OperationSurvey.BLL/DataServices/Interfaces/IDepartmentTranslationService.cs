@@ -10,5 +10,6 @@ namespace OperationSurvey.BLL.DataServices.Interfaces
         PagedResultsDto GetAllDepartmentsTranslation(string language);
         PagedResultsDto GetDepartmentTranslationByDepartmentId(string language, long DepartmentId);
         DepartmentDto DepartmentTranslationByDepartmentId(string language, long DepartmentId);
+        bool CheckNameExist(string objName, string language, long recordId, long tenantId);
     }
 }

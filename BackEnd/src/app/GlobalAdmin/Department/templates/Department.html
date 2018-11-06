@@ -14,8 +14,8 @@
             <thead>
                 <tr>
                     <th>{{'Name' | translate}}</th>
-                    <th>{{'status' | translate}}</th>
-                    <th>Branches</th>
+                    <!-- <th>{{'status' | translate}}</th> -->
+                    <th>{{'CategoryLbl' | translate}}</th>
                     <th></th>
                 </tr>
             </thead>
@@ -23,12 +23,12 @@
                 <tr ng-repeat-start="Department in DepartmentList.results">
                     <td data-title="Name">{{Department.titleDictionary[selectedLanguage]}}</td>
                     
-                    <td>
+                    <!-- <td>
                         <p ng-show="Department.isStatic">{{'Static' | translate}}</p>
-                    </td>
+                    </td> -->
                     <td>
-                        <button ng-click="$state.go('newCategory',{departmentId: Department.departmentId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddNewBranch' | translate}}</button>
-                        <span href="javascript:void(0);" ng-click="Department.show=!Department.show;editDepartmentCtrl.showMore($event)" 
+                        <button ng-click="$state.go('newCategory',{departmentId: Department.departmentId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddNewCategoryBtn' | translate}}</button>
+                        <span href="javascript:void(0);" ng-click="Department.show=!Department.show;DepartmentCtrl.showMore($event)" 
                               ng-show="Department.categories.length != 0"
                               class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"><i class="material-icons md-dark pmd-sm"></i></span>
                     </td>
@@ -43,16 +43,16 @@
                             <thead>
                                 <tr>
                                     <th>{{'Name' | translate}}</th>
-                                    <th>{{'status' | translate}}</th>
+                                    <!-- <th>{{'status' | translate}}</th> -->
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="category in Department.categories">
                                     <td data-title="Name">{{category.titleDictionary[selectedLanguage]}}</td> 
-                                    <td>
+                                    <!-- <td>
                                         <p ng-show="category.isStatic">{{'Static' | translate}}</p>
-                                    </td>
+                                    </td> -->
                                     <td width="30%" ng-show="!category.isStatic">
                                         <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editCategory',{categoryId: category.categoryId});">mode_edit</i>
                                     </td>
@@ -64,7 +64,7 @@
             </tbody>
         </table>
     </div>
-    <div style="text-align:center;" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
          flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
     </div>
 </div>

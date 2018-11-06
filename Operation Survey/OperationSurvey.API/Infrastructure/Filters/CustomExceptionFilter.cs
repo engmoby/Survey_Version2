@@ -4,8 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Resources;
+using System.Threading;
 using System.Web;
 using System.Web.Http.Filters;
+using Elmah;
 using Exceptions = OperationSurvey.Common.CustomException;
 
 namespace OperationSurvey.API.Infrastructure.Filters
@@ -15,6 +17,8 @@ namespace OperationSurvey.API.Infrastructure.Filters
         public override void OnException(HttpActionExecutedContext context)
         {
             var exception = context.Exception;
+            ErrorSignal.FromCurrentContext().Raise(exception);
+
             if (exception is Exceptions.ValidationException)
             {
                 context.Response = context.Request.CreateErrorResponse(HttpStatusCode.BadRequest, GetResourceMessage(((Exceptions.ApplicationException)exception).ErrorCodeMessageKey));

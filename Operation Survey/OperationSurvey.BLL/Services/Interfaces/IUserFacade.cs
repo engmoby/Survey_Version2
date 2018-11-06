@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using OperationSurvey.BLL.DTOs;
 
 namespace OperationSurvey.BLL.Services.Interfaces
@@ -11,5 +12,12 @@ namespace OperationSurvey.BLL.Services.Interfaces
         UserDto GetUserByAccountId(Guid userAccountId);
         UserDto EditUserInfo(UserDto userDto, int userId, int tenantId);
         UserDto RegisterUser(UserDto userDto, int userId, int tenantId);
+        void AddNewGlobalUser(AdminDto adminDto);
+        void UpdateGlobalUser(AdminDto adminDto);
+        void UpdateAdminPackage(AdminDto adminDto);
+        UserConsumed GetMaxAndConsumedUsers(long tenantId);
+        PagedResultsDto GetAllUsersByType(int TenantId,string type);
+        List<UserNameDto> GetAllUsersWhoAnswer(long tenantId);
+        List<string> GetAllEmails(long tenantId);
     }
 }

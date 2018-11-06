@@ -18,5 +18,7 @@ namespace OperationSurvey.API.Models
         public DateTime? DeletionTime { get; set; }
         public long? DeleterUserId { get; set; } 
         public virtual ICollection<CategoryRoleModel> CategoryRoles { get; set; }
+        public List<CategoryTypeModel> CategoryTypes { get; set; }
+
     }
 }

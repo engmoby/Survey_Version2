@@ -17,6 +17,9 @@ namespace OperationSurvey.BLL.DTOs
         public DateTime? DeletionTime { get; set; }
         public long? DeleterUserId { get; set; }
         public List<BranchDto> Branches { get; set; }
+
+        public long CityId { get; set; }
+
     }
 }
 
