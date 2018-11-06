@@ -107,6 +107,12 @@
     <Compile Include="DataServices\Interfaces\IDepartmentTranslationService.cs" />
     <Compile Include="DataServices\Interfaces\IBackgroundService.cs" />
     <Compile Include="DataServices\Interfaces\IPermissionService.cs" />
+    <Compile Include="DataServices\Interfaces\IQuestionDetailsService.cs" />
+    <Compile Include="DataServices\Interfaces\IQuestionDetailsTranslationService.cs" />
+    <Compile Include="DataServices\Interfaces\IQuestionService.cs" />
+    <Compile Include="DataServices\Interfaces\IQuestionTranslationService.cs" />
+    <Compile Include="DataServices\Interfaces\IQuestionTypeService.cs" />
+    <Compile Include="DataServices\Interfaces\IQuestionTypeTranslationService.cs" />
     <Compile Include="DataServices\Interfaces\IUserRoleService.cs" />
     <Compile Include="DataServices\Interfaces\IRolePermissionService.cs" />
     <Compile Include="DataServices\Interfaces\IRoleService.cs" />
@@ -121,6 +127,12 @@
     <Compile Include="DataServices\Interfaces\IUserTypeService.cs" />
     <Compile Include="DataServices\Interfaces\IUserService.cs" />
     <Compile Include="DataServices\PermissionService.cs" />
+    <Compile Include="DataServices\QuestionDetailsService.cs" />
+    <Compile Include="DataServices\QuestionDetailsTranslationService.cs" />
+    <Compile Include="DataServices\QuestionService.cs" />
+    <Compile Include="DataServices\QuestionTranslationService.cs" />
+    <Compile Include="DataServices\QuestionTypeService.cs" />
+    <Compile Include="DataServices\QuestionTypeTranslationService.cs" />
     <Compile Include="DataServices\UserRoleService.cs" />
     <Compile Include="DataServices\RolePermissionService.cs" />
     <Compile Include="DataServices\RoleService.cs" />
@@ -140,6 +152,9 @@
     <Compile Include="DTOs\BackgroundDto.cs" />
     <Compile Include="DTOs\PagedResultsDto.cs" />
     <Compile Include="DTOs\ProductNamesDto.cs" />
+    <Compile Include="DTOs\QuestionDetailsDto.cs" />
+    <Compile Include="DTOs\QuestionDto.cs" />
+    <Compile Include="DTOs\QuestionTypeDto.cs" />
     <Compile Include="DTOs\RefreshTokenDto.cs" />
     <Compile Include="DTOs\PermissionDto.cs" />
     <Compile Include="DTOs\UserRoleDto.cs" />
@@ -156,6 +171,9 @@
     <Compile Include="Services\Interfaces\ICategoryFacade.cs" />
     <Compile Include="Services\Interfaces\IDepartmentFacade.cs" />
     <Compile Include="Services\Interfaces\IBackgroundFacade.cs" />
+    <Compile Include="Services\Interfaces\IQuestionDetailsFacade.cs" />
+    <Compile Include="Services\Interfaces\IQuestionFacade.cs" />
+    <Compile Include="Services\Interfaces\IQuestionTypeFacade.cs" />
     <Compile Include="Services\Interfaces\IRefreshTokenFacade.cs" />
     <Compile Include="Services\Interfaces\IPermissionFacade.cs" />
     <Compile Include="Services\Interfaces\IRoleFacade.cs" />
@@ -167,6 +185,9 @@
     <Compile Include="Services\FormToMail\IFormToMail.cs" />
     <Compile Include="Services\ManageStorage\IManageStorage.cs" />
     <Compile Include="Services\ManageStorage\ManageStorage.cs" />
+    <Compile Include="Services\QuestionDetailsFacade.cs" />
+    <Compile Include="Services\QuestionFacade.cs" />
+    <Compile Include="Services\QuestionTypeFacade.cs" />
     <Compile Include="Services\RefreshTokenFacade.cs" />
     <Compile Include="Services\PermissionFacade.cs" />
     <Compile Include="Services\RoleFacade.cs" />

@@ -79,6 +79,8 @@
     <Compile Include="Entities\Model\QuestionDetailsTranslation.cs" />
     <Compile Include="Entities\Model\Question.cs" />
     <Compile Include="Entities\Model\QuestionTranslation.cs" />
+    <Compile Include="Entities\Model\QuestionType.cs" />
+    <Compile Include="Entities\Model\QuestionTypeTranslation.cs" />
     <Compile Include="Entities\Model\RolePermission.cs" />
     <Compile Include="Entities\Model\UserRole.cs" />
     <Compile Include="Entities\Model\Permission.cs" />

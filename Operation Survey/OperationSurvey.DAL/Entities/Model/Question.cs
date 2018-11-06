@@ -16,7 +16,7 @@ namespace OperationSurvey.DAL.Entities.Model
         }
 
         public long QuestionId { get; set; }
-        public Enums.QuestionType QuestionTypeId { get; set; }
+       // public Enums.QuestionType QuestionTypeId { get; set; }
         public bool IsStatic { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? LastModificationTime { get; set; }
@@ -33,6 +33,9 @@ namespace OperationSurvey.DAL.Entities.Model
         public ICollection<QuestionTranslation> QuestionTranslations { get; set; }
         public virtual ICollection<QuestionDetails> QuestionDetailses { get; set; }
         public virtual ICollection<AnswerDetails> AnswersdDetailses { get; set; }
+        [ForeignKey("QuestionType")]
+        public long QuestionTypeId { get; set; }
+        public virtual QuestionType QuestionType { get; set; }
         public int TenantId { get; set; }
     }
 }

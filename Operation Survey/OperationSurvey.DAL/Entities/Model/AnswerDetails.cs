@@ -16,7 +16,7 @@ namespace OperationSurvey.DAL.Entities.Model
         public DateTime Date { get; set; }
         public DateTime CreationTime { get; set; }
         public long? CreatorUserId { get; set; }
-        public Enums.QuestionType QuestionTypeId { get; set; }
+        //public Enums.QuestionType QuestionTypeId { get; set; }
         public string Value { get; set; }
         public string Note { get; set; }
 
@@ -27,6 +27,7 @@ namespace OperationSurvey.DAL.Entities.Model
         [ForeignKey("Question")]
         public long QuestionId { get; set; }
         public virtual Question Question { get; set; }
+        public virtual QuestionType QuestionType { get; set; }
         public int TenantId { get; set; }
     }
 }

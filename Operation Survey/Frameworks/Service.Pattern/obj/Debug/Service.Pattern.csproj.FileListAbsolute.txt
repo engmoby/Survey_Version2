@@ -47,3 +47,10 @@ E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks
 E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.csprojResolveAssemblyReference.cache
 E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.dll
 E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.pdb
+E:\Projects\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\bin\Debug\Service.Pattern.dll
+E:\Projects\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\bin\Debug\Service.Pattern.pdb
+E:\Projects\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\bin\Debug\Repository.Pattern.dll
+E:\Projects\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\bin\Debug\Repository.Pattern.pdb
+E:\Projects\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.csprojResolveAssemblyReference.cache
+E:\Projects\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.dll
+E:\Projects\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.pdb
