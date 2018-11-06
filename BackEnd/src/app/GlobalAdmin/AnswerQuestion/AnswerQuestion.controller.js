@@ -18,7 +18,7 @@
 
         var vm = this;
 
-     //   console.log($scope.questionList);
+        //   console.log($scope.questionList);
         /*// Toggle selection for a given fruit by name*/
         function init() {
             $scope.likeText = "";
@@ -60,10 +60,17 @@
         if ($scope.projectId != 0) {
 
             debugger;
-            CheckAnswersByProject();
+            // CheckAnswersByProject();
             vm.categoryTypes.push(vm.selectedCategoryType);
             vm.categoryTypes = vm.categoryTypes.concat(allcategoryTypePrepService.results)
-            vm.selectedCategoryType.categoryTypeId = 5;
+            for (var i = 0; i < vm.categoryTypes.length; i++) {
+                debugger;
+                if (vm.categoryTypes[i].isStatic == true) {
+                    vm.selectedCategoryType.categoryTypeId = vm.categoryTypes[i].categoryTypeId;
+                    continue;
+                }
+            }
+
             AnswerQuestionResource.getAllQuestions({ catgoryTypeId: vm.selectedCategoryType.categoryTypeId }).$promise.then(function (results) {
 
                 $scope.questionList = results.results;
@@ -88,7 +95,9 @@
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
                 });
-        } vm.answers = []
+        }
+
+        vm.answers = []
         function CheckAnswersByProject() {
             blockUI.start("Loading...");
             AnswerQuestionResource.CheckAnswersByProjectId({ projectId: $scope.projectId }).$promise.then(function (results) {

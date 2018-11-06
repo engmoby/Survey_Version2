@@ -76,6 +76,11 @@
         </form>
     </div>
     <div class="pmd-modal-action text-right">
+
+
+        <button ng-disabled="newTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newProjectCtrl.nextBtn()">{{'NextBtn'
+            | translate}}</button>
+
         <button ng-disabled="newTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newProjectCtrl.AddNewProject()">{{'saveChangesBtn'
             | translate}}</button>
         <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="$state.go('Project');">{{'DiscardBtn'

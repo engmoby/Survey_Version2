@@ -7,6 +7,10 @@ namespace OperationSurvey.BLL.DTOs
     {
         public long ProjectId { get; set; }
         public Dictionary<string, string> TitleDictionary { get; set; }
+        public long CountryId { get; set; }
+        public long RegionId { get; set; }
+        public long CityId { get; set; }
+        public long AreaId { get; set; }
         public long BranchId { get; set; }
 
         public bool IsDeleted { get; set; }

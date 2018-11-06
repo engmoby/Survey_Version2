@@ -48,3 +48,28 @@ C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Surve
 C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.Resources\obj\Release\ar-EG\OperationSurvey.Resources.resources.dll
 C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.Resources\obj\Release\OperationSurvey.Resources.dll
 C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.Resources\obj\Release\OperationSurvey.Resources.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\roslyn\csc.exe
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\roslyn\System.Collections.Immutable.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\roslyn\System.Reflection.Metadata.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\roslyn\vbc.exe
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\roslyn\VBCSCompiler.exe
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\roslyn\VBCSCompiler.exe.config
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\OperationSurvey.Resources.dll.config
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\OperationSurvey.Resources.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\OperationSurvey.Resources.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\ar-EG\OperationSurvey.Resources.resources.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\obj\Release\OperationSurvey.Resources.csprojResolveAssemblyReference.cache
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\obj\Release\OperationSurvey.Resources.Resource.resources
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\obj\Release\OperationSurvey.Resources.Resource.ar-EG.resources
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\obj\Release\OperationSurvey.Resources.csproj.GenerateResource.Cache
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\obj\Release\ar-EG\OperationSurvey.Resources.resources.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\obj\Release\OperationSurvey.Resources.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.Resources\obj\Release\OperationSurvey.Resources.pdb

@@ -94,3 +94,19 @@ C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Surve
 C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern.Ef6\obj\Release\Repository.Pattern.Ef6.csprojResolveAssemblyReference.cache
 C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern.Ef6\obj\Release\Repository.Pattern.Ef6.dll
 C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern.Ef6\obj\Release\Repository.Pattern.Ef6.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern.Ef6\bin\Release\Repository.Pattern.Ef6.dll.config
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern.Ef6\bin\Release\Repository.Pattern.Ef6.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern.Ef6\bin\Release\Repository.Pattern.Ef6.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern.Ef6\bin\Release\EntityFramework.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern.Ef6\bin\Release\EntityFramework.SqlServer.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern.Ef6\bin\Release\LinqKit.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern.Ef6\bin\Release\Repository.Pattern.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern.Ef6\bin\Release\System.Net.Http.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern.Ef6\bin\Release\Repository.Pattern.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern.Ef6\bin\Release\EntityFramework.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern.Ef6\bin\Release\EntityFramework.SqlServer.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern.Ef6\bin\Release\LinqKit.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern.Ef6\bin\Release\LinqKit.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern.Ef6\obj\Release\Repository.Pattern.Ef6.csprojResolveAssemblyReference.cache
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern.Ef6\obj\Release\Repository.Pattern.Ef6.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern.Ef6\obj\Release\Repository.Pattern.Ef6.pdb

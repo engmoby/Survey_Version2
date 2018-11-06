@@ -4,10 +4,10 @@
     angular
         .module('home')
         .controller('createProjectDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
-            'ProjectResource', 'ToastService', 'CountriesPrepService', 'RegionResource', 'CityResource', 'AreaResource', createProjectDialogController])
+            'ProjectResource', 'ToastService', 'CountriesPrepService', 'RegionResource', 'CityResource', 'AreaResource','AnswerQuestionResource', createProjectDialogController])
 
     function createProjectDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, ProjectResource,
-        ToastService, CountriesPrepService, RegionResource, CityResource, AreaResource) {
+        ToastService, CountriesPrepService, RegionResource, CityResource, AreaResource,AnswerQuestionResource) {
         debugger
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
@@ -33,7 +33,43 @@
 
 
         }
+        vm.nextBtn = function () {
+            blockUI.start("Saving...");
+            debugger;
+            var newObj = new ProjectResource();
+            newObj.titleDictionary = vm.titleDictionary;
+            newObj.IsDeleted = false;
+            newObj.branchId = vm.selectedBranch.branchId;
 
+            newObj.$create().then(
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    CheckAnswersByProject();
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+
+        }
+        function CheckAnswersByProject() {
+            blockUI.start("Loading...");
+            AnswerQuestionResource.CheckAnswersByProjectId({ projectId: vm.Project.projectId }).$promise.then(function (results) {
+                if (results.userId != 0) {
+                    if (results.userId != undefined) {
+                        $state.go('Answers', { projectId: vm.Project.projectId });
+                    }
+                    else {
+                        $state.go('AnswerQuestion', { projectId: vm.Project.projectId });
+                    }
+                }
+                blockUI.stop();
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
         vm.countryChange = function () {
             vm.selectedRegion = { regionId: 0, titleDictionary: { "en": "All Regions", "ar": "كل الأقاليم" } };
             vm.selectedCity = { cityId: 0, titleDictionary: { "en": "All Cities", "ar": "كل المدن" } };

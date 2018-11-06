@@ -80,7 +80,7 @@
         <button ng-disabled="editProjectForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editProjectCtrl.UpdateProject()">{{'saveChangesBtn'
             | translate}}</button>
 
-        <button ng-disabled="editProjectForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="$state.go('AnswerQuestion',{projectId:editProjectCtrl.Project.projectId});">{{'NextBtn'
+        <button ng-disabled="editProjectForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editProjectCtrl.nextBtn()">{{'NextBtn'
             | translate}}</button>
 
         <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editProjectCtrl.Close()">{{'DiscardBtn'

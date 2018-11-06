@@ -196,14 +196,25 @@
         "price": "price",
         "AssetStatus": "Asset Status",
 
+        "ConfigLbl": "Ticket Configration",
         "service": "service",
         "percentage": "percentage",
         "asset": "Asset",
         "PaymentMethod": "Payment Method",
         "urlErrorLbl": "Sorry Not a Valid URL, Don't Forget to Use http://",
+        "NoProjectsAvailable": "No Projects Available",
+        "NoVendorsAvailable": "No Vendors Available",
+        "NoServicesAvailable": "No Services Available",
+        "NoAssetsAvailable": "No Assets Available",
       }
 
       var ar_translations = {
+
+        "ConfigLbl": "ترتيب",
+        "NoAssetsAvailable": "لايوجد اصول",
+        "NoServicesAvailable": "لا يوجد خدمات متاحه ",
+        "NoVendorsAvailable": "لا يوجد بائع متاح",
+        "NoProjectsAvailable": "لا يوجد مشاريع متاحه",
         "urlErrorLbl": "عذرًا ، ليس عنوان URL صالحًا ، لا تنس أن تستخدم http: //",
         "service": "خدمه",
         "percentage": "نسبه",
@@ -212,7 +223,7 @@
         "PaymentMethod": "طريقة الدفع",
         "price": "السعر",
         "totalAsset": "مجموع الأصول",
-        "totalService": "مجموع الخدمات", 
+        "totalService": "مجموع الخدمات",
         "addressLbl": "العنوان",
         "Project": "المشروع",
         "Vendor": "البائع",

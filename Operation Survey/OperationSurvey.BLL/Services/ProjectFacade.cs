@@ -43,8 +43,13 @@ namespace OperationSurvey.BLL.Services
             {
                 departmetn.ProjectId = query.ProjectId;
                 departmetn.BranchId = query.BranchId;
-                departmetn.TitleDictionary = query.ProjectTranslations.ToDictionary(translation => translation.Language.ToLower(), 
-                    translation => translation.Title);}
+                departmetn.AreaId = query.Branch.AreaId;
+                departmetn.CityId = (long)query.Branch.Area.CityId;
+                departmetn.RegionId = (long)query.Branch.Area.City.RegionId;
+                departmetn.CountryId = (long)query.Branch.Area.City.Region.CountryId;
+                departmetn.TitleDictionary = query.ProjectTranslations.ToDictionary(translation => translation.Language.ToLower(),
+                    translation => translation.Title);
+            }
 
             return departmetn;
         }
@@ -100,7 +105,7 @@ namespace OperationSurvey.BLL.Services
             projectObj.BranchId = projectDto.BranchId;
             projectObj.LastModificationTime = Strings.CurrentDateTime;
             projectObj.LastModifierUserId = userId;
-            projectObj.IsDeleted = projectDto.IsDeleted; 
+            projectObj.IsDeleted = projectDto.IsDeleted;
             _projectService.Update(projectObj);
             SaveChanges();
             return projectDto;
