@@ -31,6 +31,16 @@
             vm.categoryTypes.push(vm.selectedCategoryType);
             vm.categoryTypes = vm.categoryTypes.concat(allcategoryTypePrepService.results)
 
+            for (var i = 0; i < vm.categoryTypes.length; i++) {
+                debugger;
+                if (vm.categoryTypes[i].isStatic == true) {
+
+                    var index = vm.categoryTypes.indexOf(vm.categoryTypes[i]);
+                    vm.categoryTypes.splice(index, 1);
+                    continue;
+                }
+            }
+
 
             vm.counties = [];
             vm.selectedCountry = { countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } };
