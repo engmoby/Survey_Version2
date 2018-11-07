@@ -49,7 +49,7 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top pmd-navbar pmd-z-depth" ng-if="isLoggedIn()">
+	<nav class="navbar navbar-inverse navbar-fixed-top pmd-navbar pmd-z-depth" ng-show="isLoggedIn()">
 
 		<div class="container-fluid">
 			<div class="pmd-navbar-right-icon pull-right navigation">
@@ -71,7 +71,8 @@
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 				<a href="javascript:void(0);" class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect pull-left margin-r8 pmd-sidebar-toggle">
-					<i class="material-icons">menu</i>
+					<!-- <i class="material-icons">menu</i> -->
+					<i class="material-icons md-light">menu</i>
 				</a>
 				<a href="index.html" class="navbar-brand">
 					<img src="/assets/img/logo-os-white.png" style="    width: 150px;" />
@@ -88,7 +89,7 @@
 	<div class="pmd-sidebar-overlay"></div>
 
 	<!-- Left sidebar -->
-	<aside ng-if="isLoggedIn()" ng-cloak ng-init="logoutFlag=false" class="pmd-sidebar sidebar-default pmd-sidebar-slide-push pmd-sidebar-left pmd-sidebar-open bg-fill-darkblue sidebar-with-icons"
+	<aside ng-show="isLoggedIn()" ng-cloak ng-init="logoutFlag=false" class="pmd-sidebar sidebar-default pmd-sidebar-slide-push pmd-sidebar-left pmd-sidebar-open bg-fill-darkblue sidebar-with-icons"
 	 role="navigation">
 		<ul class="nav pmd-sidebar-nav">
 
@@ -119,109 +120,112 @@
 				</ul>
 			</li>
 			<!-- End user info -->
-
+			
 			<li ui-sref-active="active" ng-show="user.PermissionId.indexOf('12') !== -1">
 				<a class="pmd-ripple-effect" ng-click="$state.go('Vendor');">
 					<i class="media-left media-middle">
-						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
-						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18" enable-background="new 287.725 407.535 19.83 18"
+						 xml:space="preserve">
 							<g>
 								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
-						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
+			 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
 							</g>
 						</svg>
 					</i>
-					<span class="media-body" ng-cloak>{{'Vendor' | translate}}</span>
+					<span class="media-body">{{'Vendor' | translate}}</span>
 				</a>
 			</li>
 
 			<li ui-sref-active="active" ng-show="user.PermissionId.indexOf('13') !== -1">
 				<a class="pmd-ripple-effect" ng-click="$state.go('Project');">
 					<i class="media-left media-middle">
-						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
-						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18" enable-background="new 287.725 407.535 19.83 18"
+						 xml:space="preserve">
 							<g>
 								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
-						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
+			 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
 							</g>
 						</svg>
 					</i>
-					<span class="media-body" ng-cloak>{{'Project' | translate}}</span>
+					<span class="media-body">{{'Project' | translate}}</span>
 				</a>
 			</li>
 
 			<li ui-sref-active="active" ng-show="user.PermissionId.indexOf('2') !== -1">
 				<a class="pmd-ripple-effect" ng-click="$state.go('categoryType');">
 					<i class="media-left media-middle">
-						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
-						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18" enable-background="new 287.725 407.535 19.83 18"
+						 xml:space="preserve">
 							<g>
 								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
-						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
+			 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
 							</g>
 						</svg>
 					</i>
-					<span class="media-body" ng-cloak>{{'categoryType' | translate}}</span>
+					<span class="media-body">{{'categoryType' | translate}}</span>
 				</a>
 			</li>
 
 			<li ng-show="user.PermissionId.indexOf('3') !== -1">
-				<a class="pmd-ripple-effect " ng-click="$state.go('Role');">
+				<a class="pmd-ripple-effect" ng-click="$state.go('Role');">
 					<i class="media-left media-middle">
-						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
-						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18" enable-background="new 287.725 407.535 19.83 18"
+						 xml:space="preserve">
 							<g>
 								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
-						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
+			 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
 							</g>
 						</svg>
 					</i>
-					<span class="media-body" ng-cloak>{{'Role' | translate}}</span>
+					<span class="media-body">{{'Role' | translate}}</span>
 				</a>
 			</li>
 
 			<li ng-show="user.PermissionId.indexOf('4') !== -1">
-				<a class="pmd-ripple-effect " ng-click="$state.go('Countries');">
+				<a class="pmd-ripple-effect" ng-click="$state.go('Countries');">
 					<i class="media-left media-middle">
-						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
-						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18" enable-background="new 287.725 407.535 19.83 18"
+						 xml:space="preserve">
 							<g>
 								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
-						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
+			 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
 							</g>
 						</svg>
 					</i>
-					<span class="media-body" ng-cloak>{{'Branch' | translate}}</span>
+					<span class="media-body">{{'Branch' | translate}}</span>
 				</a>
 			</li>
+
 			<li ng-show="user.PermissionId.indexOf('5') !== -1">
-				<a class="pmd-ripple-effect " ng-click="$state.go('Department');">
+				<a class="pmd-ripple-effect" ng-click="$state.go('Department');">
 					<i class="media-left media-middle">
-						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
-						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18" enable-background="new 287.725 407.535 19.83 18"
+						 xml:space="preserve">
 							<g>
 								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
-						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
+			 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
 							</g>
 						</svg>
 					</i>
-					<span class="media-body" ng-cloak>{{'Department' | translate}}</span>
+					<span class="media-body">{{'Department' | translate}}</span>
 				</a>
 			</li>
+
 			<li ng-show="user.PermissionId.indexOf('1') !== -1">
-				<a class="pmd-ripple-effect " ng-click="$state.go('users');">
+				<a class="pmd-ripple-effect" ng-click="$state.go('users');">
 					<i class="media-left media-middle">
-						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
-						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18" enable-background="new 287.725 407.535 19.83 18"
+						 xml:space="preserve">
 							<g>
 								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
-						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
+			 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
 							</g>
 						</svg>
 					</i>
-					<span class="media-body" ng-cloak>{{'users' | translate}}</span>
+					<span class="media-body">{{'users' | translate}}</span>
 				</a>
 			</li>
+
 			<li ng-show="user.PermissionId.indexOf('6') !== -1">
 				<a class="pmd-ripple-effect " ng-click="$state.go('Question');">
 					<i class="media-left media-middle">
