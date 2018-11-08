@@ -10,7 +10,6 @@
         CountriesPrepService, RegionResource, CityResource, AreaResource, allcategoryTypePrepService, AnswerQuestionResource) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[8].children[0]).addClass("active")
-        debugger;
         $scope.projectId = $stateParams.projectId;
 
         var vm = this;
@@ -27,6 +26,7 @@
         vm.selectedCountry = { countryId: 0, titleDictionary: { "en": "All Countries", "ar": "كل البلاد" } };
         vm.counties.push(vm.selectedCountry);
         vm.counties = vm.counties.concat(CountriesPrepService.results)
+        debugger;
 
         vm.questionList = AnswerQuestionPrepService.results;
 
@@ -191,7 +191,7 @@
         }
         function GetQuestionByProject() {
             blockUI.start("Loading...");
-            vm.selectedCategoryType.categoryTypeId = 5;
+            vm.selectedCategoryType.categoryTypeId = 14;
             AnswerQuestionResource.getAllQuestions({ catgoryTypeId: vm.selectedCategoryType.categoryTypeId }).$promise.then(function (results) {
                 vm.questionList = results.results;
                 vm.questionList.forEach(function (element) {

@@ -282,7 +282,6 @@
     <Compile Include="Controllers\TicketSchedulerController.cs" />
     <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Controllers\AnswerController.cs" />
-    <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\BranchController.cs" />

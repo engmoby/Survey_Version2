@@ -170,16 +170,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 03:44:10</publishTime>
     </File>
     <File Include="bin/OperationSurvey.API.dll">
-      <publishTime>11/01/2018 16:39:40</publishTime>
+      <publishTime>11/08/2018 12:10:55</publishTime>
     </File>
     <File Include="bin/OperationSurvey.BLL.dll">
-      <publishTime>11/01/2018 16:39:35</publishTime>
+      <publishTime>11/08/2018 12:08:38</publishTime>
     </File>
     <File Include="bin/OperationSurvey.Common.dll">
       <publishTime>11/01/2018 12:20:12</publishTime>
     </File>
     <File Include="bin/OperationSurvey.DAL.dll">
-      <publishTime>11/01/2018 16:39:33</publishTime>
+      <publishTime>11/08/2018 12:08:37</publishTime>
     </File>
     <File Include="bin/OperationSurvey.Resources.dll">
       <publishTime>11/01/2018 12:20:16</publishTime>
@@ -188,10 +188,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 03:44:10</publishTime>
     </File>
     <File Include="bin/Repository.Pattern.dll">
-      <publishTime>10/31/2018 14:50:14</publishTime>
+      <publishTime>11/08/2018 12:08:36</publishTime>
     </File>
     <File Include="bin/Repository.Pattern.Ef6.dll">
-      <publishTime>11/01/2018 12:20:12</publishTime>
+      <publishTime>11/08/2018 12:08:37</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>07/23/2018 03:44:10</publishTime>
@@ -230,7 +230,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 03:44:10</publishTime>
     </File>
     <File Include="bin/Service.Pattern.dll">
-      <publishTime>11/01/2018 12:20:12</publishTime>
+      <publishTime>11/08/2018 12:08:37</publishTime>
     </File>
     <File Include="bin/Swashbuckle.Core.dll">
       <publishTime>07/23/2018 03:44:10</publishTime>
