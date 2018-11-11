@@ -106,7 +106,7 @@
 
 </form>
 <form name="FormAnswer" novalidate autocomplete="off">
-    <div ng-show="questionList.length<=0">
+    <div ng-show="questionList.length == 0">
         <span>{{'NoQuestionsAvailable' | translate}}</span>
     </div>
     <div ng-repeat="(k,v) in questionList| groupBy: 'categoryId'">

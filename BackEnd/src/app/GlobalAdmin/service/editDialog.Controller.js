@@ -46,7 +46,7 @@
 
                 },
                 function (data, status) {
-                    debugger;
+                     
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );

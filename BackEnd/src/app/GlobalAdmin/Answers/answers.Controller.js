@@ -10,7 +10,7 @@
         CountriesPrepService, RegionResource, CityResource, AreaResource, allcategoryTypePrepService, AnswerQuestionResource) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[8].children[0]).addClass("active")
-        debugger;
+         
         $scope.projectId = $stateParams.projectId;
 
         var vm = this;
@@ -162,6 +162,7 @@
                 });
         }
         vm.viewAnswerByProjectId = function (ques) {
+           
             ques.isloading = true;
             AnswerResource.getAnswerByProjectId({
                 questionId: ques.questionId, projectId: $scope.projectId, page: ques.page
@@ -185,7 +186,7 @@
         vm.branchId = 0
         if ($scope.projectId != 0) {
 
-            debugger;
+             
             GetQuestionByProject();
 
         }

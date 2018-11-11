@@ -32,7 +32,7 @@
             vm.categoryTypes = vm.categoryTypes.concat(allcategoryTypePrepService.results)
 
             for (var i = 0; i < vm.categoryTypes.length; i++) {
-                debugger;
+                 
                 if (vm.categoryTypes[i].isStatic == true) {
 
                     var index = vm.categoryTypes.indexOf(vm.categoryTypes[i]);
@@ -69,12 +69,12 @@
         init();
         if ($scope.projectId != 0) {
 
-            debugger;
+             
             // CheckAnswersByProject();
             vm.categoryTypes.push(vm.selectedCategoryType);
-            vm.categoryTypes = vm.categoryTypes.concat(allcategoryTypePrepService.results)
+            vm.categoryTypes = vm.categoryTypes.concat(allcategoryTypePrepService.results);
             for (var i = 0; i < vm.categoryTypes.length; i++) {
-                debugger;
+                 
                 if (vm.categoryTypes[i].isStatic == true) {
                     vm.selectedCategoryType.categoryTypeId = vm.categoryTypes[i].categoryTypeId;
                     continue;
@@ -298,7 +298,7 @@
 
         $scope.AddAnswer = function (list) {
             blockUI.start("Loading...");
-            debugger;
+             
             var submitAnswer = new AnswerResource();
             vm.answers.forEach(function (element) {
                 element.branchId = $scope.selectedBranch.branchId;
@@ -312,8 +312,8 @@
            //    submitAnswer.questionModel = list;*/
             AnswerResource.create(vm.answers, function (data, status) {
                 blockUI.stop();
-                debugger;
-                if ($scope.projectId !== 0) {
+                 
+                if ($scope.projectId != 0) {
                     $state.go('asset', { projectId: $scope.projectId });
                 } else {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");

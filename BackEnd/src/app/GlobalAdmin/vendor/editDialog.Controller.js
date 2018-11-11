@@ -25,17 +25,17 @@
             updateObj.phone = vm.Vendor.phone;
             updateObj.Website = vm.Vendor.website;
             updateObj.address = vm.Vendor.address;
-            debugger;
+             
             updateObj.$update().then(
                 function (data, status) {
-                    debugger;
+                     
                     blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
                     $state.go('Vendor');
 
                 },
                 function (data, status) {
-                    debugger;
+                     
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );

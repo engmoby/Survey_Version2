@@ -22,7 +22,7 @@
 
         vm.AddNewAsset = function () {
             blockUI.start("Saving...");
-            debugger;
+             
             var newObj = new AssetResource();
             newObj.titleDictionary = vm.titleDictionary;
             newObj.IsDeleted = false;

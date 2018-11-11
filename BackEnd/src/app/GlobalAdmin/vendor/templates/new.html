@@ -41,11 +41,11 @@
             <div class="form-group pmd-textfield pmd-textfield-floating-label">
                 <label for="first-name">{{'phoneLbl' | translate}}</label>
                 <input required type="text" class="mat-input form-control" name="phone" numbers-only ng-model="newVendorCtrl.phone"
-                    ng-minlength="10" ng-maxlength="50">
+                    ng-minlength="3" ng-maxlength="20">
                 <div ng-messages="newTypeForm.phone.$error">
                     <div ng-if="newTypeForm.phone.$error.required && !newTypeForm.phone.$pristine">{{'PhoneReqError' |
                         translate}}</div>
-                    <div ng-if="(newTypeForm.phone.$error.minlength || newTypeForm.phone.$error.maxlength)">{{'PhoneLengthError'
+                    <div ng-if="(newTypeForm.phone.$error.minlength || newTypeForm.phone.$error.maxlength)">{{'PhoneLengthError320'
                         | translate}}</div>
                 </div>
             </div>

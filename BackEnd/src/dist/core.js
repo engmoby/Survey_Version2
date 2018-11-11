@@ -62,9 +62,9 @@
 	angular
 		.module('core')
 		.constant('appCONSTANTS', {
-			//'API_URL': 'http://localhost:32569/api/',
+			'API_URL': 'http://localhost:32569/api/',
 			// 'API_URL': 'https://surveyv2.azurewebsites.net/api/',
-			 'API_URL': 'https://surveyv2-testing.azurewebsites.net/api/',
+			//  'API_URL': 'https://surveyv2-testing.azurewebsites.net/api/',
 			'defaultLanguage': 'en',
 			'supportedLanguage': {
 				'en': { 'key': 'en', 'value': 'english' },
@@ -264,6 +264,7 @@ angular.module('core')
     .module('core').config(["$translateProvider", "appCONSTANTS", function ($translateProvider, appCONSTANTS) {
 
       var en_translations = {
+        "PhoneLengthError320":"digits must be from 3 :20",
         "FirstNameLbl": "FirstName",
         "LastNameLbl": "lastName",
         "EmailLbl": "Email",
@@ -465,10 +466,20 @@ angular.module('core')
         "NoVendorsAvailable": "No Vendors Available",
         "NoServicesAvailable": "No Services Available",
         "NoAssetsAvailable": "No Assets Available",
+        "Debit":"Debit",
+        "Credit":"Credit",
+        "Recevied":"Recevied",
+        "NotRecevied":"Not Recevied",
+        "priceLengthError":"Price Length Error",
       }
 
       var ar_translations = {
-
+        "priceLengthError":"خطأ في السعر",
+        "Recevied":"استلمت",
+        "NotRecevied":"لم تستلم",
+        "Credit":"دائن",
+        "Debit":"مدين",
+        "PhoneLengthError320": "يجب أن تكون الأرقام من 3: 20",
         "ConfigLbl": "ترتيب",
         "NoAssetsAvailable": "لايوجد اصول",
         "NoServicesAvailable": "لا يوجد خدمات متاحه ",

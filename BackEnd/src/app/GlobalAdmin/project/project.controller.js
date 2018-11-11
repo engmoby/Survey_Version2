@@ -24,7 +24,7 @@
         console.log($scope.ProjectList)
         $scope.getTotal = function (projectObj) {
 
-            debugger;
+             
             var total = 0;
             for (var i = 0; i < projectObj.assets.length; i++) {
 
@@ -39,7 +39,7 @@
         }
         $scope.getServiceTotal = function (projectObj) {
 
-            debugger;
+             
             var total = 0;
             for (var i = 0; i < projectObj.services.length; i++) {
 
@@ -54,7 +54,7 @@
         }
         // $scope.getTotal = function (projectObj) {
 
-        //     debugger;
+        //      
         //     var total = 0;
         //     $scope.ProjectList.results.forEach(function (element) {
         //         for (var i = 0; i < element.assets.length; i++) {

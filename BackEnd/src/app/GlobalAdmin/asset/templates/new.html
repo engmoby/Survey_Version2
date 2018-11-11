@@ -48,7 +48,7 @@
             <div class="form-group pmd-textfield pmd-textfield-floating-label">
                 <label for="first-name">{{'price' | translate}}</label>
                 <input required type="text" class="mat-input form-control" name="price" numbers-only ng-model="newAssetCtrl.price"
-                    ng-minlength="3" ng-maxlength="10">
+                    ng-minlength="1" ng-maxlength="10">
                 <div ng-messages="newTypeForm.price.$error">
                     <div ng-if="newTypeForm.price.$error.required && !newTypeForm.price.$pristine">{{'priceReqError' |
                         translate}}</div>
@@ -60,16 +60,16 @@
             <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
                 <label for="first-name">{{'AssetStatus' | translate}} : </label>
                   <br />
-                <input type="radio" ng-model="assetStatus" value="Recevied">Recevied
+                <input type="radio" ng-model="assetStatus" value="Recevied">{{'Recevied' | translate}}
                 <br>
-                <input type="radio" ng-model="assetStatus" value="NotRecevied">NotRecevied
+                <input type="radio" ng-model="assetStatus" value="NotRecevied">{{'NotRecevied' | translate}}
             </div>
             <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
                 <label for="first-name">{{'PaymentMethod' | translate}} : </label>
                   <br />
-                <input type="radio" ng-model="paymentMethod" value="Debit">Debit
+                <input type="radio" ng-model="paymentMethod" value="Debit">{{'Debit' | translate}}
                 <br>
-                <input type="radio" ng-model="paymentMethod" value="Credit">Credit
+                <input type="radio" ng-model="paymentMethod" value="Credit">{{'Credit' | translate}}
             </div>
             <div class="form-group pmd-textfield pmd-textfield-floating-label">
                 <label for="first-name">{{'note' | translate}}</label>

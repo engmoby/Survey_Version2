@@ -28,7 +28,7 @@
       }
 
       function responseErrorInterceptor(response) {
-        debugger;
+         
         vlSignalingService.error(getMessageFromResponse(response))
         return $q.reject(response);
       }

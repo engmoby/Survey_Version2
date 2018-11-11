@@ -15,7 +15,6 @@
         console.log(vm.Project);
         init();
         vm.nextBtn = function () {
-
             CheckAnswersByProject();
         }
         function CheckAnswersByProject() {
@@ -73,7 +72,7 @@
             vm.branchList = [];
             vm.selectedBranch = { branchId: 0, titleDictionary: { "en": "All Branches", "ar": "كل الفروع" } };
             vm.branchList.push(vm.selectedBranch);
-            debugger;
+             
             RegionResource.getAllRegions({ countryId: vm.selectedCountry.countryId, pageSize: 0 }).$promise.then(function (results) {
 
                 vm.regions = vm.regions.concat(results.results);
@@ -107,7 +106,7 @@
                 CityResource.getAllCities({ regionId: vm.selectedRegion.regionId, pageSize: 0 }).$promise.then(function (results) {
 
                     vm.cities = vm.cities.concat(results.results);
-                    debugger;
+                     
                     var indexcity = vm.cities.indexOf($filter('filter')(vm.cities, { 'cityId': vm.Project.cityId }, true)[0]);
                     vm.selectedCity = vm.cities[indexcity];
                     funcCityChange();

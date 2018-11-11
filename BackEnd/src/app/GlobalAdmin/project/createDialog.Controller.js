@@ -35,7 +35,7 @@
         }
         vm.nextBtn = function () {
             blockUI.start("Saving...");
-            debugger;
+             
             var newObj = new ProjectResource();
             newObj.titleDictionary = vm.titleDictionary;
             newObj.IsDeleted = false;
@@ -44,8 +44,9 @@
             newObj.$create().then(
                 function (data, status) {
                     blockUI.stop();
+                    CheckAnswersByProject(newObj);
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-                    CheckAnswersByProject();
+                    
                 },
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
@@ -53,15 +54,15 @@
             );
 
         }
-        function CheckAnswersByProject() {
+        function CheckAnswersByProject(newObj) {
             blockUI.start("Loading...");
-            AnswerQuestionResource.CheckAnswersByProjectId({ projectId: vm.Project.projectId }).$promise.then(function (results) {
+            AnswerQuestionResource.CheckAnswersByProjectId({ projectId: newObj.projectId }).$promise.then(function (results) {
                 if (results.userId != 0) {
                     if (results.userId != undefined) {
-                        $state.go('Answers', { projectId: vm.Project.projectId });
+                        $state.go('Answers', { projectId: newObj.projectId });
                     }
                     else {
-                        $state.go('AnswerQuestion', { projectId: vm.Project.projectId });
+                        $state.go('AnswerQuestion', { projectId: newObj.projectId });
                     }
                 }
                 blockUI.stop();
@@ -142,7 +143,7 @@
 
         vm.AddNewProject = function () {
             blockUI.start("Saving...");
-            debugger;
+             
             var newObj = new ProjectResource();
             newObj.titleDictionary = vm.titleDictionary;
             newObj.IsDeleted = false;

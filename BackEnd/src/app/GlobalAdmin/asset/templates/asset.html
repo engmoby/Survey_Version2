@@ -27,13 +27,14 @@
                     <td data-title="Name">{{Asset.titleDictionary[selectedLanguage]}}</td>
                     <td data-title="Name">{{Asset.vendor.titleDictionary[selectedLanguage]}}</td>
                     <td data-title="Name">{{Asset.price}}</td>
-                    <td data-title="Name">{{Asset.displayAssetStatus}}</td>
+                    <td ng-if="Asset.displayAssetStatus == 'Recevied'" data-title="Name">{{'Recevied' | translate}}</td>
+                    <td ng-if="Asset.displayAssetStatus == 'NotRecevied'" data-title="Name">{{'NotRecevied' | translate}}</td>
                     <td data-title="Name">
                         {{Asset.creationTime | date:'mediumDate'}}<br>
                         {{Asset.creationTime | date:'shortTime'}}
                     </td>
-                    <td ng-class="{'red-text': Asset.paymentMethod == 0 }"  data-title="Name">{{Asset.displayPaymentMethod}}</td>
-
+                    <td ng-if="Asset.displayPaymentMethod == 'Credit'" ng-class="{'red-text': Asset.paymentMethod == 0 }"  data-title="Name">{{'Credit' | translate}}</td>
+                    <td ng-if="Asset.displayPaymentMethod == 'Debit'" ng-class="{'red-text': Asset.paymentMethod == 0 }"  data-title="Name">{{'Debit' | translate}}</td>
                     <td width="30%" ng-show="!Asset.isStatic">
                         <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editAsset',{projectId: projectId,assetId: Asset.assetId});">mode_edit</i>
                     </td>

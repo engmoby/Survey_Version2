@@ -19,7 +19,7 @@
 
     vm.AddNewVendor = function () {
         blockUI.start("Saving...");
-       debugger;
+        
         var newObj = new VendorResource();
         newObj.titleDictionary = vm.titleDictionary;
         newObj.IsDeleted = false; 

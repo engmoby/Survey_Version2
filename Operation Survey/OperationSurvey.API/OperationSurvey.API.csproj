@@ -287,7 +287,6 @@
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\BranchController.cs" />
     <Compile Include="Controllers\PermissionController.cs" />
-    <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\QuestionDetailsController.cs" />
     <Compile Include="Controllers\QuestionTypeController.cs" />
     <Compile Include="Controllers\RoleController.cs" />

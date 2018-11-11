@@ -79,6 +79,7 @@ namespace OperationSurvey.BLL.Services
             _typeTranslationService.InsertRange(projectObj.ProjectTranslations);
             _projectService.Insert(projectObj);
             SaveChanges();
+            projectDto.ProjectId = projectObj.ProjectId;
             return projectDto;
         }
 

@@ -23,7 +23,7 @@
 
         vm.AddNewService = function () {
             blockUI.start("Saving...");
-            debugger;
+             
             var newObj = new ServiceResource();
             newObj.titleDictionary = vm.titleDictionary;
             newObj.IsDeleted = false;

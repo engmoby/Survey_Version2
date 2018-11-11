@@ -57,3 +57,9 @@ C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Surve
 C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern\obj\Debug\Repository.Pattern.dll
 C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern\obj\Debug\Repository.Pattern.pdb
 C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern\obj\Debug\Repository.Pattern.csprojResolveAssemblyReference.cache
+E:\Projects\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern\bin\Debug\Repository.Pattern.dll.config
+E:\Projects\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern\bin\Debug\Repository.Pattern.dll
+E:\Projects\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern\bin\Debug\Repository.Pattern.pdb
+E:\Projects\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern\obj\Debug\Repository.Pattern.csprojResolveAssemblyReference.cache
+E:\Projects\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern\obj\Debug\Repository.Pattern.dll
+E:\Projects\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern\obj\Debug\Repository.Pattern.pdb
