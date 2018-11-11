@@ -109,7 +109,7 @@
                 .state('editcategoryType', {
                     url: '/editcategoryType/:categoryTypeId',
                     templateUrl: './app/GlobalAdmin/categoryType/templates/edit.html',
-                    controller: 'editDialogController',
+                    controller: 'editDialogCategoryController',
                     'controllerAs': 'editcategoryTypeCtrl',
                     resolve: {
                         categoryTypeByIdPrepService: categoryTypeByIdPrepService,

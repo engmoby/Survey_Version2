@@ -103,7 +103,7 @@
         <button ng-click="answersCtrl.applyFilter()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'filterBtn'
             | translate}}</button>
     </div>
-</div>
+</div>  
 <div ng-show="answersCtrl.questionList.length<=0">
     <span>{{'NoQuestionsAvailable' | translate}}</span>
 </div>
@@ -116,7 +116,7 @@
         </h1>
     </div>
     <!-- <ul ng-show="t"> -->
-    <ul ng-show="t || projectId !=0">
+        <ul ng-show="t || projectId !=0">
         <li ng-repeat="ques in v">
             <!-- <button class="accordion">{{ques.titleDictionary[selectedLanguage]}}</button> -->
             <div style="cursor: pointer;    background-color: #ccc;">

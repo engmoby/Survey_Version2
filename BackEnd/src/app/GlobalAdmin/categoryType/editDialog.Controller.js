@@ -3,10 +3,10 @@
 	
     angular
         .module('home')
-        .controller('editDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate', 'categoryTypeResource', 'ToastService',
-            'categoryTypeByIdPrepService','allEmailsPrepService', editDialogController])
+        .controller('editDialogCategoryController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate', 'categoryTypeResource', 'ToastService',
+            'categoryTypeByIdPrepService','allEmailsPrepService', editDialogCategoryController])
 
-    function editDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, categoryTypeResource, ToastService,
+    function editDialogCategoryController($scope, blockUI, $http, $state, appCONSTANTS, $translate, categoryTypeResource, ToastService,
          categoryTypeByIdPrepService,allEmailsPrepService) {
 		var vm = this; 
 		vm.language = appCONSTANTS.supportedLanguage;
