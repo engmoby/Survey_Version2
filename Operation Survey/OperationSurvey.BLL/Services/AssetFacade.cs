@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AutoMapper;
 using OperationSurvey.BLL.DataServices.Interfaces;
 using OperationSurvey.BLL.DTOs;
@@ -73,7 +74,7 @@ namespace OperationSurvey.BLL.Services
                     TenantId = tenantId
                 });
             }
-            AssetObj.CreationTime = Strings.CurrentDateTime;
+            AssetObj.CreationTime = DateTime.Now;
             AssetObj.CreatorUserId = userId;
             AssetObj.TenantId = tenantId;
             _typeTranslationService.InsertRange(AssetObj.AssetTranslations);
@@ -102,7 +103,7 @@ namespace OperationSurvey.BLL.Services
                 else
                     AssetTranslation.Title = AssetName.Value;
             }
-            AssetObj.LastModificationTime = Strings.CurrentDateTime;
+            AssetObj.LastModificationTime = DateTime.Now;
             AssetObj.LastModifierUserId = userId;
             AssetObj.IsDeleted = AssetDto.IsDeleted;
             AssetObj.Notes = AssetDto.Notes;

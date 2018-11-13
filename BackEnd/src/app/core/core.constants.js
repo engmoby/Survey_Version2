@@ -2,7 +2,6 @@
 	angular
 		.module('core')
 		.constant('appCONSTANTS', {
-			'API_URL': 'http://localhost:32569/api/',
 			// 'API_URL': 'https://surveyv2.azurewebsites.net/api/',
 			//  'API_URL': 'https://surveyv2-testing.azurewebsites.net/api/',
 			'defaultLanguage': 'en',

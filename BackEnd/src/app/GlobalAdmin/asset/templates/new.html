@@ -37,13 +37,14 @@
                 </div>
             </div>
             <div class="form-group pmd-textfield pmd-textfield-floating-label">
-                <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"
+                <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                     <label for="first-name">{{'Vendor' | translate}}</label>
                     <select class="form-control select-with-search pmd-select2-tags" ng-model="newAssetCtrl.selectedVendor"
                         ng-options="group as group.titleDictionary[selectedLanguage]
                      for group in newAssetCtrl.Vendors">
                     </select>
                 </div>
+              
             </div>
             <div class="form-group pmd-textfield pmd-textfield-floating-label">
                 <label for="first-name">{{'price' | translate}}</label>
@@ -77,8 +78,9 @@
             </div>
         </form>
     </div> 
+ 
     <div class="pmd-modal-action text-right">
-        <button ng-disabled="newTypeForm.$invalid && newAssetCtrl.selectedVendor != null" class="btn pmd-ripple-effect btn-primary"
+        <button ng-disabled="newTypeForm.$invalid || newAssetCtrl.selectedVendor == null" class="btn pmd-ripple-effect btn-primary"
             type="button" ng-click="newAssetCtrl.AddNewAsset()">{{'saveChangesBtn' | translate}}</button>
         <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="$state.go('Asset',{projectId:projectId});">{{'DiscardBtn'
             | translate}}</button>

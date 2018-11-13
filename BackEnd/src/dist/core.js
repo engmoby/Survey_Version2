@@ -62,9 +62,9 @@
 	angular
 		.module('core')
 		.constant('appCONSTANTS', {
-			'API_URL': 'http://localhost:32569/api/',
+			// 'API_URL': 'http://localhost:32569/api/',
 			// 'API_URL': 'https://surveyv2.azurewebsites.net/api/',
-			//  'API_URL': 'https://surveyv2-testing.azurewebsites.net/api/',
+			 'API_URL': 'https://surveyv2-testing.azurewebsites.net/api/',
 			'defaultLanguage': 'en',
 			'supportedLanguage': {
 				'en': { 'key': 'en', 'value': 'english' },
@@ -471,9 +471,11 @@ angular.module('core')
         "Recevied":"Recevied",
         "NotRecevied":"Not Recevied",
         "priceLengthError":"Price Length Error",
+        "from0to100":"Percentage from 0 to 100",
       }
 
       var ar_translations = {
+        "from0to100":"النسبه من 0 الي 100",
         "priceLengthError":"خطأ في السعر",
         "Recevied":"استلمت",
         "NotRecevied":"لم تستلم",

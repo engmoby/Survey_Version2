@@ -120,7 +120,7 @@
         <li ng-repeat="ques in v">
             <!-- <button class="accordion">{{ques.titleDictionary[selectedLanguage]}}</button> -->
             <div style="cursor: pointer;    background-color: #ccc;">
-{{ques}}
+<!-- {{ques}} -->
                 <h3 ng-if="projectId==0" style="padding: 4px" ng-click="ques.showAnswer=!ques.showAnswer;ques.showAnswer?answersCtrl.viewAnswer(ques):ques.showAnswer=ques.showAnswer">
                     {{ques.titleDictionary[selectedLanguage]}}
                 </h3>

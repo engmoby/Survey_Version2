@@ -9,7 +9,7 @@ namespace OperationSurvey.API.Models
         public long AssetId { get; set; }
         public Dictionary<string, string> TitleDictionary { get; set; }
         public long VendorId { get; set; }
-        public virtual VendorModel Vendor { get; set; }
+        //public VendorModel Vendor { get; set; }
         public float Price { get; set; }
         public string Notes { get; set; }
         public Enums.AssetStatus AssetStatus { get; set; }

@@ -9,7 +9,7 @@ namespace OperationSurvey.BLL.DTOs
         public long AssetId { get; set; }
         public Dictionary<string, string> TitleDictionary { get; set; } 
         public long VendorId { get; set; }
-       // public virtual VendorDto Vendor { get; set; }
+        //public  VendorDto Vendor { get; set; }
         public float Price { get; set; }
         public string Notes { get; set; }
         public Enums.AssetStatus AssetStatus { get; set; }

@@ -41,9 +41,12 @@
             <div class="row">
                 <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"
                     <label for="first-name">{{'Country' | translate}}</label>
-                    <select class="form-control select-with-search pmd-select2-tags" ng-change="newProjectCtrl.countryChange()"
+                    <select required name="country" class="form-control select-with-search pmd-select2-tags" ng-change="newProjectCtrl.countryChange()"
                         ng-model="newProjectCtrl.selectedCountry" ng-options="group as group.titleDictionary[selectedLanguage] for group in newProjectCtrl.counties">
                     </select>
+                    <div ng-messages="newProjectCtrl.country.$error" class="error">
+                        <div ng-if="newProjectCtrl.country.$error.required && !newProjectCtrl.country.$pristine">{{'requiredErr' | translate}}</div>
+                    </div>
                 </div>
                 <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"
                     <label for="first-name">{{'Region' | translate}}</label>
@@ -77,11 +80,10 @@
     </div>
     <div class="pmd-modal-action text-right">
 
-
-        <button ng-disabled="newTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newProjectCtrl.nextBtn()">{{'NextBtn'
+        <button ng-disabled="newTypeForm.$invalid || newProjectCtrl.selectedCountry.countryId == 0  || newProjectCtrl.selectedRegion.regionId == 0 || newProjectCtrl.selectedCity.cityId == 0 || newProjectCtrl.selectedArea.areaId == 0 || newProjectCtrl.selectedBranch.branchId == 0" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newProjectCtrl.nextBtn()">{{'NextBtn'
             | translate}}</button>
 
-        <button ng-disabled="newTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newProjectCtrl.AddNewProject()">{{'saveChangesBtn'
+        <button ng-disabled="newTypeForm.$invalid || newProjectCtrl.selectedCountry.countryId == 0  || newProjectCtrl.selectedRegion.regionId == 0 || newProjectCtrl.selectedCity.cityId == 0 || newProjectCtrl.selectedArea.areaId == 0 || newProjectCtrl.selectedBranch.branchId == 0" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newProjectCtrl.nextBtn()" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newProjectCtrl.AddNewProject()">{{'saveChangesBtn'
             | translate}}</button>
         <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="$state.go('Project');">{{'DiscardBtn'
             | translate}}</button>

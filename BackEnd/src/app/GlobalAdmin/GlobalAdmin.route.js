@@ -665,7 +665,8 @@
                     controller: 'AssetController',
                     'controllerAs': 'AssetCtrl',
                     resolve: {
-                        AssetPrepService: AssetPrepService
+                        AssetPrepService: AssetPrepService,
+                        VendorPrepService: VendorPrepService
                     },
                     data: {
                         permissions: {
