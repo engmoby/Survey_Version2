@@ -54,6 +54,7 @@ namespace OperationSurvey.API.Controllers
         public IHttpActionResult CreateQuestion([FromBody] QuestionModel questionModel)
         {
             var reurnQuestion = _questionFacade.CreateQuestion(Mapper.Map<QuestionDto>(questionModel), UserId, TenantId);
+             
 
             return Ok(reurnQuestion);
         }

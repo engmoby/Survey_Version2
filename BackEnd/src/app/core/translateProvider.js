@@ -212,9 +212,11 @@
         "Recevied":"Recevied",
         "NotRecevied":"Not Recevied",
         "priceLengthError":"Price Length Error",
+        "from0to100":"Percentage from 0 to 100",
       }
 
       var ar_translations = {
+        "from0to100":"النسبه من 0 الي 100",
         "priceLengthError":"خطأ في السعر",
         "Recevied":"استلمت",
         "NotRecevied":"لم تستلم",

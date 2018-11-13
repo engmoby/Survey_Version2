@@ -1,6 +1,6 @@
 <div class="modal-content">
     <div class="modal-header bordered">
-        <h2 class="pmd-card-title-text">{{'ServiceLbl' | translate}}</h2>
+        <h2 class="pmd-card-title-text">{{'service' | translate}}</h2>
     </div>
     <div class="modal-body">
         <form class="form-horizontal" name="editServiceFrom">
@@ -47,13 +47,13 @@
 
                 <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 
-                    <label for="first-name">{{'Asset' | translate}}</label>
+                    <label for="first-name">{{'asset' | translate}}</label>
                     <input ng-disabled="true" type="text" class="mat-input form-control" ng-model="editServiceCtrl.Asset.titleDictionary[selectedLanguage]">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                    <label for="first-name">{{'priceLbl' | translate}}</label>
+                    <label for="first-name">{{'price' | translate}}</label>
                     <input ng-disabled="true" required type="text" class="mat-input form-control" name="price"
                         numbers-only ng-model="editServiceCtrl.Service.price" ng-minlength="3" ng-maxlength="10">
                     <div ng-messages="editServiceFrom.price.$error">
@@ -65,7 +65,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                    <label for="first-name">{{'percentageLbl' | translate}}</label>
+                    <label for="first-name">{{'percentage' | translate}}</label>
                     <div>
                         <input required type="text" class="mat-input form-control" name="percentage" numbers-only
                             ng-model="editServiceCtrl.Service.percentage" ng-minlength="1" ng-maxlength="3">
@@ -81,7 +81,7 @@
                 </div>
             </div>
             <div class="form-group pmd-textfield pmd-textfield-floating-label-compeleted">
-                <label for="first-name">{{'notesLbl' | translate}}</label>
+                <label for="first-name">{{'note' | translate}}</label>
                 <textarea type="text" class="mat-input form-control" name="notes" ng-model="editServiceCtrl.Service.notes"> </textarea>
             </div>
         </form>
