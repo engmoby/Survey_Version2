@@ -180,7 +180,8 @@
 
         <button ng-disabled="editProjectForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="$state.go('editProject',{projectId:projectId});">{{'PreviousBtn'|translate}}</button>
         <!-- ng-disabled="AnswerQuestionCtrl.answersValid() || newclientForm.$invalid " -->
-        <button ng-show="questionList.length>0" ng-click="AddAnswer(questionList)" type="button" class="btn btn-primary btn-with-icon">
+        <button  ng-disabled="AnswerQuestionCtrl.answersValid() || newclientForm.$invalid " 
+        ng-show="questionList.length>0" ng-click="AddAnswer(questionList)" type="button" class="btn btn-primary btn-with-icon">
             <i class="ion-android-checkmark-circle"></i>{{'saveChangesBtn'|translate}}
         </button>
         <button ng-show="projectId != 0" ng-click="$state.go('Asset',{projectId:projectId});" type="button" class="btn btn-primary btn-with-icon">

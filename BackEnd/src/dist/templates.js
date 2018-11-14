@@ -182,7 +182,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '        <button ng-disabled="editProjectForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="$state.go(\'editProject\',{projectId:projectId});">{{\'PreviousBtn\'|translate}}</button>\n' +
     '        <!-- ng-disabled="AnswerQuestionCtrl.answersValid() || newclientForm.$invalid " -->\n' +
-    '        <button ng-show="questionList.length>0" ng-click="AddAnswer(questionList)" type="button" class="btn btn-primary btn-with-icon">\n' +
+    '        <button  ng-disabled="AnswerQuestionCtrl.answersValid() || newclientForm.$invalid " \n' +
+    '        ng-show="questionList.length>0" ng-click="AddAnswer(questionList)" type="button" class="btn btn-primary btn-with-icon">\n' +
     '            <i class="ion-android-checkmark-circle"></i>{{\'saveChangesBtn\'|translate}}\n' +
     '        </button>\n' +
     '        <button ng-show="projectId != 0" ng-click="$state.go(\'Asset\',{projectId:projectId});" type="button" class="btn btn-primary btn-with-icon">\n' +
@@ -2811,15 +2812,12 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                    </div>\n' +
     '                </div>\n' +
     '            </div>\n' +
-    '            <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                    <label for="first-name">{{\'Vendor\' | translate}}</label>\n' +
-    '                    <select class="form-control select-with-search pmd-select2-tags" ng-model="newAssetCtrl.selectedVendor"\n' +
-    '                        ng-options="group as group.titleDictionary[selectedLanguage]\n' +
-    '                     for group in newAssetCtrl.Vendors">\n' +
-    '                    </select>\n' +
-    '                </div>\n' +
-    '              \n' +
+    '            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                <label for="first-name">{{\'Vendor\' | translate}}</label>\n' +
+    '                <select class="form-control select-with-search pmd-select2-tags" ng-model="newAssetCtrl.selectedVendor"\n' +
+    '                    ng-options="group as group.titleDictionary[selectedLanguage]\n' +
+    '                    for group in newAssetCtrl.Vendors">\n' +
+    '                </select>              \n' +
     '            </div>\n' +
     '            <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
     '                <label for="first-name">{{\'price\' | translate}}</label>\n' +
@@ -4166,7 +4164,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                    <div>\n' +
     '                        <input required type="text" class="mat-input form-control" name="percentage" numbers-only\n' +
     '                            ng-model="editServiceCtrl.Service.percentage" ng-minlength="1" ng-maxlength="3">\n' +
-    '                            <span style="margin-left: 305px;">%</span>\n' +
+    '                            <span style="margin-left: 305px;"></span>\n' +
     '                    </div>\n' +
     '                    <div ng-messages="editServiceFrom.percentage.$error">\n' +
     '                        <div ng-if="editServiceFrom.percentage.$error.required && !editServiceFrom.percentage.$pristine">{{\'percentageReqError\'\n' +
@@ -4268,7 +4266,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
     '                    <label for="first-name">{{\'price\' | translate}}</label>\n' +
     '                    <input required type="text" class="mat-input form-control" name="price" numbers-only ng-model="newServiceCtrl.price"\n' +
-    '                        ng-minlength="3" ng-maxlength="10">\n' +
+    '                    ng-minlength="1" ng-maxlength="10">\n' +
     '                    <div ng-messages="newTypeForm.price.$error">\n' +
     '                        <div ng-if="newTypeForm.price.$error.required && !newTypeForm.price.$pristine">{{\'priceReqError\'\n' +
     '                            |\n' +

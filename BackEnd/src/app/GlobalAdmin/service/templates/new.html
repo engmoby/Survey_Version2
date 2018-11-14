@@ -61,7 +61,7 @@
                 <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                     <label for="first-name">{{'price' | translate}}</label>
                     <input required type="text" class="mat-input form-control" name="price" numbers-only ng-model="newServiceCtrl.price"
-                        ng-minlength="3" ng-maxlength="10">
+                    ng-minlength="1" ng-maxlength="10">
                     <div ng-messages="newTypeForm.price.$error">
                         <div ng-if="newTypeForm.price.$error.required && !newTypeForm.price.$pristine">{{'priceReqError'
                             |

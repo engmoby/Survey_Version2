@@ -313,9 +313,9 @@
             AnswerResource.create(vm.answers, function (data, status) {
                 blockUI.stop();
                  
-                if ($scope.projectId != 0) {
-                    $state.go('asset', { projectId: $scope.projectId });
-                } else {
+               // if ($scope.projectId != 0) {
+              //      $state.go('asset', { projectId: $scope.projectId });
+              //  } else {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
                     init();
                     vm.answers = []
@@ -333,7 +333,7 @@
                         }, this);
                     }, this);
 
-                }
+               // }
             },
                 function (data, status) {
                     blockUI.stop();

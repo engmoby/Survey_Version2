@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AutoMapper;
 using OperationSurvey.BLL.DataServices.Interfaces;
 using OperationSurvey.BLL.DTOs;
@@ -72,7 +73,7 @@ namespace OperationSurvey.BLL.Services
                     TenantId = tenantId
                 });
             }
-            serviceObj.CreationTime = Strings.CurrentDateTime;
+            serviceObj.CreationTime = DateTime.Now;
             serviceObj.CreatorUserId = userId;
             serviceObj.TenantId = tenantId;
             _serviceTranslationService.InsertRange(serviceObj.ServiceTranslations);
