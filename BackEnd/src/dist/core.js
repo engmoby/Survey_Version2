@@ -1,26 +1,26 @@
-(function() {
-    'use strict';
+(function () {
+  'use strict';
 
-    angular
+  angular
     .module('core', [
-    		'ngResource',
-        'ui.router',
-        //'ngMaterial',
-        'ngStorage',
+      'ngResource',
+      'ui.router',
+      //'ngMaterial',
+      'ngStorage',
       'permission',
       'bw.paging',
       //'angular-progress-arc',
       'ui.event',
       'ngProgressLite',
-    'ui.bootstrap',
-    'pascalprecht.translate',
-    'ADM-treeView',
-    'blockUI',
-    'ui.carousel',
-    'nvd3',
-    'jkAngularRatingStars',
-    'angular.filter',
-    'ncy-angular-breadcrumb'
+      'ui.bootstrap',
+      'pascalprecht.translate',
+      'ADM-treeView',
+      'blockUI',
+      'ui.carousel',
+      'nvd3',
+      'jkAngularRatingStars',
+      'angular.filter',
+      'ncy-angular-breadcrumb'
     ]);
 }());
 ;(function() {
@@ -62,9 +62,10 @@
 	angular
 		.module('core')
 		.constant('appCONSTANTS', {
-			// 'API_URL': 'http://localhost:32569/api/',
-			// 'API_URL': 'https://surveyv2.azurewebsites.net/api/',
-			 'API_URL': 'https://surveyv2-testing.azurewebsites.net/api/',
+			'API_URL': 'http://localhost:32569/api/',
+			//'API_URL': 'https://surveyv2.azurewebsites.net/api/',
+			// 'API_URL': 'https://surveyv2-testing.azurewebsites.net/api/',
+			//	'API_URL': 'http://operationsurveyapp.azurewebsites.net/api/',
 			'defaultLanguage': 'en',
 			'supportedLanguage': {
 				'en': { 'key': 'en', 'value': 'english' },

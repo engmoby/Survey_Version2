@@ -20,8 +20,7 @@
          $($('.pmd-sidebar-nav').children()[1].children[0]).addClass("active")
         var vm = this;
         $scope.totalCount = categoryTypePrepService.totalCount;
-        $scope.categoryTypeList = categoryTypePrepService;
-
+        $scope.categoryTypeList = categoryTypePrepService; 
         function refreshCategoryTypes() {
             blockUI.start("Loading..."); 
             var k = categoryTypeResource.getAllcategoryTypes({ page: vm.currentPage }).$promise.then(function (results) {

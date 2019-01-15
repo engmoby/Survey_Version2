@@ -18,7 +18,7 @@ namespace OperationSurvey.DAL.Entities.Model
         }
         public long CategoryTypeId { get; set; }
         public bool IsDeleted { get; set; }
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [DefaultValue("0")]
         public bool IsStatic { get; set; }
         public DateTime? LastModificationTime { get; set; }

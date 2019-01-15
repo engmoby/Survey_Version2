@@ -54,8 +54,9 @@ namespace OperationSurvey.BLL.Services
                     Language = userTypeName.Key
                 });
             }
-
+ 
             userTypeObj.CreationTime = Strings.CurrentDateTime;
+            userTypeObj.IsStatic =false;
             userTypeObj.CreatorUserId = userId;
             userTypeObj.TenantId = tenantId;
             _categoryTypeTranslationService.InsertRange(userTypeObj.CategoryTypeTranslations);

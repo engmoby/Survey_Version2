@@ -61,7 +61,18 @@
         var vm = this;
         $scope.totalCount = ServicePrepService.totalCount;
         $scope.ServiceList = ServicePrepService;
-        console.log($scope.ServiceList);
+        
+        _.forEach($scope.ServiceList.results, function (request) {
+            request.creationTime= request.creationTime+"Z";
+           request.creationTime = $filter('date')(new Date(request.creationTime), "dd/MM/yyyy hh:mm a");
+           request.modifyTime= request.modifyTime+"Z";
+          request.modifyTime = $filter('date')(new Date(request.modifyTime), "dd/MM/yyyy hh:mm a");
+          if(request.requestTime !=null){                      
+            request.requestTime= request.requestTime+"Z";
+            request.requestTime = $filter('date')(new Date(request.requestTime), "dd/MM/yyyy hh:mm a");
+          } 
+        });
+          console.log($scope.ServiceList);
         function refreshServices() {
             blockUI.start("Loading...");
             var k = ServiceResource.getAllServices({ projectId:$scope.projectId,page: vm.currentPage }).$promise.then(function (results) {

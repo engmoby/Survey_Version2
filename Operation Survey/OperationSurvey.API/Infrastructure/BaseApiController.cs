@@ -56,9 +56,9 @@ namespace OperationSurvey.API.Infrastructure
             return default(T);
         }
 
-        protected IHttpActionResult PagedResponse(string routeName, int currentPage, int pageSize, long totalCount, dynamic results,bool isParentTranslated)
-        {
-            return new PagedResponseActionResult(Request, routeName, currentPage, pageSize, totalCount, results, isParentTranslated);
-        }
+            protected IHttpActionResult PagedResponse(string routeName, int currentPage, int pageSize, long totalCount, dynamic results,bool isParentTranslated)
+            {
+                return new PagedResponseActionResult(Request, routeName, currentPage, pageSize, totalCount, results, isParentTranslated);
+            }
     }
 }

@@ -30,8 +30,7 @@
                     <td ng-if="Asset.displayAssetStatus == 'Recevied'" data-title="Name">{{'Recevied' | translate}}</td>
                     <td ng-if="Asset.displayAssetStatus == 'NotRecevied'" data-title="Name">{{'NotRecevied' | translate}}</td>
                     <td data-title="Name">
-                        {{Asset.creationTime | date:'mediumDate'}}<br>
-                        {{Asset.creationTime | date:'shortTime'}}
+                        {{Asset.creationTime | date:'mediumDate'}}
                     </td>
                     <td ng-if="Asset.displayPaymentMethod == 'Credit'" ng-class="{'green-text': Asset.paymentMethod != 0 }"  data-title="Name">{{'Credit' | translate}}</td>
                     <td ng-if="Asset.displayPaymentMethod == 'Debit'" ng-class="{'red-text': Asset.paymentMethod == 0 }"  data-title="Name">{{'Debit' | translate}}</td>

@@ -21,7 +21,18 @@
         $scope.totalCount = AssetPrepService.totalCount;
         $scope.AssetList = AssetPrepService;
         $scope.vendorList = VendorPrepService;
-        console.log($scope.AssetList);
+       
+        _.forEach($scope.AssetList.results, function (request) {
+            request.creationTime= request.creationTime+"Z";
+           request.creationTime = $filter('date')(new Date(request.creationTime), "dd/MM/yyyy hh:mm a");
+           request.modifyTime= request.modifyTime+"Z";
+          request.modifyTime = $filter('date')(new Date(request.modifyTime), "dd/MM/yyyy hh:mm a");
+          if(request.requestTime !=null){                      
+            request.requestTime= request.requestTime+"Z";
+            request.requestTime = $filter('date')(new Date(request.requestTime), "dd/MM/yyyy hh:mm a");
+          } 
+        });
+         console.log($scope.AssetList);
         function refreshAssets() {
             blockUI.start("Loading...");
             var k = AssetResource.getAllAssets({ page: vm.currentPage }).$promise.then(function (results) {

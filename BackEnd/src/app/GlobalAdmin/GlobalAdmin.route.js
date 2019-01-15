@@ -93,7 +93,7 @@
                 .state('newcategoryType', {
                     url: '/newcategoryType',
                     templateUrl: './app/GlobalAdmin/categoryType/templates/new.html',
-                    controller: 'createDialogController',
+                    controller: 'createcategoryTypeDialogController',
                     'controllerAs': 'newcategoryTypeCtrl',
                     resolve: {
                         allEmailsPrepService: allEmailsPrepService

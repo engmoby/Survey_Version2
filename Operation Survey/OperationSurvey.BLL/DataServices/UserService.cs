@@ -18,20 +18,21 @@ namespace OperationSurvey.BLL.DataServices
         }
         public User ValidateUser(string email, string password)
         {
-            return _repository.Query(u => u.Email.ToLower() == email.ToLower() && u.Password == password && !u.IsDeleted   ).Select().FirstOrDefault();
-
+           var getUser=  _repository.Query(u => u.Email.ToLower() == email.ToLower() && u.Password == password && !u.IsDeleted   ).Select().FirstOrDefault();
+            return getUser;
         }
         public User CheckUserIsDeleted(string email, string password)
         {
-            return _repository.Query(u => u.Email.ToLower() == email.ToLower() && u.Password == password).Select().FirstOrDefault();
+            var getUser = _repository.Query(u => u.Email.ToLower() == email.ToLower() && u.Password == password).Select().FirstOrDefault();
+            return getUser;
         }
         public bool CheckEmailDuplicated(string email, int tenantId)
         {
-            return _repository.Queryable().Any(u => u.Email.ToLower() == email.ToLower() && !u.IsDeleted);
+            return _repository.Queryable().Any(u => u.Email.ToLower() == email.ToLower() && !u.IsDeleted && u.TenantId== tenantId);
         }
         public bool CheckPhoneDuplicated(string phone, int tenantId)
         {
-            return _repository.Queryable().Any(u => u.Phone == phone.ToLower() && !u.IsDeleted);
+            return _repository.Queryable().Any(u => u.Phone == phone.ToLower() && !u.IsDeleted && u.TenantId == tenantId);
         }
         public PagedResultsDto GetAllUsers(int page, int pageSize, int tenantId)
         {

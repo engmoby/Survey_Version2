@@ -369,6 +369,7 @@
     <None Include="Properties\PublishProfiles\SOperationSurveyBackend - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\SOperationSurveyBackend - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\OperationSurvey.pubxml" />
+    <None Include="Properties\PublishProfiles\surveyHamza.pubxml" />
     <None Include="Properties\PublishProfiles\SurveyV2 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\SurveyV2 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\SurveyV2-testing - FTP.pubxml" />

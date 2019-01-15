@@ -119,7 +119,7 @@
                     return
                 }
             }, this);
-            if (imageFile && imageFile.size >= 0 && ((imageFile.size / (1024 * 1000)) < 2)) {
+            if (imageFile && imageFile.size >= 0 && ((imageFile.size / (20024 * 1000)) < 2)) {
 
                 if (allowedImageTypes.indexOf(imageFile.type) !== -1) {
                     if (!vm.fileExist) {

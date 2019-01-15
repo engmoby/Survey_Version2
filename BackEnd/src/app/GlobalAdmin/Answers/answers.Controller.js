@@ -21,7 +21,15 @@
         vm.selectedCategoryType = { categoryTypeId: 0, titleDictionary: { "en": "All", "ar": "كل" } };
         vm.categoryTypes.push(vm.selectedCategoryType);
         vm.categoryTypes = vm.categoryTypes.concat(allcategoryTypePrepService.results)
+        for (var i = 0; i < vm.categoryTypes.length; i++) {
+                 
+            if (vm.categoryTypes[i].isStatic == true) {
 
+                var index = vm.categoryTypes.indexOf(vm.categoryTypes[i]);
+                vm.categoryTypes.splice(index, 1);
+                continue;
+            }
+        }
         vm.counties = [];
         vm.selectedCountry = { countryId: 0, titleDictionary: { "en": "All Countries", "ar": "كل البلاد" } };
         vm.counties.push(vm.selectedCountry);
@@ -191,7 +199,7 @@
         }
         function GetQuestionByProject() {
             blockUI.start("Loading...");
-            vm.selectedCategoryType.categoryTypeId = 14;
+            vm.selectedCategoryType.categoryTypeId = 24;
             AnswerQuestionResource.getAllQuestions({ catgoryTypeId: vm.selectedCategoryType.categoryTypeId }).$promise.then(function (results) {
                 vm.questionList = results.results;
                 vm.questionList.forEach(function (element) {

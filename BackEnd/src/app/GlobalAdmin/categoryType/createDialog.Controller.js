@@ -1,35 +1,39 @@
 (function () {
     'use strict';
-	
+
     angular
         .module('home')
-        .controller('createDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
-            'categoryTypeResource', 'ToastService', 'allEmailsPrepService', createDialogController])
+        .controller('createcategoryTypeDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
+            'categoryTypeResource', 'ToastService', 'allEmailsPrepService', createcategoryTypeDialogController])
 
-    function createDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, categoryTypeResource,
+    function createcategoryTypeDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, categoryTypeResource,
         ToastService, allEmailsPrepService) {
-		var vm = this;
+        var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
         vm.users = allEmailsPrepService;
-		vm.close = function(){
-			$state.go('categoryType');
-		} 
-		 
+        vm.close = function () {
+            $state.go('categoryType');
+        }
+
         vm.AddNewType = function () {
-            blockUI.start("Saving..."); 
+            var listMails = "";
+            if (vm.emails != null)
+                vm.emails.toString().replace(new RegExp(',', 'g'), ';');
+                
+            debugger; blockUI.start("Saving...");
             var newObj = new categoryTypeResource();
-            newObj.titleDictionary = vm.titleDictionary; 
-            newObj.IsDeleted = false; 
-            newObj.IsStatic =false;
-            newObj.type =  vm.type; 
-            newObj.time =  vm.time; 
-            newObj.emails =  vm.emails.toString().replace(new RegExp(',', 'g'), ';');
-            newObj.body =  vm.body;
+            newObj.titleDictionary = vm.titleDictionary;
+            newObj.IsDeleted = false;
+            newObj.IsStatic = false;
+            newObj.type = vm.type;
+            newObj.time = vm.time;
+            newObj.emails = listMails;
+            newObj.body = vm.body;
 
             newObj.$create().then(
                 function (data, status) {
                     blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success"); 
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
                     $state.go('categoryType');
 
                 },
@@ -49,6 +53,6 @@
             }, this);
             return valid
         }
-  
-	}	
+
+    }
 }());
