@@ -32,7 +32,7 @@
             vm.categoryTypes = vm.categoryTypes.concat(allcategoryTypePrepService.results)
 
             for (var i = 0; i < vm.categoryTypes.length; i++) {
-                 
+
                 if (vm.categoryTypes[i].isStatic == true) {
 
                     var index = vm.categoryTypes.indexOf(vm.categoryTypes[i]);
@@ -69,12 +69,12 @@
         init();
         if ($scope.projectId != 0) {
 
-             
+
             // CheckAnswersByProject();
             vm.categoryTypes.push(vm.selectedCategoryType);
             vm.categoryTypes = vm.categoryTypes.concat(allcategoryTypePrepService.results);
             for (var i = 0; i < vm.categoryTypes.length; i++) {
-                 
+
                 if (vm.categoryTypes[i].isStatic == true) {
                     vm.selectedCategoryType.categoryTypeId = vm.categoryTypes[i].categoryTypeId;
                     continue;
@@ -298,7 +298,7 @@
 
         $scope.AddAnswer = function (list) {
             blockUI.start("Loading...");
-             
+
             var submitAnswer = new AnswerResource();
             vm.answers.forEach(function (element) {
                 element.branchId = $scope.selectedBranch.branchId;
@@ -312,28 +312,28 @@
            //    submitAnswer.questionModel = list;*/
             AnswerResource.create(vm.answers, function (data, status) {
                 blockUI.stop();
-                 
-               // if ($scope.projectId != 0) {
-              //      $state.go('asset', { projectId: $scope.projectId });
-              //  } else {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-                    init();
-                    vm.answers = []
-                    $scope.questionList.forEach(function (element) {
-                        vm.answers.push({
-                            branchId: 0,
-                            date: new Date(),
-                            questionId: element.questionId,
-                            answerDetails: [],
-                            note: ""
-                        })
-                        element.l = null;
-                        element.questionDetailses.forEach(function (QuestionDetail) {
-                            QuestionDetail.values = null;
-                        }, this);
-                    }, this);
 
-               // }
+                // if ($scope.projectId != 0) {
+                //      $state.go('asset', { projectId: $scope.projectId });
+                //  } else {
+                ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                init();
+                vm.answers = []
+                $scope.questionList.forEach(function (element) {
+                    vm.answers.push({
+                        branchId: 0,
+                        date: new Date(),
+                        questionId: element.questionId,
+                        answerDetails: [],
+                        note: ""
+                    })
+                    element.l = null;
+                    element.questionDetailses.forEach(function (QuestionDetail) {
+                        QuestionDetail.values = null;
+                    }, this);
+                }, this);
+
+                // }
             },
                 function (data, status) {
                     blockUI.stop();
@@ -361,6 +361,16 @@
                 isInValid = true
             }
             return isInValid;
+        }
+        vm.dateIsValid = false;
+        $scope.dateChange = function () {
+            if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
+                vm.dateIsValid = false;
+                $scope.$apply();
+            } else if (!$scope.newclientForm.isInValid) {
+                vm.dateIsValid = true;
+                $scope.$apply();
+            }
         }
     }
 

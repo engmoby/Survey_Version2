@@ -91,8 +91,9 @@
             <select required style="width:50% !important" class="form-control select-with-search pmd-select2-tags"
                 ng-change="branchChange()" ng-model="selectedBranch" ng-options="a as a.titleDictionary[selectedLanguage] for a in branchList"></select>
         </div>
-        <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" ng-show="projectId==0">
-            <label for="first-name">{{'categoryType' | translate}}</label> 
+        <div class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"
+            ng-show="projectId==0">
+            <label for="first-name">{{'categoryType' | translate}}</label>
             <select required style="width:50% !important" class="form-control select-with-search pmd-select2-tags"
                 ng-change="AnswerQuestionCtrl.categoryTypeChange()" ng-model="AnswerQuestionCtrl.selectedCategoryType"
                 ng-options="a as a.titleDictionary[selectedLanguage] for a in AnswerQuestionCtrl.categoryTypes"></select>
@@ -100,7 +101,7 @@
 
         <div style="direction: ltr;" class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label>{{'startDateLbl' | translate}}</label>
-            <input style="width:50% !important" type="text" id="startdate" class="form-control" required />
+            <input style="width:50% !important" type="text" id="startdate" class="form-control" />
         </div>
     </div>
 
@@ -170,9 +171,9 @@
 
 
 
-    </div>
-
-    <button ng-show="projectId==0" ng-show="questionList.length>0" ng-disabled="AnswerQuestionCtrl.answersValid() || newclientForm.$invalid "
+    </div> 
+    <button ng-show="projectId==0" ng-show="questionList.length>0" 
+        ng-disabled="!AnswerQuestionCtrl.dateIsValid || AnswerQuestionCtrl.answersValid() || newclientForm.$invalid "
         ng-click="AddAnswer(questionList)" type="button" class="btn btn-primary btn-with-icon">
         <i class="ion-android-checkmark-circle"></i>{{'saveChangesBtn'|translate}}
     </button>
@@ -180,8 +181,8 @@
 
         <button ng-disabled="editProjectForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="$state.go('editProject',{projectId:projectId});">{{'PreviousBtn'|translate}}</button>
         <!-- ng-disabled="AnswerQuestionCtrl.answersValid() || newclientForm.$invalid " -->
-        <button  ng-disabled="AnswerQuestionCtrl.answersValid() || newclientForm.$invalid " 
-        ng-show="questionList.length>0" ng-click="AddAnswer(questionList)" type="button" class="btn btn-primary btn-with-icon">
+        <button ng-disabled="!AnswerQuestionCtrl.dateIsValid || AnswerQuestionCtrl.answersValid() || newclientForm.$invalid " ng-show="questionList.length>0"
+            ng-click="AddAnswer(questionList)" type="button" class="btn btn-primary btn-with-icon">
             <i class="ion-android-checkmark-circle"></i>{{'saveChangesBtn'|translate}}
         </button>
         <button ng-show="projectId != 0" ng-click="$state.go('Asset',{projectId:projectId});" type="button" class="btn btn-primary btn-with-icon">
@@ -210,7 +211,10 @@
                 format: 'DD/MM/YYYY',
                 minDate: new Date()
             }
-        );
+        ).on('dp.change', function (e) { 
+            debugger;
+            angular.element(document.getElementById('startdate')).scope().dateChange();
+         });
     });
 
 </script>

@@ -50,7 +50,7 @@ namespace OperationSurvey.BLL.Services
                 answer.TenantId = tenantId;
                 answer.UserId = userId;
                 answer.CreatorUserId = userId;
-
+                answer.ProjectId = answer.ProjectId > 0 ? answer.ProjectId : null;
                 _answerDetailsService.InsertRange(answer.AnswerDetails);
                 _answerService.Insert(answer);
             }

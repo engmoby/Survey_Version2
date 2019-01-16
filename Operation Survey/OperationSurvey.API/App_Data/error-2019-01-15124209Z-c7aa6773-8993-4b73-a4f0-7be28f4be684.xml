@@ -1,0 +1,165 @@
+﻿<error errorId="c7aa6773-8993-4b73-a4f0-7be28f4be684" application="/LM/W3SVC/5/ROOT" host="DESKTOP-9341RKA" type="System.ComponentModel.Win32Exception" message="An existing connection was forcibly closed by the remote host" detail="AutoMapper.AutoMapperMappingException: Error mapping types.&#xD;&#xA;&#xD;&#xA;Mapping types:&#xD;&#xA;List`1 -&gt; List`1&#xD;&#xA;System.Collections.Generic.List`1[[OperationSurvey.DAL.Entities.Model.Country, OperationSurvey.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] -&gt; System.Collections.Generic.List`1[[OperationSurvey.BLL.DTOs.CountryDto, OperationSurvey.BLL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] ---&gt; AutoMapper.AutoMapperMappingException: Error mapping types.&#xD;&#xA;&#xD;&#xA;Mapping types:&#xD;&#xA;Country -&gt; CountryDto&#xD;&#xA;OperationSurvey.DAL.Entities.Model.Country -&gt; OperationSurvey.BLL.DTOs.CountryDto&#xD;&#xA;&#xD;&#xA;Type Map configuration:&#xD;&#xA;Country -&gt; CountryDto&#xD;&#xA;OperationSurvey.DAL.Entities.Model.Country -&gt; OperationSurvey.BLL.DTOs.CountryDto&#xD;&#xA;&#xD;&#xA;Property:&#xD;&#xA;TitleDictionary ---&gt; System.Data.Entity.Core.EntityException: An exception has been raised that is likely due to a transient failure. If you are connecting to a SQL Azure database consider using SqlAzureExecutionStrategy. ---&gt; System.Data.Entity.Core.EntityException: The underlying provider failed on Open. ---&gt; System.Data.Entity.Core.EntityException: An exception has been raised that is likely due to a transient failure. If you are connecting to a SQL Azure database consider using SqlAzureExecutionStrategy. ---&gt; System.Data.SqlClient.SqlException: The client was unable to establish a connection because of an error during connection initialization process before login. Possible causes include the following:  the client tried to connect to an unsupported version of SQL Server; the server was too busy to accept new connections; or there was a resource limitation (insufficient memory or maximum allowed connections) on the server. (provider: TCP Provider, error: 0 - An existing connection was forcibly closed by the remote host.) ---&gt; System.ComponentModel.Win32Exception: An existing connection was forcibly closed by the remote host&#xD;&#xA;   --- End of inner exception stack trace ---&#xD;&#xA;   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, DbConnectionPool pool, String accessToken, Boolean applyTransientFaultHandling, SqlAuthenticationProviderManager sqlAuthProviderManager)&#xD;&#xA;   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)&#xD;&#xA;   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)&#xD;&#xA;   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)&#xD;&#xA;   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)&#xD;&#xA;   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal&amp; connection)&#xD;&#xA;   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal&amp; connection)&#xD;&#xA;   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal&amp; connection)&#xD;&#xA;   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)&#xD;&#xA;   at System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)&#xD;&#xA;   at System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)&#xD;&#xA;   at System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)&#xD;&#xA;   at System.Data.SqlClient.SqlConnection.Open()&#xD;&#xA;   at System.Data.Entity.Infrastructure.Interception.DbConnectionDispatcher.&lt;Open&gt;b__36(DbConnection t, DbConnectionInterceptionContext c)&#xD;&#xA;   at System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch[TTarget,TInterceptionContext](TTarget target, Action`2 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed)&#xD;&#xA;   at System.Data.Entity.Infrastructure.Interception.DbConnectionDispatcher.Open(DbConnection connection, DbInterceptionContext interceptionContext)&#xD;&#xA;   at System.Data.Entity.Core.EntityClient.EntityConnection.&lt;Open&gt;b__2()&#xD;&#xA;   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.&lt;&gt;c__DisplayClass1.&lt;Execute&gt;b__0()&#xD;&#xA;   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)&#xD;&#xA;   --- End of inner exception stack trace ---&#xD;&#xA;   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)&#xD;&#xA;   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute(Action operation)&#xD;&#xA;   at System.Data.Entity.Core.EntityClient.EntityConnection.Open()&#xD;&#xA;   --- End of inner exception stack trace ---&#xD;&#xA;   at System.Data.Entity.Core.EntityClient.EntityConnection.Open()&#xD;&#xA;   at System.Data.Entity.Core.Objects.ObjectContext.EnsureConnection(Boolean shouldMonitorTransactions)&#xD;&#xA;   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)&#xD;&#xA;   at System.Data.Entity.Core.Objects.ObjectQuery`1.&lt;&gt;c__DisplayClass7.&lt;GetResults&gt;b__5()&#xD;&#xA;   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)&#xD;&#xA;   --- End of inner exception stack trace ---&#xD;&#xA;   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)&#xD;&#xA;   at System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)&#xD;&#xA;   at System.Data.Entity.Core.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)&#xD;&#xA;   at System.Data.Entity.Core.Objects.DataClasses.EntityCollection`1.Load(List`1 collection, MergeOption mergeOption)&#xD;&#xA;   at System.Data.Entity.Core.Objects.DataClasses.EntityCollection`1.Load(MergeOption mergeOption)&#xD;&#xA;   at System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.DeferredLoad()&#xD;&#xA;   at System.Data.Entity.Core.Objects.Internal.LazyLoadBehavior.LoadProperty[TItem](TItem propertyValue, String relationshipName, String targetRoleName, Boolean mustBeNull, Object wrapperObject)&#xD;&#xA;   at System.Data.Entity.Core.Objects.Internal.LazyLoadBehavior.&lt;&gt;c__DisplayClass7`2.&lt;GetInterceptorDelegate&gt;b__1(TProxy proxy, TItem item)&#xD;&#xA;   at System.Data.Entity.DynamicProxies.Country_8C74B4E0FDE8CFC6255ADE647D5FD005367D2D808CEA58AEDE07407E93FDCEFD.get_CountryTranslations()&#xD;&#xA;   at lambda_method(Closure , List`1 , List`1 , ResolutionContext )&#xD;&#xA;   --- End of inner exception stack trace ---&#xD;&#xA;   at lambda_method(Closure , List`1 , List`1 , ResolutionContext )&#xD;&#xA;   --- End of inner exception stack trace ---&#xD;&#xA;   at lambda_method(Closure , List`1 , List`1 , ResolutionContext )&#xD;&#xA;   at AutoMapper.Mapper.AutoMapper.IMapper.Map[TSource,TDestination](TSource source)&#xD;&#xA;   at AutoMapper.Mapper.Map[TSource,TDestination](TSource source)&#xD;&#xA;   at OperationSurvey.BLL.DataServices.CountryService.GetAllCountries(Int32 page, Int32 pageSize, Int32 tenantId) in E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.BLL\DataServices\CountryService.cs:line 29&#xD;&#xA;   at OperationSurvey.BLL.Services.CountryFacade.GetAllCountries(Int32 page, Int32 pageSize, Int32 tenantId) in E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.BLL\Services\CountryFacade.cs:line 99&#xD;&#xA;   at OperationSurvey.API.Controllers.CountryController.GetAllCountries(Int32 page, Int32 pagesize) in E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\Controllers\CountryController.cs:line 27&#xD;&#xA;   at lambda_method(Closure , Object , Object[] )&#xD;&#xA;   at System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.&lt;&gt;c__DisplayClass10.&lt;GetExecutor&gt;b__9(Object instance, Object[] methodParameters)&#xD;&#xA;   at System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.Execute(Object instance, Object[] arguments)&#xD;&#xA;   at System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ExecuteAsync(HttpControllerContext controllerContext, IDictionary`2 arguments, CancellationToken cancellationToken)&#xD;&#xA;--- End of stack trace from previous location where exception was thrown ---&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   at System.Web.Http.Controllers.ApiControllerActionInvoker.&lt;InvokeActionAsyncCore&gt;d__0.MoveNext()&#xD;&#xA;--- End of stack trace from previous location where exception was thrown ---&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   at System.Web.Http.Controllers.ActionFilterResult.&lt;ExecuteAsync&gt;d__2.MoveNext()&#xD;&#xA;--- End of stack trace from previous location where exception was thrown ---&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   at System.Web.Http.Controllers.ExceptionFilterResult.&lt;ExecuteAsync&gt;d__0.MoveNext()" user="3-Abdallah Tarek" time="2019-01-15T12:42:09.2310855Z">
+  <serverVariables>
+    <item name="ALL_HTTP">
+      <value string="HTTP_CONNECTION:keep-alive&#xD;&#xA;HTTP_ACCEPT:application/json, text/plain, */*&#xD;&#xA;HTTP_ACCEPT_ENCODING:gzip, deflate, br&#xD;&#xA;HTTP_ACCEPT_LANGUAGE:en&#xD;&#xA;HTTP_AUTHORIZATION:bearer ppjLQHt7xAwfOJPcrrCAgvGAmWiLntVetdP2TkvgJzQ-zRwV9QNSzV9IVeK-3aq-q5OFwR9XuKCL2JsL6eyA0n0llpECJig9c_DzsPTKs-yH4FqEdyuqVmEAaN575-61ozubzTKDAnb77E0oSl-5yfZoq8tQDsCLK41WsqhiP1lH3p1aqhOAGnHLqBa0Zfhotaq9Lleu_GyVUBUrN5T6kXv4aiI--2s8HqpaHffXVaheUW3qIOv7OgPHcQ5gT_wmX4ktNLDVfyZVzBZ42B5CHxZCBvLuEwkGIPRvk0qGye9fD_K7IH_6ImWBF_4F27tWCD5M8jaHFcpTHWz6MmS8GA&#xD;&#xA;HTTP_HOST:localhost:32569&#xD;&#xA;HTTP_REFERER:http://localhost:9091/&#xD;&#xA;HTTP_USER_AGENT:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36&#xD;&#xA;HTTP_ORIGIN:http://localhost:9091&#xD;&#xA;" />
+    </item>
+    <item name="ALL_RAW">
+      <value string="Connection: keep-alive&#xD;&#xA;Accept: application/json, text/plain, */*&#xD;&#xA;Accept-Encoding: gzip, deflate, br&#xD;&#xA;Accept-Language: en&#xD;&#xA;Authorization: bearer ppjLQHt7xAwfOJPcrrCAgvGAmWiLntVetdP2TkvgJzQ-zRwV9QNSzV9IVeK-3aq-q5OFwR9XuKCL2JsL6eyA0n0llpECJig9c_DzsPTKs-yH4FqEdyuqVmEAaN575-61ozubzTKDAnb77E0oSl-5yfZoq8tQDsCLK41WsqhiP1lH3p1aqhOAGnHLqBa0Zfhotaq9Lleu_GyVUBUrN5T6kXv4aiI--2s8HqpaHffXVaheUW3qIOv7OgPHcQ5gT_wmX4ktNLDVfyZVzBZ42B5CHxZCBvLuEwkGIPRvk0qGye9fD_K7IH_6ImWBF_4F27tWCD5M8jaHFcpTHWz6MmS8GA&#xD;&#xA;Host: localhost:32569&#xD;&#xA;Referer: http://localhost:9091/&#xD;&#xA;User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36&#xD;&#xA;Origin: http://localhost:9091&#xD;&#xA;" />
+    </item>
+    <item name="APPL_MD_PATH">
+      <value string="/LM/W3SVC/5/ROOT" />
+    </item>
+    <item name="APPL_PHYSICAL_PATH">
+      <value string="E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\" />
+    </item>
+    <item name="AUTH_TYPE">
+      <value string="JWT" />
+    </item>
+    <item name="AUTH_USER">
+      <value string="3-Abdallah Tarek" />
+    </item>
+    <item name="AUTH_PASSWORD">
+      <value string="*****" />
+    </item>
+    <item name="LOGON_USER">
+      <value string="3-Abdallah Tarek" />
+    </item>
+    <item name="REMOTE_USER">
+      <value string="3-Abdallah Tarek" />
+    </item>
+    <item name="CERT_COOKIE">
+      <value string="" />
+    </item>
+    <item name="CERT_FLAGS">
+      <value string="" />
+    </item>
+    <item name="CERT_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SERIALNUMBER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CERT_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CONTENT_LENGTH">
+      <value string="0" />
+    </item>
+    <item name="CONTENT_TYPE">
+      <value string="" />
+    </item>
+    <item name="GATEWAY_INTERFACE">
+      <value string="CGI/1.1" />
+    </item>
+    <item name="HTTPS">
+      <value string="off" />
+    </item>
+    <item name="HTTPS_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="INSTANCE_ID">
+      <value string="5" />
+    </item>
+    <item name="INSTANCE_META_PATH">
+      <value string="/LM/W3SVC/5" />
+    </item>
+    <item name="LOCAL_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="PATH_INFO">
+      <value string="/api/Countries/GetAllCountries" />
+    </item>
+    <item name="PATH_TRANSLATED">
+      <value string="E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.API\api\Countries\GetAllCountries" />
+    </item>
+    <item name="QUERY_STRING">
+      <value string="pageSize=0" />
+    </item>
+    <item name="REMOTE_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_HOST">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_PORT">
+      <value string="44591" />
+    </item>
+    <item name="REQUEST_METHOD">
+      <value string="GET" />
+    </item>
+    <item name="SCRIPT_NAME">
+      <value string="/api/Countries/GetAllCountries" />
+    </item>
+    <item name="SERVER_NAME">
+      <value string="localhost" />
+    </item>
+    <item name="SERVER_PORT">
+      <value string="32569" />
+    </item>
+    <item name="SERVER_PORT_SECURE">
+      <value string="0" />
+    </item>
+    <item name="SERVER_PROTOCOL">
+      <value string="HTTP/1.1" />
+    </item>
+    <item name="SERVER_SOFTWARE">
+      <value string="Microsoft-IIS/10.0" />
+    </item>
+    <item name="URL">
+      <value string="/api/Countries/GetAllCountries" />
+    </item>
+    <item name="HTTP_CONNECTION">
+      <value string="keep-alive" />
+    </item>
+    <item name="HTTP_ACCEPT">
+      <value string="application/json, text/plain, */*" />
+    </item>
+    <item name="HTTP_ACCEPT_ENCODING">
+      <value string="gzip, deflate, br" />
+    </item>
+    <item name="HTTP_ACCEPT_LANGUAGE">
+      <value string="en" />
+    </item>
+    <item name="HTTP_AUTHORIZATION">
+      <value string="bearer ppjLQHt7xAwfOJPcrrCAgvGAmWiLntVetdP2TkvgJzQ-zRwV9QNSzV9IVeK-3aq-q5OFwR9XuKCL2JsL6eyA0n0llpECJig9c_DzsPTKs-yH4FqEdyuqVmEAaN575-61ozubzTKDAnb77E0oSl-5yfZoq8tQDsCLK41WsqhiP1lH3p1aqhOAGnHLqBa0Zfhotaq9Lleu_GyVUBUrN5T6kXv4aiI--2s8HqpaHffXVaheUW3qIOv7OgPHcQ5gT_wmX4ktNLDVfyZVzBZ42B5CHxZCBvLuEwkGIPRvk0qGye9fD_K7IH_6ImWBF_4F27tWCD5M8jaHFcpTHWz6MmS8GA" />
+    </item>
+    <item name="HTTP_HOST">
+      <value string="localhost:32569" />
+    </item>
+    <item name="HTTP_REFERER">
+      <value string="http://localhost:9091/" />
+    </item>
+    <item name="HTTP_USER_AGENT">
+      <value string="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36" />
+    </item>
+    <item name="HTTP_ORIGIN">
+      <value string="http://localhost:9091" />
+    </item>
+  </serverVariables>
+  <queryString>
+    <item name="pageSize">
+      <value string="0" />
+    </item>
+  </queryString>
+</error>

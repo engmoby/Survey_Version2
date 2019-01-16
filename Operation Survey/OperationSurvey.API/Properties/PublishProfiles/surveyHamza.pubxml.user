@@ -79,7 +79,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 03:44:10</publishTime>
     </File>
     <File Include="bin/ar-EG/OperationSurvey.Resources.resources.dll">
-      <publishTime>12/31/2018 13:41:41</publishTime>
+      <publishTime>01/15/2019 15:49:48</publishTime>
     </File>
     <File Include="bin/AutoMapper.dll">
       <publishTime>07/23/2018 03:44:10</publishTime>
@@ -169,28 +169,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 03:44:10</publishTime>
     </File>
     <File Include="bin/OperationSurvey.API.dll">
-      <publishTime>12/31/2018 14:31:17</publishTime>
+      <publishTime>01/15/2019 15:49:53</publishTime>
     </File>
     <File Include="bin/OperationSurvey.BLL.dll">
-      <publishTime>12/31/2018 14:31:12</publishTime>
+      <publishTime>01/15/2019 15:49:47</publishTime>
     </File>
     <File Include="bin/OperationSurvey.Common.dll">
-      <publishTime>12/31/2018 13:41:37</publishTime>
+      <publishTime>01/15/2019 15:49:44</publishTime>
     </File>
     <File Include="bin/OperationSurvey.DAL.dll">
-      <publishTime>12/31/2018 14:31:11</publishTime>
+      <publishTime>01/15/2019 15:49:46</publishTime>
     </File>
     <File Include="bin/OperationSurvey.Resources.dll">
-      <publishTime>12/31/2018 13:41:41</publishTime>
+      <publishTime>01/15/2019 15:49:48</publishTime>
     </File>
     <File Include="bin/Owin.dll">
       <publishTime>07/23/2018 03:44:10</publishTime>
     </File>
     <File Include="bin/Repository.Pattern.dll">
-      <publishTime>12/31/2018 13:41:37</publishTime>
+      <publishTime>01/15/2019 15:49:44</publishTime>
     </File>
     <File Include="bin/Repository.Pattern.Ef6.dll">
-      <publishTime>12/31/2018 13:41:38</publishTime>
+      <publishTime>01/15/2019 15:49:45</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>07/23/2018 03:44:10</publishTime>
@@ -229,7 +229,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 03:44:10</publishTime>
     </File>
     <File Include="bin/Service.Pattern.dll">
-      <publishTime>12/31/2018 13:41:38</publishTime>
+      <publishTime>01/15/2019 15:49:45</publishTime>
     </File>
     <File Include="bin/Swashbuckle.Core.dll">
       <publishTime>07/23/2018 03:44:10</publishTime>
@@ -367,7 +367,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 03:44:10</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/31/2018 13:41:48</publishTime>
+      <publishTime>01/15/2019 15:50:31</publishTime>
     </File>
   </ItemGroup>
 </Project>

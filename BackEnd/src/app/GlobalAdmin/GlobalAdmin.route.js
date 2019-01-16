@@ -365,7 +365,7 @@
                     resolve: {
                         DepartmentByIdPrepService: DepartmentByIdPrepService,
                         RolePrepService: AllRolePrepService,
-                        allcategoryTypePrepService:allcategoryTypePrepService
+                        allcategoryTypePrepService: allcategoryTypePrepService
                     },
                     data: {
                         permissions: {
@@ -383,7 +383,7 @@
                     resolve: {
                         CategoryByIdPrepService: CategoryByIdPrepService,
                         RolePrepService: AllRolePrepService,
-                        allcategoryTypePrepService:allcategoryTypePrepService
+                        allcategoryTypePrepService: allcategoryTypePrepService
                     },
                     data: {
                         permissions: {
@@ -480,7 +480,7 @@
                     },
                     data: {
                         permissions: {
-                            only: ['8','12'],
+                            only: ['8', '12'],
                             redirectTo: 'root'
                         }
                     }
@@ -808,7 +808,7 @@
     }
     AllRolePrepService.$inject = ['RoleResource']
     function AllRolePrepService(RoleResource) {
-        return RoleResource.getAllRoles({pageSize:0}).$promise;
+        return RoleResource.getAllRoles({ pageSize: 0 }).$promise;
     }
     RoleByIdPrepService.$inject = ['RoleResource', '$stateParams']
     function RoleByIdPrepService(RoleResource, $stateParams) {
@@ -1019,7 +1019,7 @@
     function AssetByIdPrepService(AssetResource, $stateParams) {
         return AssetResource.getAsset({ assetId: $stateParams.assetId }).$promise;
     }
-    
+
     /*Service*/
     ServicePrepService.$inject = ['ServiceResource', '$stateParams']
     function ServicePrepService(ServiceResource, $stateParams) {
